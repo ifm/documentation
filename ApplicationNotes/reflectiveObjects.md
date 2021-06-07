@@ -22,7 +22,7 @@ A cardboard box is positioned next to the cone, at the same distance from the ca
 
 ## The O3R stray light filter
 
-### First case
+### Handling stray-light halo
 
 The O3R camera comes with a built-in stray-light filter that mitigates this stray-light artifact. 
 This filter uses the optical system's invert model to estimate which filters are overly affected by the stray-light and filter these according to set distance and amplitude thresholds (the default distance threshold is set to 8cm: if the stray-light impacts a pixel measurement more than 8cm, this pixel will be invalidated).
@@ -33,24 +33,25 @@ Let's look at [Scene 1](#scene-1) again, but this time with the filter activated
 
 The stray-light filter makes it possible to reduce mis-measured pixels in the vicinity of the reflector.
 
-### Second case
+### Handling "ghost" pixels
 
-Let's look at a second case of stray-light. A reflective cone is placed 1m in front of the camera. The background is a white wall, at around 2m.
+Let's look at a second case of stray-light. A reflective cone is placed 1m in front of the camera. The background is a white wall, at around 2m. The stray-light filter is deactivated.
 ![Stray-light filter deactivated, flying pixels appear](images/no_filter_flying_pixels2-edits.png)
 ![Stray-light filter deactivated, flying pixels appear](images/no_filter_flying_pixels1-edits.png)
 
-We can see (highlighted in the red circle) that some pixels are measured that do noe exist in the real scene (there is no object there). This is a second effect of stray-light: non-existing pixels appear in the close range. The filter also mitigate this artifact:
+We can see (highlighted in the red circle) that some pixels are measured that do not exist in the real scene (there is no object there). This is a second effect of stray-light: non-existing pixels appear in the close range. 
+This could create false positive measurements when performing obstacle detection and trigger interruption of service.
+The filter also mitigate this artifact:
 ![Flying pixels removed by the filter](images/filter_removes_flying_pixels.png)
+
 The side effect of this is the removal of additional pixels on the scene, as we can see in the floor area.
-The O3R stray-light filter invalidates pixels that are flagged as over-affected by the stray-light: pixels whose distance measurement if affected by over a certain threshold.
+The O3R stray-light filter invalidates pixels that are flagged as over-affected by the stray-light: pixels whose distance or amplitude measurement is affected over a threshold.
 
 
-## Focus on specific/challenging stray light cases 
+## Fine tuning of the stray-light filter
 
-The scene detailed above is relatively simple to handle: there are no challenging objects in the scene (low reflectivity objects for instance) and the rest of the environments returns a fairly high signal, so the filter is able to handle specifically the stray-light interference areas. Unfortunately, this is not always the case: when the dynamic range in the scene is greater or we start introducing multiple reflectors, there needs to be more work done on the point cloud to get usable measurements.
+When the dynamic range in the scene is high, multiple reflectors are introduced or we require high accuracy, we might need to fine tune the stray-light filter.
 
-
-- Set up a case where "flying" stray light pixels are created (reflective object close range on a box?)
 
 - Multiple reflectors scene (Mo's use case).  
 - Halo "ring" on darker background (Crown's case).  
