@@ -8,7 +8,7 @@
 - MPI: mitigating it with coded mod range + offset (?)
 - Detailed explanation of confidence image (possible values and their meanings)
 - Cross-talk: hopping frequencies? Different channels? What to use for a robot fleet? A scan tunnel?
-
+- Detecting very dark objects
 
 - Improving the framerate (?)
 - 2D3D visualization (?)
