@@ -4,7 +4,7 @@ The confidence image is accessible as part of the data streamed from the O3R dev
 
 - 1: CONF_INVALID - indicated that the pixel is invalid;
 - 2: CONF_SATURATED - the pixel is overexposed/saturated;
-- 4: CONF_BADAMBSYM - the symmetry thresholed is crossed;
+- 4: CONF_BADAMBSYM - the symmetry threshold is crossed;
 - 8: CONF_LOWAMP - amplitude lower than the minimum amplitude;
 - (16|32): CONF_EXPINDEX - indicates whether the short, medium of long exposure is used for this pixel;
 - 4: CONF_EXPSHIFT - ??                         
