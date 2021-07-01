@@ -2,7 +2,7 @@
 
 |Name|Minumim|Maximum|Default
 |--|--|--|--|
-|Symmetry threshold|0|1|0.5|
+|Symmetry threshold|0|1|0.4|
 
 ## Description
 
