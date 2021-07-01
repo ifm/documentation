@@ -28,3 +28,7 @@ Very noisy objects/materials also tend to decrease the symmetry. Due to the "jit
 There are a few cases, where changing the symmetry threshold might make sense. If you have very low reflective surfaces, and a lot of invalidated pixels. The distance measurements will be of, perhaps even drastically. But perhaps, you like valid pixels with inaccuracy more than invalidated ones. Decreasing the threshold appears to make moving objects better too. But this is an visual illusion. The actual distance values, especially on the edges are far from accurate. It looks like `motion blur`. Again, this might be something you aim for.
 
 You might think, that increasing the value to the maximum (1) is improving your image. It is true, that *bad pixels* will be invalidated. However, at the maximum, more or less all pixels get invalidated at some point. You also do not gain better accuracy with higher setting either. Higher maximum values would help with very noisy objects, but we believe that other filters are better suited for that (min. amplitude, temporal filter, etc.).
+
+## Dependencies/Related topics
+
+Related parameter `Dynamic symmetry`*[Link missing]*
