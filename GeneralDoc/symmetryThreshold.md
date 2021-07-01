@@ -11,7 +11,7 @@ The parameter symmetry threshold is mainly used for filtering motion artifacts. 
 ## Description
 
 The `O3R-camera-heads` are using the ifm ToF (TimeOfFlight) technology for measuring the distance towards objects. To calculate one single point cloud, the system takes several images. These images are correlated to each other (`ToF correlation images`). This correlation is represented as symmetry.
-As lower the value, as higher the symmetry. Due to inherit noise is no perfect symmetry possible.
+As lower the value, as higher the symmetry. Due to inherit noise no perfect symmetry is possible.
 
 Decreasing the threshold invalidates more pixel, where the symmetry is higher in deviation. Increasing the threshold validates more pixels, also more noisy pixels in general.
 
