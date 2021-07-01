@@ -14,8 +14,7 @@ An 3D image taken with the O3R-Camera-Head contains several information. Distanc
 
 [amplitude image]
 
-If the amplitude value drops to 0, no light was received and therefore no distance measurement was taken. If the amplitude values rises over 1000, the pixel is oversatured and it is impossible to get any distance information (this happens easily with reflectors).
-The `Minimum amplitude` parameter,provides a threshold/limit when the system should discard the pixels. Is the amplitude value dropping bellow this threshold, the pixel is shown as `invalid - low amplitude`. 
+If the amplitude value drops to 0, no light was received and therefore no distance measurement was taken. The `Minimum amplitude` parameter,provides a threshold/limit when the system should discard the pixels. Is the amplitude value dropping bellow this threshold, the pixel is shown as `invalid - low amplitude`. 
 
 [img amplitude 20 and img amplitude 0]
 
