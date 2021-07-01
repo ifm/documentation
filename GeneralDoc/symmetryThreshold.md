@@ -6,22 +6,17 @@
 
 ## Abstract
 
-The parameter symmetry threshold is mainly used for filtering motion artifacts. Decreasing this value leads to more valid pixels around moving objects, but it also increases the motion blur and therefore wrong distance measurements at the edge of the moving object.
+The parameter symmetry threshold is mainly used for filtering motion artifacts. Increasing this value leads to more valid pixels around moving objects, but it also increases the motion blur and therefore wrong distance measurements at the edge of the moving object.
 
 ## Description
 
-The `O3R-camera-heads` are using the ifm ToF (TimeOfFlight) technology for measuring the distance towards objects. There are several ways to measure distance with ToF. You could send out single impulses (LIDAR), or you can use a continuos wave (ifm approach).
-As you can imagine, different approaches come with different advantages/disadvantages.
+The `O3R-camera-heads` are using the ifm ToF (TimeOfFlight) technology for measuring the distance towards objects. To calculate one single point cloud, the system takes several images. These images are correlated to each other (`ToF correlation images`). This correlation is represented as symmetry.
+As lower the value, as higher the symmetry. Due to inherit noise is no perfect symmetry possible.
 
-The imager uses actually 4 phases, to measure the distance. You basically have 4 measurement points. These points, have a symmetry to each other, due to the continuos modulation we use. Of course, there is some noise and it is never perfect. But if this symmetry decreases to much, we invalidate the pixel where this happens.
-These four phases are done not in parallel but sequential.
-
-Imagine following scenario: The object you measure has a clear edge (like a box). If the object does not move around, several pixels hit the edge and several hit the background etc. All four measurement phases hit their respective "target" and the system reaches a high symmetry. Now the objects starts to move (e.g. on a conveyor belt). Remember, the 4 phases are measured after each other. What happens, if 2 phases hit the edge of the box - and due to the moving of the box - 2 hit the background? The symmetry value goes down, up to the point where the pixel is invalidated. As faster the object is moving, as more pixel around the edges get invalidated. This is the reason, why fast moving objects have something like an "aura/shadow" around them. Try waving your hand very fast in front of the camera to see that effect. 
-
+Decreasing the threshold invalidates more pixel, where the symmetry is higher in deviation. Increasing the threshold validates more pixels, also more noisy pixels in general.
 [fast moving object]
 
-Of course, higher framerate and lower exposure time settings improve this behavior.
-Very noisy objects/materials also tend to decrease the symmetry. Due to the "jittering" of the values.
+Noisy objects/materials also tend to decrease the symmetry. Due to the "jittering" of the values.
 
 ## Should you change the symmetry threshold?
 
