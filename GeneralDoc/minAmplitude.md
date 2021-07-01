@@ -1,4 +1,4 @@
-# Filter: Minimum Amplitude
+# Parameter: Minimum Amplitude
 
 | Name | Mininum | Maximum | Default |
 | -----|---------:|:---------|:---------:|
