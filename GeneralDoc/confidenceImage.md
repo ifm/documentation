@@ -6,18 +6,18 @@ The confidence image is accessible as part of the data streamed from the O3R dev
 
 - 1: CONF_INVALID - indicated that the pixel is invalid;
 - 2: CONF_SATURATED - the pixel is overexposed/saturated;
-- 4: CONF_BADAMBSYM - the symmetry threshold is crossed;
-- 8: CONF_LOWAMP - amplitude lower than the minimum amplitude;
+- 4: CONF_BADAMBSYM - the pixel had bad symmetry, probably because of motion;
+- 8: CONF_LOWAMP - amplitude lower than the minimum amplitude, or distance noise threshold exceeded;
 - (16|32): CONF_EXPINDEX - indicates whether the short, medium of long exposure is used for this pixel;
-- 4: CONF_EXPSHIFT - ??                         
-- 64: CONF_INVALID_RANGE - the pixel is outside of the coded modulation range;
+- 4: CONF_EXPSHIFT - expIndex = (v & CONF_EXPINDEX) >> CONF_EXPSHIFT indicates the index of the exposure time used by this pixel where low indices indicate shorter exposures;                       
+- 64: CONF_INVALID_RANGE - the pixel is outside of the measurement range;
 - 128: CONF_SUSPECT_PIXEL - this is a bad pixel on the chip;
-- 256: CONF_CAM2WORLD_CLIP - ?
-- 512: CONF_EDGEPIXEL - edge pixel provide less accuracy, they are invalidated by default;
-- 1024: CONF_CW_PLAUSIBILITY - pixels remaining after shifting the offset, between the camera and the beginning of the shifted range;
+- 256: RESERVED
+- 512: CONF_EDGEPIXEL - edge pixels refer to the image edges which are sometimes invalidated by lateral filters;
+- 1024: CONF_UNPLAUSIBLE - pixels remaining after shifting the offset, between the camera and the beginning of the shifted range;
 - 2048: CONF_REFLECTIVITY - the reflectivity is below the threshold;
 - 4096: CONF_DYNAMIC_AMPLITUDE - the pixel is probably part of the halo around a very bright object;
-- 16384: CONF_MIXEDPIXEL - the pixel is a mixed pixel, landing partially on the object partially on the background;
+- 16384: CONF_MIXEDPIXEL - the pixel is a mixed pixel, part of which is measuring the object and the other part the background;
 - 32768: CONF_ISOLATED - an isolated pixel with random amplitude in an area where no amplitude is measured.
 
 This look-up table is a result of a more general definition, which has been mostly carried over from previous ifm time-of-flight cameras. These cameras use the PCIC interface communiaction definition as follows:  
