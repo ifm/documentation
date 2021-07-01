@@ -4,6 +4,10 @@
 |--|--|--|--|
 |Symmetry threshold|0|1|0.4|
 
+## Abstract
+
+The parameter symmetry threshold is mainly used for filtering motion artifacts. Decreasing this value leads to more valid pixels around moving objects, but it also increases the motion blur and therefore wrong distance measurements.
+
 ## Description
 
 The `O3R-camera-heads` are using the ifm ToF (TimeOfFlight) technology for measuring the distance towards objects. There are several ways to measure distance with ToF. You could send out single impulses (LIDAR), or you can use a continuos wave (ifm approach).
