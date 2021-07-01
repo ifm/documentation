@@ -4,6 +4,10 @@
 | -----|---------:|:---------|:---------:|
 | Minimum amplitude | 0 | 1000 | 20 |
 
+## Abstract
+
+The `Minimum amplitude` parameter invalidates pixels where the amplitude (reflected light) drops bellow the minimum threshold.
+
 ## Description
 
 An 3D image taken with the O3R-Camera-Head contains several information. Distance information is the obvious one. But for each pixel, you also get the information about how much light was received. This is the so called `amplitude image`.
