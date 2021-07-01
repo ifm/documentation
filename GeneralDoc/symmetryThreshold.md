@@ -6,7 +6,7 @@
 
 ## Abstract
 
-The parameter symmetry threshold is mainly used for filtering motion artifacts. Decreasing this value leads to more valid pixels around moving objects, but it also increases the motion blur and therefore wrong distance measurements.
+The parameter symmetry threshold is mainly used for filtering motion artifacts. Decreasing this value leads to more valid pixels around moving objects, but it also increases the motion blur and therefore wrong distance measurements at the edge of the moving object.
 
 ## Description
 
