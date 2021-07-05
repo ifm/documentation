@@ -2,7 +2,7 @@
 
 # Dealing with highly reflective objects: the case of stray-light
 
-Scenes including highly reflective objects are common in robotics and industrial use cases. These scenes can present challenges as reflectors introduce an artifacts known in optical systems as *stray-light*. In this document, we focus on this phenomenon and present the stray-light filter available with the O3R. We analyze some challenging cases and give hints on how to handle specific applications. 
+Scenes including highly reflective objects are common in robotics and industrial use cases. These scenes can present challenges as reflectors introduce an artifact known in optical systems as *stray-light*. In this document, we focus on this phenomenon and present the stray-light filter available with the O3R. We analyze some challenging cases and give hints on how to handle specific applications. 
 
 *NOTE: the scenes presented here are recreated with the intention of highlighting specific challenges of mobile robot environment, here in our office. We detail our experience trying to "fool" the system but we are well aware of the limitations this approach. We always want to hear from first hand experience and we gladly welcome your feedback. @contact*
 
@@ -22,7 +22,7 @@ Stray-light is a phenomenon that exists in any optical system where light reflec
 Stray-light designates any unwanted light reaching the optical lens of the camera. This light can be reflected light from an object within the field of view or emitted by an object outside the FoV. Stray-light exists in any non-perfect optical systems, where excessive amounts of light is reflected on internal parts of the system (within the lens or other camera components) and eventually reaches a pixel of the imager, interfering with the measurement. 
 Common objects found in warehouses and other industrial environments like reflective cones or safety vests are sources of stray-light interference.
 
-A typical effect of stray-light is to cause a halo of pixels around the reflective object affecting the measurement of weaker pixels in the area, but stray-light can also affect pixels not in the direct vicinity of the reflector, creating "ghosts" pixels typically in the close range, which can make the scene hard to analyze. 
+A typical effect of stray-light is to cause a halo of pixels around the reflective object affecting the measurement of low-signal pixels in the area, but stray-light can also affect pixels not in the direct vicinity of the reflector, creating "ghosts" pixels typically in the close range, which can make the scene hard to analyze. 
 
 Let's look at some concrete examples of stray-light artifacts. For the purpose of demonstration, we have disabled the built-in O3R stray-light filter.
 
@@ -30,12 +30,12 @@ Let's look at some concrete examples of stray-light artifacts. For the purpose o
 A circulation cone with a reflective band is positioned 1m in front of the camera. We can observe a stray-light halo around the cone: pixels are measured where there should not be anything (the background is out of range in this case).
 ![Stray-light halo when filter is disabled.](images/no_filter_halo.png)
 
-A cardboard box is positioned next to the cone, at the same distance from the camera. The halo is still there and impacting part of the background pixels. However, the measurement of the actual box is accurate and not impacted by the reflective object next to it. Stray-light affects more strongly the weaker pixels in the scene and in this case does not impact the measurement of the box which reflects enough light.
+A cardboard box is positioned next to the cone, at the same distance from the camera. The halo is still there and impacting part of the background pixels. However, the measurement of the actual box is accurate and not impacted by the reflective object next to it. Stray-light affects more strongly the low-signal pixels in the scene and in this case does not impact the measurement of the box which reflects enough light.
 ![Stray-light impact on box with filter disabled](images/no_filter_halo_box.png)
 
 
 ### Handling stray-light halos
-The O3R camera comes with a built-in stray-light filter that mitigates stray-light artifact. This filter uses the optical system's invert model to estimate which pixels are overly affected by the stray-light and filter these according to set distance and amplitude thresholds (the default distance threshold is set to 8cm: if the stray-light impacts a pixel measurement more than 8cm, this pixel will be invalidated). 
+The O3R camera comes with a built-in stray-light filter that mitigates stray-light artifacts. This filter improves the measurements by correcting the undesired effects of the optical system. Additionally, pixels which are overly affected by the stray-light are filtered according to set distance and amplitude thresholds (the default distance threshold is set to 8cm: if the stray-light impacts a pixel measurement more than 8cm, this pixel will be invalidated). 
 
 Let's look at the first scene again, but this time with the filter activated. We can see that the halo has been greatly reduced around the reflective part of the cone. A similar result is achieved with the box in the scene.
 ![Stray-light filter activated](images/filter_cone.png)
@@ -113,16 +113,17 @@ Now let's reactivate the filter and see what we get.
 ![Filter reactivated, stray-light considerably reduced.](images/dramatic_straylight_reduced_edited.png)
 The ghost pixels almost completely disappeared, and the path forward is mostly clear. But we can still see remaining ghost pixels in the close range above the robot (denoted with the red circle). A measurement indicates that these pixels are 0.8m away from the camera, which could be in the path of the robot if it or it's payload reaches this height. The robot would therefore be blocked from moving forward by an obstacle detection algorithm, even though the path is clear.
 
-We can once more adjust the stray-light filter to ensure we filter away all the remaining ghost pixels. To do so, we can use the distance threshold as presented earlier. This time, we are trying to remove extra-pixel, so we are going to lower the distance threshold (we set it to 0.5). We can see that all the ghost pixels are now gone and the robot can proceed to it's route obstacle free.
+We can once more adjust the stray-light filter to ensure we filter away all the remaining ghost pixels. To do so, we can use the distance threshold as presented earlier. This time, we are trying to remove extra-pixel, so we are going to lower the distance threshold (we set it to 0.05). We can see that all the ghost pixels are now gone and the robot can proceed to it's route obstacle free.
 ![We remove the ghost pixels](images/dramatic_straylight_ghost_removed.png)
 
-*INTERNAL NOTE: This scene could also be handled with the amplitude threshold. A good approach could be to present the distance threshold in the first example and the amplitude threshold in the second. I am hesitant, I find the distance threshold easier to understand in relation to the real scene... Thoughts?*
+*NOTE: This scene could also be handled with the amplitude threshold (`diParam.excessiveCorrectionThreshAmp`). This threshold follows the same concept as the distance threshold, invalidating pixels with an amplitude below the set value. Generally, setting the distance threshold suffices, but we encourage you to play with both to select the best configuration possible for your use case.*
 
-
+### Related filters
+- Dynamic amplitude filter: this filter can be used to further invalidate pixels nearby retro reflectors and therefore helping mitigate the halo effect. *TODO: add link*
 
 ## Conclusion
 
-As we saw with the examples detailed above, there is no "one-fits-all" configuration for handling stray-light in robotics applications. Proper configuration needs to be selected after reviewing the scenes the robot is expected to encounter. The number and position of highly reflective surfaces that will enter the field of view at a certain time impacts the necessary strength of the filter. Multiple configurations can be stored on board the O3R and we encourage bringing some intelligence to the use of the platform to adapt the cameras' configurations to the scene where necessary. 
+As we saw with the examples detailed above, there is no "one-fits-all" configuration for handling stray-light in robotics applications. Proper configuration needs to be selected after reviewing the scenes the robot is expected to encounter. The number and position of highly reflective surfaces that will enter the field of view at a certain time impacts the necessary strength of the filter. Multiple configurations can be stored on board the O3R and we encourage bringing some intelligence to the use of the platform to adapt the cameras' configurations to the scene where necessary. In scene where a high accuracy of the ToF measurement is expected, we recommend avoiding placing reflectors in the scene, or placing them reasonably far away from the navigation path of the robot.
 
 
 ---------------------------------------------------------------
