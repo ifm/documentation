@@ -23,7 +23,7 @@ Point cloud:
 If the amplitude value drops to 0, no light was received and therefore no distance measurement was taken. The `Minimum amplitude` parameter,provides a threshold/limit when the system should discard the pixels. Is the amplitude value dropping bellow this threshold, the pixel is shown as `invalid - low amplitude`.
 
 |minimum amplitude| Images|
-|:-:|-|-|-|
+|:-:|-|
 |0|![min-a,p-0-3d](./resources/amp_0_3D.png "3D point cloud with minimum amplitude 0 values")|
 |20|![min-a,p-0-3d](./resources/default_value_3D.png "3D point cloud with minimum amplitude 0 values")|
 |50|![min-a,p-0-3d](./resources/amp_50_3D.png "3D point cloud with minimum amplitude 0 values")|
