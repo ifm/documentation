@@ -22,6 +22,8 @@ In certain cases, changing the default value form 20 to 0 could be beneficial. G
 
 Bad reflecting objects (e.g. black ones) are reflecting less light, and therefore tend to fall easier under the minimum amplitude than bright objects. In this use cases, it might be beneficial to decrease the minimum amplitude to get some data back. Even, if this data is more noisy than the same data from bright objects.
 
-## Dependencies to other filters
+## Dependencies / Related topics
 
 It is recommended to activate some noise filtering (temporal or adaptive/spatial), if the minimum amplitude threshold is decreased. This should mitigate the noisier data.
+
+`Maximum distance noiese` *[Link]*
