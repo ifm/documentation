@@ -10,7 +10,7 @@ The `Minimum amplitude` parameter invalidates pixels where the amplitude (reflec
 
 ## Description
 
-An 3D image taken with the O3R-Camera-Head contains several information. Distance information is one, but also amplitude. For each pixel, the amplitude value represents about how much light was received. This kind of image is called `amplitude image`.
+A 3D image taken with the O3R-Camera-Head contains several information. Distance information is one, but also amplitude. For each pixel, the amplitude value represents about how much light was received. This kind of image is called `amplitude image`.
 
 Amplitude image:
 
