@@ -34,6 +34,6 @@ Bad reflecting objects (e.g. black ones) are reflecting less light, and therefor
 
 ## Dependencies / Related topics
 
-It is recommended to activate some noise filtering (temporal or adaptive/spatial), if the minimum amplitude threshold is decreased. This should mitigate the noisier data.
-
-`Maximum distance noiese` *[Link]*
+The `minimum amplitude` parameter is corelating with the `maximum distance noise` parameter. A low amplitude value together with a heigh distance noise value, validates more pixel. Together with the `temporal filter` the image gets more stable too. See following:
+[Link `distance noise`]
+[Link `temporal filter`]
