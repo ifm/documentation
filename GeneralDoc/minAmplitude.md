@@ -12,11 +12,21 @@ The `Minimum amplitude` parameter invalidates pixels where the amplitude (reflec
 
 An 3D image taken with the O3R-Camera-Head contains several information. Distance information is one, but also amplitude. For each pixel, the amplitude value represents about how much light was received. This kind of image is called `amplitude image`.
 
-[amplitude image]
+Amplitude image:
 
-If the amplitude value drops to 0, no light was received and therefore no distance measurement was taken. The `Minimum amplitude` parameter,provides a threshold/limit when the system should discard the pixels. Is the amplitude value dropping bellow this threshold, the pixel is shown as `invalid - low amplitude`. 
+![default-values-amplitude](./resources/default_value_amp.png "3D amplitude image")
 
-[img amplitude 20 and img amplitude 0]
+Point cloud:
+
+![default-values-3d](./resources/default_value_3D.png "3D point cloud with default values")
+
+If the amplitude value drops to 0, no light was received and therefore no distance measurement was taken. The `Minimum amplitude` parameter,provides a threshold/limit when the system should discard the pixels. Is the amplitude value dropping bellow this threshold, the pixel is shown as `invalid - low amplitude`.
+
+|minimum amplitude| Images|
+|:-:|-|-|-|
+|0|![min-a,p-0-3d](./resources/amp_0_3D.png "3D point cloud with minimum amplitude 0 values")|
+|20|![min-a,p-0-3d](./resources/default_value_3D.png "3D point cloud with minimum amplitude 0 values")|
+|50|![min-a,p-0-3d](./resources/amp_50_3D.png "3D point cloud with minimum amplitude 0 values")|
 
 In certain cases, changing the default value form 20 to 0 could be beneficial. Generally speaking, as lower the amplitude as more `noisy` and inaccurate is the distance measurement.
 
