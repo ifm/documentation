@@ -11,9 +11,9 @@ The bilateral filter is the preferred spatial filter. It can be applied with dif
 
 ## Description
 
-This documentation mainly focuses on the lateral / spatial filtering when using the bilateral filter. This is the prefered spatial filter compared with the spatial median filter as it allows for less 'smearing' of edge information meaning it will presereve edge information better. It is also possible to apply the bilateral filter with larger filter masks (up to 7x7 pixel mask) compared to (5x5 pixel masks) for the median filter.
+This documentation mainly focuses on the lateral / spatial filtering when using the bilateral filter. This is the prefered spatial filter compared with the spatial median filter as it allows for less 'smearing' of edge information meaning it will presereve edge information better. It is also possible to apply the bilateral filter with larger filter masks (up to 7x7 pixel mask) compared to (5x5 pixel masks) for the median filter. The bilateral filter has better chararcteristic to preserve corner in images.  
 
-This distance bilateral filter is in concept very similar to a [bilateral filter applied to RGB 2D images](https://en.wikipedia.org/wiki/Bilateral_filter). Any bilateral filter is a non-linear edge-preserving smoothing filter. It can be thought of as a filter which replaces the value per pixel with a weighted average of the information from nearby pixels. The weighting is a combination of the spatial kernel and the range kernel. The O3R implementation additionally incorporates the distance noise estimation for calculating the filter weights.     
+This distance bilateral filter is in it's concept very similar to a [bilateral filter applied to RGB 2D images](https://en.wikipedia.org/wiki/Bilateral_filter). Any bilateral filter is a non-linear edge-preserving smoothing filter. It can be thought of as a filter which replaces the value per pixel with a weighted average of the information from nearby pixels. The weighting is a combination of the spatial kernel and the range kernel. The O3R implementation additionally incorporates the distance noise estimation for calculating the filter weights.     
 
 Such a wighted average is computed by convlution over the spatial domain. The convolution of the original image and the filter mask returns an image reduced by half the filter size at each image border, i. e. widt and height minus the size of the filter pixel mask. The image is not adjusted to be continued at the image borders. These image border pixels are filled with invalid pixels.   
 
@@ -31,8 +31,8 @@ A list of related filters and application notes can be found below: [related fil
 
 
 ### `anfFilterSizeDiv2` values example pictures
-TODO add pictures for the same static scene with different filter mask sizes
-[0 anfFilterSizeDiv2 value] -> off
+TODO add pictures for the same static scene with different filter mask sizes  
+[0 anfFilterSizeDiv2 value] -> off  
 [1 anfFilterSizeDiv2 value] -> 3x3  
 [2 anfFilterSizeDiv2 value] -> 5x5  
 [3 anfFilterSizeDiv2 value] -> 7x7    
