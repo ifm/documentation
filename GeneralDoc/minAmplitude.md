@@ -32,6 +32,10 @@ In certain cases, changing the default value form 20 to 0 could be beneficial. G
 
 Bad reflecting objects (e.g. black ones) are reflecting less light, and therefore tend to fall easier under the minimum amplitude than bright objects. For the O3R, objects which are not reflecting infrared light are appearing as black objects. In this use cases, it might be beneficial to decrease the minimum amplitude to get some data back. Even, if this data is more noisy than the same data from bright objects.
 
+The `min amplitude threshold` is used on the `de-normalized amplitude image`. This can be seen by the observed values of the `normalized amplitude image`. Some pixels might have the value bellow the `minimum amplitude threshold`. Which is due to the `normalization` after the `minimum amplitude threshold` has filtered already several pixels. The amplitude images above and the amplitude images you receive are `normalized amplitude` images.
+
+> You want to know more about `normalization`, consider following article: https://en.wikipedia.org/wiki/Normalization_(image_processing)
+
 ## Dependencies / Related topics
 
 The `minimum amplitude` parameter is corelating with the `maximum distance noise` parameter. A low amplitude value together with a heigh distance noise value, validates more pixel. Together with the `temporal filter` the image gets more stable too. See following:
