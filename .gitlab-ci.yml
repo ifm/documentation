@@ -16,4 +16,5 @@ markdown-spellcheck:
   stage: build
   image: registry.gitlab.com/pipeline-components/markdown-spellcheck:latest
   script:
+    - npm i markdown-spellcheck -g
     - mdspell --report '**/*.md'
