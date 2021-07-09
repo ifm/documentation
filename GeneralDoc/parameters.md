@@ -16,8 +16,11 @@ Exposure settings are utilized to maximize the number of valid pixels in a scene
 |--|--|--|
 |`expLong`, `expShort`|These parameters are used to set the exposure times.|1 – 5000µs|
 
-The proper exposure time depends on factors like the dynamics of the scene and whether the target is moving or stationary (plus others). For highly reflective targets or for motion, you might want to choose a short exposure time. For targets far away or with low reflectivity, you might want to choose a high exposure time.
-As such, it is common that all targets of a scene cannot be properly exposed with a single exposure time. In these cases, multiple exposures are used to reduce both noise and the number of over/under exposed pixels. The "experimental_high" mode provides 2 settable exposure times plus a third *static* exposure designed to help detect highly reflective targets in the very near range (~1m).  
+The proper exposure time for a pixel depends on factors like the dynamics of the scene and whether the target is moving or stationary (plus others). For highly reflective targets or for motion, a short exposure time is better suited. For targets far away or with low reflectivity, we prefer a high exposure time.
+As such, it is common that all targets of a scene cannot be properly exposed with a single exposure time. 
+To reduce both noise and the number of over/under exposed pixels, we use multiple (three) exposures for each frame. The "experimental_high" mode provides 2 settable exposure times (`expLong` and `expShort`) plus a third *static* exposure designed to help detect highly reflective targets in the very near range (~1m).
+
+*Note:* You can find which exposure time is used for each pixel by analyzing the confidence image as detailed here [LINK TO CONFIDENCE IMAGE].
 
 ### Offset
 |Variable name|Short description|Min/max values|
