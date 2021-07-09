@@ -25,10 +25,10 @@ markdown-spellcheck:
   before_script:
     - apt update
     - apt -y upgrade
-    - apt install curl
+    - apt -y install curl
     - curl -sL https://deb.nodesource.com/setup_6.x | bash -
-    - apt install nodejs
-    - apt install npm
+    - apt -y install nodejs
+    - apt -y install npm
     - npm i markdown-spellcheck -g
   script:
     - mdspell --report '**/*.md'
