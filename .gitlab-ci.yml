@@ -24,7 +24,7 @@ markdown-spellcheck:
     - shared_docker
   before_script:
     - apt update
-    - apt upgrade
+    - apt upgrade -y
     - apt install curl
     - curl -sL https://deb.nodesource.com/setup_6.x | bash -
     - apt install nodejs
