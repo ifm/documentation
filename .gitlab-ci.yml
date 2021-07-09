@@ -22,6 +22,8 @@ markdown-spellcheck:
   stage: build
   tags: 
     - shared_docker
+  when: always
+  allow_failure: true
   before_script:
     - apt update
     - apt -y upgrade
@@ -31,4 +33,11 @@ markdown-spellcheck:
     - apt -y install npm
     - npm i markdown-spellcheck -g
   script:
-    - mdspell --report '**/*.md'
+    - mdspell -a --en-us --report '**/*.md' > spellcheck-repord.md
+  artifacts:
+    when: always
+    path:
+      - spellcheck-repord.md
+    expire_in: 1 week
+
+
