@@ -33,11 +33,11 @@ markdown-spellcheck:
     - apt -y install npm
     - npm i markdown-spellcheck -g
   script:
-    - mdspell -a --en-us --report '**/*.md' > spellcheck-repord.md
+    - mdspell -a --en-us --report '**/*.md' > spellcheck-report.md
   artifacts:
     when: always
     paths:
-      - spellcheck-repord.md
+      - spellcheck-report.md
     expire_in: 1 week
 
 
