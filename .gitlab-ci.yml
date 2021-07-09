@@ -14,6 +14,6 @@ stages:          # List of stages for jobs, and their order of execution
 
 markdown-spellcheck:
   stage: build
-  image: registry.gitlab.com/pipeline-components/markdown-spellcheck:latest  
+  image: "registry.gitlab.com/pipeline-components/markdown-spellcheck:latest"
   script:
     - mdspell --report '**/*.md'
