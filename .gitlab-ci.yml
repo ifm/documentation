@@ -11,7 +11,7 @@
 # Image that is used in markdown spellcheck examples:
 # image: "registry.gitlab.com/pipeline-components/markdown-spellcheck:latest"
 
-image: ubuntu:20.04
+image: ubuntu:18.04
 
 
 stages:          # List of stages for jobs, and their order of execution
