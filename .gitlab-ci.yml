@@ -8,12 +8,21 @@
 #
 # For more information, see: https://docs.gitlab.com/ee/ci/yaml/README.html#stages
 
+# Image that is used in markdown spellcheck examples:
+# image: "registry.gitlab.com/pipeline-components/markdown-spellcheck:latest"
+
+image: ubuntu:20.04
+
+
 stages:          # List of stages for jobs, and their order of execution
   - build
 
 
 markdown-spellcheck:
   stage: build
-  image: "registry.gitlab.com/pipeline-components/markdown-spellcheck:latest"
+  tags: shared_docker
+  before_script:
+    - apt install npm
+    - npm i markdown-spellcheck -g
   script:
     - mdspell --report '**/*.md'
