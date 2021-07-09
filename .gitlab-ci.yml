@@ -23,10 +23,10 @@ markdown-spellcheck:
   tags: 
     - shared_docker
   before_script:
-    - apt install curl
-    - curl -sL https://deb.nodesource.com/setup_6.x | bash -
     - apt update
     - apt upgrade
+    - apt install curl
+    - curl -sL https://deb.nodesource.com/setup_6.x | bash -
     - apt install nodejs
     - apt install npm
     - npm i markdown-spellcheck -g
