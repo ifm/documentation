@@ -20,7 +20,8 @@ stages:          # List of stages for jobs, and their order of execution
 
 markdown-spellcheck:
   stage: build
-  tags: shared_docker
+  tags: 
+    - shared_docker
   before_script:
     - apt install npm
     - npm i markdown-spellcheck -g
