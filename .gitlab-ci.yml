@@ -36,7 +36,7 @@ markdown-spellcheck:
     - mdspell -a --en-us --report '**/*.md' > spellcheck-repord.md
   artifacts:
     when: always
-    path:
+    paths:
       - spellcheck-repord.md
     expire_in: 1 week
 
