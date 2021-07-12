@@ -1,10 +1,18 @@
 # mixed pixel filter mode
 
-|Name|Minumim|Maximum|Default
-|--|--|--|--|
-| mixedPixelFilterMode | 0 | 2 | 1 |
-
 ## Table of contents
+- [mixed pixel filter mode](#mixed-pixel-filter-mode)
+  * [Table of contents](#table-of-contents)
+  * [Abstract](#abstract)
+  * [Description](#description)
+    + [mixed pixel filter based on angle criterion](#mixed-pixel-filter-based-on-angle-criterion)
+    + [mixed pixel filter based on distance criterion](#mixed-pixel-filter-based-on-distance-criterion)
+  * [filer effect](#filer-effect)
+    + [`mixedPixelFilterMode` values example pictures](#-mixedpixelfiltermode--values-example-pictures)
+    + [`mixedPixelFilterMode`: angle criterion finetuning](#-mixedpixelfiltermode---angle-criterion-finetuning)
+    + [`mixedPixelFilterMode`: distance criterion finetuning](#-mixedpixelfiltermode---distance-criterion-finetuning)
+  * [related filters](#related-filters)
+  * [related application notes](#related-application-notes)
 
 ## Abstract
 
