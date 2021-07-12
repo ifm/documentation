@@ -25,7 +25,7 @@ The O3R software allows pixel based validation checks for filtering locally isol
 
 
 ## Description
-The following image shows an examplery representation of a pixel neighbourhood. Only a 3x3 neighbourhood is shown, so the closest pixels around the relevant image pixel in row (R) and column (C) image coordiantes. 
+The following image shows an examplery representation of a pixel neighbourhood. Only a 3x3 neighbourhood is shown, so the closest pixels around the relevant image pixel in row (R) and column (C) image coordiantes.  
 ![Example 3x3 pixel neighbourhood](./resources/pixel_neighbourhood_3x3.png "Example image of a 3x3 pixel neighbourhood")
 
 
