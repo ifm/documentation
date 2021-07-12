@@ -32,54 +32,12 @@ The angle threshold of this filter mode is controlled by the parameter `mixedPix
 **'mixedPixelFilterMode = 2' - distance based validation method**  
 The second version of the `mixedPixelFilterMode` is centered around the idea of comparing distances in a local neighbourhood of a pixel. The distance of the pixel gets tested in horizontal and vertical direction, i. e. row and column, against it's neighbouring pixels distance values. If the distance differences are outside the set near and far distance values and their thresholds, set inside the 'mixedPixelFilterMode = 2`, the pixel is marked as a flying pixel, meaning it is invalidated as a candidate for mixed pixel.
 
-The respective filter distance values and their thresholds are controlled by the parameters: `mixedPixelNearDist`, `mixedPixelFarDist`, `mixedPixelThreshDeltaNear`, and `mixedPixelThreshDeltaFar`. They are currently not easily seen by the end user as they are protected and excluded from the json schema files.
-
-### mixed pixel filter based on angle criterion
-"mixedPixelThresholdRad": 
-    "type": "number",
-    "description": "Threshold given in [rad] for the minimum angle between the surface tangent and the view vector (used if mixedPixelFilterMode=1).",
-    "default": 0.15,
-    "minimum": 0.0,
-    "maximum": 1.57079
-
-### mixed pixel filter based on distance criterion
-"mixedPixelNearDist": 
-    "type": "number",
-    "description": "Near distance [m] for adaptive delta distance threshold (used if mixedPixelFilterMode=2).",
-    "default": 1.0,
-    "minimum": 0.0,
-    "maximum": 9.99,
-    "attributes": [ "protected" ]
-
-"mixedPixelFarDist": 
-    "type": "number",
-    "description": "Far distance [m] for adaptive delta distance threshold (used if mixedPixelFilterMode=2).",
-    "default": 4.5,
-    "minimum": 0.01,
-    "maximum": 10.0,
-    "attributes": [ "protected" ]
-
-"mixedPixelThreshDeltaNear": 
-    "type": "number",
-    "description": "Threshold in [m] for distance deviations in the near field (used if mixedPixelFilterMode=2).",
-    "default": 0.018,
-    "minimum": 0.0,
-    "maximum": 2.0,
-    "attributes": [ "protected" ]
-
-"mixedPixelThreshDeltaFar": 
-    "type": "number",
-    "description": "Threshold in [m] for distance deviations in the far field (used if mixedPixelFilterMode=2).",
-    "default": 0.14,
-    "minimum": 0.0,
-    "maximum": 2.0,
-    "attributes": [ "protected" ]
-
+The respective filter distance values and their thresholds are controlled by the parameters: `mixedPixelNearDist`, `mixedPixelFarDist`, `mixedPixelThreshDeltaNear`, and `mixedPixelThreshDeltaFar`. They are currently not easily seen by the end user as they are protected and excluded from the json schema files.  
 
 
 A list of related filters and application notes can be found below: [related filters](related-filters), [related application notes](related-application-notes)  
 
-## filer effect 
+## filter effect 
 ### `mixedPixelFilterMode` values example pictures
 TODO add pictures for the same static scene with different filter mask sizes  
 [0 mixedPixelFilterMode value] -> off  
