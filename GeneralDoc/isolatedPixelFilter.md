@@ -31,7 +31,7 @@ The following image shows an examplery representation of a pixel neighbourhood. 
 
 If not enough pixels in this neighbourhood are valid, depending on the threshold set for the `isolatedPxFilterMaxValid3x3`, before the isolated pixel filter is applied the pixel itself will be marked as invalid. Counting at image borders is adapeted to the actual available image neighbourhood? This validation filter is applied late in the filter pipeline after all other validation filters. It therefore works on the results of the previous filters as a last validity check.
 
-The filter definition is identical to what is known as image erosion (image morphology) for binary images: see this Wikipedia link [Erosion (morphology)](https://en.wikipedia.org/wiki/Erosion_(morphology)).
+The filter definition is identical in it's conception to what is known as image erosion (image morphology) for binary images: see this Wikipedia link [Erosion (morphology)](https://en.wikipedia.org/wiki/Erosion_(morphology)).
 
 ## filer effect 
 ### `mixedPixelFilterMode` values example pictures
