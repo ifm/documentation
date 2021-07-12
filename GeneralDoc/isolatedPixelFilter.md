@@ -7,12 +7,14 @@
 
 
 ## Table of contents
-* [Abstract](#abstract)
-* [Description](#description)
-* [filer effect](#filer-effect)
+- [isolated pixel filter](#isolated-pixel-filter)
+  * [Table of contents](#table-of-contents)
+  * [Abstract](#abstract)
+  * [Description](#description)
+  * [filer effect](#filer-effect)
     + [`mixedPixelFilterMode` values example pictures](#-mixedpixelfiltermode--values-example-pictures)
-* [related filters](#related-filters)
-* [related application notes](#related-application-notes)
+  * [related filters](#related-filters)
+  * [related application notes](#related-application-notes)
 
 
 ## Abstract
