@@ -29,6 +29,12 @@ The median filter is controlled by the parameter `medianSizeDiv2`.
 `medianSizeDiv2 = 1` is equivalent to setting the filter mask size to a local 3x3 pixel neighbourhood. TODO insert image of 3 pixel neigbourhood.   
 `medianSizeDiv2 = 2` is the highest allow vlaue. It is euqivalent to a filter window size of 5x5 pixels. TODO insert image of 5 pixel neighbourhood.  
 
+Examplery figures showing sizes of pixel neighbourhoods are below:  
+![Example 3x3 pixel neighbourhood](./resources/pixel_neighbourhood_3x3.png "Example image of a 3x3 pixel neighbourhood")
+![Example 5x5 pixel neighbourhood](./resources/pixel_neighbourhood_5x5.png "Example image of a 5x5 pixel neighbourhood")
+
+It can be easily seen that using larger filter mask sizes results in combining more distance measuremtns into the filterer value. This is equivalent to a higher filter effect for spatially varied signals.  
+
 Invalid pixels will be ignored during the filtering process and have therefore no impact on the sourounding pixels. Invalid pixels will stay invalid after the filtering, i. e. no hole filling.  
 
 A list of related filters and application notes can be found below: [related filters](related-filters), [related application notes](related-application-notes)  
@@ -41,11 +47,10 @@ TODO add pictures for the same static scene with different filter mask sizes
 [2 medianSizeDiv2 value] -> 5x5  
 
 ### disadvantages of the median filter compared with bilateral filter
-TODO add desc and pictures about corner rounding  
+The median filter is not our spatial filter of choice as mentioned above. This is due to it not beeing as good at preserving corners of objects and it's heuristic definition for dealing with the distance noise image. Please use the TODO: add link `anfFilterSizeDiv2` filter, meaning  the bilateral filter. The median filter can introduce a bias to the distance image (locally) in selected instances. This is not present in the bilateral filter.
 
 ### combination of both lateral distance filters
-+ combination of both filters
-+ TODO: add information about which spatial filter gets processed first - bilateral or median filter  
+Situations where a combination of both spatial filters are required a very few in our oppinion. We suggest to use larger filter bilateral filter mask sizes first. If this filter effect is not enough, one can use both spatial filters at the same time. They can work together by their design. This will reduce local noise levels even more, but can result in an overemphasis / bias in larger noise patterns. 
 
 ## related filters
 + spatial bilateral filter
