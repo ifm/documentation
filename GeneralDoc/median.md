@@ -1,10 +1,16 @@
 # (distance) median filter
 
-|Name|Minumim|Maximum|Default
-|--|--|--|--|
-TODO: update information from schema
-
 ## Table of contents
+- [(distance) median filter](#-distance--median-filter)
+  * [Table of contents](#table-of-contents)
+  * [Abstract](#abstract)
+  * [Description](#description)
+  * [filer effect](#filer-effect)
+    + [`anfFilterSizeDiv2` values example pictures](#-anffiltersizediv2--values-example-pictures)
+    + [disadvantages of the median filter compared with bilateral filter](#disadvantages-of-the-median-filter-compared-with-bilateral-filter)
+    + [combination of both lateral distance filters](#combination-of-both-lateral-distance-filters)
+  * [related filters](#related-filters)
+  * [related application notes](#related-application-notes)
 
 ## Abstract
 The O3R software supports two filters for improving the distance measurements based on filtering in the spatial domain. The spatial domain of a 3D image can be thought of as the local neighbourhood in the images pixel coordinates, i. e. row and column coordinates, or the related 3D coordinates, i. e. X-, Y-, and Z-coordinates of the distance image projected into R3 space. These two filters are the distance median filter and the distace bilateral filter.   
