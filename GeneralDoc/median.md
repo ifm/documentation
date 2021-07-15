@@ -1,4 +1,4 @@
-# (distance) median filter
+# (spatial) median filter
 
 ## Table of contents
 - [(distance) median filter](#-distance--median-filter)
