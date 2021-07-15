@@ -1,8 +1,7 @@
 # Adaptive noise bilateral filter
 
-|Name|Minumim|Maximum|Default
-|--|--|--|--|
-TODO: update information from schema
+## Table of contents
+
 
 ## Abstract
 The O3R software allows for filtering the distance image and the dependent point cloud image in the spatial domain. The spatial domain of a 3D image can be thought of as the local neighbourhood in the images pixel coordinates, i. e. row and column coordinates, or the related 3D coordinates, i. e. X-, Y-, and Z-coordinates of the distance image projected into R3 space. Radial distance information of pixels within a local neighbourhood are combined following the mathematical description of the filter to form a new image with less noise.  
@@ -19,9 +18,9 @@ Such a wighted average is computed by convlution over the spatial domain. The co
 
 The bilateral filter is controlled by the parameter `anfFilterSizeDiv2`.    
 `anfFilterSizeDiv2 = 0` is equivalent to turning the filter off. The image is not filter with the bilateral filter anymore.   
-`anfFilterSizeDiv2 = 1` is equivalent to setting the filter mask size to a local 3x3 pixel neighbourhood. TODO insert image of 3 pixel neigbourhood.   
-`anfFilterSizeDiv2 = 2` is equivalent to setting the filter mask size to a local 5x5 pixel neighbourhood. TODO insert image of 5 pixel neighbourhood.  
-`anfFilterSizeDiv2 = 3` is the highest allow vlaue. It is euqivalent to a filter mask size of 7x7 pixels. TODO insert image of 7 pixel neighbourhood.  
+![pixel_neighbourhood_3x3](./resources/pixel_neighbourhood_3x3.png "image representation of a 3x3 filter mask")  
+![pixel_neighbourhood_5x5](./resources/pixel_neighbourhood_5x5.png "image representation of a 5x5 filter mask")  
+`anfFilterSizeDiv2 = 3` is equivalent to setting the filter mask size to a local 7x7 pixel neighbourhood.   
 
 Invalid pixels will be ignored during the filtering process and have therefore no impact on the sourounding pixels. Invalid pixels will stay invalid after the filtering, i. e. no hole filling.  
 
@@ -31,12 +30,14 @@ A list of related filters and application notes can be found below: [related fil
 
 
 ### `anfFilterSizeDiv2` values example pictures
-TODO add pictures for the same static scene with different filter mask sizes  
-[0 anfFilterSizeDiv2 value] -> off  
-[1 anfFilterSizeDiv2 value] -> 3x3  
-[2 anfFilterSizeDiv2 value] -> 5x5  
-[3 anfFilterSizeDiv2 value] -> 7x7    
+The following pictures give an overview of the capabilities of spatial filtering with the bilateral filter for different filter mask sizes: The temporal filter was not active to show independent effect of the bilateral filter. Spatial median filter is not active. The maximum allowed distance noise is set of 0.2 m for all images. For lower maximum distance noise validation the point cloud becomes very sparse for lower spatial filter settings.  
 
+The scene shown has no dynamics to allow the presentation of the spatial filter effect in a single image. Please keep in mind that a typical application with no temporal filtering and high ammounts of spatial filtering is a representative scenario for scenes with ego-motion.
+![anfFilterSizeDiv2_0_value](./resources/anfFilterSizeDiv2_0.png "3D point cloud without spatial filtering / bilateral filter switched off")  
+![anfFilterSizeDiv2_1_value](./resources/anfFilterSizeDiv2_1.png "3D point cloud with spatial filtering: bilateral filter mask set to 3x3 pixel neighbourhood")  
+![anfFilterSizeDiv2_2_value](./resources/anfFilterSizeDiv2_2.png "3D point cloud with spatial filtering: bilateral filter mask set to 5x5 pixel neighbourhood")  
+![anfFilterSizeDiv2_3_value](./resources/anfFilterSizeDiv2_3.png "3D point cloud with spatial filtering: bilateral filter mask set to 7x7 pixel neighbourhood")  
+ 
 ### spatial fitering under movement and rotation
 Filtering in the spatial domain when movement is present is independent of movement. Only parts of the images which are not affected by movement will be filtered in the spatial domain. This differentiation is possible, becuase the detection of motion is performed before the spatial filer in the processing pipeline. Therefore it is perfectly fine to even use larger filter mask sizes.
 This application is quite common, compared to temporal filtering under motion (perfered for static scenes: TODO add [see temporal filter]).
