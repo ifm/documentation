@@ -40,11 +40,15 @@ Invalid pixels will be ignored during the filtering process and have therefore n
 A list of related filters and application notes can be found below: [related filters](related-filters), [related application notes](related-application-notes)  
 
 ## filer effect 
-### `anfFilterSizeDiv2` values example pictures
-TODO add pictures for the same static scene with different filter mask sizes  
-![medianSizeDiv2_0_value](./resources/medianSizeDiv2_0.png "3D point cloud without spatial filtering / median filter switched off")  
+### `anfFilterSizeDiv2` values example pictures 
+![medianSizeDiv2_0_value](./resources/medianSizeDiv2_0.png "3D point cloud without spatial filtering / median filter switched off")
+![medianSizeDiv2_0_value](./resources/medianSizeDiv2_0_imgs.png "distance, amplitude, distance noise, and reflectivity images without spatial filtering / median filter switched off")  
+
 ![medianSizeDiv2_1_value](./resources/medianSizeDiv2_1.png "3D point cloud with spatial filtering: median filter mask set to 3x3 pixel neighbourhood")  
+![medianSizeDiv2_0_value](./resources/medianSizeDiv2_1_imgs.png "distance, amplitude, distance noise, and reflectivity images with spatial filtering: median filter mask set to 3x3 pixel neighbourhood")  
+
 ![medianSizeDiv2_2_value](./resources/medianSizeDiv2_2.png "3D point cloud with spatial filtering: median filter mask set to 5x5 pixel neighbourhood") 
+![medianSizeDiv2_0_value](./resources/medianSizeDiv2_2_imgs.png "distance, amplitude, distance noise, and reflectivity images with spatial filtering: median filter mask set to 5x5 pixel neighbourhood")  
 
 ### disadvantages of the median filter compared with bilateral filter
 The median filter is not our spatial filter of choice as mentioned above. This is due to it not beeing as good at preserving corners of objects and it's heuristic definition for dealing with the distance noise image. Please use the TODO: add link `anfFilterSizeDiv2` filter, meaning  the bilateral filter. The median filter can introduce a bias to the distance image (locally) in selected instances. This is not present in the bilateral filter.
