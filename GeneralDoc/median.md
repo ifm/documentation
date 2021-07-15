@@ -42,9 +42,9 @@ A list of related filters and application notes can be found below: [related fil
 ## filer effect 
 ### `anfFilterSizeDiv2` values example pictures
 TODO add pictures for the same static scene with different filter mask sizes  
-[0 medianSizeDiv2 value] -> off  
-[1 medianSizeDiv2 value] -> 3x3  
-[2 medianSizeDiv2 value] -> 5x5  
+![medianSizeDiv2_0_value](./resources/medianSizeDiv2_0.png "3D point cloud without spatial filtering / median filter switched off")  
+![medianSizeDiv2_1_value](./resources/medianSizeDiv2_1.png "3D point cloud with spatial filtering: median filter mask set to 3x3 pixel neighbourhood")  
+![medianSizeDiv2_2_value](./resources/medianSizeDiv2_2.png "3D point cloud with spatial filtering: median filter mask set to 5x5 pixel neighbourhood") 
 
 ### disadvantages of the median filter compared with bilateral filter
 The median filter is not our spatial filter of choice as mentioned above. This is due to it not beeing as good at preserving corners of objects and it's heuristic definition for dealing with the distance noise image. Please use the TODO: add link `anfFilterSizeDiv2` filter, meaning  the bilateral filter. The median filter can introduce a bias to the distance image (locally) in selected instances. This is not present in the bilateral filter.
@@ -52,6 +52,9 @@ The median filter is not our spatial filter of choice as mentioned above. This i
 ### combination of both lateral distance filters
 Situations where a combination of both spatial filters are required a very few in our oppinion. We suggest to use larger filter bilateral filter mask sizes first. If this filter effect is not enough, one can use both spatial filters at the same time. They can work together by their design. This will reduce local noise levels even more, but can result in an overemphasis / bias in larger noise patterns. 
 
+The effects of heavy spatial filtering with both the bilateral filter and the median filter can be seen below:  
+![bilateral3_median2](./resources/bilateral3_median2.png "3D point cloud with heavy spatial filtering: median filter mask set to 5x5 pixel neighbourhood, bilateral filter mask set to 7x7 pixel neighbourhood")   
+ 
 ## related filters
 + spatial bilateral filter
 + temporal filtering
