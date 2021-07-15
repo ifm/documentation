@@ -39,11 +39,18 @@ A list of related filters and application notes can be found below: [related fil
 ### `anfFilterSizeDiv2` values example pictures
 The following pictures give an overview of the capabilities of spatial filtering with the bilateral filter for different filter mask sizes: The temporal filter was not active to show independent effect of the bilateral filter. Spatial median filter is not active. The maximum allowed distance noise is set of 0.2 m for all images. For lower maximum distance noise validation the point cloud becomes very sparse for lower spatial filter settings.  
 
-The scene shown has no dynamics to allow the presentation of the spatial filter effect in a single image. Please keep in mind that a typical application with no temporal filtering and high ammounts of spatial filtering is a representative scenario for scenes with ego-motion.
+The scene show is a static to allow the presentation of the spatial filter effect in a single image. Please keep in mind that a typical application with no temporal filtering and high ammounts of spatial filtering is a representative scenario for scenes with ego-motion.
 ![anfFilterSizeDiv2_0_value](./resources/anfFilterSizeDiv2_0.png "3D point cloud without spatial filtering / bilateral filter switched off")  
+![anfFilterSizeDiv2_0_value](./resources/anfFilterSizeDiv2_0_imgs.png "distance, amplitude, distance noise, and reflectivity images without bilateral filtering")  
+
 ![anfFilterSizeDiv2_1_value](./resources/anfFilterSizeDiv2_1.png "3D point cloud with spatial filtering: bilateral filter mask set to 3x3 pixel neighbourhood")  
+![anfFilterSizeDiv2_1_value](./resources/anfFilterSizeDiv2_1_imgs.png "distance, amplitude, distance noise, and reflectivity images with bilateral filter mask set to 3x3 pixel neighbourhood")  
+
 ![anfFilterSizeDiv2_2_value](./resources/anfFilterSizeDiv2_2.png "3D point cloud with spatial filtering: bilateral filter mask set to 5x5 pixel neighbourhood")  
+![anfFilterSizeDiv2_2_value](./resources/anfFilterSizeDiv2_2_imgs.png "distance, amplitude, distance noise, and reflectivity images with bilateral filter mask set to 5x5 pixel neighbourhood")  
+
 ![anfFilterSizeDiv2_3_value](./resources/anfFilterSizeDiv2_3.png "3D point cloud with spatial filtering: bilateral filter mask set to 7x7 pixel neighbourhood")  
+![anfFilterSizeDiv2_3_value](./resources/anfFilterSizeDiv2_3_imgs.png "distance, amplitude, distance noise, and reflectivity images with bilateral filter mask set to 7x7 pixel neighbourhood")  
  
 ### spatial fitering under movement and rotation
 Filtering in the spatial domain when movement is present is independent of movement. Only parts of the images which are not affected by movement will be filtered in the spatial domain. This differentiation is possible, becuase the detection of motion is performed before the spatial filer in the processing pipeline. Therefore it is perfectly fine to even use larger filter mask sizes.
