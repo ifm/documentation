@@ -1,7 +1,14 @@
 # Adaptive noise bilateral filter
 
 ## Table of contents
-
+- [Adaptive noise bilateral filter](#adaptive-noise-bilateral-filter)
+  * [Table of contents](#table-of-contents)
+  * [Abstract](#abstract)
+  * [Description](#description)
+    + [`anfFilterSizeDiv2` values example pictures](#-anffiltersizediv2--values-example-pictures)
+    + [spatial fitering under movement and rotation](#spatial-fitering-under-movement-and-rotation)
+  * [related filters](#related-filters)
+  * [related application notes](#related-application-notes)
 
 ## Abstract
 The O3R software allows for filtering the distance image and the dependent point cloud image in the spatial domain. The spatial domain of a 3D image can be thought of as the local neighbourhood in the images pixel coordinates, i. e. row and column coordinates, or the related 3D coordinates, i. e. X-, Y-, and Z-coordinates of the distance image projected into R3 space. Radial distance information of pixels within a local neighbourhood are combined following the mathematical description of the filter to form a new image with less noise.  
