@@ -1,43 +1,32 @@
-# Parameter: Minimum Amplitude
-
-| Name | Minimum | Maximum | Default |
-| -----|---------:|:---------|:---------:|
-| Minimum amplitude | 0 | 1000 | 20 |
-
+# Minimum Amplitude
 ## Abstract
 
-The `Minimum amplitude` parameter invalidates pixels where the amplitude (reflected light) drops bellow the minimum threshold.
+The `Minimum amplitude` (`diParam.minAmplitude`) parameter invalidates pixels where the amplitude (reflected light) drops bellow the minimum threshold.
 
 ## Description
 
-A 3D image taken with the O3R-Camera-Head contains several information. Distance information is one, but also amplitude. For each pixel, the amplitude value represents about how much light was received by the imager. This kind of image is called `amplitude image`.
+For each pixel, the amplitude value represents how much light was received by the imager. The `minimum amplitude` parameter provides a threshold defining when the system should discard the low amplitude pixels. The images below show the amplitude image and the point cloud for a scene containing black totes. The totes are made out of a dark plastic and reflect very little light. We can see that part of the point cloud is missing where the amplitude is below the threshold.
 
-Amplitude image:
+|Amplitude image |Point cloud |
+|--|--|
+|![default-values-amplitude](./resources/default_value_amp.png "3D amplitude image")|![default-values-3d](./resources/default_value_3D.png "3D point cloud with default values")|
 
-![default-values-amplitude](./resources/default_value_amp.png "3D amplitude image")
+Now let's see what happens when we change this threshold value. In the table below, we display the same scene measured with different amplitude thresholds. We can see that with a value of 0, we are able to compute the point cloud for the very dark areas. On the other hand, when we increase the threshold to 50, a large part of the point cloud is lost.
 
-Point cloud:
-
-![default-values-3d](./resources/default_value_3D.png "3D point cloud with default values")
-
-If the amplitude value drops to 0, no light was received and therefore no distance measurement was taken. The `Minimum amplitude` parameter,provides a threshold/limit when the system should discard the pixels. Is the amplitude value dropping bellow this threshold, the pixel is shown as `invalid - low amplitude`.
-
-|minimum amplitude| Images|
+|Minimum amplitude| Point cloud|
 |:-:|-|
 |0|![min-a,p-0-3d](./resources/amp_0_3D.png "3D point cloud with minimum amplitude 0 values")|
 |20|![min-a,p-0-3d](./resources/default_value_3D.png "3D point cloud with minimum amplitude 0 values")|
 |50|![min-a,p-0-3d](./resources/amp_50_3D.png "3D point cloud with minimum amplitude 0 values")|
 
-In certain cases, changing the default value form 20 to 0 could be beneficial. Generally speaking, as lower the amplitude as more `noisy` and inaccurate is the distance measurement.
+In certain cases, for instance when black objects are in the field-of-view, changing the default value from 20 to 0 can be beneficial as more pixels are valid, leading to a more complete point cloud. Generally speaking however, lowering the amplitude leads to more ambient noise and less accuracy is the distance measurement. In this case we encourage you to test the [filters](INSERT-LINK) available with the O3R to mitigate the noise that exists for black objects measurements.
 
-Bad reflecting objects (e.g. black ones) are reflecting less light, and therefore tend to fall easier under the minimum amplitude than bright objects. For the O3R, objects which are not reflecting infrared light are appearing as black objects. In this use cases, it might be beneficial to decrease the minimum amplitude to get some data back. Even, if this data is more noisy than the same data from bright objects.
+> Note: black objects in the visible spectrum are not necessarily black in the near infrared range.
 
-The `min amplitude threshold` is used on the `de-normalized amplitude image`. This can be seen by the observed values of the `normalized amplitude image`. Some pixels might have the value bellow the `minimum amplitude threshold`. Which is due to the `normalization` after the `minimum amplitude threshold` has filtered already several pixels. The amplitude images above and the amplitude images you receive are `normalized amplitude` images.
+> Note: The minimum amplitude threshold is applied to the *non-normalized* amplitude image. The numerical value of the *normalized* amplitude image (the one you receive) might not correspond to expected values with the set threshold. If you want to know more about `normalization`, check out the following article: https://en.wikipedia.org/wiki/Normalization_(image_processing)
 
-> You want to know more about `normalization`, consider following article: https://en.wikipedia.org/wiki/Normalization_(image_processing)
+## Related topics
 
-## Dependencies / Related topics
-
-The `minimum amplitude` parameter is corelating with the `maximum distance noise` parameter. A low amplitude value together with a heigh distance noise value, validates more pixel. Together with the `temporal filter` the image gets more stable too. See following:
-[Link `distance noise`]
-[Link `temporal filter`]
+The minimum amplitude parameter is related to the maximum distance noise parameter: a low amplitude value together with a high distance noise value ensures that more pixels are valid but will allow for a noisier measurement, requiring some filtering for instance with the temporal filter. See following:
+- [Link `distance noise`]
+- [Link `temporal filter`]
