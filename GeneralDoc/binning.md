@@ -31,21 +31,17 @@ These images are resampled to the same sampling interval, meaning image size and
 
 The `binning` filter is controlled via a single filter parameter. Allowed filter parameter values are:  
 [`binning = 0`] no resampling: the user gets the true image resultion. *Do we ever mention that the VGA imager gets upsampled from a half VGA resolution towards a customer*    
-[`binning = 1`] resampling of the VGA imager signal to a `240 x 320` pixel grid    
+[`binning = 1`] resampling of the VGA imager signal to a `240 x 320` pixel grid.    
   
 TODO: add example pictures with and without binning:      
 ![binning_0](./resources/binning_0.png "image representation VGA image without binning")    
 ![binning_1](./resources/binning_1.png "image representation VGA image with binning")     
 
-For `binning = 1` the image is resampled on a `2x2` grid. The pixel values are weighted evenly. A non-even weighing can introduce biases at distance steps in the scene for example are therefore not available. 
-
-Because of it's early application in the filter / algorithmic pipeline, invalid pixels will be ignored during the filtering process and have therefore no impact on the sourounding pixels.   
-
 A list of related filters and application notes can be found below: [related filters](related-filters), [related application notes](related-application-notes)
 
 ### advantages of binning
 Combining (binning) a neighbourhood of `2x2` pixels into one measurement value has two destinct advantages:  
-1. The point cloud quality will be improved and distance measurments (and other measured values) for uncertain pixels can be improved by combining it with it's neighbours.
+1. The point cloud quality will be improved and distance measurments (and other measured values) for uncertain pixels can be improved by combining it with it's neighbours. This for example can be seen in the distance noise image. 
 2. The data stream size and bandwidth will be reduced. This is important when merging different data sources with large sizes for a computationally heavy application, i. e. sensor fusion. The task of sensor fusion can be calculated on the CPU processing cores and the GPU hardware of the O3R's VPU. The customer will be able to merge certain data streams of different sensors on the VPU already when acessing the sensors via the auxiliary Ethernet and USB ports.   
 TODO: continue list
 
