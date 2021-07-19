@@ -27,7 +27,7 @@ A list of related filters and application notes can be found below: [related fil
 ### `anfFilterSizeDiv2` values example pictures
 In the following a few example pictures are shown where the effect of the different  cw plausibilization settings (mainly switch cw plausibilization on and off) are compared:  
 
-Add example pictures with / without distance measurents pixels in the foreground: 
+Add example pictures with / without distance measurents pixels in the foreground: try to reproduce this problem with a offsets - 0.5 m to 1 m offsets see if pixels in near range reappear
 
 ![cw_plausibility_on](./resources/cw_plausibility_on.png "3D point cloud with cw plausibilization") 
 ![cw_plausibility_on_img](./resources/cw_plausibility_on_img.png "distance and amplitude images with cw plausibilization")  
