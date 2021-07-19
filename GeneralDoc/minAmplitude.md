@@ -23,10 +23,10 @@ In certain cases, for instance when black objects are in the field-of-view, chan
 
 > Note: black objects in the visible spectrum are not necessarily black in the near infrared range.
 
-> Note: The minimum amplitude threshold is applied to the *non-normalized* amplitude image. The numerical value of the *normalized* amplitude image (the one you receive) might not correspond to expected values with the set threshold. If you want to know more about `normalization`, check out the following article: https://en.wikipedia.org/wiki/Normalization_(image_processing)
+> Note: The minimum amplitude threshold is applied to the *non-normalized* amplitude image. The numerical value of the *normalized* amplitude image (the one you receive) might not correspond to expected values with the set threshold. 
 
 ## Related topics
 
 The minimum amplitude parameter is related to the maximum distance noise parameter: a low amplitude value together with a high distance noise value ensures that more pixels are valid but will allow for a noisier measurement, requiring some filtering for instance with the temporal filter. See following:
-- [Link `distance noise`]
-- [Link `temporal filter`]
+- [Distance noise](INSERT-LINK)
+- [Temporal filter](INSERT-LINK)
