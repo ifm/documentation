@@ -42,11 +42,12 @@ A list of related filters and application notes can be found below: [related fil
 ### advantages of binning
 Combining (binning) a neighbourhood of `2x2` pixels into one measurement value has two destinct advantages:  
 1. The point cloud quality will be improved and distance measurments (and other measured values) for uncertain pixels can be improved by combining it with it's neighbours. This for example can be seen in the distance noise image. 
-2. The data stream size and bandwidth will be reduced. This is important when merging different data sources with large sizes for a computationally heavy application, i. e. sensor fusion. The task of sensor fusion can be calculated on the CPU processing cores and the GPU hardware of the O3R's VPU. The customer will be able to merge certain data streams of different sensors on the VPU already when acessing the sensors via the auxiliary Ethernet and USB ports.   
+2. The data stream size and bandwidth will be reduced. This is important when running computationally heavy application.
+3. Because of the reduced stream size the required network bandwidth is also reduced. A simple `2x2` binning reduces the file size and therefore band with by a factor of 4.   
 TODO: continue list
 
 ### disadvantages of binning
-1. Spatial resolution will be reduced. For applications which focus only on a image regeion of interest (ROI) instead of the whole image the highest possible spatial resolution might be necessary. Binning and ROI selection are probably opposed image manipulation strategies.  
+1. Spatial resolution will be reduced. For applications which focus only on a image regeion of interest (ROI) instead of the whole image the highest possible spatial resolution might be necessary. Binning and ROI selection are opposed image manipulation strategies.  
 TODO: continue list
 
 ## related filters
