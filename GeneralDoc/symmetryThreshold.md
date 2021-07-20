@@ -1,9 +1,4 @@
 # Symmetry threshold
-
-|Name|Minumim|Maximum|Default
-|--|--|--|--|
-|Symmetry threshold|0|1|0.4|
-
 ## Abstract
 
 The parameter symmetry threshold is mainly used for filtering motion artifacts. Increasing this value leads to more valid pixels around moving objects, but it also increases the motion blur and therefore wrong distance measurements at the edge of the moving object.
