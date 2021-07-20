@@ -23,14 +23,6 @@ The following table shows the measurement for a same scene with two different di
 | 0.07 | | | ![Low noise threshold in the point cloud](resources/med_noise_007_outside_cloud.png)|
 
 > Note: the distance noise image is the same for both noise threshold value. The difference is viewed in the point cloud, where more or less pixels are discarded by the noise filtering.
-### expected distance noise over distance
-The distance noise is dependent on the actual measured distance. A specific distance noise expectation over absolute distance can be seen in the data sheet in section / figure: TODO add link to data sheet / insert distance noise over distance figure.  EXAMPLE [Lucid Helios 2 distance noise](https://thinklucid.com/product/helios2-time-of-flight-imx556/#tab-performance)
-
-All this means is for a certain distance noise threshold value pixels at larger distances are more likely to be invalidated.   
-
-[low maxDistNoise value] -> 0.015  
-[high maxDistNoise value] -> 0.2
-
 
 ## Should you use very low `maxDistNoise` values?
 The user may think that a simple change of the `maxDistNoise` value will 'improve' the point cloud, because it will result in more valid pixels. The tradeoff between many pixels, i. e. a rich point cloud, and a more robust point cloud, i. e. only more reliable pixels, is part of the finetuning for each application.  
