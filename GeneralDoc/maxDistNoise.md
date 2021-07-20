@@ -5,7 +5,7 @@ The O3R software estimates distance noise per pixel in addition to the distance 
 
 
 ## Description
-The O3R camera and software uses the ifm ToF technology for measuring the distance of objects per pixel. The result is a distance image as well as a distance noise image. The distance noise deduction can be interpreted as a standard deviation of the distance measurement in a metric scale. The noise level is dependent on the received signal's amplitude (less amplitude received means greater noise) and on the ambient light level (high ambient light level, especially sunlight, can lead to high noise level). 
+The O3R camera and software uses the ifm ToF technology for measuring the distance of objects per pixel. The result is a distance image as well as a distance noise image. The distance noise deduction can be interpreted as a standard deviation of the distance measurement in a metric scale. The noise level is dependent on the received signal's amplitude (lower amplitude means greater noise) and on the ambient light level (high ambient light level, especially sunlight, can lead to high noise level). 
 
 The distance noise image gets processed in the same algorithmic pipeline as the distance image itself. Any filter applied to the distance image are applied to the distance noise image as well. For example if filters are activated in the spatial domain (see the [bilateral filter](INSERT-LINK)), they also filter the distance noise image, such that the adapted noise image reflects the lowered noise due to lateral filtering.
 
@@ -43,10 +43,8 @@ The user may think that a simple change of the `maxDistNoise` value will 'improv
 
 We suggest to start with the default values. The default is currently set to `0.02` meters. This value was chosen leaning more towards a robust point cloud with few artefacts. This might not be true for all customer applications. Please also keep in mind that `maxDistNoise` threshold works in connection and relation with other filters as mentioned above.
 
-## related filters
-+ spatial filtering
-+ temporal filtering
-+ min amplitude checks
-+ min reflectivity checks
-
-## related application notes
+## Related topics
++ [Bilateral filter](INSERT-LINK) (see also the [median filter](INSERT-LINK))
++ [Temporal filter](INSERT-LINK)
++ [Minimum amplitude](INSERT-LINK)
++ [Minimum reflectivity](INSERT-LINK)
