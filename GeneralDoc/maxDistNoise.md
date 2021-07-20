@@ -14,12 +14,15 @@ Low `maxDistNoise` values will result in more noisy pixels being marked as inval
 
 The minimum allowed `maxDistNoise` value is 0.00 meters. This will switch off the validation process based on the estimated distance noise image. The distance noise image is still computed and available to the user.
 
-### `maxDistNoise` threshold values example pictures
-TODO add pictures for the same static scene with different threshold values
-[low maxDistNoise value] -> 0.01  
-[medium maxDistNoise value] -> 0.05  
-[high maxDistNoise value] -> 0.2  
+### Example
+The following table shows the measurement for a same scene with two different distance noise threshold values. The scene consists of a box positioned one meter away from the camera, outside in full sunlight. The amount of noise due to the ambient light is high, but we see that we can still get distance values for many pixels by increasing the noise threshold.
 
+| Noise value (m)| Distance noise image| | Point cloud|
+|:--:|--|--|--|
+| 0.01| ![Low noise threshold - noise image](resources/low_noise_001_outside_noise.png)| ![Color bar](resources/color_bar_noise.png)| ![Low noise threshold in the point cloud](resources/low_noise_001_outside_cloud.png)|
+| 0.07 | | | ![Low noise threshold in the point cloud](resources/med_noise_007_outside_cloud.png)|
+
+> Note: the distance noise image is the same for both noise threshold value. The difference is viewed in the point cloud, where more or less pixels are discarded by the noise filtering.
 ### distance noise estimation for black objects 
 The distance noise estimation is related to the reflectivity of an object in near infrared (NIR). (This is the used spectrum of the active illumination device of the O3R). If dark objects / image patches appear black in the amplitude image or don't show in the distance image, it is highly like that they have a low reflectivity coefficient in NIR: see the documentation on min amplitude. The consequence of a low reflectivity is an increased noise ratio.  
 
