@@ -23,12 +23,6 @@ The following table shows the measurement for a same scene with two different di
 | 0.07 | | | ![Low noise threshold in the point cloud](resources/med_noise_007_outside_cloud.png)|
 
 > Note: the distance noise image is the same for both noise threshold value. The difference is viewed in the point cloud, where more or less pixels are discarded by the noise filtering.
-### distance noise estimation for black objects 
-The distance noise estimation is related to the reflectivity of an object in near infrared (NIR). (This is the used spectrum of the active illumination device of the O3R). If dark objects / image patches appear black in the amplitude image or don't show in the distance image, it is highly like that they have a low reflectivity coefficient in NIR: see the documentation on min amplitude. The consequence of a low reflectivity is an increased noise ratio.  
-
-[low maxDistNoise value] -> 0.015  
-[high maxDistNoise value] -> 0.2
-
 ### expected distance noise over distance
 The distance noise is dependent on the actual measured distance. A specific distance noise expectation over absolute distance can be seen in the data sheet in section / figure: TODO add link to data sheet / insert distance noise over distance figure.  EXAMPLE [Lucid Helios 2 distance noise](https://thinklucid.com/product/helios2-time-of-flight-imx556/#tab-performance)
 
