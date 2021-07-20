@@ -1,8 +1,4 @@
 # Maximum distance noise
-|Name|Minumim|Maximum|Default
-|--|--|--|--|
-TODO: update information from schema
-
 ## Abstract
 
 The O3R software estimates distance noise per pixel in addition to the distance information per pixel. This distance noise parameter is an esitmation of the standard deviation of the radial distance measurement, given in meters. It is based on a noise model built upon the acquired time of flight (ToF) measurements of a single frame. Depending on the threshold value maxDistNoise, pixels are marked as invalid.
