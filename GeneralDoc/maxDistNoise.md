@@ -1,19 +1,18 @@
 # Maximum distance noise
 ## Abstract
 
-The O3R software estimates distance noise per pixel in addition to the distance information per pixel. This distance noise parameter is an esitmation of the standard deviation of the radial distance measurement, given in meters. It is based on a noise model built upon the acquired time of flight (ToF) measurements of a single frame. Depending on the threshold value maxDistNoise, pixels are marked as invalid.
+The O3R software estimates distance noise per pixel in addition to the distance information per pixel. This distance noise parameter is an estimation of the standard deviation of the radial distance measurement, given in meters. It is based on a noise model built upon the acquired time of flight (ToF) measurements of a single frame. Depending on the threshold value `maxDistNoise`, pixels are marked as invalid.
 
 
 ## Description
-The O3R camera and software uses the ifm ToF technology for measuring the distance of objects per pixel. The result is a distance image as well as a distance noise image. The distance noise deduction can be interpreted as a standard deviation of the distance measurment in a metric scale.  
+The O3R camera and software uses the ifm ToF technology for measuring the distance of objects per pixel. The result is a distance image as well as a distance noise image. The distance noise deduction can be interpreted as a standard deviation of the distance measurement in a metric scale. The noise level is dependent on the received signal's amplitude (less amplitude received means greater noise) and on the ambient light level (high ambient light level, especially sunlight, can lead to high noise level). 
 
-The resulting distance noise image gets processed in the same algorithmic pipeline as the distance image itself. Any filter applied to the distance image are applied to the distance noise image as well. For example if filters are activated in the spatial domain (TODO: add reference to median filter), they filter the distance noise image, such that the adapted noise image reflects the lowered noise due to lateral filtering
+The distance noise image gets processed in the same algorithmic pipeline as the distance image itself. Any filter applied to the distance image are applied to the distance noise image as well. For example if filters are activated in the spatial domain (see the [bilateral filter](INSERT-LINK)), they also filter the distance noise image, such that the adapted noise image reflects the lowered noise due to lateral filtering.
 
-In a last step the parameter `maxDistNoise` is used to invalidate pixels with high noise levels. The distance noise filter is controlled by this single value. Higher `maxDistNoise` values will allow more noisy pixels to still end up beeing valid pixels. The maximum allowed value is "1" meter. Using such a high value is not recommended. Lower `maxDistNoise` values will result in more pixels beeing marked as invalid. Using values lower than "0.01" meters is not recommended either and should be used with care as it invalidates almost the whole image for many scenes, i. e. geometric configurations. This is due to a expected distance standard deviation of about 0.5 percent of the measurement range.    
+The parameter `maxDistNoise` is used to invalidate pixels with high noise levels. Higher `maxDistNoise` values will allow more noisy pixels to be  valid pixels in the point cloud. The maximum allowed value is 1 meter, though we do not recommend using such a high value as the resulting distance measurement will be highly inaccurate in the noisy areas. 
+Low `maxDistNoise` values will result in more noisy pixels being marked as invalid. Using values lower than 0.01 meters is not recommended either as it invalidates large portions of the image for many scenes (we expect a distance standard deviation of about 0.5 percent of the measurement range).    
 
-The minumum allowed `maxDistNoise` value is "0.00" meters. This will switch off the validation process based on the estimated distance noise image. The distance noise image is still evaluated and available to the user but the validation based on the distance noise threshold is inactive.   
-
-A list of related filters and application notes can be found below (TODO: add link)
+The minimum allowed `maxDistNoise` value is 0.00 meters. This will switch off the validation process based on the estimated distance noise image. The distance noise image is still computed and available to the user.
 
 ### `maxDistNoise` threshold values example pictures
 TODO add pictures for the same static scene with different threshold values
@@ -22,7 +21,7 @@ TODO add pictures for the same static scene with different threshold values
 [high maxDistNoise value] -> 0.2  
 
 ### distance noise estimation for black objects 
-The distance noise estimation is related to the reflectivity of an object in near infrared (NIR). (This is the used spectrum of the active illumination device of the O3R). If dark objects / image patches appear black in the amplitude image or don't show in the distance image, it is highly like that they have a low reflectivity coeffient in NIR: see the documentation on min amplitude. The consequece of a low reflectivity is an increased noise ratio.  
+The distance noise estimation is related to the reflectivity of an object in near infrared (NIR). (This is the used spectrum of the active illumination device of the O3R). If dark objects / image patches appear black in the amplitude image or don't show in the distance image, it is highly like that they have a low reflectivity coefficient in NIR: see the documentation on min amplitude. The consequence of a low reflectivity is an increased noise ratio.  
 
 [low maxDistNoise value] -> 0.015  
 [high maxDistNoise value] -> 0.2
