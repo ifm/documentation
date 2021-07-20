@@ -11,9 +11,9 @@
   * [related application notes](#related-application-notes)
 
 ## Abstract
-The O3R software allows for filtering the distance image and the dependent point cloud image in the spatial domain. The spatial domain of a 3D image can be thought of as the local neighbourhood in the images pixel coordinates, i. e. row and column coordinates, or the related 3D coordinates, i. e. X-, Y-, and Z-coordinates of the distance image projected into R3 space. Radial distance information of pixels within a local neighbourhood are combined following the mathematical description of the filter to form a new image with less noise.  
+The O3R software allows for filtering the distance measurement in the spatial domain. The spatial domain of a 3D image can be thought of as the local neighborhood of a pixel, i.e., the neighboring pixels X-, Y-, and Z-coordinates. Radial distance information for a pixel is combined with it's neighbors' to form a new distance image with reduced noise.  
 
-The bilateral filter is the preferred spatial filter. It can be applied with different filter mask sizes which can be set via the parameter `anfFilterSizeDiv2`. For larger filter mask sizes the local noise reduction and flattening is more pronounced. 
+The bilateral filter is the preferred spatial filter, it is enabled by default. It can be applied with different filter mask sizes which can be set via the parameter `anfFilterSizeDiv2`. Larger filter mask sizes allow for stronger noise reduction.
 
 ## Description
 
