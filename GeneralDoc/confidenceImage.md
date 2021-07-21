@@ -7,7 +7,7 @@ The confidence image is accessible as part of the data streamed from the O3R dev
 - 1: CONF_INVALID - indicates that the pixel is invalid;
 - 2: CONF_SATURATED - the pixel is overexposed/saturated;
 - 4: CONF_BADAMBSYM - the pixel had bad symmetry, probably because of motion (see [symmetry threshold](INSERT-LINK));
-- 8: CONF_LOWAMP - amplitude lower than the [minimum amplitude](INSERT-LINK), or [distance noise threshold](INSERT-LINK) exceeded;
+- 8: CONF_LOWAMP - amplitude lower than the [minimum amplitude](minAmplitude.md), or [distance noise threshold](maxDistNoise.md) exceeded;
 - (16|32): CONF_EXPINDEX - indicates whether the short, medium of long [exposure](INSERT-LINK) is used for this pixel;
 - 4: CONF_EXPSHIFT - expIndex = (v & CONF_EXPINDEX) >> CONF_EXPSHIFT indicates the index of the exposure time used by this pixel where low indices indicate shorter exposures;                       
 - 64: CONF_INVALID_RANGE - the pixel is outside of the [measurement range](INSERT-LINK);
