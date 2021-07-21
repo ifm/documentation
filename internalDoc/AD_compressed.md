@@ -1,4 +1,4 @@
-# simulaneously receiving AlgoDebug and compressed data streams
+# Simultaneously receiving AlgoDebug and compressed data streams
 
 As of FW version 0.11.x it is still possible to receive the compressed (customer) data stream simultaneously with the Algo Debug (AD) data stream. Both data streams are send via PCIC on independent socket connections. Triggering the AD stream does not implement a automatic 'switch off' of the customer compressed PCIC stream.  
 
