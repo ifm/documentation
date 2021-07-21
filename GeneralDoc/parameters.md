@@ -63,7 +63,7 @@ A pixel is valid if the energy (amplitude) received is above the defined thresho
 When to change the default: 
 
 Lower the default value when the standard targets are known to have low reflectivity (e.g. <10% like matte black targets). A lower amplitude threshold is also valuable when attempting to detect negative obstacles (e.g. stairs).
-It is recommended to enable a noise filter (temporal or adaptative filter) when lowering the default Minimum Amplitude.
+It is recommended to enable a noise filter (temporal or adaptive filter) when lowering the default Minimum Amplitude.
 
 ### Adaptive noise bilateral filter and median filter
 |Variable name|Short description|Min/max values|
@@ -82,7 +82,7 @@ The median filter does not preserve edges as well and tends to produce round cor
 |--|--|--|
 |`enableTemporalFilter`|Enables the filter|true (default) /false
 
-A temporal filter, in its simplest form, mitigates distance noise by averaging the per pixel results from multiple frames. The O3R temporal filter, however, also includes environmental noise estimation, the use of a Kalman filter and is calculated on the lower level imager data, making the entire temporal filter more robust.
+The temporal filter mitigates distance noise by integrating pixel information over multiple frames. There is no strict limit for the number of frames. Instead, an automatic resetting approach is applied to the pixels. 
 
 Although the O3R temporal filter can be used on "in-motion" Use Cases, it is best suited for static scenes.
 
@@ -95,7 +95,7 @@ Although the O3R temporal filter can be used on "in-motion" Use Cases, it is bes
 Mixed Pixels (or "flying pixels") are pixels that fall partially on a foreground object and partially on an object in the background. Because the physics of indirect ToF do not allow the imager to distinguish partial pixel measurements, the full pixel result is a "weighted average" distance measurement between the two targets. When viewing the point cloud, these pixels appear "floating", or not corresponding to any object.
 The Mixed Pixel filter removes the mixed pixels from the image.
 
-*ADD BEFORE/AFTER COMING SOON*
+*BEFORE/AFTER COMING SOON*
 
 When to change the default:
 
@@ -113,10 +113,10 @@ The raw modulated signal used to perform the distance measurement is designed to
 
 *BEFORE/AFTER IMAGES + SCHEMATIC EXPLANATION COMING SOON*
 
-### Stray light
+### Stray-light
 |Variable name|Short description|Min/max values|
 |--|--|--|
-|`enableStraylight`|Turn straylight correction on/off|True *(default)*/false|
+|`enableStraylight`|Turn stray-light correction on/off|True *(default)*/false|
 
 Stray light is defined as "unwanted light from the active illumination reaching the imager". This is typically experienced when there is a very bright object in the FoV. The resulting amplitude of pixels landing on the bright object impact the neighboring "darker" pixels. This is seen as a "halo" around the bright object. This "halo" can impact the measurement of neighboring pixels (even providing a value for pixels where none previously existed). The Stray Light filter mitigates this physics artifact.
 
