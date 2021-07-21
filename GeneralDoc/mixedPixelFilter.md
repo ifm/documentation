@@ -36,14 +36,10 @@ TODO add pictures for the same static scene with different filter mask sizes
 [1 mixedPixelFilterMode value] -> angle based criterion
 [2 mixedPixelFilterMode value] -> distance based criterion
 
-### `mixedPixelFilterMode`: angle criterion finetuning
-TODO add pixture and explain the finetuning of the angle threshold `mixedPixelThresholdRad`
-
-### `mixedPixelFilterMode`: distance criterion finetuning
-TODO add pixture and explain the finetuning of the distance threshold
+### Fine-tuning the angle based method
+TODO add picture and explain the finetuning of the angle threshold `mixedPixelThresholdRad`
 
 ## Related topics
-+ isolated pixel filter
 + further validation filters
     + min amplitude checks
     + min reflectivity checks
