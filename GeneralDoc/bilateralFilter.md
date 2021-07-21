@@ -21,7 +21,7 @@ The bilateral filter is controlled by the parameter `anfFilterSizeDiv2` (turn it
 
 > Note: The bilateral filter is preferred over the [median filter](INSERT-LINK) as it preserves edge and corner information better (the median filter tends to *round* corners). It is also possible to apply the bilateral filter with larger filter masks (up to 7x7 pixel mask) compared to (5x5 pixel masks) for the median filter. The size of the mask defines how many neighboring pixels are taken into account when computing a pixel's value.   
 
-Invalid pixels will be ignored during the filtering process and have therefore no impact on the surrounding pixels. Invalid pixels will remain invalid after the filtering, i. e. no hole filling.  
+Invalid pixels will be ignored during the filtering process and have therefore no impact on the surrounding pixels. Invalid pixels will remain invalid after the filtering. 
 
 TODO: decide which parameters will be made public: `anfSigmaLat` and `anfFactorRangeNoise`. These parameters allow for further fine-tuning of the bilateral filter.  
 ### Example
