@@ -6,7 +6,7 @@
 * [Bilateral VS median filtering](#bilateral-vs-median-filtering)
 * [Related topics](#related-topics)
 ## Abstract
-The O3R software supports two spatial filters for improving the distance measurements, the median filter and the [bilateral filter](INSERT-LINK).   
+The O3R software supports two spatial filters for improving the distance measurements, the median filter and the [bilateral filter](bilateralFilter.md).   
 **We recommend using the bilateral filter in most cases instead of the median filter, as the median filter can have undesirable side effects.**
 
 ## Description
@@ -27,7 +27,7 @@ Using larger filter mask sizes results in combining more pixels' distance measur
  
 
 ## Example
-Below are shown images of the same scene with different settings for the median filter. Look more specifically at the distance noise image that shows the amount of noise in the scene: the larger the filter mask size, the lower the noise level (the color red corresponds to negligible noise levels, blue to noise around 1cm and above). See the [bilateral filter](INSERT-LINK) example for comparison with the same scene.
+Below are shown images of the same scene with different settings for the median filter. Look more specifically at the distance noise image that shows the amount of noise in the scene: the larger the filter mask size, the lower the noise level (the color red corresponds to negligible noise levels, blue to noise around 1cm and above). See the [bilateral filter](bilateralFilter.md) example for comparison with the same scene.
 
 | Filter mask size `medianSizeDiv2`| Point cloud| Distance (top left), amplitude (top right), distance noise (bottom left) and reflectivity (bottom right) images| |
 |--|--|--|--|
@@ -39,7 +39,7 @@ Below are shown images of the same scene with different settings for the median 
 ## Bilateral VS median filtering
 ### Disadvantages of the median filter
 The median filter is not our spatial filter of choice for two reasons: it does not preserve corners of objects as well as the bilateral filter, and it uses a heuristic method for dealing with the distance noise image. Also, the median filter can introduce a bias in the distance image (locally) in some cases, an effect which is not present in the bilateral filter.
-We recommend using the [bilateral filter](INSERT-LINK) in most cases.
+We recommend using the [bilateral filter](bilateralFilter.md) in most cases.
 
 ### Bilateral and median filters combined
 It is rare that a combination of both spatial filters is required and we recommend increasing the filter mask size as a first step. However, if the filtering is not strong enough, one can use both the bilateral and median filters at the same time. This will further reduce local noise levels, but can result in bias in larger noise patterns. 
@@ -48,9 +48,9 @@ To give you an idea, we show below the effect of combined bilateral and median f
 ![bilateral3_median2](./resources/bilateral3_median2.png "3D point cloud with heavy spatial filtering: median filter mask set to 5x5 pixel neighbourhood, bilateral filter mask set to 7x7 pixel neighbourhood")   
  
 ## Related topics
-+ [Bilateral filter](INSERT-LINK)
++ [Bilateral filter](bilateralFilter.md)
 + [Temporal filter](INSERT-LINK)
-+ [Minimum amplitude](INSERT-LINK)
++ [Minimum amplitude](minAmplitude.md)
 + [Min reflectivity](INSERT-LINK)
 
 

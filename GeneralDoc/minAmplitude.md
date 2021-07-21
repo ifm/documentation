@@ -28,5 +28,5 @@ In certain cases, for instance when black objects are in the field-of-view, chan
 ## Related topics
 
 The minimum amplitude parameter is related to the maximum distance noise parameter: a low amplitude value together with a high distance noise value ensures that more pixels are valid but will allow for a noisier measurement, requiring some filtering for instance with the temporal filter. See following:
-- [Distance noise](INSERT-LINK)
+- [Distance noise](maxDistNoise.md)
 - [Temporal filter](INSERT-LINK)
