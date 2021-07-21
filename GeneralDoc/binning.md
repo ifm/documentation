@@ -13,7 +13,7 @@
 ## Abstract
 The O3r software allows a interpolation / downsampling algorithms via the combination of measurement values per pixel for all available images. This interpolation is done on a pixel per pixel basis and allows the user to reduce the data stream sizes while at the same time improving the image quality towards a more robust measurement value. The `binning` mode is only (currently ?) available for the VGA heads.
 
-One may notice the change in number of pixels the easiest when looking at the amplitude image, distance image and point cloud. They will appear to have less densily space iamge points. The change in number of pixels correlates with the spatial resolution. At a fixed distance the resolution will decrease when combining distance values. When comparing against other camera models and heads the spatial resolution also heavly depend on the their different field of views (FOV) and not only on their nuber of pixels, e. g. 38k pixels and VGA - 307k pixels.
+One may notice the change in number of pixels the easiest when looking at the amplitude image, distance image and point cloud. They will appear to have less densely spaced image points. The change in number of pixels correlates with the spatial resolution. At a fixed distance the resolution will decrease when combining distance values. When comparing against other camera models and heads the spatial resolution also heavily depend on the their different field of views (FOV) and not only on their number of pixels, e. g. 38k pixels and VGA - 307k pixels.
 
 
 ## Description
@@ -40,14 +40,14 @@ TODO: add example pictures with and without binning:
 A list of related filters and application notes can be found below: [related filters](related-filters), [related application notes](related-application-notes)
 
 ### advantages of binning
-Combining (binning) a neighbourhood of `2x2` pixels into one measurement value has two destinct advantages:  
-1. The point cloud quality will be improved and distance measurments (and other measured values) for uncertain pixels can be improved by combining it with it's neighbours. This for example can be seen in the distance noise image. 
+Combining (binning) a neighborhood of `2x2` pixels into one measurement value has two distinct advantages:  
+1. The point cloud quality will be improved and distance measurements (and other measured values) for uncertain pixels can be improved by combining it with it's neighbors. This for example can be seen in the distance noise image. 
 2. The data stream size and bandwidth will be reduced. This is important when running computationally heavy application.
 3. Because of the reduced stream size the required network bandwidth is also reduced. A simple `2x2` binning reduces the file size and therefore band with by a factor of 4.   
 TODO: continue list
 
 ### disadvantages of binning
-1. Spatial resolution will be reduced. For applications which focus only on a image regeion of interest (ROI) instead of the whole image the highest possible spatial resolution might be necessary. Binning and ROI selection are opposed image manipulation strategies.  
+1. Spatial resolution will be reduced. For applications which focus only on a image region of interest (ROI) instead of the whole image the highest possible spatial resolution might be necessary. Binning and ROI selection are opposed image manipulation strategies.  
 TODO: continue list
 
 ## related filters
