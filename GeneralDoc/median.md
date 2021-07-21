@@ -1,72 +1,58 @@
 # (spatial) median filter
 
-## Table of contents
-- [(distance) median filter](#-distance--median-filter)
-  * [Table of contents](#table-of-contents)
-  * [Abstract](#abstract)
-  * [Description](#description)
-  * [filer effect](#filer-effect)
-    + [`anfFilterSizeDiv2` values example pictures](#-anffiltersizediv2--values-example-pictures)
-    + [disadvantages of the median filter compared with bilateral filter](#disadvantages-of-the-median-filter-compared-with-bilateral-filter)
-    + [combination of both lateral distance filters](#combination-of-both-lateral-distance-filters)
-  * [related filters](#related-filters)
-  * [related application notes](#related-application-notes)
-
+* [Abstract](#abstract)
+* [Description](#description)
+* [Example](#example)
+* [Bilateral VS median filtering](#bilateral-vs-median-filtering)
+* [Related topics](#related-topics)
 ## Abstract
-The O3R software supports two filters for improving the distance measurements based on filtering in the spatial domain. The spatial domain of a 3D image can be thought of as the local neighbourhood in the images pixel coordinates, i. e. row and column coordinates, or the related 3D coordinates, i. e. X-, Y-, and Z-coordinates of the distance image projected into R3 space. These two filters are the distance median filter and the distace bilateral filter.   
-**Please use the bilateral filter instead / in compbination with the median filter. The median filter has undesirable side effects (see below).**
+The O3R software supports two spatial filters for improving the distance measurements, the median filter and the [bilateral filter](INSERT-LINK).   
+**We recommend using the bilateral filter in most cases instead of the median filter, as the median filter can have undesirable side effects.**
 
 ## Description
-In the following an overview is given which mostly focusses on the median distance filter separately. The (spatial) median filter is applied to a first estimation of the distance image and also on the a the distance noise image.  
 
-The distance median filter is in it's concept very similar to a [median filter applied to RGB 2D images](https://en.wikipedia.org/wiki/Median_filter). Any median filter is a non-linear edge-preserving smoothing filter. It can be thought of as a filter which replaces the value per pixel by the median of a list containing the information from nearby pixels. This filtering technique is robust, i. e. mostly independent of outliers, and reduces noise while keeping edge information intact.  
-The median filter is also applied to the distance noise image, which is an independent image of the (radial) distance image, see [add link to distance noise filter]. The filtered distance noise image output uses a heuristic method.  
+The median filter is in it's concept very similar to a [median filter applied to RGB 2D images](https://en.wikipedia.org/wiki/Median_filter). A median filter is a non-linear edge-preserving smoothing filter. It can be thought of as a filter which replaces the value per pixel with the median value of neighboring pixels. The computation is achieved by sliding the filter mask in the spatial domain until having covered the whole image. 
+This filtering technique is robust (i.e., not impacted by outliers), and reduces noise while keeping edge information intact. 
+The median filter is applied to the distance image as well as to the distance noise image. 
 
-The computation is achived by sliding the window in the spatial domain over the previous image. TODO add information about image border handling and resulting image size.
 
-The median filter is controlled by the parameter `medianSizeDiv2`.    
-`medianSizeDiv2 = 0` is equivalent to turning the filter off. The image is not filter with the median filter anymore.   
-`medianSizeDiv2 = 1` is equivalent to setting the filter mask size to a local 3x3 pixel neighbourhood. TODO insert image of 3 pixel neigbourhood.   
-`medianSizeDiv2 = 2` is the highest allow vlaue. It is euqivalent to a filter window size of 5x5 pixels. TODO insert image of 5 pixel neighbourhood.  
 
-Examplery figures showing sizes of pixel neighbourhoods are below:  
-![Example 3x3 pixel neighbourhood](./resources/pixel_neighbourhood_3x3.png "Example image of a 3x3 pixel neighbourhood")
-![Example 5x5 pixel neighbourhood](./resources/pixel_neighbourhood_5x5.png "Example image of a 5x5 pixel neighbourhood")
+The median filter is controlled by the parameter `medianSizeDiv2` (turn it off with 
+`medianSizeDiv2 = 0`). 
+`medianSizeDiv2 = 1` sets the filter mask size to a size of 3x3 pixel.
+`medianSizeDiv2 = 2` is the highest allowed value. It represents a filter mask size of 5x5 pixels.
+Using larger filter mask sizes results in combining more pixels' distance measurements into the filterer value. The effect of the filter will be stronger, resulting in a *smoother* image.
 
-It can be easily seen that using larger filter mask sizes results in combining more distance measuremtns into the filterer value. This is equivalent to a higher filter effect for spatially varied signals.  
+>Note: Invalid pixels are ignored during the filtering process and have therefore no impact on their surrounding pixels. Invalid pixels remain invalid after the filtering. 
+ 
 
-Invalid pixels will be ignored during the filtering process and have therefore no impact on the sourounding pixels. Invalid pixels will stay invalid after the filtering, i. e. no hole filling.  
+## Example
+Below are shown images of the same scene with different settings for the median filter. Look more specifically at the distance noise image that shows the amount of noise in the scene: the larger the filter mask size, the lower the noise level (the color red corresponds to negligible noise levels, blue to noise around 1cm and above). See the [bilateral filter](INSERT-LINK) example for comparison with the same scene.
 
-A list of related filters and application notes can be found below: [related filters](related-filters), [related application notes](related-application-notes)  
+| Filter mask size `medianSizeDiv2`| Point cloud| Distance (top left), amplitude (top right), distance noise (bottom left) and reflectivity (bottom right) images| |
+|--|--|--|--|
+| 0 (filter deactivated)| ![medianSizeDiv2_0_value](./resources/medianSizeDiv2_0.png "3D point cloud without spatial filtering / median filter switched off")| ![medianSizeDiv2_0_value](./resources/medianSizeDiv2_0_imgs.png "distance, amplitude, distance noise, and reflectivity images without spatial filtering / median filter switched off")| ![color bar for noise image](resources/color_bar_noise.png)|
+| 1 (3x3 mask size)| ![medianSizeDiv2_1_value](./resources/medianSizeDiv2_1.png "3D point cloud with spatial filtering: median filter mask set to 3x3 pixel neighbourhood")| ![medianSizeDiv2_0_value](./resources/medianSizeDiv2_1_imgs.png "distance, amplitude, distance noise, and reflectivity images with spatial filtering: median filter mask set to 3x3 pixel neighbourhood")| |
+| 2 (5x5 mask size)| ![medianSizeDiv2_2_value](./resources/medianSizeDiv2_2.png "3D point cloud with spatial filtering: median filter mask set to 5x5 pixel neighbourhood")| ![medianSizeDiv2_0_value](./resources/medianSizeDiv2_2_imgs.png "distance, amplitude, distance noise, and reflectivity images with spatial filtering: median filter mask set to 5x5 pixel neighbourhood")| |
 
-## filer effect 
-### `anfFilterSizeDiv2` values example pictures 
-![medianSizeDiv2_0_value](./resources/medianSizeDiv2_0.png "3D point cloud without spatial filtering / median filter switched off")
-![medianSizeDiv2_0_value](./resources/medianSizeDiv2_0_imgs.png "distance, amplitude, distance noise, and reflectivity images without spatial filtering / median filter switched off")  
 
-![medianSizeDiv2_1_value](./resources/medianSizeDiv2_1.png "3D point cloud with spatial filtering: median filter mask set to 3x3 pixel neighbourhood")  
-![medianSizeDiv2_0_value](./resources/medianSizeDiv2_1_imgs.png "distance, amplitude, distance noise, and reflectivity images with spatial filtering: median filter mask set to 3x3 pixel neighbourhood")  
+## Bilateral VS median filtering
+### Disadvantages of the median filter
+The median filter is not our spatial filter of choice for two reasons: it does not preserve corners of objects as well as the bilateral filter, and it uses a heuristic method for dealing with the distance noise image. Also, the median filter can introduce a bias in the distance image (locally) in some cases, an effect which is not present in the bilateral filter.
+We recommend using the [bilateral filter](INSERT-LINK) in most cases.
 
-![medianSizeDiv2_2_value](./resources/medianSizeDiv2_2.png "3D point cloud with spatial filtering: median filter mask set to 5x5 pixel neighbourhood") 
-![medianSizeDiv2_0_value](./resources/medianSizeDiv2_2_imgs.png "distance, amplitude, distance noise, and reflectivity images with spatial filtering: median filter mask set to 5x5 pixel neighbourhood")  
+### Bilateral and median filters combined
+It is rare that a combination of both spatial filters is required and we recommend increasing the filter mask size as a first step. However, if the filtering is not strong enough, one can use both the bilateral and median filters at the same time. This will further reduce local noise levels, but can result in bias in larger noise patterns. 
 
-### disadvantages of the median filter compared with bilateral filter
-The median filter is not our spatial filter of choice as mentioned above. This is due to it not beeing as good at preserving corners of objects and it's heuristic definition for dealing with the distance noise image. Please use the TODO: add link `anfFilterSizeDiv2` filter, meaning  the bilateral filter. The median filter can introduce a bias to the distance image (locally) in selected instances. This is not present in the bilateral filter.
-
-### combination of both lateral distance filters
-Situations where a combination of both spatial filters are required a very few in our oppinion. We suggest to use larger filter bilateral filter mask sizes first. If this filter effect is not enough, one can use both spatial filters at the same time. They can work together by their design. This will reduce local noise levels even more, but can result in an overemphasis / bias in larger noise patterns. 
-
-The effects of heavy spatial filtering with both the bilateral filter and the median filter can be seen below:  
+To give you an idea, we show below the effect of combined bilateral and median filtering for the scene of our example:
 ![bilateral3_median2](./resources/bilateral3_median2.png "3D point cloud with heavy spatial filtering: median filter mask set to 5x5 pixel neighbourhood, bilateral filter mask set to 7x7 pixel neighbourhood")   
  
-## related filters
-+ spatial bilateral filter
-+ temporal filtering
-+ validation filters
-    + min amplitude checks
-    + min reflectivity checks
+## Related topics
++ [Bilateral filter](INSERT-LINK)
++ [Temporal filter](INSERT-LINK)
++ [Minimum amplitude](INSERT-LINK)
++ [Min reflectivity](INSERT-LINK)
 
-## related application notes
 
 
 
