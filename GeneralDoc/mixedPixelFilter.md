@@ -5,9 +5,8 @@
   + [Angle based validation method](#angle-based-validation-method)
   + [Distance based validation method](#distance-based-validation-method)
 * [Examples](#examples)
-  + [`mixedPixelFilterMode` values example pictures](#-mixedpixelfiltermode--values-example-pictures)
-  + [`mixedPixelFilterMode`: angle criterion finetuning](#-mixedpixelfiltermode---angle-criterion-finetuning)
-  + [`mixedPixelFilterMode`: distance criterion finetuning](#-mixedpixelfiltermode---distance-criterion-finetuning)
+  + [Different mixed pixel modes](#different-mixed-pixel-modes)
+  + [Fine-tuning the angle based method](#fine-tuning-the-angle-based-method)
 * [Related topics](#related-topics)
 
 
