@@ -12,9 +12,9 @@
 
 ## Abstract
 
-The mixed pixel filter removes spatially isolated pixels. We call these pixels mixed pixels as they result from a mixed signal from foreground and background planes. Such pixels don't represent the distance measurement to either object and lie somewhere in between (they appear to be *flying*, and we sometimes refer to them as *flying pixels*). The `mixedPixelFilterMode` setting defines whether this filter is activated and which validation methods is used. `mixedPixelFilterMode = 1` switches to angle validation check. `mixedPixelFilterMode = 2` switches to distance based validation check. `mixedPixelFilterMode = 0` switches the filter off completely.
+The mixed pixel filter removes spatially isolated pixels. We call these pixels mixed pixels as they result from a mixed signal from foreground and background planes (typically, the pixel "lands" partially on an object and partially on its background). Such pixels don't represent the distance measurement to either object and lie somewhere in between (they appear to be *flying*, and we sometimes refer to them as *flying pixels*). The `mixedPixelFilterMode` setting defines whether this filter is activated and which validation methods is used. `mixedPixelFilterMode = 1` switches to angle validation check. `mixedPixelFilterMode = 2` switches to distance based validation check. `mixedPixelFilterMode = 0` switches the filter off completely.
 
-**We suggest to use the angle based validation method (`mixedPixelFilterMode = 1`). This filter method produces better results for almost all typical use-cases.**
+**We suggest either disabling the filter (more precision on objects' edges) or using the angle based validation method (`mixedPixelFilterMode = 1`) to remove pixels between objects and their backgrounds.**
 
 
 ## Description
@@ -30,10 +30,18 @@ The second version of the mixed pixel (`mixedPixelFilterMode = 2`) filter is cen
 ## Examples
 ### Different mixed pixel modes
 
-TODO add pictures for the same static scene with different filter mask sizes  
-[0 mixedPixelFilterMode value] -> off  
-[1 mixedPixelFilterMode value] -> angle based criterion
-[2 mixedPixelFilterMode value] -> distance based criterion
+To show the impact of the mixed pixel filter and its different modes, we show a scene where tho boxes are place in front of the camera, at around one and two meters. The table below shows the distance image and the point cloud with the filter inactive and with the two filtering modes:
+
+| Mixed pixel filter mode| Distance image| Point cloud|
+|--|--|--|
+| 0| ![Mixed pixels filter disabled - distance](resources/mixed_pixel_0_distance.png)|![Mixed pixels filter disabled - view 1](resources/mixed_pixel_0_view1.png)|
+| | | ![Mixed pixels filter disabled - view ](resources/mixed_pixel_0_view2.png)|
+| 1| ![Mixed pixels filter 1 - distance](resources/mixed_pixel_1_distance.png)| ![Mixed pixels filter 1 - view 1](resources/mixed_pixel_1_view1.png)|
+| | | ![Mixed pixels filter 1 - view ](resources/mixed_pixel_1_view2.png)|
+| 2| ![Mixed pixels filter 2 - distance](resources/mixed_pixel_2_distance.png)| ![Mixed pixels filter 2 - view 1](resources/mixed_pixel_2_view1.png)|
+| | | ![Mixed pixels filter 2 - view ](resources/mixed_pixel_2_view2.png)|
+ 
+We can see that the second mode (distance based filtering) is much stronger than the first mode (angle based) and invalidates more pixels around objects. It should only be used in very specific cases where extra strength of the filter is required. Typically, we recommend either disabling the filter to get more precise edges to objects, or using the angle based filtering to invalidate pixels between objects and their background.
 
 ### Fine-tuning the angle based method
 TODO add picture and explain the finetuning of the angle threshold `mixedPixelThresholdRad`
