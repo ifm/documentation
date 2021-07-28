@@ -11,7 +11,7 @@ Increasing the symmetry threshold validates more pixels including noisy pixels a
 
 In high-noise environment, it happens that, the sensor noise being propagated to the symmetry, most of the pixels are invalidated due to the symmetry threshold. In these cases, the dynamic symmetry should be activated. The dynamic symmetry ensures that the symmetry threshold of a pixel is at least high enough to prevent invalidation due to sensor noise. It can be thought of as differentiating motion artifacts from ambient noise in the scene.
 
-If dynamic symmetry is enabled, each pixel gets its individual symmetry threshold, which is either the `maxSymmetry` setting or the expected symmetry (computed internally) due to noise, whichever one is larger.
+If the dynamic symmetry is enabled, each pixel gets its individual symmetry threshold, which is either the `maxSymmetry` setting or the expected symmetry (computed internally) due to noise, whichever one is larger.
 
 
 ## Example
