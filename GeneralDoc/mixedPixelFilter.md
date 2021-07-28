@@ -46,13 +46,6 @@ We can see that the second mode (distance based filtering) is much stronger than
 ### Fine-tuning the angle based method
 TODO add picture and explain the finetuning of the angle threshold `mixedPixelThresholdRad`
 
-## Related topics
-+ further validation filters
-    + min amplitude checks
-    + min reflectivity checks
-    + dynamic symmetry checks
-    + cw plausiblity
-
 
 
 
