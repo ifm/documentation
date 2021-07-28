@@ -15,4 +15,5 @@ If the dynamic symmetry is enabled, each pixel gets its individual symmetry thre
 
 
 ## Example
-*[img static object | img fast moving object]*
+
+*COMING SOON...*
