@@ -24,7 +24,7 @@ Each pixel of the amplitude matrix denotes the amount of modulated light (i.e., 
 |--|--|--|--|
 | Distance| width * height| 16 bits unsigned int| millimeters|
 
-Each pixel of the distance matrix denotes the ToF distance measured by the corresponding pixel or group of pixels of the imager. The distance value is corrected by the camera's calibration, excluding effects caused by [MPI](INSERT-LINK) and multiple objects contributions (e.g., [mixed pixels](INSERT-LINK)). The reference point is the optical center of the camera inside the camera housing. Invalid pixels have a value of zero.
+Each pixel of the distance matrix denotes the ToF distance measured by the corresponding pixel or group of pixels of the imager. The distance value is corrected by the camera's calibration, excluding effects caused by [MPI](INSERT-LINK) and multiple objects contributions (e.g., [mixed pixels](INSERT-LINK)). The reference point is the center of the back of the camera head's housing. Invalid pixels have a value of zero.
 
 ## Distance noise (radial)
 
