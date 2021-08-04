@@ -1,15 +1,4 @@
 # mixed pixel filter mode
-
-* [Abstract](#abstract)
-* [Description](#description)
-  + [Angle based validation method](#angle-based-validation-method)
-  + [Distance based validation method](#distance-based-validation-method)
-* [Examples](#examples)
-  + [Different mixed pixel modes](#different-mixed-pixel-modes)
-  + [Fine-tuning the angle based method](#fine-tuning-the-angle-based-method)
-* [Related topics](#related-topics)
-
-
 ## Abstract
 
 The mixed pixel filter removes spatially isolated pixels. We call these pixels mixed pixels as they result from a mixed signal from foreground and background planes (typically, the pixel "lands" partially on an object and partially on its background). Such pixels don't represent the distance measurement to either object and lie somewhere in between (they appear to be *flying*, and we sometimes refer to them as *flying pixels*). The `mixedPixelFilterMode` setting defines whether this filter is activated and which validation methods is used. `mixedPixelFilterMode = 1` switches to angle validation check. `mixedPixelFilterMode = 2` switches to distance based validation check. `mixedPixelFilterMode = 0` switches the filter off completely.
