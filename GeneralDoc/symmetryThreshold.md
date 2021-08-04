@@ -1,7 +1,7 @@
 # Symmetry threshold
 ## Abstract
 
-The symmetry threshold `maxSymmetry` is used for filtering motion artifacts. Increasing the threshold value leads to more valid pixels around moving objects, but also increases the chance of computing wrong distance measurements for some pixels. Decreasing the threshold will results in invalidating more pixels because of their estimated symmetry value. 
+The symmetry threshold `maxSymmetry` is used for filtering motion artifacts. Increasing the threshold value (i.e., lessening the filter strength) leads to more valid pixels around moving objects, but also increases the chance of computing wrong distance measurements for some pixels. Decreasing the threshold (i.e., strengthening the filter) will results in invalidating more pixels because of their estimated symmetry value. 
 In cases with a high ambient noise level, the dynamic symmetry should be enabled (with the parameter `enableDynamicSymmetry`) to ensure pixels are not invalidated due to ambient noise. 
 
 ## Description
