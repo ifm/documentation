@@ -1,4 +1,4 @@
-# mixed pixel filter mode
+# Mixed pixel filter
 ## Abstract
 
 The mixed pixel filter removes spatially isolated pixels. We call these pixels mixed pixels as they result from a mixed signal from foreground and background planes (typically, the pixel "lands" partially on an object and partially on its background). Such pixels don't represent the distance measurement to either object and lie somewhere in between (they appear to be *flying*, and we sometimes refer to them as *flying pixels*). The `mixedPixelFilterMode` setting defines whether this filter is activated and which validation methods is used. `mixedPixelFilterMode = 1` switches to angle validation check. `mixedPixelFilterMode = 2` switches to distance based validation check. `mixedPixelFilterMode = 0` switches the filter off completely.
@@ -19,7 +19,7 @@ The second version of the mixed pixel (`mixedPixelFilterMode = 2`) filter is cen
 ## Examples
 ### Different mixed pixel modes
 
-To show the impact of the mixed pixel filter and its different modes, we show a scene where tho boxes are place in front of the camera, at around one and two meters. The table below shows the distance image and the point cloud with the filter inactive and with the two filtering modes:
+To show the impact of the mixed pixel filter and its different modes, we show a scene where two boxes are place in front of the camera, at around one and two meters. The table below shows the distance image and the point cloud with the filter inactive and with the two filtering modes:
 
 | Mixed pixel filter mode| Distance image| Point cloud|
 |--|--|--|
@@ -31,10 +31,6 @@ To show the impact of the mixed pixel filter and its different modes, we show a 
 | | | ![Mixed pixels filter 2 - view ](resources/mixed_pixel_2_view2.png)|
  
 We can see that the second mode (distance based filtering) is much stronger than the first mode (angle based) and invalidates more pixels around objects. It should only be used in very specific cases where extra strength of the filter is required. Typically, we recommend either disabling the filter to get more precise edges to objects, or using the angle based filtering to invalidate pixels between objects and their background.
-
-### Fine-tuning the angle based method
-TODO add picture and explain the finetuning of the angle threshold `mixedPixelThresholdRad`
-
 
 
 
