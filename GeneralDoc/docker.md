@@ -80,6 +80,22 @@ Depending on the network infrastructure, docker might need the proxy information
 docker image build --build-arg http_proxy=$HTTP_PROXY --build-arg https_proxy=$HTTPS_PROXY -t jupyter .
 ```
 
+Another way to use proxies, is defining them in the `config.json` file. Within the home directory of the user executing docker, you find a directory called `.docker`, which contains `config.json`. E.g. `~/.docker/config.json`. If not available, create that file. This file should contain the proxies like:
+
+```json
+{
+ "proxies":
+ {
+   "default":
+   {
+     "httpProxy": "http://192.168.1.12:3128",
+     "httpsProxy": "http://192.168.1.12:3128",
+     "noProxy": "*.test.example.com,.example2.com,127.0.0.0/8"
+   }
+ }
+}
+```
+
 ## Run the container
 
 Use `docker run` for starting the container.
