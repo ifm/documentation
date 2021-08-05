@@ -84,7 +84,7 @@ docker image build --build-arg http_proxy=$HTTP_PROXY --build-arg https_proxy=$H
 
 Use `docker run` for starting the container.
 
-```Docker
+```console
 #Start the container interactively
 docker run -it ifm3d /bin/bash
 ```
