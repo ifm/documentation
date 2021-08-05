@@ -95,7 +95,7 @@ docker run -it ifm3d /bin/bash
 
 To save (and later share) a container, use `docker save`. This will save the container locally (e.g. tar file).
 
-```Docker
+```
 docker save ifm3d > ifm3d.tar
 ```
 
