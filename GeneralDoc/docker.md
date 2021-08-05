@@ -189,7 +189,7 @@ docker push localhost:5000/ifm3d
 
 If a local Docker registry is running, use `docker pull` to pull the image:
 
-```Docker
+```console
 docker pull localhost:5000/ifm3d
 ```
 
@@ -201,7 +201,7 @@ docker pull localhost:5000/ifm3d
 
 To stop the registry:
 
-```Docker
+```console
 docker container stop registry && docker container rm -v registry
 ```
 
@@ -219,7 +219,7 @@ This file should contain the information for starting the container you need.
 
 Following `docker-compose.yml` file would create a service called `jupyter`, based on the image: `jupyter` and bind the container ports 8888 to the host port 8888 on start.
 
-```Docker
+```yml
 version: "3.3"
 services:
     jupyter:
