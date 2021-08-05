@@ -113,6 +113,8 @@ Start the docker container like on every other device:
 docker run ifm3d
 ```
 
+*Note: the image name might be different than the name you saved the container as. After `docker load`, docker will show you the name of the loaded image*
+
 # Deploying a container to the VPU
 
 There are several ways for deploying a container. We are focusing on two:
@@ -148,7 +150,7 @@ It needs to be verified if the copy process worked. It is possible to connect vi
 
 *Note: the oem user has no write right outside of his home directory. Therefore use `/home/oem/`. You can create your own folders with within the oem directory.*
 
-To load start the container see [Link](#load-and-start-container)
+To load start the container see [Load and start a container](#load-and-start-container)
 
 ## Local docker registry
 
