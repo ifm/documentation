@@ -95,7 +95,7 @@ docker run -it ifm3d /bin/bash
 
 To save (and later share) a container, use `docker save`. This will save the container locally (e.g. tar file).
 
-```
+```console
 docker save ifm3d > ifm3d.tar
 ```
 
@@ -103,13 +103,13 @@ docker save ifm3d > ifm3d.tar
 
 Reloading the content of a previously saved image
 
-```Docker
+```console
 docker load < ifm3d.tar
 ```
 
 Start the docker container like on every other device:
 
-```Docker
+```console
 docker run ifm3d
 ```
 
@@ -163,7 +163,7 @@ Due to the fact that proxy servers are sometimes hard to deal with and that disk
 The local Docker registry is created by using the container images provided by Docker itself and start/host them.
 On the host system (not the VPU) activate a local Docker registry with following commands:
 
-```Docker
+```console
 docker pull registry:latest
 # Start the registry and bind the container ports to the host ports
 docker run -d -p 5000:5000 --name registry registry:latest
