@@ -148,6 +148,8 @@ It needs to be verified if the copy process worked. It is possible to connect vi
 
 *Note: the oem user has no write right outside of his home directory. Therefore use `/home/oem/`. You can create your own folders with within the oem directory.*
 
+To load start the container see [Link](#load-and-start-container)
+
 ## Local docker registry
 
 Due to the fact that proxy servers are sometimes hard to deal with and that disk resources on the VPU is also limited, it might come handy to run a Docker registry in the local network.
