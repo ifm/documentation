@@ -15,7 +15,7 @@ Our first container will use `arm64v8/python:3.9.6-slim-buster` as the base imag
 Dockerfile:
 
 ```Docker
-#arm64v8 is the pre-requisite for running the cotnainer on the VPU.
+#arm64v8 is the pre-requisite for running the container on the VPU.
 FROM arm64v8/python:3.9.6-slim-buster
 ```
 
