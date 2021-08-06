@@ -35,7 +35,9 @@ The reflected signal and the emitted signal are correlated. If the reflected sig
 
 When considering a specific scene for a ToF measurement, it is helpful to understand how the light is reflected and how it impacts the measurement of specific objects. 
 
-Most of the light is reflected with the same angle as the angle of incidence (this is the [specular reflection](https://en.wikipedia.org/wiki/Specular_reflection)). This means that if the light beam is perpendicular to the surface, most of the light will be reflected back directly to the emitter. However, if the angle of incidence is low, most of the light is reflected away from the light source  (see images below).
+The light reaching an object is partially reflected with the same angle as the angle of incidence (this is the [specular reflection](https://en.wikipedia.org/wiki/Specular_reflection)). If the light beam is perpendicular to the surface, most of the light will be reflected back directly to the emitter. However, if the angle of incidence is low, most of the light is reflected away from the light source  (see images below).
+
+> Note: how much of the light is reflected in which direction is defined by the [bidirectional reflectance distribution function](https://en.wikipedia.org/wiki/Bidirectional_reflectance_distribution_function).
 
 ![Reflective light with perpendicular incidence angle](resources/light_reflection_perp.png)
 
