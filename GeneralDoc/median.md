@@ -44,7 +44,7 @@ We recommend using the [bilateral filter](INSERT-LINK) in most cases.
 ### Bilateral and median filters combined
 It is rare that a combination of both spatial filters is required and we recommend increasing the filter mask size as a first step. However, if the filtering is not strong enough, one can use both the bilateral and median filters at the same time. This will further reduce local noise levels, but can result in bias in larger noise patterns. 
 
-To give you an idea, we show below the effect of combined bilateral and median filtering for the scene of our example:
+To give you an idea, we show below the effect of combined bilateral (`anfFilterSizeDiv2=3`) and median (`medianFilterSizeDiv2=2`) filtering for the scene of our example:
 ![bilateral3_median2](./resources/bilateral3_median2.png "3D point cloud with heavy spatial filtering: median filter mask set to 5x5 pixel neighbourhood, bilateral filter mask set to 7x7 pixel neighbourhood")   
  
 ## Related topics
