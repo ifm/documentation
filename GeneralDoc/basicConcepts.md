@@ -4,7 +4,7 @@ This documents presents the basic concepts of indirect time-of-flight (ToF) and 
 
 ## Indirect ToF
  
-In indirect Time-of-Flight (ToF) systems like ifm's O3R camera, an amplitude modulated light wave is sent by an illumination device ([VCSELs](https://en.wikipedia.org/wiki/Vertical-cavity_surface-emitting_laser) in our case). This signal is reflected off the surface of the objects present in the environment and travels back to the camera. The measuring device (a [PMD](https://pmdtec.com/en/technology/time-of-flight/) (Photonic Mixing Device) imager) measures the *phase* difference between the emitted and the reflected signal (unlike for *direct* ToF, where the *time* is measured until the signal returns to the device). This phase measurement is proportional to the length of the light path. The imager is a grid of photosensitive pixels, each of which functioning as it's own measurement unit outputting the distance to different part of the environment. 
+In indirect Time-of-Flight (ToF) systems like ifm's O3R camera, an amplitude modulated light wave is sent by an illumination device ([VCSEL](https://en.wikipedia.org/wiki/Vertical-cavity_surface-emitting_laser) in our case). This signal is reflected off the surface of the objects present in the environment and travels back to the camera. The measuring device (a [PMD](https://pmdtec.com/en/technology/time-of-flight/) (Photonic Mixing Device) imager) measures the *phase* difference between the emitted and the reflected signal (unlike for *direct* ToF, where the *time* is measured until the signal returns to the device). This phase measurement is proportional to the length of the light path. The imager is a grid of photosensitive pixels, each of which functioning as it's own measurement unit outputting the distance to different part of the environment. 
 
 *Note:* the phase difference measurement is inferred from correlating the received signal with four shifted versions of the modulation signal (shifted 90° from each other). This technique also helps mitigating artifacts in cases where the measured object is in motion (see details [LINK SYMMETRY]). 
 
@@ -37,10 +37,10 @@ When considering a specific scene for a ToF measurement, it is helpful to unders
 
 The light reaching an object is partially reflected with the same angle as the angle of incidence (this is the [specular reflection](https://en.wikipedia.org/wiki/Specular_reflection)). If the light beam is perpendicular to the surface, most of the light will be reflected back directly to the emitter. However, if the angle of incidence is low, most of the light is reflected away from the light source  (see images below).
 
-> Note: how much of the light is reflected in which direction is defined by the [bidirectional reflectance distribution function](https://en.wikipedia.org/wiki/Bidirectional_reflectance_distribution_function).
-
 ![Reflective light with perpendicular incidence angle](resources/light_reflection_perp.png)
 
 ![Reflective light with low incidence angle](resources/light_reflection_angle.png)
 
 The rest of the light is reflected in all the other directions (see [diffuse reflection](https://en.wikipedia.org/wiki/Diffuse_reflection)). This allows the receptor to receive *some* light even when the angle of incidence is very low. However, the lowest the incidence angle, the less light is reflected to the receptor. This means that different geometrical configurations for measuring the same object can give different results, especially for dark objects reflecting very little light.
+
+> Note: how much of the light is reflected in which direction is defined by the [bidirectional reflectance distribution function](https://en.wikipedia.org/wiki/Bidirectional_reflectance_distribution_function).
