@@ -13,6 +13,7 @@ One main issue with indirect ToF is the problem of ambiguity range. Because the 
 Coded modulation can be used to mitigate this artifacts. 
 
 ## Coded modulation
+**FLAG: Should we keep this section?**
 
 The idea of coded modulation is to apply a binary code to the emitted continuous wave, making it irregular over a certain amount of time, following a predefined pattern. For example: 
 
