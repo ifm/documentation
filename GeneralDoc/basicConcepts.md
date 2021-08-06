@@ -8,8 +8,6 @@ In indirect Time-of-Flight (ToF) systems like ifm's O3R camera, an amplitude mod
 
 *Note:* the phase difference measurement if inferred from correlating the received signal with four shifted versions of the modulated signal (shifted 90° from each other). This technique also helps mitigating artifacts in cases where the measured object is in motion (see details [LINK SYMMETRY]). 
 
-A single phase measurement might not be sufficient to give reliable results. For instance, in cases where the measured object is moving during the measurement, the phase measurement might be inaccurate, representing a mix of the distances the object traveled during the movement. To palliate this issue, we perform four measurement with signals shifted 90°. These measurements are correlated, making it possible to invalidate false measurements that cause by motion artifacts.
-
 One main issue with indirect ToF is the problem of ambiguity range. Because the emitted signal repeats over time, the distance measured is ambiguous: it is not possible to know how many complete periods repeated before reflection against an object, hence an object two periods "away" will appear as close as an object one period "away", and so on. 
 
 Coded modulation can be used to mitigate this artifacts. 
