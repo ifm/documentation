@@ -1,9 +1,9 @@
 
 # Settings description
 
-## Exposure settings
+## Acquisition settings
 
-Exposure settings are utilized to maximize the number of valid pixels in a scene. The use of multiple exposures permits the camera to operate in "dynamic" environments that require the detection of dark and light objects at both the minimum and maximum ranges.
+Acquisition settings are utilized to maximize the number of valid pixels in a scene. The use of multiple exposures permits the camera to operate in "dynamic" environments that require the detection of dark and light objects at both the minimum and maximum ranges.
 
 ### Modes
 |Variable name|Short description|Min/max values|
