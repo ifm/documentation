@@ -1,7 +1,7 @@
 # Minimum Amplitude
 ## Abstract
 
-The `Minimum amplitude` (`diParam.minAmplitude`) parameter invalidates pixels where the amplitude (reflected light) drops bellow the minimum threshold.
+The `Minimum amplitude` (`diParam.minAmplitude`) parameter invalidates pixels where the amplitude (reflected light) drops below the minimum threshold.
 
 ## Description
 
