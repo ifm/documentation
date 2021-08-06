@@ -19,7 +19,7 @@ We suggest to start your experiments with the default values and assess the poin
 ### Example
 The following table shows the measurement for a same scene with two different distance noise threshold values. The scene consists of a box positioned one meter away from the camera, outside in full sunlight. The amount of noise due to the ambient light is high, but we see that we can still get distance values for many pixels by increasing the noise threshold.
 
-| Noise value (m)| Distance noise image| | Point cloud|
+| Noise threshold [m]| Distance noise image| | Point cloud|
 |:--:|--|--|--|
 | 0.01| ![Low noise threshold - noise image](resources/low_noise_001_outside_noise.png)| ![Color bar](resources/color_bar_noise.png)| ![Low noise threshold in the point cloud](resources/low_noise_001_outside_cloud.png)|
 | 0.07 | | | ![Low noise threshold in the point cloud](resources/med_noise_007_outside_cloud.png)|
