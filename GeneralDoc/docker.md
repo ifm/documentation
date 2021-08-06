@@ -278,7 +278,7 @@ Result = PASS
 Starting the container without the runtime leads to a FAIL:
 
 ```console
-o3r-vpu-c0:~$ docker run -it  cuda
+o3r-vpu-c0:~$ docker run -it cuda
 /usr/local/bin/deviceQuery Starting...
 
  CUDA Device Query (Runtime API) version (CUDART static linking)
@@ -296,12 +296,68 @@ cudaGetDeviceCount returned 35
 Result = FAIL
 ```
 
+Specifying the runtime in `docker-compose.yml` is possible. However, not every version has the keyword runtime. Use `version: "2.3"` to get the runtime argument.
+
 ```yml
 version: "2.3"
 services:
     cuda:
         image: cuda
         runtime: nvidia
+```
+
+Output of `docker-compose up`:
+
+```console
+o3r-vpu-c0:~$ docker-compose up
+Creating network "oem_default" with the default driver
+Creating oem_cuda_1 ... done
+Attaching to oem_cuda_1
+cuda_1  | /usr/local/bin/deviceQuery Starting...
+cuda_1  |
+cuda_1  |  CUDA Device Query (Runtime API) version (CUDART static linking)
+cuda_1  |
+cuda_1  | Detected 1 CUDA Capable device(s)
+cuda_1  |
+cuda_1  | Device 0: "NVIDIA Tegra X2"
+cuda_1  |   CUDA Driver Version / Runtime Version          10.2 / 10.2
+cuda_1  |   CUDA Capability Major/Minor version number:    6.2
+cuda_1  |   Total amount of global memory:                 3829 MBytes (4014751744 bytes)
+cuda_1  |   ( 2) Multiprocessors, (128) CUDA Cores/MP:     256 CUDA Cores
+cuda_1  |   GPU Max Clock rate:                            1300 MHz (1.30 GHz)
+cuda_1  |   Memory Clock rate:                             1300 Mhz
+cuda_1  |   Memory Bus Width:                              128-bit
+cuda_1  |   L2 Cache Size:                                 524288 bytes
+cuda_1  |   Maximum Texture Dimension Size (x,y,z)         1D=(131072), 2D=(131072, 65536), 3D=(16384, 16384, 16384)
+cuda_1  |   Maximum Layered 1D Texture Size, (num) layers  1D=(32768), 2048 layers
+cuda_1  |   Maximum Layered 2D Texture Size, (num) layers  2D=(32768, 32768), 2048 layers
+cuda_1  |   Total amount of constant memory:               65536 bytes
+cuda_1  |   Total amount of shared memory per block:       49152 bytes
+cuda_1  |   Total number of registers available per block: 32768
+cuda_1  |   Warp size:                                     32
+cuda_1  |   Maximum number of threads per multiprocessor:  2048
+cuda_1  |   Maximum number of threads per block:           1024
+cuda_1  |   Max dimension size of a thread block (x,y,z): (1024, 1024, 64)
+cuda_1  |   Max dimension size of a grid size    (x,y,z): (2147483647, 65535, 65535)
+cuda_1  |   Maximum memory pitch:                          2147483647 bytes
+cuda_1  |   Texture alignment:                             512 bytes
+cuda_1  |   Concurrent copy and kernel execution:          Yes with 1 copy engine(s)
+cuda_1  |   Run time limit on kernels:                     No
+cuda_1  |   Integrated GPU sharing Host Memory:            Yes
+cuda_1  |   Support host page-locked memory mapping:       Yes
+cuda_1  |   Alignment requirement for Surfaces:            Yes
+cuda_1  |   Device has ECC support:                        Disabled
+cuda_1  |   Device supports Unified Addressing (UVA):      Yes
+cuda_1  |   Device supports Compute Preemption:            Yes
+cuda_1  |   Supports Cooperative Kernel Launch:            Yes
+cuda_1  |   Supports MultiDevice Co-op Kernel Launch:      Yes
+cuda_1  |   Device PCI Domain ID / Bus ID / location ID:   0 / 0 / 0
+cuda_1  |   Compute Mode:
+cuda_1  |      < Default (multiple host threads can use ::cudaSetDevice() with device simultaneously) >
+cuda_1  |
+cuda_1  | deviceQuery, CUDA Driver = CUDART, CUDA Driver Version = 10.2, CUDA Runtime Version = 10.2, NumDevs = 1
+cuda_1  | Result = PASS
+oem_cuda_1 exited with code 0
 ```
 
 # Autostart container on the VPU
