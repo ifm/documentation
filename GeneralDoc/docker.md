@@ -221,6 +221,37 @@ To stop the registry:
 docker container stop registry && docker container rm -v registry
 ```
 
+## Use the GPU (CUDA) on the VPU with a container
+
+The VPU provides substantial GPU (Graphical Processing Unit) power to the user. The best way to experience this, is using CUDA and the samples from NVIDIA.
+Following Dockerfile builds the container with the samples (`./samples`) from NVIDIA.
+
+Dockerfile:
+
+```Docker
+# NVIDIA base image for arm64/aarch64
+FROM nvcr.io/nvidia/l4t-base:r32.4.3 AS buildstage
+
+# Updating the kernel and copying the samples from ./sample (host) to the /tmp/samples (container)
+RUN apt-get update && apt-get install -y --no-install-recommends make g++
+COPY ./samples /tmp/samples
+
+# Define the workdir and build the samples with make
+WORKDIR /tmp/samples/1_Utilities/deviceQuery
+RUN make clean && make
+
+# Multistage build to reduce the image size on the Jetson
+FROM nvcr.io/nvidia/l4t-base:r32.4.3
+
+# Create the folder and copy the already build samples into it. This reduces the size of the image a lot.
+RUN mkdir -p /usr/local/bin
+COPY --from=buildstage /tmp/samples/1_Utilities/deviceQuery/deviceQuery /usr/local/bin
+
+# Execute the sample deviceQuery - check if CUDA and the right version is available
+CMD ["/usr/local/bin/deviceQuery"]
+
+```
+
 # Autostart container on the VPU
 
 For auto starting container, `Docker compose` is used. The VPU already provides a service `.config/systemd/user/oem-dc@.service` which can be used for starting (autostart) a service. There is no need to change this service.
