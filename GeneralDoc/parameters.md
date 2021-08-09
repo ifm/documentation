@@ -37,7 +37,7 @@ of 1 would lead to a 1.2-3m range. Continuing this example, an `offset` of 2 lea
 |--|--|--|
 |`framerate`|Defines the number of frames captured each second|1 to 20 FPS (frames per second)|
 
-The FPS highly depends on the applied imager settings (exposure mode and times, filters, etc). Higher exposure times, for example, negatively impact the overall FPS. The O3R is designed to achieve 20 FPS in 0.2 to 4m mode *regardless* of applied settings. Higher FPS may be achievable by reducing the applied settings.
+The FPS highly depends on the applied imager settings (exposure mode and times, filters, etc). Higher exposure times, for example, negatively impact the overall FPS. The O3R is designed to achieve 20 FPS in 2m and 4m modes *regardless* of applied settings. Higher FPS may be achievable by reducing the applied settings.
 
 
 ## Filters
