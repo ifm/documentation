@@ -3,8 +3,6 @@
 
 ## Acquisition settings
 
-Acquisition settings are utilized to maximize the number of valid pixels in a scene. The use of multiple exposures permits the camera to operate in "dynamic" environments that require the detection of dark and light objects at both the minimum and maximum ranges.
-
 ### Modes
 |Variable name|Short description|Min/max values|
 |--|--|--|
@@ -16,11 +14,13 @@ Acquisition settings are utilized to maximize the number of valid pixels in a sc
 |--|--|--|
 |`expLong`, `expShort`|These parameters are used to set the exposure times.|1 – 5000µs|
 
+Exposure times are utilized to maximize the number of valid pixels in a scene. The use of multiple exposures permits the camera to operate in "dynamic" environments that require the detection of dark and light objects at both the minimum and maximum ranges.
+
 The proper exposure time for a pixel depends on factors like the dynamics of the scene and whether the target is moving or stationary (plus others). For highly reflective targets or for motion, a short exposure time is better suited. For targets far away or with low reflectivity, we prefer a high exposure time.
 As such, it is common that all targets of a scene cannot be properly exposed with a single exposure time. 
-To reduce both noise and the number of over/under exposed pixels, we use multiple (three) exposures for each frame. The "experimental_high" mode provides 2 settable exposure times (`expLong` and `expShort`) plus a third *static* exposure designed to help detect highly reflective targets in the very near range (~1m).
+To reduce both noise and the number of over/under exposed pixels, we use multiple (three) exposures for each frame. The "experimental_high" mode provides 2 settable exposure times (`expLong` and `expShort`) plus a third *static* exposure (set at 30us) designed to help detect highly reflective targets in the very near range (~1m). Note that using small ratio of exposure times helps reducing noise in transitions regions (where neighboring pixels use different exposure times).
 
-*Note:* You can find which exposure time is used for each pixel by analyzing the confidence image as detailed here [LINK TO CONFIDENCE IMAGE].
+> Note: You can find which exposure time is used for each pixel by analyzing the confidence image as detailed [here](confidenceImage.md).
 
 ### Offset
 |Variable name|Short description|Min/max values|
