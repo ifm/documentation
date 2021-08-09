@@ -13,7 +13,7 @@ The O3R software supports two spatial filters for improving the distance measure
 
 The median filter is in it's concept very similar to a [median filter applied to RGB 2D images](https://en.wikipedia.org/wiki/Median_filter). A median filter is a non-linear edge-preserving smoothing filter. It can be thought of as a filter which replaces the value per pixel with the median value of neighboring pixels. The computation is achieved by sliding the filter mask in the spatial domain until having covered the whole image. 
 This filtering technique is robust (i.e., not impacted by outliers), and reduces noise while keeping edge information intact. 
-The median filter is applied to the distance image as well as to the distance noise image. 
+The median filter is applied to the distance image. The distance noise is lowered to heuristically reflect the new noise in the distance image.
 
 
 
@@ -44,7 +44,7 @@ We recommend using the [bilateral filter](bilateralFilter.md) in most cases.
 ### Bilateral and median filters combined
 It is rare that a combination of both spatial filters is required and we recommend increasing the filter mask size as a first step. However, if the filtering is not strong enough, one can use both the bilateral and median filters at the same time. This will further reduce local noise levels, but can result in bias in larger noise patterns. 
 
-To give you an idea, we show below the effect of combined bilateral and median filtering for the scene of our example:
+To give you an idea, we show below the effect of combined bilateral (`anfFilterSizeDiv2=3`) and median (`medianFilterSizeDiv2=2`) filtering for the scene of our example:
 ![bilateral3_median2](./resources/bilateral3_median2.png "3D point cloud with heavy spatial filtering: median filter mask set to 5x5 pixel neighbourhood, bilateral filter mask set to 7x7 pixel neighbourhood")   
  
 ## Related topics

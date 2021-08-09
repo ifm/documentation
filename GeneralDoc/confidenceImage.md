@@ -1,5 +1,3 @@
-*Disclaimer: As a vendor of industrial equipment, we always try to mitigate physics artifacts to the best of our abilities. The default settings are chosen with this goal in mind: providing the best experience for **most** cases. However, the variety of scenes that mobile robots and other applications can encounter makes a "one-fits-all" configuration impossible. With this in mind, we present in our Application Notes the outliers, challenging but common cases that might require fine tuning of the camera configuration.*
-
 # The confidence image 
 
 The confidence image is accessible as part of the data streamed from the O3R device. This image contains information about the validity of each pixel. If a pixel is invalid, the confidence image explains why is has been marked as invalid. The values are as follows:
@@ -7,9 +5,8 @@ The confidence image is accessible as part of the data streamed from the O3R dev
 - 1: CONF_INVALID - indicates that the pixel is invalid;
 - 2: CONF_SATURATED - the pixel is overexposed/saturated;
 - 4: CONF_BADAMBSYM - the pixel had bad symmetry, probably because of motion (see [symmetry threshold](INSERT-LINK));
-- 8: CONF_LOWAMP - amplitude lower than the [minimum amplitude](minAmplitude.md), or [distance noise threshold](maxDistNoise.md) exceeded;
-- (16|32): CONF_EXPINDEX - indicates whether the short, medium of long [exposure](INSERT-LINK) is used for this pixel;
-- 4: CONF_EXPSHIFT - expIndex = (v & CONF_EXPINDEX) >> CONF_EXPSHIFT indicates the index of the exposure time used by this pixel where low indices indicate shorter exposures;                       
+- 8: CONF_LOWAMP - amplitude lower than the [minimum amplitude](INSERT-LINK), or [distance noise threshold](INSERT-LINK) exceeded;
+- (16|32): CONF_EXPINDEX - indicates whether the short, medium or long [exposure](INSERT-LINK) is used for this pixel: expIndex = (v & CONF_EXPINDEX) >> 4 indicates the index of the exposure time used by this pixel where low indices indicate shorter exposures;                       
 - 64: CONF_INVALID_RANGE - the pixel is outside of the [measurement range](INSERT-LINK);
 - 128: CONF_SUSPECT_PIXEL - this is a bad pixel on the chip;
 - 256: RESERVED

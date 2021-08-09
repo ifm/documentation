@@ -10,7 +10,7 @@ The O3R camera and software uses the ifm ToF technology for measuring the distan
 The distance noise image gets processed in the same algorithmic pipeline as the distance image itself. Any filter applied to the distance image are applied to the distance noise image as well. For example if filters are activated in the spatial domain (see the [bilateral filter](bilateralFilter.md)), they also filter the distance noise image, such that the adapted noise image reflects the lowered noise due to lateral filtering.
 
 The parameter `maxDistNoise` is used to invalidate pixels with high noise levels. Higher `maxDistNoise` values will allow more noisy pixels to be  valid pixels in the point cloud. The maximum allowed value is 1 meter, though we do not recommend using such a high value as the resulting distance measurement will be highly inaccurate in the noisy areas. 
-Low `maxDistNoise` values will result in more noisy pixels being marked as invalid. Using values lower than 0.01 meters is not recommended either as it invalidates large portions of the image for many scenes (we expect a distance standard deviation of about 0.5 percent of the measurement range, see the [datasheets](INSERT-LINK)).    
+Low `maxDistNoise` values will result in more noisy pixels being marked as invalid. Using values lower than 0.01 meters should always be validated against worst case expected object and ambient light levels.    
 
 The minimum allowed `maxDistNoise` value is 0.00 meters. This will switch off the validation process based on the estimated distance noise image. The distance noise image is still computed and available to the user.
 
@@ -18,10 +18,11 @@ We suggest to start your experiments with the default values and assess the poin
 
 ### Example
 The following table shows the measurement for a same scene with two different distance noise threshold values. The scene consists of a box positioned one meter away from the camera, outside in full sunlight. The amount of noise due to the ambient light is high, but we see that we can still get distance values for many pixels by increasing the noise threshold.
+> Note: for demonstration purposes, we disabled the [temporal filter](temporalFilter.md) in these images.
 
-| Noise value (m)| Distance noise image| | Point cloud|
+| Noise threshold [m]| Distance noise image| | Point cloud|
 |:--:|--|--|--|
-| 0.01| ![Low noise threshold - noise image](resources/low_noise_001_outside_noise.png)| ![Color bar](resources/color_bar_noise.png)| ![Low noise threshold in the point cloud](resources/low_noise_001_outside_cloud.png)|
+| 0.01| ![Low noise threshold - noise image](resources/noise_outside_noise.png)| ![Color bar](resources/color_bar_noise.png)| ![Low noise threshold in the point cloud](resources/low_noise_001_outside_cloud.png)|
 | 0.07 | | | ![Low noise threshold in the point cloud](resources/med_noise_007_outside_cloud.png)|
 
 > Note: the distance noise image is the same for both noise threshold value. The difference is viewed in the point cloud, where more or less pixels are discarded by the noise filtering.

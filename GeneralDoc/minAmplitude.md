@@ -1,7 +1,7 @@
 # Minimum Amplitude
 ## Abstract
 
-The `Minimum amplitude` (`diParam.minAmplitude`) parameter invalidates pixels where the amplitude (reflected light) drops bellow the minimum threshold.
+The `Minimum amplitude` (`diParam.minAmplitude`) parameter invalidates pixels where the amplitude (reflected light) drops below the minimum threshold.
 
 ## Description
 
@@ -23,7 +23,7 @@ In certain cases, for instance when black objects are in the field-of-view, chan
 
 > Note: black objects in the visible spectrum are not necessarily black in the near infrared range.
 
-> Note: The minimum amplitude threshold is applied to the *non-normalized* amplitude image. The numerical value of the *normalized* amplitude image (the one you receive) might not correspond to expected values with the set threshold. 
+> Note: The minimum amplitude threshold is applied to the *non-normalized* amplitude image. The numerical value of the *normalized* amplitude image might not correspond to expected values with the set threshold. The normalization factor used in our algorithm is accessible as part of the PCIC output and called `ampNormalizationFactor`.
 
 ## Related topics
 
