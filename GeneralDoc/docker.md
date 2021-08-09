@@ -413,6 +413,8 @@ See [Start the service](#start-the-service) on how to start the container with a
 
 ## Save data on consistently on the VPU with a container
 
+**Coming soon**
+
 Data created and saved within a container is only available for the running instance of the container itself. Restarting the container leads to a loss of the previously saved data. Use `volumes` to avoid this scenario.
 
 ```console
