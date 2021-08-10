@@ -13,6 +13,6 @@ The confidence image is accessible as part of the data streamed from the O3R dev
 - 512: CONF_EDGEPIXEL - edge pixels refer to the image edges which are sometimes invalidated by lateral filters;
 - 1024: CONF_UNPLAUSIBLE - pixels remaining after shifting the [offset](INSERT-LINK), between the camera and the beginning of the shifted range;
 - 2048: CONF_REFLECTIVITY - the [reflectivity](INSERT-LINK) is below the threshold;
-- 4096: CONF_DYNAMIC_AMPLITUDE - the pixel is probably part of the halo around a very bright object the [stray-light filter](strayLight.md));
+- 4096: CONF_DYNAMIC_AMPLITUDE - the pixel is probably part of the halo around a very bright object (see the [dynamic amplitude threshold](INSERT-LINK) and the [stray-light filter](INSERT-LINK));
 - 16384: CONF_MIXEDPIXEL - the pixel is a [mixed pixel](INSERT-LINK), part of which is measuring the object and the other part the background;
 - 32768: CONF_ISOLATED - an isolated pixel with random amplitude in an area where no amplitude is measured.
