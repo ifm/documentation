@@ -119,6 +119,3 @@ We can once more adjust the stray-light filter to ensure we filter away all the 
 ## Conclusion
 
 As we saw with the examples detailed above, there is no "one-fits-all" configuration for handling stray-light in robotics applications. Proper configuration needs to be selected after reviewing the scenes the robot is expected to encounter. The number and position of highly reflective surfaces that will enter the field of view at a certain time impacts the necessary strength of the filter. Multiple configurations can be stored on board the O3R and we encourage bringing some intelligence to the use of the platform to adapt the cameras' configurations to the scene where necessary. In scene where a high accuracy of the ToF measurement is expected, we recommend avoiding placing reflectors in the scene, or placing them reasonably far away from the navigation path of the robot.
-
-### Related filters
-- [Dynamic amplitude filter](INSERT-LINK): this filter can be used to further invalidate pixels nearby retro reflectors and therefore helping mitigate the halo effect. 
