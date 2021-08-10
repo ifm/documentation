@@ -15,8 +15,6 @@ The bilateral filter is controlled by the parameter `anfFilterSizeDiv2` (turn it
 > Note: The bilateral filter is preferred over the [median filter](INSERT-LINK) as it preserves edge and corner information better (the median filter tends to *round* corners). It is also possible to apply the bilateral filter with larger filter masks (up to 7x7 pixel mask) compared to (5x5 pixel masks) for the median filter. The size of the mask defines how many neighboring pixels are taken into account when computing a pixel's value.   
 
 Invalid pixels will be ignored during the filtering process and have therefore no impact on the surrounding pixels. Invalid pixels will remain invalid after the filtering. 
-
-TODO: decide which parameters will be made public: `anfSigmaLat` and `anfFactorRangeNoise`. These parameters allow for further fine-tuning of the bilateral filter.  
 ### Example
 
 The following pictures give an overview of the capabilities of spatial filtering with the bilateral filter for different filter mask sizes. All other filters ([temporal](INSERT-LINK) and [median](INSERT-LINK)) are deactivated for the purpose of illustrating the bilateral filter's effect. The maximum allowed distance noise is set of 0.2 m for all images. Note that for maximum distance noise values below 0.2m the point cloud becomes very sparse for smaller filter mask sizes (not shown below).  
