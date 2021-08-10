@@ -34,11 +34,6 @@ To show the impact of adjusting the mixed pixel filter with the `mixedPixelThres
 | 0.5| ![Mixed pixels filter `mixedPixelThresholdRad = 0.5` - distance](resources/mixed_pixel__rad_05_distance.png)| ![Mixed pixels filter `mixedPixelThresholdRad = 0.5` - view 1](resources/mixed_pixel_rad_05_view1.png)|
 | | | ![Mixed pixels filter `mixedPixelThresholdRad = 0.5` - view 2](resources/mixed_pixel_rad_05_view2.png)|
 
-
-
-
- CHANGE
-We can see that the second mode (distance based filtering) is much stronger than the first mode (angle based) and invalidates more pixels around objects. It should only be used in very specific cases where extra strength of the filter is required. Typically, we recommend either disabling the filter to get more precise edges to objects, or using the angle based filtering to invalidate pixels between objects and their background.
-
+*MORE EXPLANATION COMING SOON*
 
 
