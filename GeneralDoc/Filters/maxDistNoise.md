@@ -31,4 +31,3 @@ The following table shows the measurement for a same scene with two different di
 + [Bilateral filter](bilateralFilter.md) (see also the [median filter](median.md))
 + [Temporal filter](temporalFilter.md)
 + [Minimum amplitude](minAmplitude.md)
-+ [Minimum reflectivity](minReflectivity.md)
