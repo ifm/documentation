@@ -41,5 +41,3 @@ The spatial filtering can be performed in scenes where motion is present: only t
 ## Related topics
 + [Median filter](median.md)
 + [Temporal filter](temporalFilter.md)
-+ [Minimum amplitude](minAmplitude.md)
-+ [Minimum reflectivity](minReflectivity.md)
