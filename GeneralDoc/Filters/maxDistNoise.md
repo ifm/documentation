@@ -7,7 +7,7 @@ The O3R software estimates distance noise per pixel in addition to the distance 
 ## Description
 The O3R camera and software uses the ifm ToF technology for measuring the distance of objects per pixel. The result is a distance image as well as a distance noise image. The distance noise deduction can be interpreted as a standard deviation of the distance measurement in a metric scale. The noise level is dependent on the received signal's amplitude (lower amplitude means greater noise) and on the ambient light level (high ambient light level, especially sunlight, can lead to high noise level). 
 
-The distance noise image gets processed in the same algorithmic pipeline as the distance image itself. Any filter applied to the distance image are applied to the distance noise image as well. For example if filters are activated in the spatial domain (see the [bilateral filter](INSERT-LINK)), they also filter the distance noise image, such that the adapted noise image reflects the lowered noise due to lateral filtering.
+The distance noise image gets processed in the same algorithmic pipeline as the distance image itself. Any filter applied to the distance image are applied to the distance noise image as well. For example if filters are activated in the spatial domain (see the [bilateral filter](bilateralFilter.md)), they also filter the distance noise image, such that the adapted noise image reflects the lowered noise due to lateral filtering.
 
 The parameter `maxDistNoise` is used to invalidate pixels with high noise levels. Higher `maxDistNoise` values will allow more noisy pixels to be  valid pixels in the point cloud. The maximum allowed value is 1 meter, though we do not recommend using such a high value as the resulting distance measurement will be highly inaccurate in the noisy areas. 
 Low `maxDistNoise` values will result in more noisy pixels being marked as invalid. Using values lower than 0.01 meters should always be validated against worst case expected object and ambient light levels.    
@@ -28,7 +28,7 @@ The following table shows the measurement for a same scene with two different di
 > Note: the distance noise image is the same for both noise threshold value. The difference is viewed in the point cloud, where more or less pixels are discarded by the noise filtering.
 
 ## Related topics
-+ [Bilateral filter](INSERT-LINK) (see also the [median filter](INSERT-LINK))
-+ [Temporal filter](INSERT-LINK)
-+ [Minimum amplitude](INSERT-LINK)
-+ [Minimum reflectivity](INSERT-LINK)
++ [Bilateral filter](bilateralFilter.md) (see also the [median filter](median.md))
++ [Temporal filter](temporalFilter.md)
++ [Minimum amplitude](minAmplitude.md)
++ [Minimum reflectivity](minReflectivity.md)
