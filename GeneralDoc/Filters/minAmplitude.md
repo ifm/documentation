@@ -19,7 +19,7 @@ Now let's see what happens when we change this threshold value. In the table bel
 |20|![min-a,p-0-3d](./resources/default_value_3D.png "3D point cloud with minimum amplitude 0 values")|
 |50|![min-a,p-0-3d](./resources/amp_50_3D.png "3D point cloud with minimum amplitude 0 values")|
 
-In certain cases, for instance when black objects are in the field-of-view, changing the default value from 20 to 0 can be beneficial as more pixels are valid, leading to a more complete point cloud. Generally speaking however, lowering the amplitude leads to more ambient noise and less accuracy is the distance measurement. In this case we encourage you to test the [filters](INSERT-LINK) available with the O3R to mitigate the noise that exists for black objects measurements.
+In certain cases, for instance when black objects are in the field-of-view, changing the default value from 20 to 0 can be beneficial as more pixels are valid, leading to a more complete point cloud. Generally speaking however, lowering the amplitude leads to more ambient noise and less accuracy is the distance measurement. In this case we encourage you to test the [filters](../parameters.md) available with the O3R to mitigate the noise that exists for black objects measurements.
 
 > Note: black objects in the visible spectrum are not necessarily black in the near infrared range.
 
@@ -28,5 +28,5 @@ In certain cases, for instance when black objects are in the field-of-view, chan
 ## Related topics
 
 The minimum amplitude parameter is related to the maximum distance noise parameter: a low amplitude value together with a high distance noise value ensures that more pixels are valid but will allow for a noisier measurement, requiring some filtering for instance with the temporal filter. See following:
-- [Distance noise](INSERT-LINK)
-- [Temporal filter](INSERT-LINK)
+- [Distance noise](maxDistNoise.md)
+- [Temporal filter](temporalFilter.md)
