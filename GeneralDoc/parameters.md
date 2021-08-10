@@ -26,7 +26,7 @@ To reduce both noise and the number of over/under exposed pixels, we use multipl
 ### Offset
 |Variable name|Short description|Min/max values|
 |--|--|--|
-|`offset`|Shifts the start point of the measured range (see *mode*).|? meters|
+|`offset`|Shifts the start point of the measured range (see *mode*).|+/-30 meters|
 
 Coded modulation dictates the base range of the camera. (e.g. 0.2 to 2m). Coded modulation also allows this range to be "offset" or shifted from its start point. In the example of 0.2 – 2m base range, and `offset`
 of 1 would lead to a 1.2-3m range. Continuing this example, an `offset` of 2 leads to a 2.2-4m range. The `offset` can be changed frame by frame.
@@ -71,8 +71,8 @@ Learn more [here](Filters/minAmplitude.md).
 ### Adaptive noise bilateral filter and median filter
 |Variable name|Short description|Min/max values|
 |--|--|--|
-|`anfFilterSizeDiv2`|Adaptive Noise Bilateral Filter. mask size is *(2\*anfFilterSizeDiv2+1)^2*.| 0 (disable filter) <br />1 *(default)*: 3x3 <br />2: 5x5 <br />3: 7x7|
-|`medianSizeDiv2`|Size of the mask for spatial median filtering (the size is *(2\*medianSizeDiv2+1)^2)*|0: disable the filter|
+|`anfFilterSizeDiv2`|Adaptive Noise Bilateral Filter. mask size is *(2\*anfFilterSizeDiv2+1)^2*.| 0: disable the filter <br />1: 3x3 <br />2 *(default)*: 5x5 <br />3: 7x7|
+|`medianSizeDiv2`|Size of the mask for spatial median filtering (the size is *(2\*medianSizeDiv2+1)^2)*|0 *(default)*: disable the filter <br />1: 3x3 <br />2: 5x5|
 
 The adaptive bilateral noise filter reduces distance noise while also preserving object edges. Utilizing a larger number of pixels (e.g. 7x7) in the mask will, in most cases, result in a better image quality.
 
@@ -96,8 +96,8 @@ Learn more [here](Filters/temporalFilter.md)
 ### Mixed pixel filtering
 |Variable name|Short description|Min/max values|
 |--|--|--|
-|`mixedPixelFilterMode`|1st mode should be used typically. Uses the viewing angle to the pixel for filtering.2nd mode is legacy, doing pretty much the same thing with more parameters.|0: mixed pixel filter is off, 1 *(default)*: mixed pixel filter is on and uses an angle threshold, 2: mixed pixel filter is on and uses an adaptive delta dist threshold|
-|`mixedPixelThresholdRad`|Threshold given in [rad] for the minimum angle between the surface tangent and the view vector (used if `mixedPixelFilterMode`=1).|0 to 1.57079. <br \>*(default 0.15)*|
+|`mixedPixelFilterMode`| Filtering mode (angle or distance)|0: disable the filter, 1 *(default)*: mixed pixel filter is on and uses an angle threshold, 2: mixed pixel filter is on and uses an adaptive delta dist threshold|
+|`mixedPixelThresholdRad`| Threshold given in [rad] for the minimum angle between the surface tangent and the view vector (used if `mixedPixelFilterMode`=1).|0 to 1.57079. <br \>*(default 0.15)*|
 
 Mixed Pixels (or "flying pixels") are pixels that fall partially on a foreground object and partially on an object in the background. Because the physics of indirect ToF do not allow the imager to distinguish partial pixel measurements, the full pixel result is a "weighted average" distance measurement between the two targets. When viewing the point cloud, these pixels appear "floating", or not corresponding to any object.
 The Mixed Pixel filter removes the mixed pixels from the image.
@@ -112,7 +112,7 @@ Learn more [here](Filters/mixedPixelFilter.md)
 |Variable name|Short description|Min/max values|
 |--|--|--|
 |`enableDynamicSymmetry`| |true *(default)* / false|
-|`maxSymmetry`|Defines the maximum allowed asymmetry for a measured pixel. A pixel with a higher symmetry is discarded.|0 to 1. *(default: 0.5)*|
+|`maxSymmetry`|Defines the maximum allowed asymmetry for a measured pixel. A pixel with a higher symmetry is discarded.|0 to 1. *(default: 0.4)*|
 
 The raw modulated signal used to perform the distance measurement is designed to be perfectly symmetrical (sent and received). This is true for static applications. If the object is in motion, however, the symmetry of the reflected signal may be altered, leading to "motion blur". This artifact can be mitigated by allowing "less" symmetry in the measurements.
 
