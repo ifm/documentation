@@ -34,6 +34,5 @@ To show the impact of adjusting the mixed pixel filter with the `mixedPixelThres
 | 0.5| ![Mixed pixels filter `mixedPixelThresholdRad = 0.5` - distance](resources/mixed_pixel__rad_05_distance.png)| ![Mixed pixels filter `mixedPixelThresholdRad = 0.5` - view 1](resources/mixed_pixel_rad_05_view1.png)|
 | | | ![Mixed pixels filter `mixedPixelThresholdRad = 0.5` - view 2](resources/mixed_pixel_rad_05_view2.png)|
 
-*MORE EXPLANATION COMING SOON*
-
+We can see that using higher values for the `mixedPixelThresholdRad` invalidates more pixels. We typically recommend deactivating the filter or using small values for the threshold.
 
