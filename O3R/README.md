@@ -4,9 +4,9 @@ Table of content
 
 - [Products Description](ProductsDescription)
 - [Getting Started](GettingStarted)
-- [Application Notes](ApplicationNotes)
-- [Datasheets](Datasheets)
 - [Parameters](Parameters)
+- [Datasheets](Datasheets)
+- [Application Notes](ApplicationNotes)
 - [ifm3d library](INSERT-LINK)
 - [ROS](INSERT-LINK)
 - [FAQ](FAQ)
