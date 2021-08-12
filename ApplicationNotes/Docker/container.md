@@ -48,6 +48,13 @@ ifm3d                     latest              4770e646d0be   5 weeks ago     108
 
 ## Run a container
 
+*Note: To run a container build for other chip architecture than the host system, you need `qemu` for the virtualization/simulation of the different chip architecture.*
+
+For further information see:
+
+- [Docker multi-CPU architecture](<https://docs.docker.com/desktop/multi-arch/>)
+- [NVIDIA container runtime using qemu](<https://github.com/NVIDIA/nvidia-docker/wiki/NVIDIA-Container-Runtime-on-Jetson#enabling-jetson-containers-on-an-x86-workstation-using-qemu>)
+
 To run the container, we use `docker run`. Through several arguments, we can specify the run command. Right now, we want to start the container interactively (`-it`) and with the bash (`/bin/bash`). So we can play around inside the container.
 
 ```console
