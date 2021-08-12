@@ -5,7 +5,7 @@ Building container without the right base image will therefore not run on the VP
 
 ## Sample builds
 
-*Note: Find further information and samples at the official [docker documentation](<https://docs.docker.com/>)
+*Note: Find further information and samples at the official [docker documentation](<https://docs.docker.com/>)*
 
 ### Dockerfile
 
@@ -65,7 +65,7 @@ To build a container use `docker build [path/to/Dockerfile]`. If image tags (nam
 docker build .
 ```
 
-*Note: For further information about `docker build` refer to the official docker documentation <https://docs.docker.com/engine/reference/commandline/build/>*
+*Note: For further information about `docker build` refer to the official [docker documentation](<https://docs.docker.com/engine/reference/commandline/build/>)*
 
 ### Proxy
 
@@ -101,7 +101,7 @@ Use `docker run` for starting the container.
 docker run -it ifm3d /bin/bash
 ```
 
-*Note: Fur further information about `docker run`, refer to the official documentation <https://docs.docker.com/engine/reference/run/>*
+*Note: Fur further information about `docker run`, refer to the [official documentation](<https://docs.docker.com/engine/reference/run/>)*
 
 ## Saving a container
 
@@ -181,7 +181,7 @@ docker pull registry:latest
 docker run -d -p 5000:5000 --name registry registry:latest
 ```
 
-*Note: A local registry might seem complicated to start with. For further information refer to the official documentation <https://docs.docker.com/registry/deploying/>*
+*Note: A local registry might seem complicated to start with. For further information refer to the [official documentation](<https://docs.docker.com/registry/deploying/>)*
 
 ### Push a container to local registry
 
@@ -379,7 +379,7 @@ services:
             - 8888:8888
 ```
 
-*Note: The Docker version on the VPU expects the docker-compose.yml to be either version 2.2 or 3.3. Fur further information refer to <https://docs.docker.com/compose/gettingstarted/>*
+*Note: The Docker version on the VPU expects the docker-compose.yml to be either version 2.2 or 3.3. Fur further information refer to [docker compose](<https://docs.docker.com/compose/gettingstarted/>)*
 
 ## Start the service
 
