@@ -129,7 +129,7 @@ docker run ifm3d
 
 # Deploying a container to the VPU
 
-There are several ways for deploying a container. This documetnation focuses on following two:
+There are several ways for deploying a container. This documentation focuses on following two:
 
 - Using `scp`
 - Using a local docker registry
@@ -141,11 +141,29 @@ Every VPU has two users:
 
 ## SSH connection
 
-To connect to the VPU use ssh and the configured IP address of the VPU:
+To connect to the VPU via ssh, following steps need to be followed through:
 
-`ssh oem@192.168.0.69`
+1. Generate ssh key-pair
+2. Upload the public key to the VPU
+3. Connect to the VPU using the passphrase
 
-Use `oem` as the user password.
+### Generate ssh key-pair
+
+All user specific ssh keys are located at `~/.ssh`. This is the place, where the private key for the connection to the VPU should be stored. It is possible to specify different locations for the keys too, however `ssh` is looking into `~/.ssh` first.
+
+To generate an ssh key-pair, use `ssh-keygen`:
+
+```console
+devoegse@Ubuntu:~$ cd ~/.ssh/
+devoegse@Ubuntu:~/.ssh$ ssh-keygen -t rsa -b 4096 -C "[email-address]"
+Generating public/private rsa key pair.
+Enter file in which to save the key (/home/devoegse/.ssh/id_rsa): id_o3r
+Enter passphrase (empty for no passphrase):
+Enter same passphrase again:
+...
+```
+
+A passphrase is also needed. After that command, two new keys are generated within the `~/.ssh` directory. With the example above it would be: `id_o3r` & `id_o3r.pub`.
 
 ## SCP
 
