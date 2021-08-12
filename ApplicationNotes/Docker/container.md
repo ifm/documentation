@@ -180,56 +180,7 @@ devoegse@Ubuntu:~/Git/documentation/ApplicationNotes/Docker/resources$ docker bu
 Sending build context to Docker daemon  113.1MB
 Step 1/9 : FROM arm64v8/python:3.9.6-slim-buster
  ---> 4770e646d0be
-Step 2/9 : ARG DEBIAN_FRONTEND=noninteractive
- ---> [Warning] The requested image's platform (linux/arm64) does not match the detected host platform (linux/amd64) and no specific platform was requested
- ---> Running in 4e4e01a99f77
-Removing intermediate container 4e4e01a99f77
- ---> e07aa336261b
-Step 3/9 : RUN apt-get -y update && apt-get -y upgrade
- ---> [Warning] The requested image's platform (linux/arm64) does not match the detected host platform (linux/amd64) and no specific platform was requested
- ---> Running in b460c02db7b7
-Get:1 http://deb.debian.org/debian buster InRelease [122 kB]
-Get:2 http://security.debian.org/debian-security buster/updates InRelease [65.4 kB]
-Get:3 http://deb.debian.org/debian buster-updates InRelease [51.9 kB]
-Get:4 http://deb.debian.org/debian buster/main arm64 Packages [7735 kB]
-Get:5 http://security.debian.org/debian-security buster/updates/main arm64 Packages [293 kB]
-Get:6 http://deb.debian.org/debian buster-updates/main arm64 Packages [14.5 kB]
-Fetched 8282 kB in 7s (1196 kB/s)
-Reading package lists...
-Reading package lists...
-Building dependency tree...
-Reading state information...
-Calculating upgrade...
-The following packages will be upgraded:
-  libsystemd0 libudev1
-2 upgraded, 0 newly installed, 0 to remove and 0 not upgraded.
-Need to get 460 kB of archives.
-After this operation, 0 B of additional disk space will be used.
-Get:1 http://security.debian.org/debian-security buster/updates/main arm64 libsystemd0 arm64 241-7~deb10u8 [314 kB]
-Get:2 http://security.debian.org/debian-security buster/updates/main arm64 libudev1 arm64 241-7~deb10u8 [146 kB]
-debconf: delaying package configuration, since apt-utils is not installed
-Fetched 460 kB in 2s (273 kB/s)
-(Reading database ... 6833 files and directories currently installed.)
-Preparing to unpack .../libsystemd0_241-7~deb10u8_arm64.deb ...
-Unpacking libsystemd0:arm64 (241-7~deb10u8) over (241-7~deb10u7) ...
-Setting up libsystemd0:arm64 (241-7~deb10u8) ...
-(Reading database ... 6833 files and directories currently installed.)
-Preparing to unpack .../libudev1_241-7~deb10u8_arm64.deb ...
-Unpacking libudev1:arm64 (241-7~deb10u8) over (241-7~deb10u7) ...
-Setting up libudev1:arm64 (241-7~deb10u8) ...
-Processing triggers for libc-bin (2.28-10) ...
-Removing intermediate container b460c02db7b7
- ---> 7473db14948b
-Step 4/9 : RUN python -m venv /opt/venv
- ---> [Warning] The requested image's platform (linux/arm64) does not match the detected host platform (linux/amd64) and no specific platform was requested
- ---> Running in beaa92fed55d
-Removing intermediate container beaa92fed55d
- ---> 8539a93bdcde
-Step 5/9 : ENV PATH="/opt/venv/bin:$PATH"
- ---> [Warning] The requested image's platform (linux/arm64) does not match the detected host platform (linux/amd64) and no specific platform was requested
- ---> Running in 15892af8ae8d
-Removing intermediate container 15892af8ae8d
- ---> afad479427b9
+...
 Step 6/9 : RUN pip install -U pip && pip install numpy
  ---> [Warning] The requested image's platform (linux/arm64) does not match the detected host platform (linux/amd64) and no specific platform was requested
  ---> Running in bb51c405bbdb
@@ -242,22 +193,7 @@ Installing collected packages: pip
     Uninstalling pip-21.1.3:
       Successfully uninstalled pip-21.1.3
 Successfully installed pip-21.2.2
-Collecting numpy
-  Downloading numpy-1.21.1-cp39-cp39-manylinux_2_17_aarch64.manylinux2014_aarch64.whl (13.2 MB)
-Installing collected packages: numpy
-Successfully installed numpy-1.21.1
-Removing intermediate container bb51c405bbdb
- ---> 816949368be8
-Step 7/9 : RUN useradd --create-home pythonuser
- ---> [Warning] The requested image's platform (linux/arm64) does not match the detected host platform (linux/amd64) and no specific platform was requested
- ---> Running in 47a37f8b0221
-Removing intermediate container 47a37f8b0221
- ---> cc10008919f3
-Step 8/9 : USER pythonuser
- ---> [Warning] The requested image's platform (linux/arm64) does not match the detected host platform (linux/amd64) and no specific platform was requested
- ---> Running in f169b3c9f567
-Removing intermediate container f169b3c9f567
- ---> fade2722e04f
+...
 Step 9/9 : ENV PYTHONFAULTHANDLER=1
  ---> [Warning] The requested image's platform (linux/arm64) does not match the detected host platform (linux/amd64) and no specific platform was requested
  ---> Running in 4ea430894bc7
@@ -266,6 +202,8 @@ Removing intermediate container 4ea430894bc7
 Successfully built 14db5d89303f
 Successfully tagged ifm3d:latest
 ```
+
+*Note: Due to easier readability, the build process output was shortened*
 
 As you can see, the build process is far more detailed. There are several layers and `intermediate` container builds (for debugging). You can start the container with the typical commands and check, if numpy was installed:
 
@@ -360,93 +298,6 @@ Step 8/19 : RUN pip install --no-cache-dir -r requirements.txt
  ---> [Warning] The requested image's platform (linux/arm64) does not match the detected host platform (linux/amd64) and no specific platform was requested
  ---> Running in 6011d62e8aca
 ...
-Collecting h5py<=3.1.0
-  Downloading h5py-3.1.0.tar.gz (371 kB)
-  Installing build dependencies: started
-  Installing build dependencies: finished with status 'done'
-  Getting requirements to build wheel: started
-  Getting requirements to build wheel: finished with status 'done'
-  Installing backend dependencies: started
-  Installing backend dependencies: finished with status 'done'
-    Preparing wheel metadata: started
-    Preparing wheel metadata: finished with status 'done'
-...
-Building wheels for collected packages: h5py
-  Building wheel for h5py (PEP 517): started
-  Building wheel for h5py (PEP 517): still running...
-  Building wheel for h5py (PEP 517): finished with status 'done'
-  Created wheel for h5py: filename=h5py-3.1.0-cp39-cp39-linux_aarch64.whl size=1237352 sha256=dc2cf923462babd07f0dec695bf507365efa576f180a07d7f5bd33d27970f917
-  Stored in directory: /tmp/pip-ephem-wheel-cache-slh8yxv7/wheels/75/86/64/9b4e063eb07b8a72346cd87c93828072f5d2e3f837cc9e80b2
-Successfully built h5py
-Installing collected packages: six, python-dateutil, pyparsing, pillow, numpy, kiwisolver, cycler, wheel, matplotlib, h5py
-Successfully installed cycler-0.10.0 h5py-3.1.0 kiwisolver-1.3.1 matplotlib-3.4.2 numpy-1.21.1 pillow-8.3.1 pyparsing-2.4.7 python-dateutil-2.8.2 six-1.16.0 wheel-0.36.2
-WARNING: You are using pip version 21.1.3; however, version 21.2.2 is available.
-You should consider upgrading via the '/opt/venv/bin/python -m pip install --upgrade pip' command.
-Removing intermediate container 6011d62e8aca
- ---> 8a0779c76aea
-Step 9/19 : FROM arm64v8/python:3.9.6-slim-buster as build-image
- ---> 4770e646d0be
-Step 10/19 : ARG DEBIAN_FRONTEND=noninteractive
- ---> Using cache
- ---> e07aa336261b
-Step 11/19 : RUN apt-get -y update && apt-get -y upgrade
- ---> Using cache
- ---> 7473db14948b
-Step 12/19 : RUN apt-get -y install --no-install-recommends libhdf5-103 && apt-get clean
- ---> [Warning] The requested image's platform (linux/arm64) does not match the detected host platform (linux/amd64) and no specific platform was requested
- ---> Running in 6a6933ee1b46
-Reading package lists...
-Building dependency tree...
-Reading state information...
-The following additional packages will be installed:
-  libaec0 libgfortran5 libsz2
-The following NEW packages will be installed:
-  libaec0 libgfortran5 libhdf5-103 libsz2
-0 upgraded, 4 newly installed, 0 to remove and 0 not upgraded.
-Need to get 1491 kB of archives.
-After this operation, 6187 kB of additional disk space will be used.
-Get:1 http://deb.debian.org/debian buster/main arm64 libaec0 arm64 1.0.2-1 [18.8 kB]
-Get:2 http://deb.debian.org/debian buster/main arm64 libgfortran5 arm64 8.3.0-6 [298 kB]
-Get:3 http://deb.debian.org/debian buster/main arm64 libsz2 arm64 1.0.2-1 [6456 B]
-Get:4 http://deb.debian.org/debian buster/main arm64 libhdf5-103 arm64 1.10.4+repack-10 [1168 kB]
-debconf: delaying package configuration, since apt-utils is not installed
-Fetched 1491 kB in 2s (965 kB/s)
-Selecting previously unselected package libaec0:arm64.
-(Reading database ... 6833 files and directories currently installed.)
-Preparing to unpack .../libaec0_1.0.2-1_arm64.deb ...
-Unpacking libaec0:arm64 (1.0.2-1) ...
-Selecting previously unselected package libgfortran5:arm64.
-Preparing to unpack .../libgfortran5_8.3.0-6_arm64.deb ...
-Unpacking libgfortran5:arm64 (8.3.0-6) ...
-Selecting previously unselected package libsz2:arm64.
-Preparing to unpack .../libsz2_1.0.2-1_arm64.deb ...
-Unpacking libsz2:arm64 (1.0.2-1) ...
-Selecting previously unselected package libhdf5-103:arm64.
-Preparing to unpack .../libhdf5-103_1.10.4+repack-10_arm64.deb ...
-Unpacking libhdf5-103:arm64 (1.10.4+repack-10) ...
-Setting up libaec0:arm64 (1.0.2-1) ...
-Setting up libgfortran5:arm64 (8.3.0-6) ...
-Setting up libsz2:arm64 (1.0.2-1) ...
-Setting up libhdf5-103:arm64 (1.10.4+repack-10) ...
-Processing triggers for libc-bin (2.28-10) ...
-Removing intermediate container 6a6933ee1b46
- ---> bba304ca2076
-...
-Step 15/19 : RUN pip install --no-cache-dir ifmO3r==0.1.3
- ---> [Warning] The requested image's platform (linux/arm64) does not match the detected host platform (linux/amd64) and no specific platform was requested
- ---> Running in 3033b2abaded
-Collecting ifmO3r==0.1.3
-  Downloading ifmO3r-0.1.3-py3-none-any.whl (56 kB)
-...
-Installing collected packages: ifmO3r
-Successfully installed ifmO3r-0.1.3
-WARNING: You are using pip version 21.1.3; however, version 21.2.2 is available.
-...
-Step 18/19 : ENV PYTHONFAULTHANDLER=1
- ---> [Warning] The requested image's platform (linux/arm64) does not match the detected host platform (linux/amd64) and no specific platform was requested
- ---> Running in c62457aae5a6
-Removing intermediate container c62457aae5a6
- ---> 52a6eb094e24
 Step 19/19 : ENTRYPOINT [ "python3.9", "-i", "-c", "import ifmO3r.ifm3dTiny" ]
  ---> [Warning] The requested image's platform (linux/arm64) does not match the detected host platform (linux/amd64) and no specific platform was requested
  ---> Running in 8a0a246f8089
@@ -455,6 +306,8 @@ Removing intermediate container 8a0a246f8089
 Successfully built e1195e850523
 Successfully tagged ifm3d:latest
 ```
+
+*Note: Due to easier readability, the build process output was shortened*
 
 The overall build process was about 30-40min. Expect similar or longer timings on your side. You should leverage the layering from Docker, to improve the build speed if you need to build again. Especially h5py is taking about 95% of the build time.
 
