@@ -1,15 +1,11 @@
 # Building a VPU runnable container
 
 The VPU (Video Processing Unit) is based on an NVIDIA Jetson system (TX2), which is arm46/aarch64 based.
-Building container without the right base image will therefore not run on the VPU. An arm64/aarch64 base image is needed. Please read carefully the instructions at the
-<https://github.com/NVIDIA/nvidia-docker/wiki/NVIDIA-Container-Runtime-on-Jetson[Nvidia> GitHub repository]
-for set-up instruction. For running an aarch64 container on a x86-64 host the section
-<https://github.com/NVIDIA/nvidia-docker/wiki/NVIDIA-Container-Runtime-on-Jetson#running-or-building-a-container-on-x86-using-qemubinfmt_misc-is-failing[Running> or building a container on x86]
-is highly recommended.
+Building container without the right base image will therefore not run on the VPU. An arm64/aarch64 base image is needed. Please read carefully the instructions at the [Nvidia -> GitHub repository](<https://github.com/NVIDIA/nvidia-docker/wiki/NVIDIA-Container-Runtime-on-Jetson>) for set-up instruction. For running an aarch64 container on a x86-64 host the section [Running> or building a container on x86](<https://github.com/NVIDIA/nvidia-docker/wiki/NVIDIA-Container-Runtime-on-Jetson#running-or-building-a-container-on-x86-using-qemubinfmt_misc-is-failing>) is highly recommended.
 
 ## Sample builds
 
-*Note: Find further information and samples at the official docker documentation <https://docs.docker.com/>*
+*Note: Find further information and samples at the official [docker documentation](<https://docs.docker.com/>)
 
 ### Dockerfile
 
