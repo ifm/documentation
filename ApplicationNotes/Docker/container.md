@@ -2,13 +2,13 @@
 
 **Note: The ifm3dTiny is deprecated and will be replaced by the ifm3d. As soon as the ifm3d is available, this document will be adapted**
 
-This application note will focus on building a container and deploy it on the VPU. We start building a small container first. This container will increase in size and complexity as further we go. We will use a python base image and install the ifm3d (ifm3dTiny) library later on.
+This application note will focus on building a container and deploy it on the VPU. We start building a small container first. This container will increase in size and complexity the further we go. We will use a python base image and install the ifm3d (ifm3dTiny) library later on.
 
 *For more detailed information, see [Building a VPU runnable container](../../GeneralDoc/docker.md)*
 
 ## Building a container
 
-Every Docker container image is build by Docker together with a Dockerfile. This is just a file named `Dockerfile` without any file extension. It is case sensitive. You can use `docker build [path to Dockerfile]` to start the build process.
+Every Docker container image is built by Docker using a Dockerfile. This is just a file named `Dockerfile` without any file extension. It is case sensitive. You can use `docker build [path to Dockerfile]` to start the build process.
 
 Our first container will use `arm64v8/python:3.9.6-slim-buster` as the base image. Let's build the first container with that base image.
 
@@ -25,7 +25,7 @@ Building:
 docker build . -t ifm3d
 ```
 
-We use a tag, to later on identify the image easier.
+We use a tag to identify the image more easily later on.
 
 Build process:
 
@@ -38,7 +38,7 @@ Successfully built 4770e646d0be
 Successfully tagged ifm3d:latest
 ```
 
-If the build was successful, you should be able to use `docker image ls` to display all build images:
+If the build was successful, you should be able to use `docker image ls` to display all built images:
 
 ```console
 devoegse@Ubuntu:~/Git/documentation/ApplicationNotes/Docker/resources$ docker image ls
@@ -55,7 +55,7 @@ For further information see:
 - [Docker multi-CPU architecture](<https://docs.docker.com/desktop/multi-arch/>)
 - [NVIDIA container runtime using qemu](<https://github.com/NVIDIA/nvidia-docker/wiki/NVIDIA-Container-Runtime-on-Jetson#enabling-jetson-containers-on-an-x86-workstation-using-qemu>)
 
-To run the container, we use `docker run`. Through several arguments, we can specify the run command. Right now, we want to start the container interactively (`-it`) and with the bash (`/bin/bash`). So we can play around inside the container.
+To run the container, we use `docker run`. Through several arguments, we can specify the run command. Right now, we want to start the container interactively (`-it`) and with a bash interface (`/bin/bash`), so we can play around inside the container.
 
 ```console
 devoegse@Ubuntu:~/Git/documentation/ApplicationNotes/Docker/resources$ docker run -it ifm3d /bin/bash
@@ -63,7 +63,7 @@ WARNING: The requested image's platform (linux/arm64) does not match the detecte
 root@ee24eff3c797:/#
 ```
 
-Now we are within the container. The warning tells us, that the base image was build for arm64/aarch64 systems, however the host of the running container is based on amd64.
+Now we are within the container. The warning tells us that the base image was build for arm64/aarch64 systems, however the host of the running container is based on amd64.
 
 We should be able to ask for the python version and start a REPL:
 
@@ -100,7 +100,7 @@ oem@192.168.0.69's password:
 ifm3d.tar                                                                       100%  108MB  51.5MB/s   00:02
 ```
 
-Use `oem` as the password. On the VPU, we need to `sync`, so we can be sure that the just uploaded file is saved.
+Use `oem` as the password.
 
 ## SSH to VPU
 
@@ -113,16 +113,15 @@ Last login: Fri Feb  7 16:59:46 2020 from 192.168.0.10
 o3r-vpu-c0:~$
 ```
 
+On the VPU, we need to `sync`, so we can be sure that the just uploaded file is saved:
+```console
+o3r-vpu-c0:~$ sync
+```
+
 The `ls` command should show us the copied container:
 ```console
 o3r-vpu-c0:~$ ls
 ifm3d.tar
-```
-
-Don't forget and `sync` before we go on!
-
-```console
-o3r-vpu-c0:~$ sync
 ```
 
 ## Load the container
@@ -134,7 +133,7 @@ o3r-vpu-c0:~$ docker load < ifm3d.tar
 Loaded image: ifm3d:latest
 ```
 
-Again, `docker image ls` is a good way to prove if the image was loaded successful:
+Again, `docker image ls` is a good way to check if the image was loaded successful:
 
 ```console
 o3r-vpu-c0:~$ docker image ls
@@ -205,7 +204,7 @@ Successfully tagged ifm3d:latest
 
 *Note: Due to easier readability, the build process output was shortened*
 
-As you can see, the build process is far more detailed. There are several layers and `intermediate` container builds (for debugging). You can start the container with the typical commands and check, if numpy was installed:
+As you can see, the build process is far more detailed. There are several layers and `intermediate` container builds (for debugging). You can start the container with the typical commands and check if numpy was installed:
 
 ```console
 devoegse@Ubuntu:~/Git/documentation/ApplicationNotes/Docker/resources$ docker run -it ifm3d:latest /bin/bash
@@ -216,11 +215,11 @@ numpy==1.21.1
 
 ## Install ifm3dTiny into the container
 
-The ifm3dTiny needs several libraries etc. to be build. To decrease the final size of the container, we can use a multistage build. The first stages is used for the compiling and the second one for the building the final image.
+The ifm3dTiny needs several libraries etc. to be build. To decrease the final size of the container, we can use a multistage build. The first stage is used for compiling and the second one for building the final image.
 
-It is also recommended, to use a requirements.txt file for the base pip installation. With this approach, you can use the magic of layering within the Dockerfile and improve the build speed drastically.
+It is also recommended to use a requirements.txt file for the base pip installation. With this approach, you can use the magic of layering within the Dockerfile and improve the build speed drastically.
 
-Here the content of the requirements.txt:
+Here is the content of the requirements.txt:
 
 ```txt
 setuptools
@@ -230,7 +229,7 @@ matplotlib >=3.3.3
 h5py <= 3.1.0
 ```
 
-The dockerfile could look like:
+The dockerfile should look like:
 
 ```Docker
 #arm64v8 is the pre-requisite for running the container on the VPU.
@@ -286,7 +285,7 @@ ENTRYPOINT [ "python3.9", "-i", "-c", "import ifmO3r.ifm3dTiny" ]
 
 ```
 
-Here parts of the build process:
+Here are parts of the build process:
 
 ```console
 devoegse@Ubuntu:~/Git/documentation/ApplicationNotes/Docker/resources$ docker build . -t ifm3d
@@ -309,7 +308,7 @@ Successfully tagged ifm3d:latest
 
 *Note: Due to easier readability, the build process output was shortened*
 
-The overall build process was about 30-40min. Expect similar or longer timings on your side. You should leverage the layering from Docker, to improve the build speed if you need to build again. Especially h5py is taking about 95% of the build time.
+The overall build process was about 30-40min. Expect a similar building time on your side. You should leverage the layering from Docker to improve the build speed if you need to build again (especially h5py is taking about 95% of the build time).
 
 *Note: Qemu emulates a ARM64 CPU in software on a x86 System which is slow. In case you are planning to build large application from source please consider to run this on a ARM64 based host.*
 

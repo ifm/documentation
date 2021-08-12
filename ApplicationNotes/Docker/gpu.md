@@ -2,11 +2,11 @@
 
 ## Using the GPU of the VPU
 
-The VPU provides substantial GPU (Graphical Processing Unit) power to the user. The best way to experience this, is using CUDA and the samples from NVIDIA. To do so, we are building a container with the sample files from NVIDIA, push it to the VPu and execute it.
+The VPU provides substantial GPU (Graphical Processing Unit) power to the user. The best way to experience this is using CUDA and the samples from NVIDIA. To do so, we are building a container with the sample files from NVIDIA, push it to the VPU and execute it.
 
 ## Dockerfile
 
-Following Dockerfile builds the container with the samples from NVIDIA.
+The following Dockerfile builds the container with the samples from NVIDIA.
 <https://github.com/NVIDIA/cuda-samples/tree/master/Samples/deviceQuery>
 
 Dockerfile:
@@ -15,15 +15,15 @@ Dockerfile:
 # Base linux for tegra (l4t) amr64/aarch64 image
 FROM nvcr.io/nvidia/l4t-base:r32.4.3 AS buildstage
 
-# Install necessary updates + git (for cloneing the nvidia samples). Tag v10.2 specifies the right commit. VPU runs CUDA 10.2
+# Install necessary updates + git (for cloning the nvidia samples). Tag v10.2 specifies the right commit. VPU runs CUDA 10.2
 RUN apt-get update && apt-get install -y --no-install-recommends make g++ git && apt-get install ca-certificates -y
 RUN git clone --depth 1 --branch v10.2 https://github.com/NVIDIA/cuda-samples.git /tmp/
 
-# Change into the right direcotry and isntall/make the samples
+# Change into the right directory and install/make the samples
 WORKDIR /tmp/Samples/deviceQuery
 RUN make clean && make
 
-# Multistage build to reduce the image size on the Jetson
+# Multistage build to reduce the image size on the platform
 FROM nvcr.io/nvidia/l4t-base:r32.4.3
 
 # Copy the samples from the buildstage into the final image
@@ -71,9 +71,9 @@ Successfully tagged cuda-samples:latest
 ```
 
 After building the container, you can follow the steps from the documentation in test the container on the VPU:
-- [Save the container](../../GeneralDoc/docker.md#saving-a-container)
-- [Transfer the container](../../GeneralDoc/docker.md#scp)
-- [Load the container](../../GeneralDoc/docker.md#load-and-start-container)
+- [Save the container](../../GeneralDoc/docker.md#saving-a-container): ```$ docker save cuda-samples > cuda-samples.tar```
+- [Transfer the container](../../GeneralDoc/docker.md#scp): ```$ scp cuda-samples.tar oem@192.168.0.69:/home/oem```
+- [Load the container](../../GeneralDoc/docker.md#load-and-start-container): ```$ docker load < cuda-samples.tar```
 
 Start the container with the NVIDIA runtime - `--runtime nvidia`, to get access to the GPU.
 

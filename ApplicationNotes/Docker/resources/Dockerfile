@@ -5,7 +5,7 @@ FROM arm64v8/python:3.9.6-slim-buster as compile-image
 ARG DEBIAN_FRONTEND=noninteractive
 RUN apt-get -y update && apt-get -y upgrade
 
-#For h5py, you need several libs and install it from source (arch)
+#For h5py, you need several libs and to install it from source (because of the architecture)
 #https://docs.h5py.org/en/stable/build.html#source-installation
 RUN apt-get -y install --no-install-recommends build-essential \
     gcc \
