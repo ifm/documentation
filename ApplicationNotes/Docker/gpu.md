@@ -2,7 +2,7 @@
 
 ## Using the GPU of the VPU
 
-The VPU provides substantial GPU (Graphical Processing Unit) power to the user. The best way to experience this is using CUDA and the samples from NVIDIA. To do so, we are building a container with the sample files from NVIDIA, push it to the VPU and execute it.
+The VPU provides substantial GPU (Graphical Processing Unit) power to the user. The best way to experience this is using CUDA and the samples from NVIDIA. To do so, we are building a container with the sample files from NVIDIA, push it to the VPU and execute it. This, however is not enough. Docker is not using/accessing the GPU power if not specified. We need to activate this to via the right runtime.
 
 ## Dockerfile
 
@@ -70,7 +70,7 @@ Successfully built 6dc92449daaa
 Successfully tagged cuda-samples:latest
 ```
 
-After building the container, you can follow the steps from the documentation in test the container on the VPU:
+After building the container, you can follow the steps from the documentation to test the container on the VPU:
 - [Save the container](../../GeneralDoc/docker.md#saving-a-container): ```$ docker save cuda-samples > cuda-samples.tar```
 - [Transfer the container](../../GeneralDoc/docker.md#scp): ```$ scp cuda-samples.tar oem@192.168.0.69:/home/oem```
 - [Load the container](../../GeneralDoc/docker.md#load-and-start-container): ```$ docker load < cuda-samples.tar```
@@ -126,3 +126,5 @@ Device 0: "NVIDIA Tegra X2"
 deviceQuery, CUDA Driver = CUDART, CUDA Driver Version = 10.2, CUDA Runtime Version = 10.2, NumDevs = 1
 Result = PASS
 ```
+
+You can find more information about the runtime and `docker compose` for this usecase [here](../../GeneralDoc/docker.md# *insert link*)
