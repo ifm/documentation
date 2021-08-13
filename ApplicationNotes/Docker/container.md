@@ -308,7 +308,7 @@ Successfully tagged ifm3d:latest
 
 *Note: Due to easier readability, the build process output was shortened*
 
-The overall build process was about 30-40min. Expect a similar building time on your side. You should leverage the layering from Docker to improve the build speed if you need to build again (especially h5py is taking about 95% of the build time).
+The overall build process was about 30-40min - using and AMD Ryzen 7 PRO 4750U with Rad and 32GB RAM. Expect a similar building time on your side. You should leverage the layering from Docker to improve the build speed if you need to build again (especially h5py is taking about 95% of the build time).
 
 *Note: Qemu emulates a ARM64 CPU in software on a x86 System which is slow. In case you are planning to build large application from source please consider to run this on a ARM64 based host.*
 
