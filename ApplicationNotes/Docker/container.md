@@ -150,6 +150,8 @@ Until now, our container is not really useful. Let's update the container kernel
 Dockerfile:
 
 ```Docker
+# This Dockerfile is an documentation example and might not be build after an copy/paste process
+
 #arm64v8 is the pre-requisite for running the cotnainer on the VPU.
 FROM arm64v8/python:3.9.6-slim-buster
 
@@ -221,6 +223,8 @@ If you want to build the ifm3D from scratch, look at the official [ifm3d documen
 The Dockerfile could look similar to this:
 
 ```Docker
+# This Dockerfile is an documentation example and might not be build after an copy/paste process
+
 FROM ubuntu:20.04 AS build
 
 # if defined, we run unit tests when building ifm3d
@@ -257,7 +261,7 @@ RUN apt-get clean
 RUN apt-get -y install --no-install-recommends build-essential \
     python3-dev
 
-#install(Update) python packages and dependencies seperate - improves Docker caching etc.
+#install(Update) python packages and dependencies separate - improves Docker caching etc.
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
