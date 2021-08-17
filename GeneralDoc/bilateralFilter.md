@@ -1,11 +1,4 @@
 # Adaptive noise bilateral filter
-
-* [Abstract](#abstract)
-* [Description](#description)
-  + [Example](#example)
-  + [Scenes involving motion](#scenes-involving-motion)
-* [Related topics](#related-topics)
-
 ## Abstract
 The O3R software allows for filtering the distance measurement in the spatial domain. The spatial domain of a 3D image can be thought of as the local neighborhood of a pixel, i.e., the neighboring pixels X-, Y-, and Z-coordinates. Radial distance information for a pixel is combined with it's neighbors' to form a new distance image with reduced noise.  
 

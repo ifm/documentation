@@ -1,26 +1,29 @@
 
 # Settings description
 
-## Exposure settings
-
-Exposure settings are utilized to maximize the number of valid pixels in a scene. The use of multiple exposures permits the camera to operate in "dynamic" environments that require the detection of dark and light objects at both the minimum and maximum ranges.
+## Acquisition settings
 
 ### Modes
 |Variable name|Short description|Min/max values|
 |--|--|--|
 |`mode`|This parameter designates the measurement range: 2 or 4 meters.|experimental_high_2m, experimental_high_4m *(default)*|
 
+Learn more [here](modes.md).
 
 ### Exposure times
 |Variable name|Short description|Min/max values|
 |--|--|--|
 |`expLong`, `expShort`|These parameters are used to set the exposure times.|1 – 5000µs|
 
+Exposure times are utilized to maximize the number of valid pixels in a scene. The use of multiple exposures permits the camera to operate in "dynamic" environments that require the detection of dark and light objects at both the minimum and maximum ranges.
+
 The proper exposure time for a pixel depends on factors like the dynamics of the scene and whether the target is moving or stationary (plus others). For highly reflective targets or for motion, a short exposure time is better suited. For targets far away or with low reflectivity, we prefer a high exposure time.
 As such, it is common that all targets of a scene cannot be properly exposed with a single exposure time. 
-To reduce both noise and the number of over/under exposed pixels, we use multiple (three) exposures for each frame. The "experimental_high" mode provides 2 settable exposure times (`expLong` and `expShort`) plus a third *static* exposure designed to help detect highly reflective targets in the very near range (~1m).
+To reduce both noise and the number of over/under exposed pixels, we use multiple (three) exposures for each frame. The "experimental_high" mode provides 2 settable exposure times (`expLong` and `expShort`) plus a third *static* exposure (set at 30us) designed to help detect highly reflective targets in the very near range (~1m). Note that using small ratio of exposure times helps reducing noise in transitions regions (where neighboring pixels use different exposure times).
 
-*Note:* You can find which exposure time is used for each pixel by analyzing the confidence image as detailed here [LINK TO CONFIDENCE IMAGE].
+> Note: You can find which exposure time is used for each pixel by analyzing the confidence image as detailed [here](confidenceImage.md).
+
+Learn more [here](INSERT-LINK)
 
 ### Offset
 |Variable name|Short description|Min/max values|
@@ -30,15 +33,14 @@ To reduce both noise and the number of over/under exposed pixels, we use multipl
 Coded modulation dictates the base range of the camera. (e.g. 0.2 to 2m). Coded modulation also allows this range to be "offset" or shifted from its start point. In the example of 0.2 – 2m base range, and `offset`
 of 1 would lead to a 1.2-3m range. Continuing this example, an `offset` of 2 leads to a 2.2-4m range. The `offset` can be changed frame by frame.
 
-*BEFORE/AFTER IMAGES COMING SOON*
+Learn more [here](offset.md).
 
 ### Frame rate
 |Variable name|Short description|Min/max values|
 |--|--|--|
 |`framerate`|Defines the number of frames captured each second|1 to 20 FPS (frames per second)|
 
-The FPS highly depends on the applied imager settings (exposure mode and times, filters, etc). Higher exposure times, for example, negatively impact the overall FPS. The O3R is designed to achieve 20 FPS in 0.2 to 4m mode *regardless* of applied settings. Higher FPS may be achievable by reducing the applied settings.
-
+The FPS highly depends on the applied imager settings (exposure mode and times, filters, etc). Higher exposure times, for example, negatively impact the overall FPS. The O3R is designed to achieve 20 FPS in 2m and 4m modes *regardless* of applied settings. Higher FPS may be achievable by reducing the applied settings.
 
 ## Filters
 ### Maximum distance noise
@@ -52,6 +54,7 @@ When to change default:
 - Lower the distance noise value if you are attempting to measure an object with high precision (e.g box dimensioning).
 - Increase the distance noise value if it is more important to evaluate all pixels in the scene, regardless of their noise (e.g. obstacle detection).
 
+Learn more [here](maxDistNoise.md).
 
 ### Minimum amplitude
 |Variable name|Short description|Min/max values|
@@ -65,6 +68,8 @@ When to change the default:
 Lower the default value when the standard targets are known to have low reflectivity (e.g. <10% like matte black targets). A lower amplitude threshold is also valuable when attempting to detect negative obstacles (e.g. stairs).
 It is recommended to enable a noise filter (temporal or adaptive filter) when lowering the default Minimum Amplitude.
 
+Learn more [here](minAmplitude.md).
+
 ### Adaptive noise bilateral filter and median filter
 |Variable name|Short description|Min/max values|
 |--|--|--|
@@ -77,6 +82,8 @@ The adaptive bilateral noise filter reduces distance noise while also preserving
 
 The median filter does not preserve edges as well and tends to produce round corners but, being more computationally efficient, should be utilized with "in-motion" Use Cases (e.g. obstacle detection on mobile robots)
 
+Learn more [here](bilateralFilter.md)
+
 ### Temporal filter
 |Variable name|Short description|Min/max values|
 |--|--|--|
@@ -85,6 +92,8 @@ The median filter does not preserve edges as well and tends to produce round cor
 The temporal filter mitigates distance noise by integrating pixel information over multiple frames. There is no strict limit for the number of frames. Instead, an automatic resetting approach is applied to the pixels. 
 
 Although the O3R temporal filter can be used on "in-motion" Use Cases, it is best suited for static scenes.
+
+Learn more [here](temporalFilter.md)
 
 ### Mixed pixel filtering
 |Variable name|Short description|Min/max values|
@@ -95,11 +104,11 @@ Although the O3R temporal filter can be used on "in-motion" Use Cases, it is bes
 Mixed Pixels (or "flying pixels") are pixels that fall partially on a foreground object and partially on an object in the background. Because the physics of indirect ToF do not allow the imager to distinguish partial pixel measurements, the full pixel result is a "weighted average" distance measurement between the two targets. When viewing the point cloud, these pixels appear "floating", or not corresponding to any object.
 The Mixed Pixel filter removes the mixed pixels from the image.
 
-*BEFORE/AFTER COMING SOON*
-
 When to change the default:
 
 Mixed pixels fall on the edges of targets. Use Cases, such as negative obstacle detection, could take advantage of the additional information provided by these mixed pixels, requiring the filter to be disabled.
+
+Learn more [here](mixedPixelFilter.md)
 
 ### Symmetry threshold
 |Variable name|Short description|Min/max values|
@@ -109,10 +118,9 @@ Mixed pixels fall on the edges of targets. Use Cases, such as negative obstacle 
 
 The raw modulated signal used to perform the distance measurement is designed to be perfectly symmetrical (sent and received). This is true for static applications. If the object is in motion, however, the symmetry of the reflected signal may be altered, leading to "motion blur". This artifact can be mitigated by allowing "less" symmetry in the measurements.
 
-*Note:* adjusting this filter for faster motion, or allowing less symmetry, will increase overall distance noise.
+> Note: adjusting this filter for faster motion, or allowing less symmetry, will increase overall distance noise.
 
-*BEFORE/AFTER IMAGES + SCHEMATIC EXPLANATION COMING SOON*
-
+Learn more [here](symmetryThreshold.md)
 ### Stray-light
 |Variable name|Short description|Min/max values|
 |--|--|--|
@@ -120,4 +128,4 @@ The raw modulated signal used to perform the distance measurement is designed to
 
 Stray light is defined as "unwanted light from the active illumination reaching the imager". This is typically experienced when there is a very bright object in the FoV. The resulting amplitude of pixels landing on the bright object impact the neighboring "darker" pixels. This is seen as a "halo" around the bright object. This "halo" can impact the measurement of neighboring pixels (even providing a value for pixels where none previously existed). The Stray Light filter mitigates this physics artifact.
 
-*BEFORE/AFTER IMAGE COMING SOON*
+Learn more [here](strayLight.md)    

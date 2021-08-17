@@ -7,7 +7,7 @@ __Q: What kind of certificates does the O3R fullfil?__
 __A:__ CE (Europe) and UL(USA) will be fulfilled at the release of the system (October 2021).
 
 __Q: VPU? Camera heads?__  
-__A:__ `VPU` - Video Processing Unit. The O3R is using the NVidia TX2 as a base computing platform and you get "nearly" complete access to the CPU and GPU. You can connect our camera heads directly to the VPU and you do not need to take care of communication, power etc. separately. These heads come in different flavors. 2D/3D, 38k or VGA resolution, 105° or 60° opening angle. 
+__A:__ `VPU` - Video Processing Unit. The O3R is using the NVidia TX2 as a base computing platform and free CPU and GPU resources can be used for customer algorithms. You can connect our camera heads directly to the VPU and you do not need to take care of communication, power etc. separately. These heads come in different flavors. 2D/3D, 38k or VGA resolution, 105° or 60° opening angle. 
 
 __Q: Are there any plans to include the O3R platform into the ifmVisionAssistant?__  
 __A:__ Absolutely! The ifmVA will be available sometime after the official release of the O3R (October 2021). 
