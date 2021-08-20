@@ -9,7 +9,7 @@ Building container without the right base image will therefore not run on the VP
 
 ### Dockerfile
 
-A docker file contains all the necessary information for building a container image. Most of the Dockerfiles are starting with a base image, suited for the hardware the container might be deployed. In theory, it doesn't matter where the container is deployed. However, chip architecture (arm64/aarch64) needs to be considered.
+A docker file contains all the necessary information for building a container image. Most of the Dockerfiles are starting with a base image that is retrieved from the Docker Hub during the build process. Docker will automatically fetch the image for the architecture hosting the build (arm64/aarch64). When building a container for an architecture other than the hosts', the destination architecture needs to be specified in the Dockerfile.
 
 #### Example - Dockerfile
 
