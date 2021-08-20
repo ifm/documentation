@@ -129,7 +129,7 @@ docker run ifm3d
 
 # Deploying a container to the VPU
 
-There are several ways for deploying a container. This documentation focuses on following two:
+There are several ways for deploying a container. This documentation focuses on the following two:
 
 - Using `scp`
 - Using a local docker registry
@@ -141,7 +141,7 @@ Every VPU has two users:
 
 ## SSH connection
 
-To connect to the VPU via ssh, following steps need to be followed through:
+To connect to the VPU via ssh, the following steps need to be followed through:
 
 1. Generate ssh key-pair
 2. Upload the public key to the VPU
@@ -149,7 +149,7 @@ To connect to the VPU via ssh, following steps need to be followed through:
 
 ### 1. Generate ssh key-pair
 
-All user specific ssh keys are located at `~/.ssh`. This is the place, where the private key for the connection to the VPU should be stored. It is possible to specify different locations for the keys too, however `ssh` is looking into `~/.ssh` first.
+All user specific ssh keys are located at `~/.ssh`. This is the place where the private key for the connection to the VPU should be stored. It is possible to specify different locations for the keys too, however `ssh` is looking into `~/.ssh` first.
 
 To generate an ssh key-pair, use `ssh-keygen`:
 
@@ -168,7 +168,7 @@ A passphrase is also needed. After that command, two new keys are generated with
 ### 2. Upload the public key to the VPU
 
 Uploading the public (`.pub`) ssh key to the VPU is achieved via the ifm3d api/library.
-The device configuration include also a parameter for authorized keys: `authorized_keys`.
+The device configuration also includes a parameter for authorized keys: `authorized_keys`.
 
 ```json
 "network": {
@@ -184,16 +184,16 @@ The device configuration include also a parameter for authorized keys: `authoriz
     },
 ```
 
-To add a new key, the VPU configuration needs to be changed. This can be done with several ways, like saving the json in a file and add the keys afterwards. Another way could be the usage of the `jq` command.
+To add a new key, the VPU configuration needs to be changed. This can be done with several ways, for instance saving the json in a file and add the keys afterwards. Another way is by using the `jq` command.
 
 ```console
 ifm3d dump | jq --arg id "$(< ~/.ssh/id_o3r.pub)" '.device.network.authorized_keys=$id' | ifm3d config
 ```
 
-- `ifm3d dump` - This command receives first the actual configuration from the VPU.
-- `jq --arg id "$(< ~/.ssh/id_o3r.pub)"` - This loads the public key into the variable `id` and provides ot to the `jq` command
-- `'.device.network.authorized_keys=$id'` - Here the json value from `authorized_keys` is changed/loaded with the public key by the variable `id`
-- `ifm3d config` - The changed json is now used to change the configuration of the VPU via `ifm3d config`
+- `ifm3d dump` - This command first receives the actual configuration from the VPU.
+- `jq --arg id "$(< ~/.ssh/id_o3r.pub)"` - This loads the public key into the variable `id` and provides it to the `jq` command
+- `'.device.network.authorized_keys=$id'` - Here the json value from `authorized_keys` is changed for the public key within the variable `id`
+- `ifm3d config` - The new json is now used to change the configuration of the VPU via `ifm3d config`
 
 ### 3. Connect to the VPU, using the passphrase
 
@@ -221,13 +221,13 @@ scp ifm3d.tar oem@192.168.0.69:/home/oem
 
 The system will ask for a password: `oem`
 
-It needs to be verified if the copy process worked. The command `sync` should be used on the VPU after the copy process is done.
+You need to verify if the copy process worked: use the command `sync` on the VPU after the copying the container.
 
-*Note: Use ssh to connect to the VPU - see [SSH conection](#ssh-connection)*
+> Note: Use ssh to connect to the VPU - see [SSH conection](#ssh-connection)
 
-*Note: The `oem` user has no write rights outside of his home directory. Therefore use `/home/oem/` for saving files etc. It is possible to create folders within the oem directory.*
+> Note: The `oem` user has no write rights outside of his/her home directory. Therefore use `/home/oem/` for saving files etc. It is possible to create folders within the oem directory.
 
-To load start the container see [Load and start a container](#load-and-start-container)
+To load and start the container see [Load and start a container](#load-and-start-container)
 
 ## Local docker registry
 
@@ -244,7 +244,7 @@ docker pull registry:latest
 docker run -d -p 5000:5000 --name registry registry:latest
 ```
 
-*Note: A local registry might seem complicated to start with. For further information refer to the [official documentation](<https://docs.docker.com/registry/deploying/>)*
+> Note: A local registry might seem complicated at first. For further information refer to the [official documentation](<https://docs.docker.com/registry/deploying/>).
 
 ### Push a container to local registry
 
@@ -421,7 +421,7 @@ oem_cuda_1 exited with code 0
 
 # Autostart container on the VPU
 
-For auto starting container, `Docker compose` is used. The VPU already provides a service `.config/systemd/user/oem-dc@.service` which can be used for starting (autostart) a service. There is no need to change this service.
+For auto starting a container, `Docker compose` is used. The VPU already provides a service `.config/systemd/user/oem-dc@.service` which can be used for starting (autostart) a service. There is no need to change this service.
 
 ## Docker compose
 
@@ -442,7 +442,7 @@ services:
             - 8888:8888
 ```
 
-*Note: The Docker version on the VPU expects the docker-compose.yml to be either version 2.2 or 3.3. Fur further information refer to [docker compose](<https://docs.docker.com/compose/gettingstarted/>)*
+> Note: The Docker version on the VPU expects the docker-compose.yml to be either version 2.2 or 3.3. Fur further information refer to [docker compose](<https://docs.docker.com/compose/gettingstarted/>).
 
 ## Start the service
 
@@ -452,7 +452,7 @@ A `docker-compose.yml` can be started via `docker-compose up` within the `docker
 systemctl --user start oem-dc@jupyter
 ```
 
-After some seconds, the service should have started and it is possible to get the status of this service:
+After a few seconds, the service should have started and it is possible to get the status of this service:
 
 ```Linux
 systemctl --user status oem-dc@jupyter
@@ -460,7 +460,7 @@ systemctl --user status oem-dc@jupyter
 
 Another way of seeing all running container is `docker ps`.
 
-## Auto start the service/container after an reboot of the VPU
+## Auto start the service/container after a reboot of the VPU
 
 To restart the container automatically, `enable` the service:
 
@@ -472,9 +472,6 @@ See [Start the service](#start-the-service) on how to start the container with a
 
 ## Save data on consistently on the VPU with a container
 
-**Coming soon**
+*Coming soon*
 
 Data created and saved within a container is only available for the running instance of the container itself. Restarting the container leads to a loss of the previously saved data. Use `volumes` to avoid this scenario.
-
-```console
-```
