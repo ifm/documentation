@@ -5,7 +5,7 @@ The temporal filter filters the data over, *you guessed it*, time. Each measurem
 This filter is best suited for static scenes, as the objects in the scene are in the same relative positions over multiple frames. 
 
 ## Description
-The temporal filter affects all images,  i.e., distance image, point cloud, etc, by reducing the temporal and distance noise. The filtered value for each pixel at a certain time is computed by integrating information over multiple frames. There is no strict limit on of how many frames are taken into account for filtering, but instead the filter is automatically reset when necessary (for instance when motion is detected).
+The temporal filter affects all images,  i.e., distance image, point cloud, etc, by reducing the noise. The filtered value for each pixel at a certain time is computed by integrating information over multiple frames. There is no strict limit on of how many frames are taken into account for filtering, but instead the filter is automatically reset when necessary (for instance when motion is detected).
 
 ## Examples
 ### Reducing noise
@@ -15,7 +15,7 @@ The primary role of the temporal filter is to reduce noise. The images below sho
 |![Noise image without temporal filter](resources/noise_image.png)|![Noise image with temporal filter](resources/no_noise_image.png)|![Color bar for noise image](resources/color_bar_noise.png)
 
 ### Recovering lost pixels
-Due to the fact that the filter estimates pixel values over time, a positive side effect is that it gathers more data overall. Certain pixels might reflect too little light, because of their distance to the camera or of their material, which causes them to be discarded during the filtering process (by the [spacial filter](bilateralFilter.md) for instance, or the [minimum amplitude filter](minAmplitude.md)). However, distance data for these pixels can potentially be computed from collecting light over multiple frames. In the two images below, we compare the same scene without (left image) and with (right image) the filter. We can see that a section of the floor (around 10 cm) at the end of the range (the pixels returning the least amount of light) is not visible without the temporal filter. Note that this section of the floor could also possibly be recovered using the [distance noise](maxDistNoise.md) with higher values for the distance noise threshold, with the disadvantage of increasing the overall noise.
+Due to the fact that the filter estimates pixel values over time, a positive side effect is that it gathers more data overall. Certain pixels might reflect too little light, because of their distance to the camera or of their material, which causes them to be discarded during the filtering process (by the [spatial filter](bilateralFilter.md) for instance, or the [minimum amplitude filter](minAmplitude.md)). However, distance data for these pixels can potentially be computed from collecting light over multiple frames. In the two images below, we compare the same scene without (left image) and with (right image) the filter. We can see that a section of the floor (around 10 cm) at the end of the range (the pixels returning the least amount of light) is not visible without the temporal filter. Note that this section of the floor could also possibly be recovered using the [distance noise](maxDistNoise.md) with higher values for the distance noise threshold, with the disadvantage of increasing the overall noise.
 
 |![Scene without temporal filter](resources/no_temporal_filter.png)|![Scene with temporal filter](resources/temporal_filter_on.png)|
 |--|--|
@@ -23,4 +23,4 @@ Due to the fact that the filter estimates pixel values over time, a positive sid
 ## Related settings
 + [Distance noise](maxDistNoise.md)
 + [Minimum amplitude](minAmplitude.md)
-+ [Spacial filter](bilateralFilter.md)
++ [Spatial filter](bilateralFilter.md)

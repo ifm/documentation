@@ -2,9 +2,11 @@
 
 ## Description
 
-The O3R uses the concept of coded modulation applied to ToF technology (see [basic concepts](INSERT-LINK)). A specificity of this technique is to provide specific measurement ranges: a distance measurement is computed only for a specific subspace of the scene, elements outside of the range are not taken into account.
+The O3R has the specificity to provide several measurement ranges: a distance measurement is computed only for a subspace of the scene. Elements *fully* outside of the range are not taken into account and have no impact on the measurement (for instance by causing artifacts like [stray-light](strayLight.md) or [MPI](INSERT-LINK)).
 
-By default, the O3R provides two measurement ranges: two meters and four meters. These ranges use different frequencies to perform the ToF measurement, and therefore show different characteristics especially in how they are impacted with artifacts.
+>Note: Objects *very* close of the beginning/end of the measurement range can still have an impact on the measurement.
+
+By default, the O3R provides two measurement ranges: two meters and four meters. These ranges use different frequencies to perform the ToF measurement, and therefore show different characteristics especially in how they are impacted with artifacts. The four meters mode shows higher noise levels than the two meters mode (around twice as much).
 
 ## Example
 
@@ -23,4 +25,5 @@ The third box, which is 3 meters away from the camera, is outside of the measure
 > Note: Using the [offset](INSERT-LINK) in combination with the mode is interesting and allows for a lot of flexibility in using the coded modulation ToF technology. We encourage you to investigate strategies using multiple modes in combination with offsets (see our [application note](INSERT-LINK) on the topic)
 
 ## Related topics
-+ [Offset](INSERT-LINK)
++ [Offset](offset.md)
++ [Basic concepts](basicConcepts.md)
