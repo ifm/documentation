@@ -1,6 +1,6 @@
 # Adaptive noise bilateral filter
 ## Abstract
-The O3R software allows for filtering the distance measurement in the spatial domain. The spatial domain of a 3D image can be thought of as the local neighborhood of a pixel, i.e., the neighboring pixels X-, Y-, and Z-coordinates. Radial distance information for a pixel is combined with it's neighbors' to form a new distance image with reduced noise.  
+The O3R software allows for filtering the distance measurement in the spatial domain. The spatial domain of a 3D image can be thought of as the local neighborhood of a pixel, i.e., the neighboring pixels X-, Y-, and Z-coordinates. Radial distance information for a pixel is combined with its neighbors' to form a new distance image with reduced noise.  
 
 The bilateral filter is the preferred spatial filter and is enabled by default. It can be applied with different filter mask sizes which can be set via the parameter `anfFilterSizeDiv2`. Larger filter mask sizes allow for stronger noise reduction.
 
@@ -15,8 +15,6 @@ The bilateral filter is controlled by the parameter `anfFilterSizeDiv2` (turn it
 > Note: The bilateral filter is preferred over the [median filter](median.md) as it preserves edge and corner information better (the median filter tends to *round* corners). It is also possible to apply the bilateral filter with larger filter masks (up to 7x7 pixel mask) compared to (5x5 pixel masks) for the median filter. The size of the mask defines how many neighboring pixels are taken into account when computing a pixel's value.   
 
 Invalid pixels will be ignored during the filtering process and have therefore no impact on the surrounding pixels. Invalid pixels will remain invalid after the filtering. 
-
-TODO: decide which parameters will be made public: `anfSigmaLat` and `anfFactorRangeNoise`. These parameters allow for further fine-tuning of the bilateral filter.  
 ### Example
 
 The following pictures give an overview of the capabilities of spatial filtering with the bilateral filter for different filter mask sizes. All other filters ([temporal](temporalFilter.md) and [median](median.md)) are deactivated for the purpose of illustrating the bilateral filter's effect. The maximum allowed distance noise is set of 0.2 m for all images. Note that for maximum distance noise values below 0.2m the point cloud becomes very sparse for smaller filter mask sizes (not shown below).  
