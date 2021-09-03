@@ -118,11 +118,11 @@ The raw modulated signal used to perform the distance measurement is designed to
 > Note: adjusting this filter for faster motion, or allowing less symmetry, will increase overall distance noise.
 
 Learn more [here](Filters/symmetryThreshold.md)
-### Stray-light
+### Stray light
 |Variable name|Short description|Min/max values|
 |--|--|--|
-|`enableStraylight`|Turn stray-light correction on/off|True *(default)*/false|
+|`enableStraylight`|Turn stray light correction on/off|True *(default)*/false|
 
-Stray light is defined as “unwanted light from the active illumination reaching the imager”. This is typically experienced when there is a very bright object in the FoV. The resulting amplitude of pixels landing on the bright object affect the neighboring “darker” pixels. This is seen as a “halo” around the bright object. This “halo” can affect the measurement of neighboring pixels (even providing a value for pixels where none previously existed). The stray-light filter mitigates this physics artifact.
+Stray light is defined as “unwanted light from the active illumination reaching the imager”. This is typically experienced when there is a very bright object in the FoV. The resulting amplitude of pixels landing on the bright object affect the neighboring “darker” pixels. This is seen as a “halo” around the bright object. This “halo” can affect the measurement of neighboring pixels (even providing a value for pixels where none previously existed). The stray light filter mitigates this physics artifact.
 
 Learn more [here](Filters/strayLight.md)    
