@@ -1,3 +1,4 @@
 # README - Filters
 
-- [Filter 1 - coming soon](filter1.md)
+- [Bilateral Filter](bilateralFilter.md)
+- [Minimum Amplitude](minAmplitude.md)
