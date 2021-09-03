@@ -2,7 +2,7 @@
 
 ## Description
 
-The O3R has the specificity to provide several measurement ranges. A distance measurement is computed only for a subspace of the scene. Elements *fully* outside of the range are not taken into account and have no impact on the measurement (for instance by causing artifacts like [stray-light](../Filter/strayLight.md) or [Multi-Path Interference](INSERT-LINK)).
+The O3R has the specificity to provide several measurement ranges. A distance measurement is computed only for a subspace of the scene. Elements *fully* outside of the range are not taken into account and have no impact on the measurement (for instance by causing artifacts like [stray-light](../Filter/strayLight.md) or Multi-Path Interference(*coming soon*)).
 
 >Note: Objects *very* close to the beginning or end of the measurement range can still have an impact on the measurement.
 
@@ -22,7 +22,7 @@ The table below shows the computed distance measurement in the distance image vi
 
 The third box, which is three meters away from the camera, is outside of the measurement range when using the two-meter mode; however it is visible when using the four-meter mode.
 
-> Note: Using the [offset](offset.md) parameter in combination with the mode is interesting and allows for a lot of flexibility in using the coded modulation ToF technology. We encourage you to investigate strategies using multiple modes in combination with offsets (see our [application note](INSERT-LINK) on the topic).
+> Note: Using the [offset](offset.md) parameter in combination with the mode is interesting and allows for a lot of flexibility in using the coded modulation ToF technology. We encourage you to investigate strategies using multiple modes in combination with offsets (see our application note (*coming soon*) on the topic).
 
 ## Related Topics
 + [Offset](offset.md)
