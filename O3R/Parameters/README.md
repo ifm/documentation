@@ -1,3 +1,5 @@
 # README - Parameters
 
-- [Parameters Overview](parameters_overview.md)
+- [Parameters overview](parameters.md)
+- [Acquisition parameters](AcquisitionSettings)
+- [Filters](Filters)
