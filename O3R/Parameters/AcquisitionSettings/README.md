@@ -1,4 +1,6 @@
 # README - Acquisition settings
 
-- [Modes](modes.md)
-- [Offset](offset.md)
+| Table of content|
+|-|
+| [Modes](modes.md)|
+| [Offset](offset.md)|
