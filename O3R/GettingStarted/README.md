@@ -1,3 +1,5 @@
 # README - Getting Started
 
-- [Getting Started](getting_started.md)
+| Table of content|
+|-|
+| [Getting Started](getting_started.md)|
