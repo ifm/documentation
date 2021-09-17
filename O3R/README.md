@@ -2,11 +2,11 @@
 
 | Table of content|
 |-|
-| [Products Description](ProductsDescription/README.md)|
-| [Getting Started](GettingStarted/README.md)|
-| [Parameters](Parameters/README.md)|
-| [Datasheets](Datasheets/README.md)|
-| [Application Notes](ApplicationNotes/README.md)|
+| [Products Description](O3R/ProductsDescription/README.md)|
+| [Getting Started](O3R/GettingStarted/README.md)|
+| [Parameters](O3R/Parameters/README.md)|
+| [Datasheets](O3R/Datasheets/README.md)|
+| [Application Notes](O3R/ApplicationNotes/README.md)|
 | [ifm3d library](INSERT-LINK)|
 | [ROS *coming soon*](INSERT-LINK)|
 | [FAQ](FAQ/README.md)|
