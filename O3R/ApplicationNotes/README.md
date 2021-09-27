@@ -2,4 +2,4 @@
 
 |Table of content|
 |-|
-| [Multi Path Interference](mpi.md)|
+| [Multi Path Interference](../ApplicationNotes/mpi.md)|
