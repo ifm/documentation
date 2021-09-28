@@ -2,7 +2,7 @@
 
 ## Description
 
-The O3R has the specificity to provide several measurement ranges. A distance measurement is computed only for a subspace of the scene. Elements *fully* outside of the range are not taken into account and have no impact on the measurement (for instance by causing artifacts like [stray-light](../Filter/strayLight.md) or Multi-Path Interference(*coming soon*)).
+The O3R has the specificity to provide several measurement ranges. A distance measurement is computed only for a subspace of the scene. Elements *fully* outside of the range are not taken into account and have no impact on the measurement (for instance by causing artifacts like [stray-light](../Filters/strayLight.md) or Multi-Path Interference(*coming soon*)).
 
 >Note: Objects *very* close to the beginning or end of the measurement range can still have an impact on the measurement.
 
