@@ -1,5 +1,8 @@
 # README - Application notes
 
-|Table of content|
+| Table of content| 
 |-|
-| [Docker intro](../Docker/docker_intro.md)|
+| [Getting started with Docker](../Docker/docker.md)|
+| [Deployment on board](../Docker/deployVPU.md)|
+| [Autostarting the containter](../Docker/autostart.md)|
+| [Enabling GPU usage](../Docker/gpu.md)|
