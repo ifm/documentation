@@ -2,7 +2,7 @@
 
 | Table of content|
 |-|
-| [Products Description](ProductsDescription/README.md)|
+| [Product Description](ProductsDescription/README.md)|
 | [Getting Started](GettingStarted/README.md)|
 | [Parameters](Parameters/README.md)|
 | [Docker](Docker/README.md)|
