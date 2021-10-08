@@ -1,14 +1,15 @@
 # README - Filters
 
-| Table of content|
-|-|
-| [Filtering process overview](filteringProcess.md)|
-| [Maximum distance noise](maxDistNoise.md)|
-| [Minimum amplitude](minAmplitude.md)|
-| [Minimum reflectivity](minReflectivity.md)|
-| [Adaptive noise bilateral filter](bilateralFilter.md)|
-| [Median filter](median.md)|
-| [Temporal filter](temporalFilter.md)|
-| [Mixed pixel filter](mixedPixelFilter.md)|
-| [Symmetry threshold](symmetryThreshold.md)|
-| [Stray light filter](strayLight.md)|
+Table of content
+:::{toctree}
+Filtering process overview <filteringProcess>
+Maximum distance noise <maxDistNoise>
+Minimum amplitude <minAmplitude>
+Minimum reflectivity <minReflectivity>
+Adaptive noise bilateral filter <bilateralFilter>
+Median filter <median>
+Temporal filter <temporalFilter>
+Mixed pixel filter <mixedPixelFilter>
+Symmetry threshold <symmetryThreshold>
+Stray light filter <strayLight>
+:::

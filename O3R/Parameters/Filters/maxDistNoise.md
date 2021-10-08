@@ -1,4 +1,9 @@
 # Maximum Distance Noise
+
+:::{toctree}
+:hidden:
+:::
+
 ## Abstract
 
 The O3R software estimates distance noise per pixel as well as the distance information per pixel. This distance noise parameter is an estimation of the standard deviation of the radial distance measurement, given in meters. It is based on a noise model built upon the acquired time of flight (ToF) measurements of a single frame. Pixels with a noise value above the threshold `maxDistNoise` are invalidated.
@@ -20,10 +25,10 @@ We suggest you start your experiments with the default values and assess the poi
 The following table shows measurements for the same scene with two different distance noise threshold values. The scene consists of a box positioned 1 meter away from the camera, outside in full sunlight. The amount of noise due to the ambient light is high, but it is apparent that we can still get distance values for many pixels by increasing the noise threshold.
 > Note: For demonstration purposes, we disabled the [temporal filter](temporalFilter.md) in these images.
 
-| Noise threshold [m]| Distance noise image| | Point cloud|
-|:--:|--|--|--|
-| 0.01| ![Low noise threshold - noise image](resources/noise_outside_noise.png)| ![Color bar](resources/color_bar_noise.png)| ![Low noise threshold in the point cloud](resources/low_noise_001_outside_cloud.png)|
-| 0.07 | | | ![Low noise threshold in the point cloud](resources/med_noise_007_outside_cloud.png)|
+| Noise threshold [m] | Distance noise image                                                    |                                             | Point cloud                                                                          |
+| :-----------------: | ----------------------------------------------------------------------- | ------------------------------------------- | ------------------------------------------------------------------------------------ |
+|        0.01         | ![Low noise threshold - noise image](resources/noise_outside_noise.png) | ![Color bar](resources/color_bar_noise.png) | ![Low noise threshold in the point cloud](resources/low_noise_001_outside_cloud.png) |
+|        0.07         |                                                                         |                                             | ![Low noise threshold in the point cloud](resources/med_noise_007_outside_cloud.png) |
 
 > Note: The distance noise image is the same for both noise threshold values. The difference is viewed in the point cloud, where the noise filtering discards more or fewer pixels.
 

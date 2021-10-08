@@ -1,5 +1,6 @@
 # README - Getting Started
 
-| Table of content|
-|-|
-| [Getting Started](getting_started.md)|
+Table of content
+:::{toctree}
+Getting Started <getting_started>
+:::

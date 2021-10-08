@@ -1,5 +1,10 @@
 # Minimum Reflectivity
 
+:::{toctree}
+:hidden:
+:::
+
+
 ## Description
 
 Reflectivity in a near infrared (NIR) spectrum is a characteristic of the material of the object reflecting the light. It depends on its surface material, and the geometric configuration of the scene.
@@ -17,11 +22,11 @@ The corresponding reflectivity image is nothing more than a gray-scale image. Da
 
 In the table below, we show the computed distance image for the default settings of the O3R heads with different values for the reflectivity threshold `minReflectivity`:
 
-| Reflectivity| Distance image|
-| --| --|
-| 0| ![Reflectivity 0](resources/ref_0.png)|
-| 5| ![Reflectivity 5](resources/ref_5.png)|
-| 10| ![Reflectivity 10](resources/ref_10.png)|
+| Reflectivity | Distance image                           |
+| ------------ | ---------------------------------------- |
+| 0            | ![Reflectivity 0](resources/ref_0.png)   |
+| 5            | ![Reflectivity 5](resources/ref_5.png)   |
+| 10           | ![Reflectivity 10](resources/ref_10.png) |
 
 > Note: In the first image, some pixels are missing from the side of the object. This area of the object does not reflect enough light, even when a low reflectivity threshold is allowed.
 

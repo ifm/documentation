@@ -1,4 +1,9 @@
 # Symmetry Threshold
+
+:::{toctree}
+:hidden:
+:::
+
 ## Abstract
 
 The symmetry threshold `maxSymmetry` is used for filtering motion artifacts. Increasing the threshold value leads to more valid pixels around moving objects but also increases the chance of computing incorrect distance measurements for some pixels. Decreasing the threshold will result in invalidation of more pixels because of their estimated symmetry value. 

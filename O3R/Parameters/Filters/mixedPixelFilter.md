@@ -1,4 +1,9 @@
 # Mixed Pixel Filter
+
+:::{toctree}
+:hidden:
+:::
+
 ## Abstract
 
 We call mixed pixels pixels resulting from a mixed signal from foreground and background planes (typically, the pixel "lands" partially on an object and partially on its background). Such pixels don't represent the distance measurement to either object and lie somewhere in between (they appear to be *flying*, and we sometimes refer to them as *flying pixels*). The mixed-pixel filter invalidates these pixels. The `mixedPixelFilterMode` setting defines whether this filter is activated and which validation methods is used. `mixedPixelFilterMode = 1` switches to angle validation check (adjust it with `mixedPixelThresholdRad`). `mixedPixelFilterMode = 2` switches to distance based validation check (this mode is inherited from previous algorithm versions and will most likely be deprecated in the future). `mixedPixelFilterMode = 0` switches the filter off completely. 
@@ -23,16 +28,16 @@ To show the impact of adjusting the mixed pixel filter with the `mixedPixelThres
 
 > Note: settings `mixedPixelThresholdRad = 0` is equivalent to turning the filter off.
 
-| Value of `mixedPixelThresholdRad`| Distance image| Point cloud|
-|--|--|--|
-| 0 (equivalent to `mixedPixelFilterMode = 0`)| ![Mixed pixels filter disabled - distance](resources/mixed_pixel_0_distance.png)|![Mixed pixels filter disabled - view 1](resources/mixed_pixel_rad_0_view1.png)|
-| | | ![Mixed pixels filter disabled - view ](resources/mixed_pixel_rad_0_view2.png)|
-| 0.15 (default)| ![Mixed pixels filter `mixedPixelThresholdRad = 0.15` - distance](resources/mixed_pixel_rad_015_distance.png)| ![Mixed pixels filter `mixedPixelThresholdRad = 0.15` - view 1](resources/mixed_pixel_rad_015_view1.png)|
-| | | ![Mixed pixels filter `mixedPixelThresholdRad = 0.15` - view 2](resources/mixed_pixel_rad_015_view2.png)|
-| 0.3| ![Mixed pixels filter `mixedPixelThresholdRad = 0.3` - distance](resources/mixed_pixel__rad_03_distance.png)| ![Mixed pixels filter `mixedPixelThresholdRad = 0.3` - view 1](resources/mixed_pixel_rad_03_view1.png)|
-| | | ![Mixed pixels filter `mixedPixelThresholdRad = 0.3` - view ](resources/mixed_pixel_rad_03_view2.png)|
-| 0.5| ![Mixed pixels filter `mixedPixelThresholdRad = 0.5` - distance](resources/mixed_pixel__rad_05_distance.png)| ![Mixed pixels filter `mixedPixelThresholdRad = 0.5` - view 1](resources/mixed_pixel_rad_05_view1.png)|
-| | | ![Mixed pixels filter `mixedPixelThresholdRad = 0.5` - view 2](resources/mixed_pixel_rad_05_view2.png)|
+| Value of `mixedPixelThresholdRad`            | Distance image                                                                                                | Point cloud                                                                                              |
+| -------------------------------------------- | ------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------- |
+| 0 (equivalent to `mixedPixelFilterMode = 0`) | ![Mixed pixels filter disabled - distance](resources/mixed_pixel_0_distance.png)                              | ![Mixed pixels filter disabled - view 1](resources/mixed_pixel_rad_0_view1.png)                          |
+|                                              |                                                                                                               | ![Mixed pixels filter disabled - view ](resources/mixed_pixel_rad_0_view2.png)                           |
+| 0.15 (default)                               | ![Mixed pixels filter `mixedPixelThresholdRad = 0.15` - distance](resources/mixed_pixel_rad_015_distance.png) | ![Mixed pixels filter `mixedPixelThresholdRad = 0.15` - view 1](resources/mixed_pixel_rad_015_view1.png) |
+|                                              |                                                                                                               | ![Mixed pixels filter `mixedPixelThresholdRad = 0.15` - view 2](resources/mixed_pixel_rad_015_view2.png) |
+| 0.3                                          | ![Mixed pixels filter `mixedPixelThresholdRad = 0.3` - distance](resources/mixed_pixel__rad_03_distance.png)  | ![Mixed pixels filter `mixedPixelThresholdRad = 0.3` - view 1](resources/mixed_pixel_rad_03_view1.png)   |
+|                                              |                                                                                                               | ![Mixed pixels filter `mixedPixelThresholdRad = 0.3` - view ](resources/mixed_pixel_rad_03_view2.png)    |
+| 0.5                                          | ![Mixed pixels filter `mixedPixelThresholdRad = 0.5` - distance](resources/mixed_pixel__rad_05_distance.png)  | ![Mixed pixels filter `mixedPixelThresholdRad = 0.5` - view 1](resources/mixed_pixel_rad_05_view1.png)   |
+|                                              |                                                                                                               | ![Mixed pixels filter `mixedPixelThresholdRad = 0.5` - view 2](resources/mixed_pixel_rad_05_view2.png)   |
 
 We can see that using higher values for the `mixedPixelThresholdRad` invalidates more pixels. We typically recommend deactivating the filter or using small values for the threshold.
 

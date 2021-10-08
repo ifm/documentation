@@ -1,7 +1,8 @@
 # README - Parameters
 
-| Table of content|
-|-|
-| [Parameters overview](parameters.md)|
-| [Acquisition parameters](AcquisitionSettings)|
-| [Filters](Filters)|
+Table of content
+:::{toctree}
+Parameters overview <parameters>
+Acquisition parameters <AcquisitionSettings/README>
+Filters <Filters/README>
+:::

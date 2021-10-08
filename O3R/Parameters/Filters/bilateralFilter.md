@@ -1,4 +1,9 @@
 # Adaptive noise bilateral filter
+
+:::{toctree}
+:hidden:
+:::
+
 ## Abstract
 The O3R software allows for filtering the distance measurement in the spatial domain. The spatial domain of a 3D image can be thought of as the local neighborhood of a pixel, that is, the neighboring pixels X-, Y-, and Z-coordinates. Radial distance information for a pixel is combined with its neighbors' information to form a new distance image with reduced noise.  
 
@@ -21,12 +26,12 @@ The following pictures give an overview of the capabilities of spatial filtering
 
 The scene shows a view of our lab, containing various typical objects including a black tote in the center of the room. It is a static scene, which makes it simpler to illustrate the filter's effect, but these settings (active bilateral filter and inactive temporal filter) are typical for scenes involving motion. Have a look specifically at the distance noise images in the following table. We can see that the distance noise greatly reduces as the filter mask size increases (the color red denotes negligible noise, whereas blue represents noise of around 1 cm and above).
 
-| Bilateral filter mask size| Point cloud| Distance (top left), amplitude (top right), distance noise (bottom left), and reflectivity images (bottom right)| |
-|--|--|--|--|
-| 0 (filter disabled)| ![anfFilterSizeDiv2_0_value](./resources/anfFilterSizeDiv2_0.png "3D point cloud without spatial filtering / bilateral filter switched off")| ![anfFilterSizeDiv2_0_value](./resources/anfFilterSizeDiv2_0_imgs.png "distance, amplitude, distance noise, and reflectivity images without bilateral filtering")| ![Color bar](resources/color_bar_noise.png)| 
-| 1 (3x3 mask size)| ![anfFilterSizeDiv2_1_value](./resources/anfFilterSizeDiv2_1.png "3D point cloud with spatial filtering: bilateral filter mask set to 3x3 pixel neighbourhood")| ![anfFilterSizeDiv2_1_value](./resources/anfFilterSizeDiv2_1_imgs.png "distance, amplitude, distance noise, and reflectivity images with bilateral filter mask set to 3x3 pixel neighbourhood")| |
-| 2 (5x5 mask size)| ![anfFilterSizeDiv2_2_value](./resources/anfFilterSizeDiv2_2.png "3D point cloud with spatial filtering: bilateral filter mask set to 5x5 pixel neighbourhood")| ![anfFilterSizeDiv2_2_value](./resources/anfFilterSizeDiv2_2_imgs.png "distance, amplitude, distance noise, and reflectivity images with bilateral filter mask set to 5x5 pixel neighbourhood")| |
-| 3 (7x7 mask size)| ![anfFilterSizeDiv2_3_value](./resources/anfFilterSizeDiv2_3.png "3D point cloud with spatial filtering: bilateral filter mask set to 7x7 pixel neighbourhood")| ![anfFilterSizeDiv2_3_value](./resources/anfFilterSizeDiv2_3_imgs.png "distance, amplitude, distance noise, and reflectivity images with bilateral filter mask set to 7x7 pixel neighbourhood")| |
+| Bilateral filter mask size | Point cloud                                                                                                                                                     | Distance (top left), amplitude (top right), distance noise (bottom left), and reflectivity images (bottom right)                                                                                |                                             |
+| -------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------- |
+| 0 (filter disabled)        | ![anfFilterSizeDiv2_0_value](./resources/anfFilterSizeDiv2_0.png "3D point cloud without spatial filtering / bilateral filter switched off")                    | ![anfFilterSizeDiv2_0_value](./resources/anfFilterSizeDiv2_0_imgs.png "distance, amplitude, distance noise, and reflectivity images without bilateral filtering")                               | ![Color bar](resources/color_bar_noise.png) |
+| 1 (3x3 mask size)          | ![anfFilterSizeDiv2_1_value](./resources/anfFilterSizeDiv2_1.png "3D point cloud with spatial filtering: bilateral filter mask set to 3x3 pixel neighbourhood") | ![anfFilterSizeDiv2_1_value](./resources/anfFilterSizeDiv2_1_imgs.png "distance, amplitude, distance noise, and reflectivity images with bilateral filter mask set to 3x3 pixel neighbourhood") |                                             |
+| 2 (5x5 mask size)          | ![anfFilterSizeDiv2_2_value](./resources/anfFilterSizeDiv2_2.png "3D point cloud with spatial filtering: bilateral filter mask set to 5x5 pixel neighbourhood") | ![anfFilterSizeDiv2_2_value](./resources/anfFilterSizeDiv2_2_imgs.png "distance, amplitude, distance noise, and reflectivity images with bilateral filter mask set to 5x5 pixel neighbourhood") |                                             |
+| 3 (7x7 mask size)          | ![anfFilterSizeDiv2_3_value](./resources/anfFilterSizeDiv2_3.png "3D point cloud with spatial filtering: bilateral filter mask set to 7x7 pixel neighbourhood") | ![anfFilterSizeDiv2_3_value](./resources/anfFilterSizeDiv2_3_imgs.png "distance, amplitude, distance noise, and reflectivity images with bilateral filter mask set to 7x7 pixel neighbourhood") |                                             |
 
 > Note: distance information for the black tote in the middle of the image remains extremely hard to compute even with a *strong* lateral filtering. For better handling of dark objects, have a look at the [minimum amplitude](minAmplitude.md), [maximum distance noise](maxDistNoise.md), and [temporal filter](temporalFilter.md)).
 

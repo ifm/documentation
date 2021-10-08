@@ -1,5 +1,10 @@
 # (Spatial) Median Filter
 
+:::{toctree}
+:hidden:
+:::
+
+
 ## Abstract
 The O3R software supports two spatial filters for improving the distance measurements: the median filter and the [bilateral filter](bilateralFilter.md).   
 **We recommend using the bilateral filter in most cases instead of the median filter because the median filter can have undesirable side effects.**
@@ -24,11 +29,11 @@ Using larger filter mask sizes combines more pixels’ distance measurements int
 ## Example
 Below are images of the same scene with different settings for the median filter. Look more specifically at the distance noise image that shows the amount of noise in the scene—the larger the filter mask size, the lower the noise level. The color red corresponds to negligible noise levels and blue to noise around 1 cm and above. See the [bilateral filter](bilateralFilter.md) example for comparison with the same scene.
 
-| Filter mask size `medianSizeDiv2`| Point cloud| Distance (top left), amplitude (top right), distance noise (bottom left), and reflectivity (bottom right) images| |
-|--|--|--|--|
-| 0 (filter deactivated)| ![medianSizeDiv2_0_value](./resources/medianSizeDiv2_0.png "3D point cloud without spatial filtering / median filter switched off")| ![medianSizeDiv2_0_value](./resources/medianSizeDiv2_0_imgs.png "distance, amplitude, distance noise, and reflectivity images without spatial filtering / median filter switched off")| ![color bar for noise image](resources/color_bar_noise.png)|
-| 1 (3 x 3 mask size)| ![medianSizeDiv2_1_value](./resources/medianSizeDiv2_1.png "3D point cloud with spatial filtering: median filter mask set to 3x3 pixel neighbourhood")| ![medianSizeDiv2_0_value](./resources/medianSizeDiv2_1_imgs.png "distance, amplitude, distance noise, and reflectivity images with spatial filtering: median filter mask set to 3x3 pixel neighbourhood")| |
-| 2 (5 x 5 mask size)| ![medianSizeDiv2_2_value](./resources/medianSizeDiv2_2.png "3D point cloud with spatial filtering: median filter mask set to 5x5 pixel neighbourhood")| ![medianSizeDiv2_0_value](./resources/medianSizeDiv2_2_imgs.png "distance, amplitude, distance noise, and reflectivity images with spatial filtering: median filter mask set to 5x5 pixel neighbourhood")| |
+| Filter mask size `medianSizeDiv2` | Point cloud                                                                                                                                            | Distance (top left), amplitude (top right), distance noise (bottom left), and reflectivity (bottom right) images                                                                                          |                                                             |
+| --------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------- |
+| 0 (filter deactivated)            | ![medianSizeDiv2_0_value](./resources/medianSizeDiv2_0.png "3D point cloud without spatial filtering / median filter switched off")                    | ![medianSizeDiv2_0_value](./resources/medianSizeDiv2_0_imgs.png "distance, amplitude, distance noise, and reflectivity images without spatial filtering / median filter switched off")                    | ![color bar for noise image](resources/color_bar_noise.png) |
+| 1 (3 x 3 mask size)               | ![medianSizeDiv2_1_value](./resources/medianSizeDiv2_1.png "3D point cloud with spatial filtering: median filter mask set to 3x3 pixel neighbourhood") | ![medianSizeDiv2_0_value](./resources/medianSizeDiv2_1_imgs.png "distance, amplitude, distance noise, and reflectivity images with spatial filtering: median filter mask set to 3x3 pixel neighbourhood") |                                                             |
+| 2 (5 x 5 mask size)               | ![medianSizeDiv2_2_value](./resources/medianSizeDiv2_2.png "3D point cloud with spatial filtering: median filter mask set to 5x5 pixel neighbourhood") | ![medianSizeDiv2_0_value](./resources/medianSizeDiv2_2_imgs.png "distance, amplitude, distance noise, and reflectivity images with spatial filtering: median filter mask set to 5x5 pixel neighbourhood") |                                                             |
 
 
 ## Bilateral vs. median filtering
