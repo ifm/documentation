@@ -2,6 +2,6 @@
 
 | Table of content|
 |-|
-| [Getting Started](../GettingStarted/getting_started.md)|
+| [Unboxing](../GettingStarted/unboxing.md)|
 
-Coming soon ...
+This section should help you with the first steps using the O3R.
