@@ -12,3 +12,5 @@
 | [Mixed pixel filter](../../Parameters/Filters/mixedPixelFilter.md)|
 | [Symmetry threshold](../../Parameters/Filters/symmetryThreshold.md)|
 | [Stray light filter](../../Parameters/Filters/strayLight.md)|
+
+The O3R provides several filters which can be used to handle specific ToF artifacts.
