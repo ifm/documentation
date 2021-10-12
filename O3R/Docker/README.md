@@ -7,4 +7,4 @@
 | [Autostarting the container](../Docker/autostart.md)|
 | [Enabling GPU usage](../Docker/gpu.md)|
 
-This section explains the handling and deployment of custom specific containers for the O3R.
+This section explains the handling and deployment of customer specific containers for the O3R.
