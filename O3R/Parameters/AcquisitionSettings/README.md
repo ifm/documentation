@@ -2,5 +2,7 @@
 
 | Table of content|
 |-|
-| [Modes](modes.md)|
-| [Offset](offset.md)|
+| [Modes](../../Parameters/AcquisitionSettings/modes.md)|
+| [Offset](../../Parameters/AcquisitionSettings/offset.md)|
+
+Acquisition parameters change the basic setting on how the camera heads are taking images.

@@ -1,3 +1,3 @@
-# README - FAQ
+# FAQ - Frequently Asked Questions
 
 Coming soon...
