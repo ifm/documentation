@@ -100,7 +100,7 @@ To verify if the copy process worked, use the command `sync` on the VPU after th
 
 > Note: The `oem` user has no write rights outside of his/her home directory. Therefore use `/home/oem/` for saving files etc. It is possible to create folders within the oem directory.
 
-Once you copied the container, you can load and start it (see [instructions](INSERTLINK))
+Once you copied the container, you can load and start it (see [instructions](docker.md))
 
 ## Local docker registry
 

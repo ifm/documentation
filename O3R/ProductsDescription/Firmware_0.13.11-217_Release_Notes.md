@@ -58,7 +58,7 @@ This firmware release supports the following ifm camera articles:
   The idea of ifm3d is to let developers quickly ramp up and also deploy the image processing system. 
   Sample programs, that illustrate the various functions and good usage, are provided for the following applications frameworks:  
 	* C++  
-	* Python bindings: use `pip install ifm3dpy`, (see [here](www.ifm3d.com/))  
+	* Python bindings: use `pip install ifm3dpy`, (see [here](https://www.ifm3d.com))  
 	* ROS1 wrapper:  
 * SSH access:  
   Access to the embedded Linux operating system is enabled through the `oem` user.  

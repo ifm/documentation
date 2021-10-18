@@ -51,7 +51,7 @@ After building the container, you can follow the steps from the documentation to
 
 ### Start the container with the NVIDIA runtime
 
-To use CUDA and the GPU, you have to specify the NVIDIA runtime, either with the `docker run` command, or within the `docker-compose.yml` (see [autostart](INSERTLINK)).
+To use CUDA and the GPU, you have to specify the NVIDIA runtime, either with the `docker run` command, or within the `docker-compose.yml` (see [autostart](autostart.md)).
 
 #### Using `docker run`
 Use the `--runtime nvidia` argument when running your container. The output of the running container should look similar to this:
