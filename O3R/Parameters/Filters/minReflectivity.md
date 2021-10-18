@@ -27,4 +27,4 @@ In the table below, we show the computed distance image for the default settings
 
 ## Related topics
 - [Minimum amplitude](minAmplitude.md)
-- [Available images](images.md)
+- [Available images *coming soon*](images.md)
