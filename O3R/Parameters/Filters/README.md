@@ -1,4 +1,4 @@
-# README - Filters
+# Filters
 
 | Table of content|
 |-|

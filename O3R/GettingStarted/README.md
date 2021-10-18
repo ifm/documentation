@@ -1,4 +1,4 @@
-# README - Getting Started
+# Getting Started
 
 | Table of content|
 |-|

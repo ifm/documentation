@@ -1,4 +1,4 @@
-# README - Docker on O3R
+# Docker on O3R
 
 | Table of content|
 |-|
