@@ -306,15 +306,17 @@ RUN apt-get update \
 
 >Note: You should leverage the layering from Docker to improve the build speed if you need to build again. Qemu emulates a ARM64 CPU in software on a x86 System which is slow. In case you are planning to build large application from source please consider to run this on a ARM64 based host.
 
-If you want to use the build image provided by ifm, just pull it like so:
+We provide up-to-date images containing the ifm3d library, both on the docker hub [here](https://hub.docker.com/r/ifmrobotics/ifm3d) and on github [here](https://github.com/ifm/ifm3d/pkgs/container/ifm3d).
+We recommend using the image available on github, as it does not come with rate limits. You can simply pull it like so:
 
 ```bash
-$ docker pull ifmrobotics/ifm3d:l4t-latest
-l4t-latest: Pulling from ifmrobotics/ifm3d
+$ docker pull ghcr.io/ifm/ifm3d:latest
+latest: Pulling from ifm/ifm3d
 ...
-Digest: sha256:91f53f8777c0c13d1ccdd56442bf9c11d37b8846239bca68ed43c19e2313fec6
-Status: Downloaded newer image for ifmrobotics/ifm3d:l4t-latest
-docker.io/ifmrobotics/ifm3d:l4t-latest
+Digest: sha256:f54a5890d75618c5bd21535dfa71e1cd9b1a8515902fb8e1912e6f586e0685a3
+Status: Downloaded newer image for ghcr.io/ifm/ifm3d:latest
+ghcr.io/ifm/ifm3d:latest
+
 ```
 
 >Note: Due to easier readability, the pull process output was shortened
@@ -322,8 +324,7 @@ docker.io/ifmrobotics/ifm3d:l4t-latest
 Let's try the image and see if we can connect to a (physically connected) VPU:
 
 ```bash
-$ docker run -it ifmrobotics/ifm3d:l4t-latest
-WARNING: The requested image’s platform (linux/arm64) does not match the detected host platform (linux/amd64) and no specific platform was requested
+$ docker run -it ghcr.io/ifm/ifm3d:latest
 ifm@1f21eb1f98d2:/$ ifm3d dump
 {
   "device": {
@@ -347,10 +348,10 @@ Type "help", "copyright", "credits" or "license" for more information.
 
 ## Building on top of the ifm base image
 
-Now you want your own container, with your python script to run. Base your Dockerfile simply on the `ifmrobotics/ifm3d:l4t-latest` image:
+Now you want your own container, with your python script to run. Base your Dockerfile simply on the `ghcr.io/ifm/ifm3d:latest` image:
 
 ```Dockerfile
-FROM ifmrobotics/ifm3d:l4t-latest
+FROM ghcr.io/ifm/ifm3d:latest
 ```
 
 You can now include your application code.
