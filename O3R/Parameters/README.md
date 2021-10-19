@@ -1,4 +1,4 @@
-# README - Parameters
+# Parameters
 
 | Table of content|
 |-|

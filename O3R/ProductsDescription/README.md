@@ -1,4 +1,4 @@
-# README - Products Description
+# Products Description
 
 | Table of content|
 |--|

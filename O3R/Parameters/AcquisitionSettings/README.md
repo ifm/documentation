@@ -1,4 +1,4 @@
-# README - Acquisition settings
+# Acquisition settings
 
 | Table of content|
 |-|
