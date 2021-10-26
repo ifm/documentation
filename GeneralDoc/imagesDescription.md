@@ -1,10 +1,8 @@
 # Description of the available images
 
-This document gives a high level overview of the images available for the O3R. Receiving certain images can be turned ON/OFF using the schema mask (INSERT-LINK)
+This document gives a high level overview of the images available for the O3R. Receiving certain images can be turned ON/OFF using the schema mask (INSERT-LINK).
 
->Note: the width and height of each image depends on the imager type. For the 38k imager, the width is 224 pixels and the height 172 pixels.
-
->Note: For more information about the types, sizes and other implementation details, please refer to the ifm3d API documentation (INSERT-LINK)
+>Note: For more information about the types, sizes and other implementation details, please refer to the ifm3d API documentation (INSERT-LINK).
 
 ## Raw Amplitude image and Amplitude image
 
@@ -46,7 +44,10 @@ This image is the JPEG-encoded RGB image streamed by the 2D imager, when availab
 
 Questions:
 https://polarionsy.intra.ifm/polarion/#/project/O3Rx_01/wiki/Software%20Requirements/SRS%203D%20Computation%20Interface%20_DI_ says that invalid amplitude should be -1?
+https://polarionsy.intra.ifm/polarion/#/project/O3Rx_01/workitem?id=O3R-2146 says amp == 0 is invalid
 
 Need to understand better the compressed vs. uncompressed algo output. Which one is visible to user? Can we switch?
 
 Is the "Gray image" a thing for the O3R?
+
+Where is the MASK for choosing what to receive from the O3R in ifm3d?
