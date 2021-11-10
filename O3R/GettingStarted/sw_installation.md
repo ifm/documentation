@@ -163,25 +163,7 @@ print(json.dumps(config, indent=4))
 
 ### For cpp
 
-You will need to build from source. Clone the [ifm3d repository](https://github.com/ifm/ifm3d/tree/o3r/main-next) from github (make sure to use the o3r/main-next branch) and proceed as follows:
-
-```console
-$ mkdir build 
-$ cd build 
-$ cmake -DCMAKE_INSTALL_PREFIX=/usr .. 
-$ cmake --build . 
-$ sudo make install
-```
-
-To build the python bindings, use:
-```console
-$ cmake -DBUILD_MODULE_PYBIND11=ON ..
-```
-
-To build the examples, use:
-```console
-$ cmake -DBUILD_MODULE_PYBIND11=ON -DBUILD_EXAMPLES=ON ..
-```
+You will need to build from source. Clone the [ifm3d repository](https://github.com/ifm/ifm3d/tree/o3r/main-next) from github (make sure to use the o3r/main-next branch) and follow the build instructions [here](https://ifm.github.io/ifm3d-docs/content/installation_instructions.html).
 
 ### For ROS: *coming soon*
 
