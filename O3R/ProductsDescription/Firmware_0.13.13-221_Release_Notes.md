@@ -1,15 +1,15 @@
-# FIRMWARE 0.13.11 RELEASE NOTES  !!!!!PRELIMINARY!!!!
-The following release note provides an overview of the features of the Firmware 0.13.11 Version.  
+# FIRMWARE 0.13.13 RELEASE NOTES  !!!!!PRELIMINARY!!!!
+The following release note provides an overview of the features of the Firmware 0.13.13 Version.  
 Please refer to the ifm O3Rs website [www.ifm3d.com](http://www.ifm3d.com) for further information.
 
 
 ## 1. Previous Releases
-There is no previous FW release for image processing system M03975.
-The FW-release 0.13.11 does not operate with image processing system M03903 and their heads.
+There is no previous FW release for image processing platform M03975.
+The FW-release 0.13.13 does not operate with image processing platform M03903 and their heads.
 
 
-## 2. Compatible Image Processing Systems
-This firmware release can be applied to the following ifm image processing systems:
+## 2. Compatible Image Processing Platforms
+This firmware release can be applied to the following ifm image processing platform:
 <table border="1px solid black">
   <tr>
     <th>article</th>
@@ -19,6 +19,10 @@ This firmware release can be applied to the following ifm image processing syste
     <th>M03975</th>
     <th>preseries sample</th>   
   </tr>
+  <tr>
+    <th>M04239</th>
+    <th>preseries sample, housing change</th>   
+  </tr>  
 </table>
 
 
@@ -32,17 +36,27 @@ This firmware release supports the following ifm camera articles:
   </tr>
   <tr>
     <th> M03933 </th>
-    <th> 3D: 224x172, 60°x45° <br>  2D: 1280x800, 127°x80° </th>   
+    <th> 3D: 38k 224x172, 60°x45° IP50 <br>  2D: 1280x800, 127°x80° </th>   
     <th> standard_range4m, standard_range2m, cyclic_4m_2m_4m_2m <br> autoexposure </th>
   </tr>
   <tr>
-    <th> M03969 </th>
-    <th> 3D: 224x172, 105°x78° <br>  2D: 1280x800, 127°x80° </th>   
+    <th> M04237 </th>
+    <th> 3D: 38k 224x172, 60°x45° IP54 <br>  2D: 1280x800, 127°x80° </th>   
     <th> standard_range4m, standard_range2m, cyclic_4m_2m_4m_2m <br> autoexposure </th>
   </tr>  
   <tr>
+    <th> M03969 </th>
+    <th> 3D: 38k 224x172, 105°x78° IP50 <br>  2D: 1280x800, 127°x80° </th>   
+    <th> standard_range4m, standard_range2m, cyclic_4m_2m_4m_2m <br> autoexposure </th>
+  </tr> 
+    <tr>
+    <th> M03970 </th>
+    <th> 3D: 38k 224x172, 105°x78° IP54 <br>  2D: 1280x800, 127°x80° </th>   
+    <th> standard_range4m, standard_range2m, cyclic_4m_2m_4m_2m <br> autoexposure </th>
+  </tr>    
+  <tr>
     <th> M03976 </th>
-    <th> 3D: 640x480, 60°x45° <br> 2D:1280x800, 127°x80° </th>   
+    <th> 3D: VGA 640x480, 60°x45° IP50 <br> 2D:1280x800, 127°x80° </th>   
     <th> standard_range4m, standard_range2m, cyclic_4m_2m_4m_2m <br> autoexposure </th>
   </tr>
 </table>
@@ -50,12 +64,12 @@ This firmware release supports the following ifm camera articles:
 
 ## 4. General Features
 * Connectivity:  
-  The O3R image processing system is a multi camera image processing platform.  
+  The O3R image processing platform is a multi camera image processing platform.  
   * Ports: ifm camera articles can be connected to all six ports (Port0 .. Port5) 
   * Ethernet: 1x GB ethernet connection [eth0]  
 * Data Interface:  
-  The ifm3d library is recommended for interfacing with the O3R image processing system (download [here](https://github.com/ifm/ifm3d)) 
-  The idea of ifm3d is to let developers quickly ramp up and also deploy the image processing system. 
+  The ifm3d library is recommended for interfacing with the O3R image processing platform (download [here](https://github.com/ifm/ifm3d)) 
+  The idea of ifm3d is to let developers quickly ramp up and also deploy the image processing platform. 
   Sample programs, that illustrate the various functions and good usage, are provided for the following applications frameworks:  
 	* C++  
 	* Python bindings: use `pip install ifm3dpy`, (see [here](www.ifm3d.com/))  
@@ -63,13 +77,13 @@ This firmware release supports the following ifm camera articles:
 * SSH access:  
   Access to the embedded Linux operating system is enabled through the `oem` user.  
 * Docker containers:  
-  Docker containers can be used to deploy code embedded on the image processing system. 
+  Docker containers can be used to deploy code embedded on the image processing platform. 
   Management of docker containers, like upload, download, autostart, delete is handled through SSH access by the oem user.
 
 ## ifm Camera Usage  
 The ifm camera heads are in one of the following states:  
 * CONF: Configuration state, no data acquisition  
-* IDLE: no data acquisition, but ready for SW-trigger  
+* IDLE: pause data acquisition
 * RUN:  periodic data acquisition @framerate   
 
 ## 5. 3D-Camera Features
