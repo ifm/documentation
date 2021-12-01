@@ -1,0 +1,3 @@
+[submodule "ifm3d-docs"]
+	path = ifm3d-docs
+	url = https://github.com/ifm/ifm3d-docs.git
