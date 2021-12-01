@@ -1,1 +1,0 @@
-- General troubleshooting guide (power supply, connectors, SW versions, ...)
