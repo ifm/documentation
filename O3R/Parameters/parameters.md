@@ -9,7 +9,7 @@
 |`mode`|This parameter designates the measurement range: 2 or 4 meters.|experimental_high_2m, experimental_high_4m *(default)*|
 
 Learn more [here](AcquisitionSettings/modes.md).
-
+Learn more [about the modes](modes).
 ### Exposure Times
 |Variable name|Short description|Min/max values|
 |--|--|--|

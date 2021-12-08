@@ -1,3 +1,4 @@
+(modes)=
 # Modes
 
 ## Description
