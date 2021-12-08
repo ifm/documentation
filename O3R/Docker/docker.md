@@ -2,21 +2,13 @@
 
 In this document we guide you through building a container from scratch. We start by building a small container. This container will increase in size and complexity the further we go. We will use a python base image and install the ifm3d (ifm3dpy) library.
 
-If you want to use any of our available docker images or directly build on top of our Dockerfiles, you can jump directly to [this section](#building-on-top-of-the-ifm-base-image) or check out the list of docker images officially supported by ifm [here (*coming soon*)](INSERTLINK).
+If you want to use any of our available docker images or directly build on top of our Dockerfiles, you can jump directly to [this section](#building-on-top-of-the-ifm-base-image) or check out the list of docker images officially supported by ifm *coming soon*.
 
 Note that the O3R VPU (Video Processing Unit) is based on an NVIDIA Jetson system (TX2), which is arm64/aarch64 based.
 Building containers without the right base image will not run on the VPU, an arm64/aarch64 base image is needed. Please read carefully the instructions at the [Nvidia -> GitHub repository](<https://github.com/NVIDIA/nvidia-docker/wiki/NVIDIA-Container-Runtime-on-Jetson>) for set-up instruction. For running an aarch64 container on a x86-64 host the section [Running or building a container on x86](https://github.com/NVIDIA/nvidia-docker/wiki/NVIDIA-Container-Runtime-on-Jetson#enabling-jetson-containers-on-an-x86-workstation-using-qemu) is highly recommended.
 
-Table of content:
-- [A basic container](#a-basic-container)
-  - [Build a container](#build-a-container)
-  - [Run a container](#run-a-container)
-  - [Save a container](#save-a-container)
-  - [Load and start a container](#load-and-start-a-container)
-- [Add features to the container](#add-features-to-the-container)
-- [Install ifm3d in the container](#install-ifm3d-in-the-container)
-- [Building on top of the ifm base image](#building-on-top-of-the-ifm-base-image)
-
+:::{contents}
+:::
 ## A basic container
 
 Every Docker container image is built by Docker using a Dockerfile. 
@@ -130,7 +122,6 @@ The container is working, let's save it so we can share it around. Docker alread
 $ docker save ifm3d > ifm3d.tar
 ```
 
-
 ## Load and start a container
 
 To reload the content of a previously saved image, use:
@@ -223,7 +214,7 @@ numpy==1.21.1
 
 ## Install ifm3d in the container
 
-`ifm3dpy` is the python binding for the ifm3D library. You can install it from source (download it [here](https://github.com/ifm/ifm3d)) or use [the docker image (*coming soon*)](INSERTLINK) provided by ifm which can be used on the VPU and contains the ifm3d and ifm3dpy libraries.
+`ifm3dpy` is the python binding for the ifm3D library. You can install it from source (download it [here](https://github.com/ifm/ifm3d)) or use the [docker image](https://github.com/ifm/ifm3d/pkgs/container/ifm3d) provided by ifm which can be used on the VPU and contains the ifm3d and ifm3dpy libraries.
 
 The Dockerfile could look similar to this:
 
@@ -356,4 +347,4 @@ FROM ghcr.io/ifm/ifm3d:latest
 
 You can now include your application code.
 
-Once the image is built, you can deploy it to the VPU. Read more [here](deployVPU.md).
+Once the image is built, you can deploy it to the VPU. Read more [here](documentation/O3R/Docker/deployVPU:Deploying%20a%20container%20to%20the%20VPU).

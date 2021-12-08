@@ -1,6 +1,6 @@
 # Docker on O3R
 :::{toctree}
-Getting started with Docker] <docker>
+Getting started with Docker <docker>
 Deployment on board <deployVPU>
 Autostarting the container <autostart>
 Enabling GPU usage <gpu>

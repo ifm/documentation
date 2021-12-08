@@ -1,5 +1,4 @@
 *Disclaimer: As a vendor of industrial equipment, we always try to mitigate physics artifacts to the best of our abilities. The default settings are chosen with this goal in mind: providing the best experience for **most** cases. However, the variety of scenes that mobile robots and other applications can encounter makes a “one-fits-all” configuration impossible. With this in mind, we present the outliers in our documentation, challenging but common cases that might require fine-tuning of the camera configuration.*
-
 # Stray Light Filter
 
 Scenes including highly reflective objects are common in robotics and industrial use cases. These scenes can present challenges because reflectors introduce an artifact known in optical systems as stray light. In this document, we focus on this phenomenon and present the stray light filter available with the O3R. We analyze some challenging cases and give hints on how to handle specific applications. 

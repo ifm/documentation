@@ -1,4 +1,3 @@
-
 # Settings Description
 
 ## Acquisition Settings
@@ -6,10 +5,11 @@
 ### Modes
 |Variable name|Short description|Min/max values|
 |--|--|--|
-|`mode`|This parameter designates the measurement range: 2 or 4 meters.|experimental_high_2m, experimental_high_4m *(default)*|
+|`mode`|This parameter designates the measurement range: 2 or 4 meters.|standard_range2m, standard_range4m *(default)*|
 
-Learn more [here](AcquisitionSettings/modes.md).
-Learn more [about the modes](modes).
+Learn more [about the modes](documentation/O3R/Parameters/AcquisitionSettings/modes:Modes).
+
+
 ### Exposure Times
 |Variable name|Short description|Min/max values|
 |--|--|--|
@@ -21,17 +21,17 @@ The proper exposure time for a pixel depends on factors such as the dynamics of 
 As such, it is common that all targets of a scene cannot be properly exposed with a single exposure time. 
 To reduce noise and the number of overexposed/underexposed pixels, we use three exposures for each frame. The “experimental_high” mode provides two settable exposure times (`expLong` and `expShort`) plus a third *static* exposure (set at 30 µs) designed to help detect highly reflective targets in the very near range (~1 m). Note that using a small ratio of exposure times helps reduce noise in transitions regions (where neighboring pixels use different exposure times).
 
-> Note: You can find which exposure time is used for each pixel by analyzing the confidence image as detailed [here](confidenceImage.md).
+> Note: You can find which exposure time is used for each pixel by analyzing the confidence image as detailed [here](documentation/O3R/ProductsDescription/ImagesDescription/confidenceImage:The%20confidence%20image).
 
 ### Offset
 |Variable name|Short description|Min/max values|
 |--|--|--|
-|`offset`|Shifts the start point of the measured range (see *mode*)|+/-30 meters|
+|`offset`|Shifts the start point of the measured range (see [mode](documentation/O3R/Parameters/parameters:modes))|+/-30 meters|
 
 Coded modulation dictates the base range of the camera. (e.g., 0.2 to 2 m). Coded modulation also allows this range to be offset or shifted from its start point. In the example of 0.2–2 m base range, an `offset`
 of 1 would lead to a 1.2–3 m range. Continuing this example, an `offset` of 2 leads to a 2.2–4m range. The `offset` can be changed frame by frame.
 
-Learn more [here](AcquisitionSettings/offset.md).
+Learn more [here](documentation/O3R/Parameters/AcquisitionSettings/offset:Offset).
 
 ### Framerate
 |Variable name|Short description|Min/max values|
@@ -52,7 +52,7 @@ When to change default:
 - Lower the max. distance noise value if you are attempting to measure an object with high precision (e.g, box dimensioning).
 - Increase the max. distance noise value if it is more important to evaluate all pixels in the scene, regardless of their noise (e.g., obstacle detection).
 
-Learn more [here](Filters/maxDistNoise.md).
+Learn more [here](documentation/O3R/Parameters/Filters/maxDistNoise:Maximum%20Distance%20Noise).
 
 ### Minimum Amplitude
 |Variable name|Short description|Min/max values|
@@ -66,7 +66,7 @@ When to change the default:
 Lower the default value when the standard targets are known to have low reflectivity (e.g., <10% like matte black targets). A lower amplitude threshold is also valuable when attempting to detect negative obstacles (e.g., stairs).
 It is recommended to enable a noise filter (temporal or adaptive filter) when lowering the default minimum amplitude.
 
-Learn more [here](Filters/minAmplitude.md).
+Learn more [here](documentation/O3R/Parameters/Filters/minAmplitude:Minimum%20Amplitude).
 
 ### Adaptive Noise Bilateral Filter and Median Filter
 |Variable name|Short description|Min/max values|
@@ -80,7 +80,7 @@ The adaptive bilateral noise filter reduces distance noise while also preserving
 
 The median filter does not preserve edges as well as the bilateral filter and tends to produce round corners, but being more computationally efficient, could be utilized with “in-motion” use cases (e.g., obstacle detection on mobile robots).
 
-Learn more [here](Filters/bilateralFilter.md)
+Learn more [here](documentation/O3R/Parameters/Filters/bilateralFilter:Adaptive%20noise%20bilateral%20filter)
 
 ### Temporal Filter
 |Variable name|Short description|Min/max values|
@@ -91,7 +91,7 @@ The temporal filter mitigates distance noise by integrating pixel information ov
 
 Although the O3R temporal filter can be used on “in-motion” use cases, it is best suited for static scenes.
 
-Learn more [here](Filters/temporalFilter.md)
+Learn more [here](documentation/O3R/Parameters/Filters/temporalFilter:Temporal%20Filter)
 
 ### Mixed Pixel Filtering
 |Variable name|Short description|Min/max values|
@@ -105,7 +105,7 @@ The mixed pixel filter removes the mixed pixels from the image.
 When to change the default:  
 Mixed pixels fall on the edges of targets. Use cases, such as negative obstacle detection, could take advantage of the additional information provided by these mixed pixels, requiring the filter to be disabled.
 
-Learn more [here](Filters/mixedPixelFilter.md)
+Learn more [here](documentation/O3R/Parameters/Filters/mixedPixelFilter:Mixed%20Pixel%20Filter)
 
 ### Symmetry Threshold
 |Variable name|Short description|Min/max values|
@@ -117,7 +117,7 @@ The raw modulated signal used to perform the distance measurement is designed to
 
 > Note: adjusting this filter for faster motion, or allowing less symmetry, will increase overall distance noise.
 
-Learn more [here](Filters/symmetryThreshold.md)
+Learn more [here](documentation/O3R/Parameters/Filters/symmetryThreshold:Symmetry%20Threshold)
 ### Stray light
 |Variable name|Short description|Min/max values|
 |--|--|--|
@@ -125,4 +125,4 @@ Learn more [here](Filters/symmetryThreshold.md)
 
 Stray light is defined as “unwanted light from the active illumination reaching the imager”. This is typically experienced when there is a very bright object in the FoV. The resulting amplitude of pixels landing on the bright object affect the neighboring “darker” pixels. This is seen as a “halo” around the bright object. This “halo” can affect the measurement of neighboring pixels (even providing a value for pixels where none previously existed). The stray light filter mitigates this physics artifact.
 
-Learn more [here](Filters/strayLight.md)    
+Learn more [here](documentation/O3R/Parameters/Filters/strayLight:Stray%20Light%20Filter)    

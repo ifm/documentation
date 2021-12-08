@@ -1,4 +1,4 @@
-# Software installation
+# Software installation instructions
 
 ## Network configuration
 The default IP address of the VPU is 192.168.0.69. A good first step is to make sure you can connect to the VPU:

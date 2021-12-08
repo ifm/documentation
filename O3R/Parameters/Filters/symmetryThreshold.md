@@ -5,7 +5,7 @@ The symmetry threshold `maxSymmetry` is used for filtering motion artifacts. Inc
 In cases with a high ambient noise level, the dynamic symmetry filter should be enabled (with the parameter `enableDynamicSymmetry`) to ensure pixels are not invalidated due to ambient noise. 
 
 ## Description
-The O3R camera heads use the ifm ToF (Time of Flight) technology for measuring the distance to objects. To calculate one single point cloud image, the system takes several independent image frames. These images are correlated over time (see [basic concepts](../basicConcepts.md)). This correlation is represented as symmetry value. It can be thought of as the four modulated signals used for performing the *raw* measurement, being more or less symmetrical to one another.
+The O3R camera heads use the ifm ToF (Time of Flight) technology for measuring the distance to objects. To calculate one single point cloud image, the system takes several independent image frames. These images are correlated over time. This correlation is represented as symmetry value. It can be thought of as the four modulated signals used for performing the *raw* measurement, being more or less symmetrical to one another.
 
 For low symmetry threshold values, only pixels for which the correlation images are highly symmetrical (i.e., with no or few motion artifacts) are valid. Because of inherent noise, a perfect symmetry is never possible even for static scenes. Increasing the symmetry threshold validates pixels with higher symmetry values, including noisy pixels and potential motion artifacts.
 

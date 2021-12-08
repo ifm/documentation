@@ -4,8 +4,6 @@ Product Description <ProductsDescription/README>
 Getting Started <GettingStarted/README>
 Parameters <Parameters/README>
 Docker <Docker/README>
-ifm3d library <https://ifm.github.io/ifm3d-docs/>
-ROS *coming soon* <INSERT-LINK>
 FAQ <FAQ/README>
 :::
 

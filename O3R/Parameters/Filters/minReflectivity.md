@@ -26,5 +26,5 @@ In the table below, we show the computed distance image for the default settings
 > Note: In the first image, some pixels are missing from the side of the object. This area of the object does not reflect enough light, even when a low reflectivity threshold is allowed.
 
 ## Related topics
-- [Minimum amplitude](minAmplitude.md)
-- [Available images](images.md)
+- [Minimum amplitude](documentation/O3R/Parameters/Filters/minAmplitude:Minimum%20Amplitude)
+- [Available images](documentation/O3R/ProductsDescription/ImagesDescription/imagesDescription:Description%20of%20the%20available%20images)
