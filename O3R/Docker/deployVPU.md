@@ -100,6 +100,12 @@ To verify if the copy process worked, use the command `sync` on the VPU after th
 
 > Note: The `oem` user has no write rights outside of his/her home directory. Therefore use `/home/oem/` for saving files etc. It is possible to create folders within the oem directory.
 
+When copying large containers to the VPU, we recommend using the following command in order to avoid requiring double space:
+```bash
+docker save <image> | ssh -C oem@192.168.0.69 docker load
+```
+
+
 Once you copied the container, you can load and start it (see [instructions](INSERTLINK))
 
 ## Local docker registry
