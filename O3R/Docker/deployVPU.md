@@ -56,7 +56,7 @@ The device configuration includes a parameter for authorized keys: `authorized_k
     },
 ```
 
-To add a new key, the VPU configuration needs to be changed. This can be done with several ways (see [configuring the camera](INSERTLINK)). The easiest way in this case is to use the `jq` command:
+To add a new key, the VPU configuration needs to be changed. This can be done with several ways (see [configuring the camera](ifm3d/examples/o3r/configuration/configuration:How%20to%3A%20configure%20the%20camera)). The easiest way in this case is to use the `jq` command:
 
 ```console
 $ ifm3d dump | jq --arg id "$(< ~/.ssh/id_o3r.pub)" '.device.network.authorized_keys=$id' | ifm3d config
@@ -100,7 +100,7 @@ To verify if the copy process worked, use the command `sync` on the VPU after th
 
 > Note: The `oem` user has no write rights outside of his/her home directory. Therefore use `/home/oem/` for saving files etc. It is possible to create folders within the oem directory.
 
-Once you copied the container, you can load and start it (see [instructions](INSERTLINK))
+Once you copied the container, you can load and start it (see [instructions](documentation/O3R/Docker/docker:Load%20and%20start%20a%20container))
 
 ## Local docker registry
 

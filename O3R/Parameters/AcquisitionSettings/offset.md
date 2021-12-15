@@ -3,15 +3,15 @@
 ## Description
 The offset parameter shifts the beginning of the measurement range in space. For instance, when using the 2m mode with an offset of 1m, the O3R will compute distance data for a range between 1 and 3 m from the camera.
 
-Using the offset can allow you to collect distance measurements past the measurement range set by the [mode](modes.md) while taking advantage of the robust point cloud the O3R provides and the specificities of each mode.
+Using the offset can allow you to collect distance measurements past the measurement range set by the [mode](documentation/O3R/Parameters/AcquisitionSettings/modes:Modes) while taking advantage of the robust point cloud the O3R provides and the specificities of each mode.
 
-The offset can be set at negative values, which brings the end of the measurement range closer to the camera. This can be useful for mitigating MPI artifacts (*coming soon*)), for instance, or for avoiding artifacts caused by highly reflective objects (see [stray-light artifacts](../Filters/strayLight.md)), by removing the cause of the artifact from the FoV.
+The offset can be set at negative values, which brings the end of the measurement range closer to the camera. This can be useful for mitigating MPI artifacts (*coming soon*)), for instance, or for avoiding artifacts caused by highly reflective objects (see [stray-light artifacts](documentation/O3R/Parameters/Filters/strayLight:Stray%20Light%20Filter)), by removing the cause of the artifact from the FoV.
 
 ## Example
 Let's look at the following scene. Three boxes are positioned in front of the camera at about one, two, and three meters away.
 ![RGB view of the offset scene](resources/offset_scene.png)
 
-We are using the 2m [mode](modes.md), with all the other settings as default. The table below shows the point cloud for multiple values of the offset.
+We are using the 2m [mode](documentation/O3R/Parameters/AcquisitionSettings/modes:Modes), with all the other settings as default. The table below shows the point cloud for multiple values of the offset.
 
 | Offset (meters)| Point Cloud|
 |--|--|

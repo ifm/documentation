@@ -19,7 +19,7 @@ Now, let’s see what happens when we change this threshold value. In the table 
 |20|![min-a,p-0-3d](./resources/default_value_3D.png "3D point cloud with minimum amplitude 0 values")|
 |50|![min-a,p-0-3d](./resources/amp_50_3D.png "3D point cloud with minimum amplitude 0 values")|
 
-In certain cases, such as when black objects are in the field-of-view, changing the default value from 20 to zero can be beneficial because more pixels are valid, leading to a more complete point cloud. Generally speaking, lowering the amplitude leads to more ambient noise and less accuracy in the distance measurement. In this case, we encourage you to test the [filters](../parameters.md) available with the O3R to mitigate the noise from black objects measurements.
+In certain cases, such as when black objects are in the field-of-view, changing the default value from 20 to zero can be beneficial because more pixels are valid, leading to a more complete point cloud. Generally speaking, lowering the amplitude leads to more ambient noise and less accuracy in the distance measurement. In this case, we encourage you to test the [filters](documentation/O3R/Parameters/parameters:Settings%20Description) available with the O3R to mitigate the noise from black objects measurements.
 
 > Note: black objects in the visible spectrum are not necessarily black in the near infrared range.
 
@@ -28,6 +28,6 @@ In certain cases, such as when black objects are in the field-of-view, changing 
 ## Related topics
 
 The minimum amplitude parameter is related to the maximum distance noise parameter: a low amplitude value with a high distance noise value ensures that more pixels are valid but will allow for a noisier measurement, requiring some filtering, for instance with the temporal filter. See the following:
-- [Distance noise](maxDistNoise.md)
-- [Temporal filter](temporalFilter.md)
-- [Bilateral filter](bilateralFilter.md)
+- [Distance noise](documentation/O3R/Parameters/Filters/maxDistNoise:Maximum%20Distance%20Noise)
+- [Temporal filter](documentation/O3R/Parameters/Filters/temporalFilter:Temporal%20Filter)
+- [Bilateral filter](documentation/O3R/Parameters/Filters/bilateralFilter:Adaptive%20noise%20bilateral%20filter)

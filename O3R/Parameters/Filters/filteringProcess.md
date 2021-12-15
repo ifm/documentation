@@ -4,6 +4,6 @@ This document details the filtering process applied to the O3R ToF data to produ
 
 ![Diagram of the filtering process](resources/algo_processing_chain.png)
 
-# Related Topics
-- Find an overview of the filters [here](parameters.md).
-- Find a description of the available images *coming soon*.
+## Related Topics
+- Find an overview of the filters [here](documentation/O3R/Parameters/parameters:Settings%20Description).
+- Find a description of the available images [here](documentation/ProductsDescription/ImagesDescription/imagesDescription:Description%20of%20the%20available%20images).
