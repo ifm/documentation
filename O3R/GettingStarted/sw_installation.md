@@ -1,4 +1,4 @@
-# Software installation
+# Software installation instructions
 
 ## Network configuration
 The default IP address of the VPU is 192.168.0.69. A good first step is to make sure you can connect to the VPU:
@@ -163,7 +163,7 @@ print(json.dumps(config, indent=4))
 
 ### For cpp
 
-You will need to build from source. Clone the [ifm3d repository](https://github.com/ifm/ifm3d/tree/o3r/main-next) from github (make sure to use the o3r/main-next branch) and follow the build instructions [here](https://ifm.github.io/ifm3d-docs/content/installation_instructions.html).
+You will need to build from source. Clone the [ifm3d repository](https://github.com/ifm/ifm3d/tree/o3r/main-next) from github (make sure to use the o3r/main-next branch) and follow the build instructions [here](ifm3d/doc/sphinx/content/installation_instructions:Installing%20the%20software).
 
 ### For ROS: *coming soon*
 

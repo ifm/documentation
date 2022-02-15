@@ -1,5 +1,5 @@
 # Documentation
-Developer documentation for various products
+Developer documentation for various products. Intended to be browsed on [ifm3d.com](http://www.ifm3d.com).
 
 ## Projects
 

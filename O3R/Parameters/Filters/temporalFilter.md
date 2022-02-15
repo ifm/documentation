@@ -15,12 +15,11 @@ The primary role of the temporal filter is to reduce noise. The following images
 |![Noise image without temporal filter](resources/noise_image.png)|![Noise image with temporal filter](resources/no_noise_image.png)|![Color bar for noise image](resources/color_bar_noise.png)
 
 ### Recovering Lost Pixels
-Because the filter estimates pixel values over time, a positive side effect is that it gathers more data overall. Certain pixels might reflect too little light because of their distance to the camera or their material, which causes them to be discarded during the filtering process (by the [spatial filter](bilateralFilter.md), for instance, or the [minimum amplitude filter](minAmplitude.md)). However, distance data for these pixels can potentially be computed by collecting light over multiple frames. In the following two images, we compare the same scene without (left image) and with (right image) the filter. We can see that a section of the floor (around 10 cm) at the end of the range (the point at which the pixels return the least amount of light) is not visible without the temporal filter. Note that this section of the floor could also possibly be recovered using the [distance noise](maxDistNoise.md) with higher values for the distance noise threshold, with the disadvantage of increasing the overall noise.
+Because the filter estimates pixel values over time, a positive side effect is that it gathers more data overall. Certain pixels might reflect too little light because of their distance to the camera or their material, which causes them to be discarded during the filtering process (by the [spatial filter](documentation/O3R/Parameters/Filters/bilateralFilter:Adaptive%20noise%20bilateral%20filter), for instance, or the [minimum amplitude filter](documentation/O3R/Parameters/Filters/minAmplitude:Minimum%20Amplitude)). However, distance data for these pixels can potentially be computed by collecting light over multiple frames. In the following two images, we compare the same scene without (left image) and with (right image) the filter. We can see that a section of the floor (around 10 cm) at the end of the range (the point at which the pixels return the least amount of light) is not visible without the temporal filter. Note that this section of the floor could also possibly be recovered using the [distance noise](documentation/O3R/Parameters/Filters/maxDistNoise:Maximum%20Distance%20Noise) with higher values for the distance noise threshold, with the disadvantage of increasing the overall noise.
 
 |![Scene without temporal filter](resources/no_temporal_filter.png)|![Scene with temporal filter](resources/temporal_filter_on.png)|
-|--|--|
 
 ## Related settings
-+ [Distance noise](maxDistNoise.md)
-+ [Minimum amplitude](minAmplitude.md)
-+ [Spatial filter](bilateralFilter.md)
++ [Distance noise](documentation/O3R/Parameters/Filters/maxDistNoise:Maximum%20Distance%20Noise)
++ [Minimum amplitude](documentation/O3R/Parameters/Filters/minAmplitude:Minimum%20Amplitude)
++ [Spatial filter](documentation/O3R/Parameters/Filters/bilateralFilter:Adaptive%20noise%20bilateral%20filter)
