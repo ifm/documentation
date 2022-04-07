@@ -1,5 +1,5 @@
-# FIRMWARE 0.14.x RELEASE NOTES  !PRELIMINARY!
-The following release note provides an overview of the features of the (dev release) Firmware 0.14.x Version.
+# FIRMWARE 0.14.23 RELEASE NOTES 
+The following release note provides an overview of the features of the (dev release) Firmware 0.14.23 Version.
 Please refer to the ifm O3Rs website [www.ifm3d.com](http://www.ifm3d.com) for further information.
 
 
