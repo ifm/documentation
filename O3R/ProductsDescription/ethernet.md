@@ -36,3 +36,9 @@ $ ifm3d dump | jq '.device.network.interfaces.eth1.ipv4.address="192.254.2.69"' 
 $ ifm3d dump | jq '.device.network.interfaces.eth1.ipv4.dns="192.254.2.255"' | ifm3d config
 $ ifm3d dump | jq '.device.network.interfaces.eth1.ipv4.address="192.254.2.201"' | ifm3d config
 ```
+
+> Note that the gateway setup can sometimes cause issues, as linux adds a default route to the ethernet interface. A way around this issue is the following:
+> ```bash
+> $ ip route del 0/0
+> $ route add default gw 172.25.125.201 eth1
+>```

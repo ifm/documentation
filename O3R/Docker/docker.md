@@ -301,12 +301,12 @@ We provide up-to-date images containing the ifm3d library, both on the docker hu
 We recommend using the image available on github, as it does not come with rate limits. You can simply pull it like so:
 
 ```bash
-$ docker pull ghcr.io/ifm/ifm3d:latest
-latest: Pulling from ifm/ifm3d
+$ docker pull ghcr.io/ifm/ifm3d:stable
+stable: Pulling from ifm/ifm3d
 ...
 Digest: sha256:f54a5890d75618c5bd21535dfa71e1cd9b1a8515902fb8e1912e6f586e0685a3
-Status: Downloaded newer image for ghcr.io/ifm/ifm3d:latest
-ghcr.io/ifm/ifm3d:latest
+Status: Downloaded newer image for ghcr.io/ifm/ifm3d:stable
+ghcr.io/ifm/ifm3d:stable
 
 ```
 
@@ -315,7 +315,7 @@ ghcr.io/ifm/ifm3d:latest
 Let's try the image and see if we can connect to a (physically connected) VPU:
 
 ```bash
-$ docker run -it ghcr.io/ifm/ifm3d:latest
+$ docker run -it ghcr.io/ifm/ifm3d:stable
 ifm@1f21eb1f98d2:/$ ifm3d dump
 {
   "device": {
@@ -339,10 +339,10 @@ Type "help", "copyright", "credits" or "license" for more information.
 
 ## Building on top of the ifm base image
 
-Now you want your own container, with your python script to run. Base your Dockerfile simply on the `ghcr.io/ifm/ifm3d:latest` image:
+Now you want your own container, with your python script to run. Base your Dockerfile simply on the `ghcr.io/ifm/ifm3d:stable` image:
 
 ```Dockerfile
-FROM ghcr.io/ifm/ifm3d:latest
+FROM ghcr.io/ifm/ifm3d:stable
 ```
 
 You can now include your application code.
