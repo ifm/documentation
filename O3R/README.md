@@ -1,4 +1,7 @@
 # Everything related to the O3R family
+```{include} ../../news_fw.md
+```
+
 :::{toctree}
 Product Description <ProductsDescription/README>
 Getting Started <GettingStarted/README>
