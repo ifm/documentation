@@ -5,7 +5,7 @@ The VPU provides substantial GPU (Graphical Processing Unit) power to the user. 
 
 ### Dockerfile sample
 
-The following Dockerfile builds the container with the samples from NVIDIA (see <https://github.com/NVIDIA/cuda-samples/tree/master/Samples/deviceQuery>).
+The following Dockerfile builds the container with the samples from NVIDIA (see <https://github.com/NVIDIA/cuda-samples/>).
 
 Dockerfile:
 
