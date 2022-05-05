@@ -140,6 +140,7 @@ The RGB cameras acquire color images of the objects.
 * Connectivity: ports must be connected pairwise with the same head-type: [Port0,Port1]   [Port2,Port3]   [Port4,Port5]
 * No time synchronization: synchronized data acquisition / image triggering between ports is currently not possible.
 * Software triggering in IDLE state is not operational
+* The rgb imagers have to be switched to CONF and then back to RUN before streaming data.
 
 
 ## Look forward to these features in future releases
