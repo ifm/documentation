@@ -22,7 +22,7 @@ Exposure times are utilized to maximize the number of valid pixels in a scene. T
 
 The proper exposure time for a pixel depends on factors such as the dynamics of the scene and whether the target is moving or stationary. For highly reflective targets or for motion, a short exposure time is best. For targets far away or with low reflectivity, we prefer a high exposure time.
 As such, it is common that all targets of a scene cannot be properly exposed with a single exposure time. 
-To reduce noise and the number of overexposed/underexposed pixels, we use three exposures for each frame. The “experimental_high” mode provides two settable exposure times (`expLong` and `expShort`) plus a third *static* exposure (set at 30 µs) designed to help detect highly reflective targets in the very near range (~1 m). Note that using a small ratio of exposure times helps reduce noise in transitions regions (where neighboring pixels use different exposure times).
+To reduce noise and the number of overexposed/underexposed pixels, we use three exposures for each frame. The `standard` modes provides two settable exposure times (`expLong` and `expShort`) plus a third *static* exposure (set at 30 µs) designed to help detect highly reflective targets in the very near range (~1 m). Note that using a small ratio of exposure times helps reduce noise in transitions regions (where neighboring pixels use different exposure times).
 
 > Note: You can find which exposure time is used for each pixel by analyzing the confidence image as detailed [here](documentation/O3R/ProductsDescription/ImagesDescription/confidenceImage:The%20confidence%20image).
 
