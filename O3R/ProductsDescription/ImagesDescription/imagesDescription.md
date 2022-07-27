@@ -18,7 +18,6 @@ Each pixel of the distance image denotes the ToF distance measured by the corres
 ## Distance noise (radial)
 
 The distance noise represent the estimated standard deviation of the distance error, in meters for each pixel.
-*Coming soon in ifm3d library*
 
 ## Confidence 
 The confidence image give detail about the validity of each pixel and the reason (if any) why it was invalidated. See details [here](documentation/O3R/ProductsDescription/ImagesDescription/confidenceImage:The%20confidence%20image).
