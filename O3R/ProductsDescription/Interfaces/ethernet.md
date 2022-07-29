@@ -4,8 +4,7 @@ The O3R has two ethernet ports, `eth0` and `eth1`. These ports can both be used 
 
 By default, `eth0` is configured to the static IP `192.168.0.69`, and `eth1` to DHCP with automatic IP assignment. 
 
-
-We recommend using `eth0` as the main communication interface to the network. `eth1` is intended to be used to bring in other ethernet devices.
+With the current network setup, we expect `eth0` to be used for communication to and fro a complex network. `eth1` is expected to be used for bringing in external devices and other sensors. You might encounter networking issues if using `eth1` as your primary communication interface, due to the underlying network setting in the O3R VPU linux-based OS.
 
 ## Set a static IP
 

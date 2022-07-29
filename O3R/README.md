@@ -5,6 +5,7 @@
 :::{toctree}
 Product Description <ProductsDescription/README>
 Getting Started <GettingStarted/README>
+Firmware <Firmware/README>
 Parameters <Parameters/README>
 Docker <Docker/README>
 FAQ <FAQ/README>
