@@ -148,8 +148,3 @@ The RGB cameras acquire color images of the objects.
 * more user flash storage -  alternative flash space handling for redundancy and recovery will clear more flash space for the oem user
 * new 2D RGB mode - it will be possible to set acquisition settings manually
 * synchronization among different ports - it will be possible to define the acquisition timing for SW-triggered and periodic acquisitions (eg. two heads have a synchronized acquisition)
-
-## Update Firmware Procedure:
-Update procedure:
-1. Open [http://192.168.0.69:8080/](http://192.168.0.69:8080/) in web browser. The SWUpdate web interface is shown.
-2. Drag and drop the `*.swu` firmware file into the `software update`-window. The upload procedure starts.
