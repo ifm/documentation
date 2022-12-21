@@ -3,6 +3,7 @@
 :::{toctree}
 Images description <ImagesDescription/README>
 Communication Interfaces <Interfaces/README>
+Diagnostic <diagnosis>
 SNTP <sntp>
 :::
 
