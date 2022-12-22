@@ -13,22 +13,14 @@ When sending us debug request please include the information below:
 	+ USB thumb drives / SSD
 	+ CAN hardware
 	+ ....
++ The complete JSON configuration
 
 **Required Software version information:**
 + Embedded firmware version: two ways to find this out
-	+ Via the JSON: use the get method to receive the O3R configuration information via JSON:  
+	+ Via the JSON: use the get method to receive the O3R configuration information via JSON:
 	[ifm3d.com how to receive the camera configuration](http://ifm3d.com/sphinx-doc/build/html/ifm3d/doc/sphinx/content/examples/o3r/configuration/configuration.html#read-the-current-configuration)
-	+ Via the Vision Assistant: top right hand corner:  
+	+ Via the Vision Assistant: top right hand corner:
 	![055afc8c3b028c996ec20567e877b775.png](resources/2688a88ba71f432ca0cb99bd7acf2526.png)
-    + Via the XML-RPC web frontend (default IP = 192.168.0.69):  
-	```
-	http://192.168.0.69/api/rpc/v1/com.ifm.efector/?method=getSWVersion
-	```
-
-	```
-	Response
-	{ "error": null, "id": null, "result": { "IFM_Software": "0.16.22-791", "Linux": "Linux version 4.9.140-l4t-r32.4+g8c7b68130d9a (oe-user@oe-host) ", "Main_Application": "1.18.2" } }
-	```
 
 + Local (Laptop / Computer) OS: OS and version
 + ifm3d / ifm3dpy API version
@@ -44,17 +36,17 @@ The easiest way to debug a new O3R hardware is to use the ifm Vision Assistant: 
 2. Open the ifm Vision Assistant:
 	1. Connect to the camera:
 		1. Option 1: Search automatically - PCIC "search function" used here
-		2. Option 2: Connect manually: `CTRL + M`  
+		2. Option 2: Connect manually: `CTRL + M`
 		![c48fd752dab1a2e1c9d2c0156b2a67ba.png](resources/036b053e0cf0422da657b0fe260822e9.png)
-		3. ifm Vision Assistant window: after successful connection  
+		3. ifm Vision Assistant window: after successful connection
 		![b38649b855f15c8079f96c534558a89b.png](resources/a1cd94cda41140a0ab95918f35011bc2.png)
 
 3. Check the device details: top right hand corner
-Device Status -> Show device details  
+Device Status -> Show device details
 ![498d1a1a4d817f426b7496a153b9e573.png](resources/f046d34322a144c984ded6f171fcfebe.png)
 
 4. Check the diagnostic information: top right hand corner
-Device Status -> Diagnostic  
+Device Status -> Diagnostic
 ![5aaeb3f2540bab23bae5318fe824a01e.png](resources/dc1a047c6eb0498db3ab0f5fdea8eeb4.png)
 
 ### Status LEDs and port LEDs
