@@ -1,52 +1,92 @@
-# FAQ
+# Lookup Table for Firmware Version Compatibility
+| Firmware Version | Supported VPU          | Supported Camera Heads         | ifm3d-library | ifmVisionAssistant |
+| ---------------- | ---------------------- | ------------------------------ | ------------- | ------------------ |
+| 0.16.23          | OVP800, M04239         | O3R222, O3R225AB, 03R225AC     | >=1.1.1       | >=2.6.7            |
+| 0.14.23          | OVP800, M03975, MO4239 | O3R222, O3R225, M03933, M03969 | 0.93.x        | N/A                |
 
-__Q: Is it necessary to shut down the camera before switching off the power?__  
-__A:__ No, the O3R system can be switched off at anytime (except during firmware update).  
+### Lookup Table for ifm3d-ROS Version Compatibility
 
-__Q: What kind of certificates does the O3R fullfil?__  
-__A:__ CE (Europe) and UL(USA) will be fulfilled at the release of the system (October 2021).
+For ROS2 distributions Software Compatibility Matrix please refer [ifm3d-ros2 github page](https://github.com/ifm/ifm3d-ros2) and for the ROS distributions please refer this [ifm3d-ros github page](https://github.com/ifm/ifm3d-ros)
 
-__Q: VPU? Camera heads?__  
-__A:__ `VPU` - Video Processing Unit. The O3R is using the NVidia TX2 as a base computing platform and free CPU and GPU resources can be used for customer algorithms. You can connect our camera heads directly to the VPU and you do not need to take care of communication, power etc. separately. These heads come in different flavors. 2D/3D, 38k or VGA resolution, 105° or 60° opening angle. 
+Changelog for different packages can seen [here](http://ifm3d.com/sphinx-doc/build/html/ROS/ifm3d-ros/CHANGELOG.html?highlight=error).
 
-__Q: Are there any plans to include the O3R platform into the ifmVisionAssistant?__  
-__A:__ Absolutely! The ifmVA will be available sometime after the official release of the O3R (October 2021). 
+## Hardware (Connectivity)
+**Q: Why is the Status LED blinking but not turning RED for an undervoltage error?**
 
-__Q: What ports are used and can I change them?__  
-__A:__ The O3R system is using the ports 8080,8888,50010-50025. Right now, it is not possible to change the ports, but this will be possible in the future.
->Note: Ports 8080 and 8888 are reserved ports for specific ifm applications and can't be changed.
+A: In an undervoltage situation (not enough power supplied) the LED status is flashing only. A 2.5A and 24V power source is minimum requirement for the operation. Please double check the diagnosis information via [software](../GettingStarted/debugging.md).
 
-__Q: How can I define the extrinsic calibration for my different heads?__  
-__A:__ There are several ways to do that and we do not recommend any one over the other. At ifm, we manly use the checkerboard method, but you can also manually measure everything or use other tools. If you want to know more, please get in touch with us and read our documentation.
+**Q: Why is the PORT LED not turning green after camera head is connected?**
 
-__Q: Is it possible to change the extrinsic calibration?__
-__A:__ Indeed! You have the possibility to change the extrinsic calibration for each head. The calibration will be saved on the VPU and is also available after an reboot (see [configuring the camera](INSERT-LINK)). To know more, check out our [calibration documentation *coming soon*](INSERT-LINK).
+A: This can happen for different scenarios:
+- If the camera is plugged in during runtime: no hot-plug capabilities are enabled.
+- If different imager types are connected to the same pair of ports, i.e. [PORT0,PORT1]; [PORT2,PORT3]; [PORT4,PORT5]: only a same imager type is supported per port pair.
+- When the camera is connected for the first time, the calibration download will take up to 2 minutes. The respective LED turn green after the download process is completed.
+Please check the diagnosis information via [software](../ProductsDescription/diagnosis.md).
 
-__Q: Okay, so you have the ability to set the extrinsic calibration. Do we also need to intrinsically calibrate the camera?__  
-__A:__ No, don't worry about this. We are calibrating each head individually in production. You can, however, receive the intrinsic calibration if you need it (it is sent in the `distance_image_info`, see the [images description *coming soon*](INSERT-LINK)).  
-> Note: Our calibration also includes temperature, lens position, etc. There is no need for an additional calibration on your side. 
+**Q: I am not able to receive data from the camera heads?**
 
-__Q: Unfortunately, one of the heads was destroyed in dubious circumstances. Can I replace the head?__  
-__A:__ Sure thing! Just get a new one and replace the broken one. We recommend performing a sanity check of the extrinsic calibration of the newly mounted head (the mounting of the camera might have shifted a few millimeters or degrees in the replacement process). But that's it. Just keep in mind that we have different kind of heads. 
+A: The default state for each camera head is **CONF** in Firmware Version <= 0.16.23. Change the state to **RUN** to receive data.
+If you don't receive after the state change,  double check the PCIC port number mapping, i.e. the port that framegrabber is listening to.
+| Hardware Port | PCIC TCP Port |
+| ------------- | ------------- |
+| Port 0        | 50010         |
+| Port 1        | 50011         |
+| Port 2        | 50012         |
+| Port 3        | 50013         |
+| Port 4        | 50014         |
+| Port 5        | 50015         |
 
-__Q: Can I replace a head with another type of head (60 degrees vs. 105 degrees for instance):__  
-__A:__ Yes! The VPU does not need any new information about the new head. It might be that the VPU needs a bit longer after the first start with the new head. The VPU will query different information from the head to work properly. We are talking about seconds here, not minutes.
+Please be aware that the system also uses these ports, i.e. they can not be used the oem user: TCP ports 8080,8888,50010-50025, 51010-51025.
 
-__Q: Are there any debug or logging capabilities within the VPU?__  
-__A:__ The system is logging a lot of information all the time. You can receive this *trace* with our [ifm3d-library](INSERT-LINK) for the official launch).
+**Q: I connected Port0 to receive RGB Data and Port1 to receive 3D Data, but I am not receiving data.**
 
-__Q: How often do I have to update the firmware/software? Do I always need them?__  
-__A:__ We are in a phase were we will release a new firmware fairly often (around once a month). This will most likely change after the official release. We recommend to always update to the newest firmware (due to bug fixes, but also because of security). We know that most of our customers use the approach "never touch a running system" and we get that. Our changelog and release notes will tell you exactly what changed and you can decide if it is worth the risk to update or not. If in doubt, just get in touch with us!
+A: The ports **must** be connected pairwise. If Port0 is used to received 2D/3D Data then Port1 can only receive the same data respectively. Pairs --> |Port0, Port1| Port2, Port3| Port4, Port5|
 
-__Q: What kind of connection protocols can I use?__
-__A:__ Well, the default would be TCP/IP. This is also the default protocol for our libraries. You will, however, get access to the VPU itself at a certain point. Then, you can use other protocols, e.g., UDP. Ad UDP is not yet officially supported by ifm, you will need to implement it by yourself, but you are free to do so. You also can use the CAN interface.
 
-__Q: How do I get access to the VPU in general?__  
-__A:__ You have access via ssh and a customer account. 
+**Q: What kind of hardware certificates does the O3R fullfil?**
 
-__Q: Can I use the VPU with its CPU/GPU and let my program run on it?__  
-__A:__ 100%! You will be able to upload your program and/or develop directly on the VPU. The VPU will already run the docker engine, which will enable you to have an easy deployment. You can first develop on your machine, build the container and forward it to the VPU. We can provide to you some base images for the development if needed.
+**A:** Generally we try to fullfil all standard certificates: see product description on [ifm.com](https://www.ifm.com/) for further details.
 
-__Q: Do you support ROS1 & ROS2?__  
-__A:__ We have two ROS-Wrappers for our ifm3D libraries, for ROS1 and ROS2. You can easily test the set up using containers, running the roscore on the VPU for instance, or just connect the VPU as a ROS client to your roscore or other nodes. Whatever suits you best. If you want to know more, you can read our [documentation](INSERT-LINK) or get in touch with us.
+**Q: Does the O3R hardware system fullfil any additional robot specific norms: e.g. ESD / EMV?**
 
+**A:** We are in the process of testing additional robot typical hardware norms: e.g. EN 12895.
+
+
+## Camera Configuration
+**Q: Is it necessary to shut down the camera before switching off the power?**
+
+A: No, the O3R system can be switched off at anytime (except during firmware update).
+
+**Q: Do I have to perform the Intrinsic calibration on the O3R camera heads?**
+
+A: No, the O3R camera heads were calibrated in the production state and don't need an additional intrinsic calibration performed by the user.
+
+**Q: How do I configure the Stray Light Filter?**
+
+A: By default, the stray light filter is active, and it is not recommended to disable this filter because of its side effects. You can learn more about this filter [here](../GettingStarted/../Parameters/Filters/strayLight.md).
+
+**Q: Do I have to repeat the extrinsic calibration procedure every time I reconnect the camera?**
+
+A: No, once the extrinsic calibration parameters are saved to the VPU (via a [save_init function](https://ifm.github.io/ifm3d-docs/html/_autosummary/ifm3dpy.O3R.html?highlight=save%20init#ifm3dpy.O3R.save_init)) and will be available even after the reboot. **However**, if the camera's position is changed then extrinsic calibration has to be redone.
+
+**Q: Is it essential to connect the calibrated camera head to the same port to maintain the extrinsic calibration parameters**?
+
+A: Yes. The VPU stores the extrinsic calibration parameters information for the respective port. So, it is important to connect the calibrated camera to the same port.
+
+## Data Receiving
+
+**Q: I am unable to receive the data after connecting the camera head?**
+
+A: The camera's default state is in "CONF" and to be able to receive data it has to be changed to "RUN".
+
+**Q: I am unable able to receive the data from camera head after connecting to a different VPU**
+
+A: Once a camera head is connected to the VPU with firmware Version>=0.16.23 then it will no longer work on the other VPU with lower firmware version. The backward compatibility is nether supported nor recommended.
+
+## Diagnostics
+
+**Q. How can I query the VPU log information?**
+
+A. The diagnostic information can be acquired via ifmVisionAssistant. To get the more detailed information about the diagnostic information please refer this [page](../ProductsDescription/diagnosis.md)
+
+Additionally the system is constantly logging information in the background. You can receive this *trace* with our [ifm3d-library](https://ifm.github.io/ifm3d-docs/html/cli_link.html#ifm3d-command-line-tool). Please include this information when contacting us.
