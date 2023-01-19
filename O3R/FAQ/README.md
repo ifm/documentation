@@ -1,3 +1,5 @@
 # FAQ - Frequently Asked Questions
 
-Coming soon...
+:::{toctree}
+FAQ <FAQ>
+:::
