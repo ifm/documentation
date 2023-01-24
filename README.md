@@ -1,6 +1,4 @@
-# Documentation
-Developer documentation for various products. Intended to be browsed on [ifm3d.com](http://www.ifm3d.com).
+# README
 
-## Projects
-
-- [O3R](O3R/README.md) related documentation
+This project contains documentation for the O3R platform. It is used along with other projects to build to ifm3d.com site.
+> Note: it does not cover any of the supported software stacks (ifm3d, ROS, etc).

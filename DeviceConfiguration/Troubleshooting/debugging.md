@@ -18,7 +18,7 @@ When sending us debug request please include the information below:
 **Required Software version information:**
 + Embedded firmware version: two ways to find this out
 	+ Via the JSON: use the get method to receive the O3R configuration information via JSON:
-	[ifm3d.com how to receive the camera configuration](http://ifm3d.com/sphinx-doc/build/html/ifm3d/doc/sphinx/content/examples/o3r/configuration/configuration.html#read-the-current-configuration)
+	[ifm3d.com how to receive the camera configuration](http://api.ifm3d.com/html/examples/o3r/configuration/configuration.html)
 	+ Via the Vision Assistant: top right hand corner:
 	![055afc8c3b028c996ec20567e877b775.png](resources/2688a88ba71f432ca0cb99bd7acf2526.png)
 
