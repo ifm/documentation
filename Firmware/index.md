@@ -1,6 +1,6 @@
 # O3R firmware 
 
 :::{toctree}
-Release notes <ReleaseNotes/README>
+Release notes <ReleaseNotes/index>
 How to update <fw_update>
 :::

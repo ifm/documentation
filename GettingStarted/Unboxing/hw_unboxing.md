@@ -17,4 +17,4 @@ You need a strong enough power source: 2.5A and 24V minimum.
 3) Connect the ethernet cable (not included in the package)  
 4) Wait until you see the ethernet LED flashing before pinging/connecting to the VPU.  
 
-That's it about the hardware. Next step: [software installation](documentation/O3R/GettingStarted/sw_installation:Software%20installation).
+That's it about the hardware.
