@@ -4,16 +4,22 @@
 > To print out the schema, you can use the [ifm3d CLI](ifm3d/doc/sphinx/cli_link:ifm3d%20-%20Command%20Line%20Tool):
 > `ifm3d jsonschema`
 ## Acquisition Settings
+### Framerate
+|Variable name|Short description|
+|--|--|
+|`framerate`|Defines the number of frames captured each second|
 
-### Modes
+For the O3R system the FPS is independent from the applied imager settings (exposure mode and times, filters, etc.). Higher exposure times, for example, will **not** negatively impact the system's FPS. The O3R is designed to achieve 20 FPS in the 2 m and 4 m modes, *regardless* of applied settings.
+
+### 3D imager
+#### Modes
 |Variable name|Short description|Available values|
 |--|--|--|
-|`mode`|This parameter designates the measurement range: 2 or 4 meters.|standard_range2m, standard_range4m, cyclic_4m_2m_4m_2m|
+|`mode` (for the 3D imager) |This parameter designates the measurement range: 2 or 4 meters.|standard_range2m, standard_range4m, cyclic_4m_2m_4m_2m|
 
-Learn more [about the modes](documentation/O3R/Parameters/AcquisitionSettings/modes:Modes).
+Learn more [about the standard modes for the 3D imager](documentation/O3R/Parameters/AcquisitionSettings/modes:Modes).
 
-
-### Exposure Times
+#### Exposure Times
 |Variable name|Short description|
 |--|--|
 |`exposureLong`, `exposureShort`|These parameters are used to set the exposure times.|
@@ -26,7 +32,7 @@ To reduce noise and the number of overexposed/underexposed pixels, we use three 
 
 > Note: You can find which exposure time is used for each pixel by analyzing the confidence image as detailed [here](documentation/O3R/ProductsDescription/ImagesDescription/confidenceImage:The%20confidence%20image).
 
-### Offset
+#### Offset
 |Variable name|Short description|
 |--|--|
 |`offset`|Shifts the start point of the measured range (see [mode](documentation/O3R/Parameters/parameters:modes))|
@@ -35,14 +41,8 @@ Coded modulation dictates the base range of the camera (e.g., 0 to 2 m). Coded m
 
 Learn more [here](documentation/O3R/Parameters/AcquisitionSettings/offset:Offset).
 
-### Framerate
-|Variable name|Short description|
-|--|--|
-|`framerate`|Defines the number of frames captured each second|
+#### Channel selection and channel value
 
-For the O3R system the FPS is independent from the applied imager settings (exposure mode and times, filters, etc.). Higher exposure times, for example, will **not** negatively impact the system's FPS. The O3R is designed to achieve 20 FPS in the 2 m and 4 m modes, *regardless* of applied settings.
-
-### Channel selection and channel value
 |Variable name|Short description|
 |--|--|
 |`channelSelection`|Defines the user mode for handling channel selection: currently only manual |
@@ -51,6 +51,24 @@ For the O3R system the FPS is independent from the applied imager settings (expo
 This concept for cross talk mitigation is based on channels, each channel corresponding to a different modulation frequency. Use a channel combination of mutually exclusive channels to *almost* completely reduce the possibility and effect of cross talk between O3R camera heads.
 The channel value has to be set per 3D TOF imager / O3R camera head. By default it is to value 0.
 A channel value difference of 1 has been shown to be adequate. Any additional channel value offset (> 1) will not improve crosstalk mitigation between O3R camera heads.
+
+### 2D imager
+
+#### Mode
+|Variable name|Short description|
+|--|--|
+|`mode` (for the 2D imager) |This parameter designates the acquisition mode: auto or manual exposure |standard_autoexposure2D, standard_manualexposure2D |
+#### Exposure time
+|Variable name|Short description|
+|--|--|
+|`exposureTime`| Exposure time used for the acquisition of the RGB image, in ms.|
+
+#### Gain
+|Variable name|Short description|
+|--|--|
+|`gain`| Image gain (affects sensibility to light).|
+
+The gain is particularly useful in low light situations, used in combination with the exposure time: increasing the exposure time as well as the gain will result in a brighter image.
 
 ## Filters
 ### Maximum Distance Noise
