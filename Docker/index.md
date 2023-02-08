@@ -2,6 +2,7 @@
 :::{toctree}
 Getting started with Docker <docker>
 Deployment on board <deployVPU>
+Docker logging configuration <logging>
 Autostarting the container <autostart>
 Enabling GPU usage <gpu>
 :::
