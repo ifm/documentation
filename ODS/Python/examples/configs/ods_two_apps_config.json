@@ -1,0 +1,64 @@
+{
+  "applications": {
+    "instances": {
+      "app0": {
+        "class": "ods",
+        "configuration": {
+          "grid": {
+            "maxHeight": 2.0,
+            "overhangingLoads": []
+          },
+          "port2": {
+            "acquisition": {
+              "channelValue": 0
+            },
+            "diParam": {},
+            "floor": {},
+            "grid": {},
+            "seg": {
+              "minObjectHeight": 0.025
+            }
+          },
+          "vo": {
+            "portNumber": 2
+          }
+        },
+        "name": "app0",
+        "ports": [
+          "port2",
+          "port6"
+        ],
+        "state": "CONF"
+      },
+      "app1": {
+        "class": "ods",
+        "configuration": {
+          "grid": {
+            "maxHeight": 2.0,
+            "overhangingLoads": []
+          },
+          "port3": {
+            "acquisition": {
+              "channelValue": 30
+            },
+            "diParam": {},
+            "floor": {},
+            "grid": {},
+            "seg": {
+              "minObjectHeight": 0.025
+            }
+          },
+          "vo": {
+            "portNumber": 3
+          },
+        },
+        "name": "app1",
+        "ports": [
+          "port3",
+          "port6"
+        ],
+        "state": "CONF"
+      }
+    }
+  }
+}
