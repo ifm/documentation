@@ -1,0 +1,4 @@
+ifm3dpy==1.1.1
+numpy
+open3d
+matplotlib

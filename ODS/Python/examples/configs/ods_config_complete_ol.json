@@ -1,0 +1,42 @@
+{
+  "applications": {
+    "instances": {
+      "app0": {
+        "class": "ods",
+        "configuration": {
+          "grid": {
+            "overhangingLoads": [{
+              "active": true,
+              "minLoadHeight": 0.4,
+              "maxLoadHeight": 1.0,
+              "region": [[-1.5, -2.0], [1.5, -2.0], [1.5, 2.0], [-1.5, 2.0]]
+            }]
+          },
+          "port2": {
+            "acquisition": {
+              "channelValue": 0
+            },
+            "seg": {
+              "minObjectHeight": 0.025
+            }
+          },
+          "vo": {
+            "portNumber": 2
+          },
+          "zones": {
+            "maxHeight": 2,
+            "maxIntegrationTime": 0.1,
+            "zoneConfigID": 0,
+            "zoneCoordinates": []
+          }
+        },
+        "name": "app0",
+        "ports": [
+          "port2",
+          "port6"
+        ],
+        "state": "RUN"
+      }
+    }
+  }
+}

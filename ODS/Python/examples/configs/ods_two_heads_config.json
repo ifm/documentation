@@ -1,0 +1,31 @@
+{
+    "applications": {
+      "instances": {
+        "app0": {
+          "class": "ods",
+          "configuration": {
+            "port2": {
+              "acquisition": {
+                "channelValue": 10
+              }
+            },
+            "port3": {
+              "acquisition": {
+                "channelValue": -10
+              }
+            },
+            "vo": {
+              "portNumber": 2
+            }
+          },
+          "name": "app0",
+          "ports": [
+            "port2",
+            "port3",
+            "port6"
+          ],
+          "state": "CONF"
+        }
+      }
+    }
+  }

@@ -1,0 +1,24 @@
+{
+  "applications": {
+    "instances": {
+      "app0": {
+        "class": "ods",
+        "name": "app0",
+        "ports": [
+          "port2",
+          "port6"
+        ],
+        "state": "CONF"
+      }
+    }
+  },
+  "ports": {
+    "port2": {
+      "acquisition": {
+        "extrinsicHeadToUser": {
+          "transZ": 0.1
+        }
+      }
+    }
+  }
+}
