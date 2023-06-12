@@ -9,12 +9,12 @@
 # by simply pressing shift-enter
 
 # %%
-import ifm3dpy
-from ifm3dpy import buffer_id, FrameGrabber, O3R
+from ifm3dpy.framegrabber import buffer_id, FrameGrabber
 import numpy as np
 import cv2
 
 import time
+from functools import partial
 
 DEFAULT_BUFFERS_OF_INTEREST = {
     "3D": {
@@ -26,123 +26,93 @@ DEFAULT_BUFFERS_OF_INTEREST = {
     },
 }
 
+# Default settings for openCV
+FONT = cv2.FONT_HERSHEY_SIMPLEX
+ORG = (10, 10)
+FONTSCALE = 0.7
+COLOR = (255, 255, 0)
+THICKNESS = 2
+
 
 class FrameCollector:
     def __init__(
         self,
         o3r,
         ports: list = [],
-        timeout=0.25,
         buffers_of_interest=DEFAULT_BUFFERS_OF_INTEREST,
     ):
-        self.ifm3dpy_v = [int(v) for v in ifm3dpy.__version__.split(".")]
 
         self.o3r = o3r
 
         self.port_config = o3r.get()
-
-        if len(ports) != 0:
-            port_ns = ports
+        if len(ports) == 2:
+            self.ports = ports
         else:
-            available_ports = list(self.port_config["ports"].keys())
-            available_ports_sans_imu = []
-            for port in available_ports:
-                if int(port[-1]) < 6:
-                    available_ports_sans_imu.append(port)
-            port_ns = [int(port_name[-1]) for port_name in available_ports_sans_imu]
-        self.port_ns = port_ns
+            raise ValueError("Two ports must be provided.")
 
-        self.sensor_types = {}
-        for port_n in port_ns:
-            self.sensor_types[port_n] = self.port_config["ports"][f"port{port_n}"][
-                "info"
-            ]["features"]["type"]
-
+        self.ports_info = {port_n: o3r.port(port_n) for port_n in self.ports}
         self.buffer_ids_of_interest = {}
-        for port_n in port_ns:
+        for port_n in self.ports:
             self.buffer_ids_of_interest[port_n] = buffers_of_interest[
-                self.sensor_types[port_n]
+                self.ports_info[port_n].type
             ]
 
         self.frame_grabbers = {}
-        for port_n in port_ns:
-            self.frame_grabbers[port_n] = FrameGrabber(o3r, 50010 + port_n)
-            self.frame_grabbers[port_n].start(
-                list(self.buffer_ids_of_interest[port_n].values())
+        for port_n in self.ports:
+            self.frame_grabbers[port_n] = FrameGrabber(
+                o3r, self.ports_info[port_n].pcic_port
             )
 
         self.saved_buffer_sets = []
-        self.buffer_data_set = {port_n: {} for port_n in self.port_ns}
+        self.buffer_data_set = {port_n: {} for port_n in self.ports}
 
-    def loop(self, timeout=2000):
-        # set cameras to run
-        o3r_port_json = {}
-        for port_n in self.port_ns:
-            o3r_port_json.update({f"port{port_n}": {"state": "RUN"}})
-        self.o3r.set({"ports": o3r_port_json})
-        time.sleep(0.1)
+        self.data_to_display = {}
+        self.key_presses = []
 
+    def _setup_opencv(self):
         # start opencv windows
-        for port_n in self.port_ns:
+        for port_n in self.ports:
             for buffer_name in self.buffer_ids_of_interest[port_n].keys():
-                cv2.namedWindow(f"{buffer_name} - port {port_n}", cv2.WINDOW_NORMAL)
+                cv2.namedWindow(f"{buffer_name} - {port_n}", cv2.WINDOW_NORMAL)
 
-        # prep for using cv2.putText() method
-        font = cv2.FONT_HERSHEY_SIMPLEX
-        org = (10, 10)
-        fontScale = 0.7
-        color = (255, 255, 0)
-        thickness = 2
-
-        # collect buffers
+    def show(self):
+        self._setup_opencv()
+        time.sleep(0.1)
         while True:
-            frames = {}
-            key_presses = []
-            for port_n in self.port_ns:
-                ret, frame = (
-                    self.frame_grabbers[port_n].wait_for_frame().wait_for(timeout)
-                )
-                frames[port_n] = frame
-                for buffer_name, buffer_id in self.buffer_ids_of_interest[
-                    port_n
-                ].items():
-                    buffer_data = frame.get_buffer(buffer_id)
-
-                    # some additional boilerplate for unpacking 2D data
-                    if self.sensor_types[port_n] == "2D" and buffer_name == "rgb":
-                        buffer_data = cv2.imdecode(buffer_data, cv2.IMREAD_UNCHANGED)
-
-                    self.buffer_data_set[port_n][buffer_name] = buffer_data
-                    winname = f"{buffer_name} - port {port_n}"
-
+            self.key_presses = []
+            if self.data_to_display:
+                data_copy = self.data_to_display.copy()
+                for winname, data in data_copy.items():
                     text_overlay = "Press 's' to record for analysis"
-                    if len(buffer_data.shape) < 3:
+                    if len(data.shape) < 3:
                         buffer_data_color = cv2.cvtColor(
-                            buffer_data.copy(), cv2.COLOR_GRAY2BGR
+                            data.copy(), cv2.COLOR_GRAY2BGR
                         )
                     else:
-                        buffer_data_color = buffer_data.copy()
+                        buffer_data_color = data.copy()
                     buffer_data_with_text = cv2.putText(
                         buffer_data_color,
                         text_overlay,
                         np.array(
-                            (np.array((0, 0.1)) * buffer_data.shape[0]), np.uint16
+                            (np.array((0, 0.1)) * data.shape[0]), np.uint16
                         ).tolist(),
-                        fontFace=font,
-                        fontScale=fontScale * buffer_data.shape[0] / 300,
-                        color=color,
-                        thickness=int(thickness * buffer_data.shape[0] / 300),
+                        fontFace=FONT,
+                        fontScale=FONTSCALE * data.shape[0] / 300,
+                        color=COLOR,
+                        thickness=int(THICKNESS * data.shape[0] / 300),
                     )
-                    cv2.imshow(winname, buffer_data_with_text)
-                    key_presses.append(cv2.waitKey(1))
-
+                    cv2.imshow(winname, np.array(buffer_data_with_text, dtype=np.uint8))
+                    self.key_presses.append(cv2.waitKey(1))
+                    self.data_to_display.pop(winname)
+                    data_copy = {}
+            else:
+                pass
             # check for save
-            if ord("s") in key_presses:
+            if ord("s") in self.key_presses:
                 self.saved_buffer_sets.append(self.buffer_data_set.copy())
-
                 for port_n, saved_buffers in self.buffer_data_set.items():
                     for buffer_name, buffer_data in saved_buffers.items():
-                        winname = f"{buffer_name} - port {port_n} - Saved"
+                        winname = f"{buffer_name} - {port_n} - Saved"
                         cv2.namedWindow(winname, cv2.WINDOW_NORMAL)
 
                         text_overlay = "Press 'Esc' to use this frame."
@@ -155,27 +125,69 @@ class FrameCollector:
                         buffer_data_with_text = cv2.putText(
                             buffer_data_color,
                             text_overlay,
-                            org,
-                            fontFace=font,
-                            fontScale=fontScale * buffer_data.shape[0] / 300,
-                            color=color,
-                            thickness=int(thickness * buffer_data.shape[0] / 300),
+                            ORG,
+                            fontFace=FONT,
+                            fontScale=FONTSCALE * buffer_data.shape[0] / 300,
+                            color=COLOR,
+                            thickness=int(THICKNESS * buffer_data.shape[0] / 300),
                         )
                         cv2.imshow(winname, buffer_data_with_text)
 
             # check for exit
-            if 27 in key_presses:
+            if 27 in self.key_presses:
+                print("Exiting...")
                 # reset the port_config and cleanup
                 self.o3r.set(self.port_config)
                 cv2.destroyAllWindows()
+                print("Destroyed all windows")
+                for port_n in self.ports:
+                    self.frame_grabbers[port_n].stop()
                 break
+        return
+
+    def _callback(self, port_n, frame):
+        for buffer_name, buffer_id in self.buffer_ids_of_interest[port_n].items():
+            buffer_data = frame.get_buffer(buffer_id)
+            # some additional boilerplate for unpacking 2D data
+            if self.ports_info[port_n].type == "2D" and buffer_name == "rgb":
+                buffer_data = cv2.imdecode(buffer_data, cv2.IMREAD_UNCHANGED)
+            self.buffer_data_set[port_n][buffer_name] = buffer_data
+            winname = f"{buffer_name} - {port_n}"
+            self.data_to_display[winname] = buffer_data
+
+    def loop(self, timeout=2000):
+        # set cameras to run
+        o3r_port_json = {}
+        for port_n in self.ports:
+            o3r_port_json.update({f"{self.ports_info[port_n].port}": {"state": "RUN"}})
+        self.o3r.set({"ports": o3r_port_json})
+        time.sleep(0.1)
+
+        # Start streaming frames
+        for port_n in self.ports:
+            self.frame_grabbers[port_n].on_new_frame(partial(self._callback, port_n))
+            self.frame_grabbers[port_n].start(
+                list(self.buffer_ids_of_interest[port_n].values())
+            )
+        self.show()
 
 
 # %%
 if __name__ == "__main__":
     IP_ADDR = "192.168.0.69"
+    from ifm3dpy.device import O3R
 
     o3r = O3R(IP_ADDR)
 
-    frame_collector = FrameCollector(o3r)
+    import atexit
+
+    def at_exit(frame_collector):
+        for port, fg in frame_collector.frame_grabbers.items():
+            fg.stop()
+
+    frame_collector = FrameCollector(o3r, ports=["port1", "port3"])
+    atexit.register(partial(at_exit, frame_collector))
     frame_collector.loop()
+    frame_collector.show()
+
+# %%

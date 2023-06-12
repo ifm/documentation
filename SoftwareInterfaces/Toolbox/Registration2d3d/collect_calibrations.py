@@ -4,138 +4,113 @@
 #############################################
 
 # %%
-import ifm3dpy
-from ifm3dpy import buffer_id, FrameGrabber, O3R
 import logging
-
-import sys
-import struct
-from pprint import pprint
+from ifm3dpy.device import O3R
+from ifm3dpy.framegrabber import buffer_id, FrameGrabber
+from ifm3dpy.deserialize import RGBInfoV1, TOFInfoV4
 
 logger = logging.getLogger(__name__)
 logging.basicConfig(level=logging.DEBUG, format="%(message)s")
 
 
 class PortCalibrationCollector:
-    def __init__(self, o3r, port_n: int, port_config: dict = None, timeout=0.25):
-        self.ifm3dpy_v = [int(v) for v in ifm3dpy.__version__.split(".")]
+    """
+    Utilities for collecting and deserializing calibration data for a port.
+    """
 
-        self.calibrations = None
-        self.port_n = port_n
-        self.port_config = port_config
-        self.sensor_type = port_config["info"]["features"]["type"]
+    def __init__(self, o3r, port_info):
+        self.calibrations = {}
+        self.port_info = port_info
         self.o3r = o3r
+        self.frame_grabber = FrameGrabber(self.o3r, self.port_info.pcic_port)
+        self.buffer_of_interest = {
+            "3D": buffer_id.TOF_INFO,
+            "2D": buffer_id.RGB_INFO,
+        }[self.port_info.type]
 
-        self.collect()
+    def collect(self) -> dict:
+        """
+        Collect and deserialize the calibration information for the 2D or 3D imager
+        at the requested port.
+        """
+        self.o3r.set({"ports": {f"{self.port_info.port}": {"state": "RUN"}}})
+        self.frame_grabber.start([self.buffer_of_interest])
+        ret, frame = self.frame_grabber.wait_for_frame().wait_for(1000)
+        if not ret:
+            raise TimeoutError("No frame was collected.")
+        buffer = frame.get_buffer(self.buffer_of_interest)
 
-    def collect(self):
-        if self.ifm3dpy_v[0] == 1 and self.ifm3dpy_v[1] in [0, 1]:
-            self.buffers_of_interest = {
-                "3D": {
-                    "ext_optic_to_user": buffer_id.EXTRINSIC_CALIB,
-                    "intrinsic_calibration": buffer_id.INTRINSIC_CALIB,
-                    "inverse_intrinsic_calibration": buffer_id.INVERSE_INTRINSIC_CALIBRATION,
-                },
-                "2D": {"rgb_image_info": buffer_id.O3R_RGB_IMAGE_INFO},
-            }[self.sensor_type]
+        if self.port_info.type == "2D":
+            rgb_info = RGBInfoV1().deserialize(buffer)
+            self.calibrations["ext_optic_to_user"] = rgb_info.extrinsic_optic_to_user
+            self.calibrations["intrinsic_calibration"] = rgb_info.intrinsic_calibration
+            self.calibrations[
+                "inverse_intrinsic_calibration"
+            ] = rgb_info.inverse_intrinsic_calibration
 
-            camera_run_config = {"ports": {f"port{self.port_n}": {"state": "RUN"}}}
-            self.o3r.set(camera_run_config)
-            self.frame_grabber = FrameGrabber(self.o3r, 50010 + self.port_n)
-            self.frame_grabber.start(list(self.buffers_of_interest.values()))
-            ret, self.frame = self.frame_grabber.wait_for_frame().wait_for(10000)
-            self.buffers = {
-                buffer_of_interest: self.frame.get_buffer(buffer)
-                for buffer_of_interest, buffer in self.buffers_of_interest.items()
-            }
+        if self.port_info.type == "3D":
+            tof_info = TOFInfoV4().deserialize(buffer)
+            self.calibrations["ext_optic_to_user"] = tof_info.extrinsic_optic_to_user
+            self.calibrations["intrinsic_calibration"] = tof_info.intrinsic_calibration
+            self.calibrations[
+                "inverse_intrinsic_calibration"
+            ] = tof_info.inverse_intrinsic_calibration
 
-            if self.sensor_type == "2D":
-                raw_buffer_data = self.buffers["rgb_image_info"][0]
-                # parameter_name, format, offset, n_bits,
-                deserialization_schema = [
-                    # ("version", "<I", 0, 4),
-                    # ("frameCounter", "<I", 4, 4),
-                    # ("timestamp_ns", "<Q", 8, 8),
-                    # ("exposureTime", "<I", 16, 4),
-                    ("ext_optic_to_user", "<6f", 20, 24),
-                    ("intrinsic_calibration", "<I32f", 44, 132),
-                    ("inverse_intrinsic_calibration", "<I32f", 44 + 132, 132),
-                ]
-                self.calibrations = {}
-                for parameter_name, frmt, offset, n_bytes in deserialization_schema:
-                    value = struct.unpack(
-                        frmt, raw_buffer_data[offset : offset + n_bytes].tobytes()
-                    )
-                    if len(value) == 1:
-                        value = value[0]
-                    elif len(value) > 11:
-                        value = value[:11]
-                    self.calibrations[parameter_name] = value
-            if self.sensor_type == "3D":
-                self.calibrations = self.buffers
-                # parameter_name, format,
-                deserialization_schema = [
-                    ("intrinsic_calibration", "<I32f"),
-                    ("inverse_intrinsic_calibration", "<I32f"),
-                ]
-                for parameter_name, frmt in deserialization_schema:
-                    value = struct.unpack(
-                        frmt, self.calibrations[parameter_name].tobytes()
-                    )
-                    if len(value) > 11:
-                        value = value[:11]
-                    self.calibrations[parameter_name] = value
-                self.calibrations["ext_optic_to_user"] = tuple(
-                    self.calibrations["ext_optic_to_user"].tolist()[0]
-                )
+        self.frame_grabber.stop()
+        del self.frame_grabber
 
-            self.frame_grabber.stop()
-            del self.frame_grabber
-            # restore original port configuration
-            # self.o3r.set({"ports": {f"port{self.port_n}": self.port_config}})
-
-            logger.info(f"Collected calibration data for port {self.port_n}.")
+        logger.info(f"Collected calibration data for port {self.port_info.port}.")
+        return self.calibrations
 
 
 if __name__ == "__main__":
 
-    if "ipykernel" in sys.modules:  # if running via ipython
-        # type IP corresponding to VPU:
-        ADDR = "192.168.0.69"
-    else:  # if running as script or via debugger
-        import argparse
+    IP = "192.168.0.69"
 
-        parser = argparse.ArgumentParser(
-            description="ifm ods example",
-        )
-        parser.add_argument(
-            "--IP", type=str, default="192.168.0.69", help="IP address to be used"
-        )
-        args = parser.parse_args()
-        ADDR = args.IP
-    o3r = O3R(IP_ADDR)
+    import argparse
+
+    parser = argparse.ArgumentParser(
+        description="ifm ods example",
+    )
+    parser.add_argument(
+        "--IP", type=str, default="192.168.0.69", help="IP address to be used"
+    )
+    args = parser.parse_args()
+    ADDR = args.IP
+    o3r = O3R(IP)
+    ports_calibs = {}
     try:
-        port_config = o3r.get(["/ports"])
+        for port in o3r.ports():
+            if port.type != "IMU":
+                ports_calibs[port.port] = PortCalibrationCollector(o3r, port).collect()
+                # The logged messages illustrate how to access the calibration data
+                # stored in the custom objects
+                logger.info(f"Sample of the extrinsic optics to user for {port.port}: ")
+                logger.info(
+                    f"rot_x: {ports_calibs[port.port]['ext_optic_to_user'].rot_x}"
+                )
+                logger.info(
+                    f"trans_x: {ports_calibs[port.port]['ext_optic_to_user'].trans_x}"
+                )
+
+                logger.info(f"Sample of the intrinsics for {port.port}: ")
+                logger.info(
+                    f"Model id: {ports_calibs[port.port]['intrinsic_calibration'].model_id}"
+                )
+                logger.info(
+                    f"Parameter [0]: {ports_calibs[port.port]['intrinsic_calibration'].parameters[0]}"
+                )
+
+                logger.info(f"Sample of the inverse intrinsics for {port.port}: ")
+                logger.info(
+                    f"Model id: {ports_calibs[port.port]['inverse_intrinsic_calibration'].model_id}"
+                )
+                logger.info(
+                    f"Parameter [0]: {ports_calibs[port.port]['inverse_intrinsic_calibration'].parameters[0]}"
+                )
+
     except Exception as e:
-        logger.info(f"No VPU found at {IP_ADDR}. Can you ping the sensor?")
         logger.info(e)
-        exit()
-
-    port_names = port_config["ports"]
-
-    port_names_sans_imu = {}
-    for name, config in port_names.items():
-        if "6" not in name:
-            port_names_sans_imu[name] = config
-
-    port_handles = {
-        int(port_n[-1]): PortCalibrationCollector(o3r, int(port_n[-1]), port_config)
-        for port_n, port_config in port_names_sans_imu.items()
-    }
-
-    for port_n, port_handle in port_handles.items():
-        logger.info(f"\nPort {port_n} calibrations:")
-        pprint(port_handle.calibrations)
 
 
 # %%
