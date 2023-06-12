@@ -1,4 +1,7 @@
-ifm3dpy==1.1.1
+h5py
+ifm3dpy==1.2.6
+matplotlib
 numpy
 open3d
-matplotlib
+opencv-python
+scipy
