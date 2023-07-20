@@ -156,6 +156,7 @@ def main():
         f"Center of cell to user transformation matric: {occupancy_grid.transform_cell_center_to_user}"
     )
 
+    ods_stream.stop_ods_stream()
     ods_stream.logger.info("You reached the end of the ODSStream tutorial!")
 
 
