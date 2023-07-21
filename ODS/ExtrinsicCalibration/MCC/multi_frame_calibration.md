@@ -1,7 +1,7 @@
 
 # Automated camera head calibration tools
 
-Camera calibration tools and tactics can change depending on the needs of the application. 
+Camera calibration tools and tactics can change depending on the needs of the application.
 
 ifm provides [python code samples](Software_Interfaces/Toolbox/ExtrinsicCalibration/StaticCameraCalibration/README) to facilitate calibration using a stationary checkerboard. This process can be used to build calibration cells for end-of-line testing of AMRs/AGVs camera systems.
 
@@ -18,21 +18,41 @@ Prerequisites:
 * An o3r camera system mounted on a vehicle.
 * A vehicle which can travel in a straight line in the negative-x direction (backward).
 * A computer connected to the VPU of the o3r camera system.
-* Measurements of the translations of the camera head (transX, transY, and transZ of the extrinsicHeadToUser properties). This can be measured manually, or derived from CAD. Note that the camera positions are relative to the center of the rear face of the camera head. 
+* Measurements of the translations of the camera head (transX, transY, and transZ of the extrinsicHeadToUser properties). This can be measured manually, or derived from CAD. Note that the camera positions are relative to the center of the rear face of the camera head.
 <!-- TODO: ADD link to image -->
 * The Motion Camera Calibration software package. Currently, this is available upon request from support.robotics@ifm.com.
 * A printed calibration checkerboard (checkerboard.pdf in 0.8m x 0.6m) resting on the floor or at a height so that it is in the field of view of the camera being calibrated.
 Please find the checkerboard in pdf format {download}` here <_resources/MotionCameraCalibrationTarget_600_800.pdf>`
 
+### Installation
+We recommend installing the MCC tool to a fresh Python3 venv to minimize the risk of conflicting versions of dependent Python libraries.
+
+1. Create a new venv:
+   ```
+   python3 -m venv venv
+   ```
+
+2. Install the requirements: The required `requirements_MCC.txt` file can be found in the GH repository under `ODS/ExtrinsicCalibration/MCC`
+   ```
+   source ./venv/bin/activate
+   python3 -m pip -r requirements_MCC.txt
+   ```
+3. Install the MCC tool: request the download link via email from: from support.robotics@ifm.com
+4. Start the MCC tool:
+   ```
+   o3r-extr-calib-camera
+   ```
+
+
 ### Tool Description
 
 1. The MCC application window has 2 parts. <!-- TODO: add UI picture -->
-   1. On the left side, you can:  
-        * Conﬁgure:  
+   1. On the left side, you can:
+        * Conﬁgure:
             * The ports
             * The modes
             * The cell size of the checkerboard
-            * The translation parameters  
+            * The translation parameters
         * Start backward motion / stop backward motion
         * Clear and restart the calibration process
         * Save / load the data ﬁle
@@ -52,7 +72,7 @@ Please find the checkerboard in pdf format {download}` here <_resources/MotionCa
 1. Click `Start backward motion` and move the robot backward in a straight line.<!-- TODO: add diagram-->
    - Once you clicked the `start backward motion` all other options will be greyed out except `Clear and Restart`
    - **The minimum movement range should be `50 cm` (If you moved the robot less than 50 cm then the calibration will not be successful)**
-   
+
    ```{image} _resources/move_back.gif
    :alt: Drive backwards
    :width: 400px
@@ -61,7 +81,7 @@ Please find the checkerboard in pdf format {download}` here <_resources/MotionCa
 1. The calibration tool will automatically save the frames to a file in the background while you move the robot (camera).
 1. Once the calibration tool captures the required number of frames, the `Stop backward motion` button will be enabled again and can be clicked by the user to terminate this step.
 
-   :::{note}  During the procedure, if you feel you did anything wrong or didn't move the camera in a straight line click `Clear and Restart` to restart the calibration procedure. 
+   :::{note}  During the procedure, if you feel you did anything wrong or didn't move the camera in a straight line click `Clear and Restart` to restart the calibration procedure.
    :::
 
 1. Move the robot orthogonal to the backward motion line and close to the target (ﬁll at least 50% of the image) such that the tool detects all corners of the checkerboard target.
