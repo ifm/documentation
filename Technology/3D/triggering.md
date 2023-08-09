@@ -75,7 +75,7 @@ Synchronization / trigger relevant parameters:
 | swTriggerGroup | [0,6] | software trigger group id / affiliation                     |
 
 
-**Synchronization**
+## Synchronization
 
 The different cameras having the same framerate will be always synchronized. The figure below shows the synchronization of four different cameras.
 - The different coloured horizontal signals resembles the signals received from four different cameras running at same frame rate.
@@ -94,12 +94,6 @@ Delay is the parameter that defines the minimum amount of time [in milliseconds]
 As we see in the below image, the second camera(green colored signal) is running at 10 fps with a delay of 10 ms.
 
 ![Camera 2 delayed by 10 milliseconds](resources/triggering/delay_10ms.png)
-
-**Software Trigger Group**
-
-When different ports have the same value **(>=1)** for the parameter `swTriggerGroup` the cameras belonging to the same group are always synchronized and triggered when any one of the camera in a `swTriggerGroup` is triggered. By default the value of Software Trigger group is 0 which means that the port is triggered independently from all the other ports.
-
-
 
 ## System latency and relevant variables
 Typical overall sensor system latency is dependent on a number of variables:
