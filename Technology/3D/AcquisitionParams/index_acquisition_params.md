@@ -4,16 +4,16 @@
 > `ifm3d jsonschema`
 
 ## Framerate
-|Variable name|Short description|
-|--|--|
-|`framerate`|Defines the number of frames captured each second|
+| Variable name | Short description                                 |
+| ------------- | ------------------------------------------------- |
+| `framerate`   | Defines the number of frames captured each second |
 
 For the O3R system the FPS is independent from the applied imager settings (exposure mode and times, filters, etc.). Higher exposure times, for example, will **not** negatively impact the system's FPS. The O3R is designed to achieve 20 FPS in the 2 m and 4 m modes, *regardless* of applied settings.
 
 ## Exposure Times
-|Variable name|Short description|
-|--|--|
-|`exposureLong`, `exposureShort`|These parameters are used to set the exposure times.|
+| Variable name                   | Short description                                    |
+| ------------------------------- | ---------------------------------------------------- |
+| `exposureLong`, `exposureShort` | These parameters are used to set the exposure times. |
 
 Exposure times are utilized to maximize the number of valid pixels in a scene. The use of multiple exposures (HDR) permits the camera to operate in “dynamic” environments that require the detection of dark and light objects at both the minimum and maximum ranges.
 
@@ -23,11 +23,44 @@ To reduce noise and the number of overexposed/underexposed pixels, we use three 
 
 > Note: You can find which exposure time is used for each pixel by analyzing the confidence image as detailed [here](documentation/O3R/ProductsDescription/ImagesDescription/confidenceImage:The%20confidence%20image).
 
+## Delay
+| Variable name | Short description                                                                                        |
+| ------------- | -------------------------------------------------------------------------------------------------------- |
+| `Delay`       | The delay defines the minimum time delay between the framerate loop start and the actual imager trigger. |
+
+The `Delay` parameter is not valid in `IDLE` state of the port and when `Delay` parameter is configured in `IDLE` state then the value is set back to its default(0). Please refer to [this](../triggering.md#synchronization) section for more details.
+
+## Software Trigger Group
+
+| Variable name    | Short description                                           |
+| ---------------- | ----------------------------------------------------------- |
+| `swTriggerGroup` | This parameter is used in IDLE state only and ports having same `swTriggerGroup` value define a group |
+
+The `swTriggerGroup` parameter allows you to assign a port to a specific group, and all ports with the same `swTriggerGroup` value are considered to be part of that group. When any port within a group is software triggered, all other ports in the same group will also be triggered simultaneously.
+
+    :::{note} If the swTriggerGroup is zero(default) then no other ports will be triggered except the one which is triggered.
+    :::
+
+To perform a software trigger one can use ifm3d API function 
+**Example scenario:**
+For illustrative purposes, let's consider an example:
+
+- Four camera heads are connected to the VPU and the `swTriggerGroup` value for the respective ports are as follows.
+
+| PORT | `swTriggerGroup` value | State |
+| ---- | ---------------------- |-------|
+| 0    | 0                      | IDLE  |
+| 1    | 2                      | IDLE  |
+| 2    | 0                      | IDLE  |
+| 3    | 2                      | IDLE  |
+
+In this scenario, PORT1 and PORT3 are part of the same synchronization group (group 2), while PORT0, PORT2 belongs to default synchronization group. Software triggering PORT1 or PORT3 will trigger both ports simultaneously, ensuring coordinated actions between them. PORT0, PORT2 with a different `swTriggerGroup`, operates independently of the other two ports.
+
 ## Offset
 ### Overview
-|Variable name|Short description|
-|--|--|
-|`offset`|Shifts the start point of the measured range (see [mode](documentation/O3R/Parameters/parameters:modes))|
+| Variable name | Short description                                                                                        |
+| ------------- | -------------------------------------------------------------------------------------------------------- |
+| `offset`      | Shifts the start point of the measured range (see [mode](documentation/O3R/Parameters/parameters:modes)) |
 
 Coded modulation dictates the base range of the camera (e.g., 0 to 2 m). Coded modulation also allows this range to be offset or shifted from its start point. In the example of 0 – 2 m base range, an `offset` of 0.5 m would lead to a 0.5 – 2.5 m range. Continuing this example, an `offset` of 1 leads to a 1 – 3m range. The `offset` can be changed frame by frame.
 
@@ -44,20 +77,20 @@ Let's look at the following scene. Three boxes are positioned in front of the ca
 
 We are using the 2m [mode](documentation/O3R/Parameters/AcquisitionSettings/modes:Modes), with all the other settings as default. The table below shows the point cloud for multiple values of the offset.
 
-| Offset (meters)| Point Cloud|
-|--|--|
-| -0.5| ![Point cloud with offset -0.5](resources/offset_-05_cloud.png)|
-| 0| ![Point cloud with offset 0](resources/offset_0_cloud.png)|
-| 1.5| ![Point cloud with offset 1.5](resources/offset_15_cloud.png)|
-| 2.5| ![Point cloud with offset 2.5](resources/offset_25_cloud.png)|
+| Offset (meters) | Point Cloud                                                     |
+| --------------- | --------------------------------------------------------------- |
+| -0.5            | ![Point cloud with offset -0.5](resources/offset_-05_cloud.png) |
+| 0               | ![Point cloud with offset 0](resources/offset_0_cloud.png)      |
+| 1.5             | ![Point cloud with offset 1.5](resources/offset_15_cloud.png)   |
+| 2.5             | ![Point cloud with offset 2.5](resources/offset_25_cloud.png)   |
 
 > Note: In the last image where the offset is set to 2.5m, we can see that the noise is higher than in the other images. This is due to the distance to the camera, with which the noise increases, and to the fact that the most robust measurement is in the middle of the range, which is from around 3 to 4 m in the case of the last example. The ground in front of the box is outside of the robustness area.
 ## Channel selection and channel value
 
-|Variable name|Short description|
-|--|--|
-|`channelSelection`|Defines the user mode for handling channel selection: currently only manual |
-|`channelValue`|Defines the channel value |
+| Variable name      | Short description                                                           |
+| ------------------ | --------------------------------------------------------------------------- |
+| `channelSelection` | Defines the user mode for handling channel selection: currently only manual |
+| `channelValue`     | Defines the channel value                                                   |
 
 This concept for cross talk mitigation is based on channels, each channel corresponding to a different modulation frequency. Use a channel combination of mutually exclusive channels to *almost* completely reduce the possibility and effect of cross talk between O3R camera heads.
 The channel value has to be set per 3D TOF imager / O3R camera head. By default it is to value 0.
