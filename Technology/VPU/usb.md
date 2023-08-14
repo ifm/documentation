@@ -1,7 +1,11 @@
-# Using an usb drive with the VPU
+# Using a USB drive with the VPU
 
-The VPU provides two `USB` interfaces, `USB-A` (USB 3.0) and `USB mini`. It is possible to increase the VPU memory size by utilizing USB thumb drives or USB SSDs. To use any USB storage device, it is necessary to mount the drive first.
+The VPU provides two `USB` interfaces, `USB-A` (USB 3.0) and `USB mini`.
+It is possible to increase the VPU memory size by utilizing USB thumb drives or USB SSDs on the `USB-A` interface. To use any USB storage device, it is necessary to mount the drive first.
 
+
+.. note::
+The USB auto mount service mounts your USB mass storage device to `/run/media/system/<USB_name>/`. See the details below.
 
 ## Preparing the usb drive
 
@@ -16,23 +20,47 @@ For FAT32 formatted devices no additional steps are required. It can be directly
 
 **EXT4:**
 For EXT4 formatted devices the user needs to perform additional steps to match the OEM users `uid` and `gid` on the VPU's embedded OS.
-Otherwise only read permissions are granted when mounting the USB storage device.
+Otherwise only read permissions are granted when mounting the USB storage device. This is a design that is introduced by the handling of access rights to EXT4 formatted devices on Linux systems.
+If you are an experience EXT4 user feel free to skip the following instructions steps:
 
 ### EXT4 format USB mounting preparation
 
-1. Find out the uid and gid of the oem user on the VPU embedded OS
+**Option 1:**
+"The crude way"
+
+The easiest option is to mount the EXT4 formatted device to your Linux laptop of choice and relax the write and read permissions to be accessible by any user:
+1. Mount the SSD to your laptop
+2. Change the mount point to be accessible by all users:
+```bash
+user@laptop:~$ chmod 777 /media/<mount_point>
+```
+Please be aware that the `chmod` command only affects the existing files within `/media/<mount_point>`.
+
+
+**Option 2:**
+"Setting the VPUs oem user UID and GID specifically"
+
+Please be aware that setting user specific GID and UID has to be done **PER** user.
+This means, that is has to be done for the oem user on the VPU to write to the device, as well as any specific users created inside your own Docker container.
+
+Below an exemplary workflow is shown for setting the VPUs oem users UID and GID.
+
+On the VPU:
+1. Find out the requested users UID and GID on the VPU or inside the Docker container
 ```bash
 oem@o3r-vpu-c0:~# id -u oem
 989
 oemt@o3r-vpu-c0:~# id -g oem
 987
-
-2. Change the USB mount point on your **Linux Laptop** via chown
 ```
-sudo chown 989:987 -R <usb_mountpoint>
+On your Linux laptop of choice:
+1. Change the USB mount point on your **Linux Laptop** via chown
+```bash
+user@laptop:~$ sudo chown 989:987 -R /media/<mount_point>
 ```
 
-> Note: Please be aware the changing the mountpoints uid and gid may result in missing read access on your laptop. The restore read access on your laptop to the USB storage device, change the uid and gid back to match your personal user accounts ones.
+.. note::
+Please be aware that changing the GID and UID mountpoints may result in missing read access on your laptop. To restore read access on your laptop to the USB storage device, change the GID and UID back to match your personal user accounts ones.
 
 
 ## Plug in and mounting
@@ -80,7 +108,7 @@ If the mount is successful you can find the drive at `/run/media/system/<USB_nam
 ```bash
 o3r-vpu-c0:~$ ls -la /run/media/system/IFM/
 total 957660
-drwxr-xr-x 6 oem  oem       4096 Jan  1  1970 .
-drwxr-xr-x 3 root root        60 Feb  7 15:54 ..
+drwxrwxrwx 6 oem  oem       4096 Jan  1  1970 .
+drwxrwxrwx 3 root root        60 Feb  7 15:54 ..
 ...
 ```
