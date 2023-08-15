@@ -79,6 +79,10 @@ A: The camera's default state is in "CONF" and to be able to receive data it has
 
 A: Once a camera head is connected to the VPU with firmware Version>=0.16.23 then it will no longer work on the other VPU with lower firmware version. The backward compatibility is nether supported nor recommended.
 
+**Q: Should I expect a delay in the reception of data after re-configuring the device?**
+
+A: Due to a couple frames being buffered internally, a worst case delay of up to six frames can occur. For more details, refer to the [configuration delays documentation](../Technology/configuration.md#configuration-delays).
+
 ## Diagnostics
 
 **Q. How can I query the VPU log information?**
