@@ -40,6 +40,7 @@ Occupancy grid <OccupancyGrid/occupancy_grid>
 Recording <Recording/ods_data_recording>
 Changing views <ChangingViews/changing_views>
 Overhanging loads <OverhangingLoads/overhanging_loads>
+Dust artifact mitigation <DustMitigation/dust_mitigation>
 Extrinsic calibration <ExtrinsicCalibration/index_extrinsic_calibration>
 Field test <FieldTest/index_field_test>
 Device verification <DeviceVerification/index_device_verification>
