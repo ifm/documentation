@@ -16,10 +16,7 @@ from ifm3dpy.device import O3R
 from ifm3dpy.device import Error as ifm3dpy_error
 from ifm3dpy.swupdater import SWUpdater
 
-from bootup_monitor import BootUpMonitor
-
 logger = logging.getLogger(__name__)
-TIMEOUT = 60
 TIMEOUT_MILLIS = 300000
 
 
@@ -28,16 +25,16 @@ def _get_firmware_version(o3r: O3R) -> tuple:
         firmware = o3r.get(["/device/swVersion/firmware"])["device"]["swVersion"][
             "firmware"
         ]
-    except Exception as e:
-        logger.error(e)
-        raise e
+    except Exception as err:
+        logger.error(err)
+        raise err
     logger.debug(f"VPU firmware: {firmware}")
     try:
         major, minor, patch = firmware.split(".")
         patch = patch.split("-")[0]
         return (major, minor, patch)
-    except ValueError as e:
-        return None
+    except ValueError as err:
+        raise err
 
 
 def _update_firmware_016_to_10x(o3r: O3R, filename: str) -> None:
@@ -103,33 +100,31 @@ def _reboot_productive(o3r: O3R) -> None:
     sw_updater.wait_for_productive(120000)
 
 
-def __check_ifm3dpy_version():
-    import ifm3dpy
+def _reapply_config(o3r, config_file):
+    with open(config_file, "r") as f:
+        try:
+            o3r.set(json.load(f))
+        except ifm3dpy_error as e:
+            logger.error(f"failed to apply prev config: {e}")
+            schema_fp = Path("json_schema.json")
+            with open(schema_fp, "w", encoding="utf-8") as f:
+                json.dump(o3r.get_schema(), f, ensure_ascii=False, indent=4)
+                logger.info(
+                    f"current json schema dumped to: {Path.absolute(schema_fp)}"
+                )
 
-    version = ifm3dpy.__version__
-    logger.info(f"ifm3dpy version: {version}")
-
-    major, minor, patch = version.split(".")
-    return (int(major), int(minor), int(patch))
-
-
-def _check_ifm3dpy_version_12x():
-    major, minor, patch = __check_ifm3dpy_version()
-    if (int(major), int(minor)) == (1, 2):
-        return True
-
-
-def _check_ifm3dpy_version_13x():
-    major, minor, patch = __check_ifm3dpy_version()
-    if (int(major), int(minor), int(patch)) >= (1, 3, 3):
-        return True
+            logger.warning(
+                f"check config against json schema: \n{Path.absolute(schema_fp)}"
+            )
 
 
 # %%
 def update_fw(filename):
-    logging.basicConfig(level=logging.DEBUG, format="%(message)s")
+    logging.basicConfig(level=logging.INFO, format="%(message)s")
 
-    if not _check_ifm3dpy_version_13x():
+    import ifm3dpy
+
+    if ifm3dpy.__version__ < "1.3.3":
         raise RuntimeError(
             "ifm3dpy version not compatible. \nUpgrade via pip install -U ifm3dpy"
         )
@@ -137,11 +132,13 @@ def update_fw(filename):
     IP = os.environ.get("IFM3D_IP", "192.168.0.69")
     os.environ["IFM3D_SWUPDATE_CURL_TIMEOUT"] = "1000"  # Previously: 800
 
+    # Check that swu file exists
+    if not os.path.exists(filename):
+        raise ValueError("Provided swu file does not exist")
+
     logger.info(f"device IP: {IP}")
     logger.info(f"FW swu file: {filename}")
-    logger.info(
-        f"Monitoring of FW update via messages tab here: http://{IP}:8080/"
-    )
+    logger.info(f"Monitoring of FW update via messages tab here: http://{IP}:8080/")
 
     o3r = O3R(IP)
 
@@ -160,7 +157,9 @@ def update_fw(filename):
         logger.info(f"current config dumped to: {Path.absolute(config_back_fp)}")
 
     # update firmware
-    logger.info("start FW update process")
+    logger.info("///////////////////////")
+    logger.info("Start FW update process.")
+    logger.info("///////////////////////")
     if (int(major), int(minor), int(patch)) == (0, 16, 23):
         logger.info("FW Update 0.16.23 to 1.0.x started")
         _update_firmware_016_to_10x(o3r, filename)
@@ -173,15 +172,18 @@ def update_fw(filename):
         logger.error("This FW update is not supported")
 
     # wait for system ready
-    with BootUpMonitor(o3r, timeout=60, wait_time=1) as boot_up:
+    while True:
         try:
-            boot_up.monitor_VPU_bootup()
+            o3r.get()
+            logger.info("VPU fully booted.")
+            break
+        except ifm3dpy_error:
+            logger.info("Awaiting data from VPU.")
+            time.sleep(2)
 
-        except TimeoutError as e:
-            logger.error(e)
-            raise e
-
-    logger.debug("Firmware update complete: device available again")
+    logger.info("///////////////////////")
+    logger.debug("Firmware update complete.")
+    logger.info("///////////////////////")
 
     # check firmware version after update
     time.sleep(10)
@@ -191,21 +193,7 @@ def update_fw(filename):
     logging.info(f"Firmware version after update: {(major, minor, patch)}")
 
     # reapply configuration after update
-    with open(config_back_fp, "r") as f:
-        try:
-            o3r.set(json.load(f))
-        except Exception as e:
-            logger.error(f"failed to apply prev config: {e}")
-            schema_fp = Path("json_schema.json")
-            with open(schema_fp, "w", encoding="utf-8") as f:
-                json.dump(o3r.get_schema(), f, ensure_ascii=False, indent=4)
-                logger.info(
-                    f"current json schema dumped to: {Path.absolute(schema_fp)}"
-                )
-
-            logger.warning(
-                f"check config against json schema: \n{Path.absolute(schema_fp)}"
-            )
+    _reapply_config(o3r=o3r, config_file=config_back_fp)
 
 
 if __name__ == "__main__":
