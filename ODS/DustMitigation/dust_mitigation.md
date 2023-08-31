@@ -60,6 +60,6 @@ It takes more frames to reach a probability level corresponding to an object det
 
 Since dust artifacts are highly dependent on the amount of dust type in this particular scenario, testing must be done in the field to tune the filter for this specific use case:
 + We suggest a `temporalConsistencyConstraint` parameter between 1 and 1.5 for light dust conditions.
-+ For heavy dust conditions a `temporalConsistencyConstraint` parameter between 1.5 and 2 may be required.
++ For heavy dust conditions a `temporalConsistencyConstraint` parameter between 1.5 and 2 may be required. In heavy dust conditions, the algorithm relies heavily on the availability of ego-motion data. In addition, heavy dust condition may reduce detection performances for small moving objects.
 
 Note that increasing the `temporalConsistencyConstraint` parameter will decrease the probability of false positive detections caused by dust artifacts. However, this does not mean that all false positives can be handled by this filter, especially under heavy dust conditions.
