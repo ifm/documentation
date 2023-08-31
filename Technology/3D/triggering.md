@@ -1,115 +1,85 @@
-# O3R System synchronization and triggering
+# Synchronization and triggering
 
-## System architecture
-The O3R system is designed to able to handle timing precisely per system: one system is one VPU and up to 6 heads connected to it via their respective ports.
-All imagers (3D ToF sensor) / ports are triggered internally via a separate (internal) trigger control unit in all states. This ensures precise timing with greater accuracy than what can typically be achieved with a independent embedded distributed system (e.g. multiple ifm O3D cameras), which have to be triggered via trigger commands sent over a network.
+The O3R platform is designed to handle very precise timing at the single system level: a system consists of a VPU and up to 6 heads connected via their respective ports.
+All imagers (only the 3D TOF sensors, not the RGB ones) are triggered internally by the Trigger Control Unit (TCU). This ensures precise timing with a higher accuracy than can normally be achieved with an external tool, e.g. for triggering ifm O3D cameras, which have to be synchronized with software trigger commands sent over a network.
 
-The per system triggering can therefore be handled in either the RUN state or IDLE state.
+Per-system triggering can be handled in either RUN or IDLE states.
 
-For multiple systems (multiple VPUs) either software triggers have to be used to synchronize the systems. Or systems can be synchronized via NTP (network time protocol) if NTP timing accuracy is sufficient in RUN state.
+In RUN state the system is triggered on a regular time base, defined by the `framerate` and `delay` parameters.
+IN IDLE state the system is triggered once a software trigger signal is received.
 
-## O3R States and its effect on synchronization
+For multiple separate systems, software trigger has to be used, or systems can be synchronized via NTP (network time protocol) if NTP accuracy is sufficient.
 
-The O3R system allows different states to suit different timing principles: it currently supports two state (relevant to timing / sync)
-1. RUN state
-2. IDLE state
-3. (CONF state: used internally for boot-up procedure and reconfiguration)
-4. (ERROR state: used internally )
+## O3R states and synchronization
 
-### O3R default state
-The O3R system starts by default in CONF state for all connected camera heads. The targeted framerate is 10 Hz, offset is 0.
-Set the cameras to RUN state to start the data acquisition loop: this will produce data frames triggered at the same time for all connected cameras heads.
+The O3R system uses different states to suit different timing principles.
 
-### States
-| state | comment                                                                               |
+| State | Comment                                                                               |
 | ----- | ------------------------------------------------------------------------------------- |
-| RUN   | free running state: cameras run at the desired framerate, timed to the same time base |
-| IDLE  | state used for trigger: camera inactive until trigger signal received                 |
+| RUN   | Free running state: the cameras run at the desired framerate, synchronized to the same time base |
+| IDLE  | State used for triggering: the camera is inactive until a trigger signal is received |   
+
+:::{note}
+The "CONF" and "ERROR" state are not relevant to time synchronization and are be ignored in this document.
+:::
 
 ### RUN state
-This state is used as a free running state. Every camera in `RUN` state is running at the desired framerate (as set in the configuration).
-Cameras (heads) can be timed relative towards each other per the systems internal timing control : the relevant parameter for setting this is the `delay` parameter.
+All cameras set to "RUN" state and configured to the same framerate are automatically synchronized. A `delay` can be set between groups of synchronized cameras.
 
 ### IDLE state
-This state is required for sending software triggers to the system per camera (head) or camera group.
-The cameras active illumination and imager are not active until a trigger command is sent via the API.
+This state is required for sending software triggers to a camera or camera group.
+The cameras active illumination and imager are inactive until a trigger command is received.
 
-### System configuration parameters
-```json
-{...,
-	"ports": {
-        ....,
-        "port2": {
-            "acquisition": {
-                "channelSelection": "manual",
-                "channelValue": 0,
-                "delay": 0,
-                "exposureLong": 5000,
-                "exposureShort": 400,
-                "framerate": 10.0,
-                "offset": 0.0,
-                "swTriggerGroup": 0,
-                "version": {
-                "major": 0,
-                "minor": 0,
-                "patch": 0
-                }
-            },
-        ...
-	}
-}
-```
+## Configuration
 
-The O3R camera is designed to capture at 20fps regardless of any applied setting which means the minimum time span between two consecutive frames is 50 milliseconds (at 20 Hz). The synchronization allows to capture the scene at same framerate (i.e. frequency) for different cameras at the same time point.
+The time synchronization and the trigger functionalities can be configured with the following settings:
 
-+ With the O3R, different cameras can be synchronized to the same time base independent of their framerate: see **Synchronization**
-+ Different camera heads can be triggered which are required to run at same framerate.
+| Parameter       | Value | Description                                                 |
+| --------------- | ----- | ----------------------------------------------------------- |
+| `framerate`     | 1/sec | Acquisition framerate                                       |
+| `delay`         | ms    | Time offset to first trigger group                          |
+| `swTriggerGroup`| [0,6] | Software trigger group                                      |
 
 
-Synchronization / trigger relevant parameters:
+#### Framerate
 
-| parameter      | value | description                                                 |
-| -------------- | ----- | ----------------------------------------------------------- |
-| delay          | ms    | time offset to (internal) trigger of first envelope (group) |
-| framerate      | 1/sec | image framerate                                             |
-| swTriggerGroup | [0,6] | software trigger group id / affiliation                     |
+All cameras configured to the same framerate are always synchronized.
 
-
-## Synchronization
-
-The different cameras having the same framerate will be always synchronized. The figure below shows the synchronization of four different cameras.
-- The different coloured horizontal signals resembles the signals received from four different cameras running at same frame rate.
-
- - The four cameras running at 10Hz Frequency
+The figure below shows the signals received from four different cameras running at 10Hz.
 
 ![Four Cameras running at 10Hz Frequency](resources/triggering/4Ports_10fps.png)
 
- - Camera 3(Yellow colored signal) is running at 12 Hz Frequency
+The figure below shows the signals received from three different cameras running at 10Hz. The third camera (yellow signal) is running at 12 Hz.
 
 ![Camera 3 running at 12Hz frequency](resources/triggering/10_12fps.png)
 
-**Delay**
+#### Delay
 
-Delay is the parameter that defines the minimum amount of time [in milliseconds] between the framerate loop and imager trigger.
-As we see in the below image, the second camera(green colored signal) is running at 10 fps with a delay of 10 ms.
+The delay is the parameter that defines the minimum amount of time, in milliseconds, between the default framerate loop and the imager trigger.
+As shown in the below image, the second camera (in green) is running at 10 fps with a delay of 10 ms.
 
 ![Camera 2 delayed by 10 milliseconds](resources/triggering/delay_10ms.png)
 
-## System latency and relevant variables
-Typical overall sensor system latency is dependent on a number of variables:
-+ internal system latency / jitter
-	+ jitter of the system when in free running state
-	+ delay before a software trigger is registered internally and propagated to the relevant camera head
-+ external latency:
-	+ network latency when sending trigger signals
-	+ network latency when sending data via the network
-+ data evaluation latency
-	+ dependent on the algorithm and evaluating hardware utilization
+#### Software trigger group
+
+Cameras belonging to the same group, that is having the same value for `swTriggerGroup` parameter, are synchronized (when in "RUN" state) and triggered simultaneously (when in "IDLE" state) when any one of the camera in the group is triggered. 
+By default the value of `swTriggerGroup` is 0 which means that the port is triggered independently from all the other ports.
+
+## Overall system latency
+
+Typical overall sensor system latency depends on a number of variables:
+- Internal system latency and jitter:
+	- jitter of the system when in free running state,
+	- delay between when the trigger command is sent and when it is received.
+- External latency:
+	- Network latency when sending trigger signals,
+	- Network latency when sending data via the network.
+- Data processing latency: depends on the algorithm, application and hardware.
 
 
-## O3R timing repeatability
-Testing thresholds for timing repeatability in RUN (free-running) state: These are benchmarks evaluated for prototype devices, and are therefore up to change.
-Updates will be added to this doc and it's respective white paper as soon as they are available.
+## Repeatability
+
+Below are the results of repeatability tests performed at ifm on prototype devices.
 
 ```python
 TH_FRAMERATE_JITTER = 1E-3  # sec
@@ -122,10 +92,8 @@ LONG_EXP = 0.005 + 0.0006 # MAGIC NUMBER EXP time [sec] plus read-out
 TH_ONE_ENVELOPE_JITTER = 1E-4  # sec
 ```
 
-At ifm several use cases have been evaluated to find the relevant system thresholds for timing accuracy and jitter statistics:
-
-### Test case 1: framerate precision and jitter
-Input values are envelope signals of one camera as recorded with a oscilloscope .
+### Framerate precision and jitter
+Input values are envelope signals of one camera as recorded with a oscilloscope.
 
 ```python
 framerate = 1/np.nanmean(np.diff(time3Phase_b1))	# time3Phase_b1 is the oscilloscope data
@@ -145,9 +113,5 @@ if (tv > th):
 	ERRORS.append("framerate abs check failed: {framerate}\n test value: {tv} - threshold: {th}".format(framerate=framerate, tv=tv, th=th))
 ```
 
-Outcome:
-+ per system / head jitter: `TH_FRAMERATE_JITTER` is about `1E-3 sec`
-+ per system / head framerate precision: `TH_FRAMERATE_JITTER` is about `2E-4 sec`
-
-### additional test cases:
-Additional test cases are tested ifm internally. They will be documented here in the future.
+### Outcome
+The jitter for an O3R camera head has been found to be about `1E-3 sec`, and the framerate about `2E-4 sec`.
