@@ -20,7 +20,7 @@ Suggestions for cleaning intervals and procedures can be found in this separate 
 
 ## Configuration
 
-The dust mitigation feature it activated by default - the appropriate parameter is called `temporalConsistencyConstraint`.
+The dust mitigation feature is always active - the appropriate parameter is called `temporalConsistencyConstraint`. By default, the dust mitigation is tuned for good detection performance under light dust conditions.
 
 This configuration is located in the `grid` section of the ODS JSON configuration.
 
