@@ -143,7 +143,7 @@ To verify that the new frame corresponds to the new parameters, you can use the 
 3. Verify the acquisition timestamps over the next 6 images: there shall be a noticeable time delay after the settings have been applied,
 
 :::{note}
-Make sure to monitor the acquisition timestamps, provided as part of the `TOF_INFO`, `RGB_INFO`, `O3R_ODS_INFO` and `O3R_ODS_OCCUPANCY_GRID` buffers, and not the reception timestamps, attached by ifm3d to the `Frame` object. Refer to the [timestamps documentation](ADD-LINK) for more details.
+Make sure to monitor the acquisition timestamps, provided as part of the `TOF_INFO`, `RGB_INFO`, `O3R_ODS_INFO` and `O3R_ODS_OCCUPANCY_GRID` buffers, and not the reception timestamps, attached by ifm3d to the `Frame` object. Refer to the [timestamps documentation](../Technology/VPU/Timestamps/timestamps.md) for more details.
 :::
 ### Camera streams configuration delays
 #### Acquisition parameters
