@@ -77,7 +77,7 @@ Port error codes hold information about data stream drops due to:
 **CONTENT:**
 IMU specific errors such as implausible IMU data returned from the sensor.
 
-```{include} diagnosis_error_codes/FW1.1/section_IMU.md
+```{include} diagnosis_error_codes/FW1.1/section_imu.md
 ```
 
 ## Distance image processing

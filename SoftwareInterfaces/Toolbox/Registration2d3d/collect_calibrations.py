@@ -81,7 +81,7 @@ if __name__ == "__main__":
     ports_calibs = {}
     try:
         for port in o3r.ports():
-            if port.type != "IMU":
+            if port.type != "IMU" and port.type != "app":
                 ports_calibs[port.port] = PortCalibrationCollector(o3r, port).collect()
                 # The logged messages illustrate how to access the calibration data
                 # stored in the custom objects

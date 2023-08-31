@@ -5,7 +5,7 @@ The O3R-ODS performance for an AGV depends upon various factors. This whitepaper
 ## ODS Performance analysis
 
 ### How to read the data
-Please refer to the [iVA ODS recording documentation](../../../iVA/iVA_ODS_recording.md) to find out more details on how to record and import our open source hdf5 data files.
+Please refer to the [iVA ODS recording documentation](../../Recording/ods_data_recording.md#ifmvisionassistant) to find out more details on how to record and import our open source hdf5 data files.
 
 -----
 
