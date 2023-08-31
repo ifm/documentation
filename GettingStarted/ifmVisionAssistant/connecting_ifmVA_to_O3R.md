@@ -36,7 +36,7 @@ After choosing the article `OVP800 == O3R`, the IP address is requested.
 
 ![manual connect](resources/manual_connect.gif)
 
-### Connect to recent system(s) by using `Recent`
+### Connect to recent systems by using `Recent`
 
 The ifmVisionAssistant saves former established connections. This could also include other hardware like O2I, O2D, O3X, etc.
 

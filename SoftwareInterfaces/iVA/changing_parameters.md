@@ -1,6 +1,6 @@
 # Changing parameters
 
-Every port parameter can be set manually with the ifmVisionAssistant - under `Port settings` menu. E.g. the switch from `CONF` to `RUN` state.
+Every port parameter can be set manually with the ifmVisionAssistant - under `Port settings` menu. For example, the switch from `CONF` to `RUN` state.
 
 ![conf to run](resources/manual_con_run.gif)
 
@@ -12,7 +12,7 @@ Every port menu includes its own configuration / parameters. These parameters ca
 
 The ifmVisionAssistant is a tool to verify the overall system and experience certain changes live.
 
-The parameters subgroups are automatically split equivalently to the config.json / parameter JSON schema  - see ifm3d-library. This means that the configuration of parameters in the ifmVisionAssistant is always up-to-date with the available parameters via the JSON parameter structure.
+The parameters subgroups are automatically split equivalently to the `config.json` / parameter JSON schema  - see ifm3d-library. This means that the configuration of parameters in the ifmVisionAssistant is always up-to-date with the available parameters via the JSON parameter structure.
 
 |Symbol|Parameters|Description|
 |---|---|---|
@@ -24,4 +24,4 @@ The parameters subgroups are automatically split equivalently to the config.json
 
 After changing a parameter, the ifmVisionAssistant will not save the configuration.
 
-**Note: The calibrated IMU (Interial Measurement Unit) system provides parameters at Port 6. Port 6 represents the IMU.**
+**Note: The calibrated IMU (Inertial Measurement Unit) system provides parameters at Port 6. Port 6 represents the IMU.**

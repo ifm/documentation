@@ -22,12 +22,12 @@ In the following a short overview is given to help you understand these three re
 :align: center
 ```
 ## Sensor-coordinate-system / pixel coordinate system:
-The **sensor-coordinate-system** is a way of representing pixels on the camera sensor as a 2 dimensional vector, i.e. a classical pixel coordinate system: pixel rows, pixel columns.
+The **sensor-coordinate-system** is a way of representing pixels on the camera sensor as a 2 dimensional vector, that is a classical pixel coordinate system: pixel rows, pixel columns.
 
 The upper-left pixel in an depth sensor (image sensor) is by convention `(0,0)` Depending on the sensors' number of pixel rows and columns the opposing image corner (bottom-right) is at `(#num_rows, #num_columns).
 
 For the 38k imagers (03R222, O3R225) the bottom-right pixel is `(172,224)`.
-The implementation used in the example script are borrowed from Numpy.
+The implementation used in the example script are borrowed from NumPy.
 
 ## Optics-coordinate-system (optics space):
 ### Optics space non-rectified
@@ -45,14 +45,14 @@ These images are supplied non-rectified (all 2-dimensional image arrays):
 + (2D RGB image)
 
 All 3D ToF 2-dimensional images are non-rectified. This is by choice, since all rectification process include a resampling / interpolation.
-Resampling and interpolation does not preserve the geometrical positions (in pixel coordinates) or involves averaging over a local neighborhood in pixel space, e.g. "mixes" geometrical distinct signal.
+Resampling and interpolation does not preserve the geometrical positions (in pixel coordinates) or involves averaging over a local neighborhood in pixel space, for example "mixes" geometrical distinct signal.
 
 For details see [intrinsic calibration](#intrinsic-calibration) and [inverse intrinsic calibration](#inverse-intrinsic-calibration).
 
 ### Optics space rectified
 The **optical-coordinate-system** is a way of representing position in real space as a 3 dimensional vector relative to the camera sensor.
 
-The convention used by O3R is a right-handed cartesian coordinate system where (0,0,0) is the center of the camera optics. The z direction is directly pointing out of the sensor (i.e. orthogonal to the front face), x direction is pointing in the opposite direction from the FAKRA-connector, and y direction is pointing "up" (extending the two other directions conforming with the definition of a right handed coordinate system).
+The convention used by O3R is a right-handed Cartesian coordinate system where (0,0,0) is the center of the camera optics. The z direction is directly pointing out of the sensor (that is orthogonal to the front face), x direction is pointing in the opposite direction from the FAKRA-connector, and y direction is pointing "up" (extending the two other directions conforming with the definition of a right handed coordinate system).
 
 The difference between this optics coordinate frame and the head coordinate frame is the their respective origin. The optics coordinate frame and head coordinate frame are offset in two directions: `trans_Z` and `trans_X`.
 <!-- 
@@ -61,8 +61,8 @@ TODO: Check is there a difference in the angle parameters - misalignment of the 
 ### Head-coordinate-system (head space):
 The **head-coordinate-system** is a way of representing position in real space as a 3 dimensional vector relative to the camera head.
 
-The convention used by O3R is a right-handed cartesian coordinate system, where (0,0,0) is the center of the rear face of the camera: intersection point of two lines of diagonally opposing mounting points.
-The z direction is directly pointing out of front of the camera (i.e. orthogonal to the front face), x direction is pointing in the opposite direction from the FAKRA-connector, and y direction is pointing "up" (extending the two other directions conforming with the definition of a right handed coordinate system).
+The convention used by O3R is a right-handed Cartesian coordinate system, where (0,0,0) is the center of the rear face of the camera: intersection point of two lines of diagonally opposing mounting points.
+The z direction is directly pointing out of front of the camera (that is orthogonal to the front face), x direction is pointing in the opposite direction from the FAKRA-connector, and y direction is pointing "up" (extending the two other directions conforming with the definition of a right handed coordinate system).
 
 ## Defining where the camera is
 
@@ -87,7 +87,7 @@ The following diagram demonstrates how to use the calibration data and example f
 :align: center
 ```
 
-The names used this diagram match the functions and variables demonstrated in examples such as 2d-3d Registration. The result of that example is shown below, where a point cloud that has been colored by associating depth data with color data from an O3R225 camera.
+The names used this diagram match the functions and variables demonstrated in examples such as 2D-3D Registration. The result of that example is shown below, where a point cloud that has been colored by associating depth data with color data from an O3R225 camera.
 
 ![](img/2d3dexample.png)
 
@@ -96,7 +96,7 @@ The names used this diagram match the functions and variables demonstrated in ex
 
 ### Intrinsic calibration:
 
-Intrinsic parameters encode the magnification and radial distortion of a lens in a way that we can take a position in sensor space ie. a pixel, and determine the path that light can take to arrive at that position.
+Intrinsic parameters encode the magnification and radial distortion of a lens in a way that we can take a position in sensor space, that is, a pixel, and determine the path that light can take to arrive at that position.
 
 In essence, intrinsic projection turns a point in **sensor space** into a direction in the **optical-coordinate-system**.
 

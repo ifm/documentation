@@ -17,30 +17,6 @@ image: ubuntu:22.04
 stages:          # List of stages for jobs, and their order of execution
   - build
 
-
-markdown-spellcheck:
-  stage: build
-  tags: 
-    - shared_docker
-  when: always
-  allow_failure: true
-  before_script:
-    - apt update
-    - apt -y upgrade
-    - apt -y install curl
-    - curl -sL https://deb.nodesource.com/setup_6.x | bash -
-    - apt -y install nodejs
-    - apt -y install npm
-    - npm i markdown-spellcheck -g
-  script:
-    - mdspell -a --en-us --report '**/*.md' > spellcheck-report.md
-  artifacts:
-    when: always
-    paths:
-      - spellcheck-report.md
-    expire_in: 1 week
-
-
 vale-linting:
   image:
     name: jdkato/vale:latest
@@ -52,9 +28,12 @@ vale-linting:
   script:
     - git config --global user.email "support.robotics@ifm.com"
     - git config --global user.name "ifm-csr"
-    - git clone https://gitlab-ci-token:${CI_JOB_TOKEN}@gitlab-ee.dev.ifm/syntron/support/csr/formatting-tools.git
-    - cd formatting-tools
-    - vale --minAlertLevel error /builds/syntron/support/csr/o3r/o3r-ods-example/.
-  when: manual    
+    - ls /builds/syntron/support/csr/o3r/
+    - ls -la /builds/syntron/support/csr/o3r/formatting-tools
+    # - mkdir -p /builds/syntron/support/csr/o3r/vale
+    # - git clone https://gitlab-ci-token:${CI_JOB_TOKEN}@gitlab-ee.dev.ifm/syntron/support/csr/formatting-tools.git /builds/syntron/support/csr/o3r/vale
+    - cd /builds/syntron/support/csr/o3r/formatting-tools
+    # - pwd
+    - vale --minAlertLevel error /builds/syntron/support/csr/o3r/documentation/.
 
 

@@ -7,7 +7,7 @@ The O3R software supports two spatial filters for improving the distance measure
 ## Description
 
 The median filter is conceptually very similar to a [median filter applied to RGB 2D images](https://en.wikipedia.org/wiki/Median_filter). A median filter is a nonlinear, edge-preserving smoothing filter. It can be thought of as a filter that replaces the value per pixel with the median value of neighboring pixels. The computation is achieved by sliding the filter mask in the spatial domain until it covers the whole image. 
-This filtering technique is robust (i.e., not affected by outliers) and reduces noise while keeping edge information intact. 
+This filtering technique is robust (that is, not affected by outliers) and reduces noise while keeping edge information intact. 
 The median filter is applied to the distance image. The distance noise is lowered to heuristically reflect the new noise in the distance image.
 
 

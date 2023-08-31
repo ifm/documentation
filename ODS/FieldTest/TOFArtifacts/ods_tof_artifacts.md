@@ -6,9 +6,9 @@ This paper gives an overview of O3R 3D Time of Flight (ToF) specific artifacts a
 
 **Common artifacts associated with 3D Time of Flight (ToF) imaging**
 
-1. Multipath Interference: This artifact occurs when the light emitted from the ToF camera reflects off multiple surfaces before returning to the camera. The camera then interprets these multiple reflections as being at different distances, leading to errors in depth calculation.
+1. Multi-path Interference: This artifact occurs when the light emitted from the ToF camera reflects off multiple surfaces before returning to the camera. The camera then interprets these multiple reflections as being at different distances, leading to errors in depth calculation.
 2. Motion Blur / Motion artifacts: This artifact occurs when the subject or the camera is moving during the time it takes for the ToF camera to capture a complete image. This can lead to blurred or distorted images, as the camera's depth calculations are based on the assumption that the subject is stationary.
-3. Stray light: Straylight artifacts are an artifact that occurs when the light emitted by the ToF camera is scattered or reflected by surfaces other than the intended subject, such as the camera's own housing or nearby objects. When this happens, the camera may receive additional light that can lead to errors in depth calculation. For example, imagine a ToF camera pointed at a scene with a subject in the foreground and a wall in the background. When the camera emits a burst of light, some of the light may reflect off the foreground object and return to the camera, while some may reflect off the wall and return to the camera. However, if the camera's own housing or nearby objects scatter or reflect some of the emitted light, the camera may receive additional light that can lead to depth measurement errors.
+3. Stray light: stray light artifacts are an artifact that occurs when the light emitted by the ToF camera is scattered or reflected by surfaces other than the intended subject, such as the camera's own housing or nearby objects. When this happens, the camera may receive additional light that can lead to errors in depth calculation. For example, imagine a ToF camera pointed at a scene with a subject in the foreground and a wall in the background. When the camera emits a burst of light, some of the light may reflect off the foreground object and return to the camera, while some may reflect off the wall and return to the camera. However, if the camera's own housing or nearby objects scatter or reflect some of the emitted light, the camera may receive additional light that can lead to depth measurement errors.
 4. Crosstalk between cameras of the same type and cameras and other active sensors in the same near infrared spectrum,
 5. Dust: Dust particles in the air may reflect significant amounts back at the camera at close distances. These particles appear to be medium to large objects, because of their close proximity.
 6. Low signal-to-noise ratio: pixels affected by this artifacts are discarded by the internal filters such as the `minimumAmplitude`, the `minimumReflectivity` and the `distanceNoise` filters.
@@ -20,7 +20,7 @@ For further details please see the extended documentation on [ifm3d.com](https:/
 ## ODS specific effects of ToF artifacts
 
 ### True / False positives
-In the context of binary classification (i.e., classifying data into one of two categories), a true positive (TP) is a case where the model correctly predicts the positive class, while a false positive (FP) is a case where the model predicts the positive class, but the true label is actually negative.
+In the context of binary classification (that is, classifying data into one of two categories), a true positive (TP) is a case where the model correctly predicts the positive class, while a false positive (FP) is a case where the model predicts the positive class, but the true label is actually negative.
 
 To put it more formally, let's define:
 
@@ -32,7 +32,7 @@ To put it more formally, let's define:
 
 These classification outcomes are typically described in a [confusion matrix](https://en.wikipedia.org/wiki/Confusion_matrix).
 
-### ODS effects of TP(s), FP(s), TN(s) and FN(s)
+### ODS effects of TP, FP, TN and FN
 
 To summarize:
 
@@ -45,13 +45,13 @@ To summarize:
 
 In the case of ODS ToF artifacts most likely cause an increase in false positive rate (FP) but do not decrease the ODS true positive rate (TP).
 This means the algorithms performance most likely is not reduced but the robustness is reduced.
-This is equivalent to the robot stopping even tough there is no object present - this may lead to downtime but does not cause accidents, i.e. FNs.
+This is equivalent to the robot stopping even tough there is no object present - this may lead to downtime but does not cause accidents, that is FN.
 
 For all possible sources of FPs above, the ODS application is tailored to be as robust as possible:
 
-1. Multipath Interference: We use specifically designed acquisition modes in conjunction with internal processing filters to allow us to detect multipath interference effected scenes and react accordingly.
-2. Motion Blur / Motion artifacts: We use specifically designed acquisition settings in conjunction with internal processing filters to allow us to detect motion artifacts effected part of scenes and react accordingly.
-3. Stray light: We use specifically designed internal processing filters to allow us to detect stray light effected scenarios. However such sources of stray light can only be detected if the source of the stray light lies within the inner boundaries of the cameras field of view (FoV).
+1. Multi-path interference: We use specifically designed acquisition modes in conjunction with internal processing filters to allow us to detect multi-path interference effected scenes and react accordingly.
+2. Motion blur / motion artifacts: We use specifically designed acquisition settings in conjunction with internal processing filters to allow us to detect motion artifacts effected part of scenes and react accordingly.
+3. Stray light: We use specifically designed internal processing filters to allow us to detect stray light effected scenarios. However such sources of stray light can only be detected if the source of the stray light lies within the inner boundaries of the cameras field of view (FOV).
    1. Please minimize all sources of possible stray light in close vicinity of the camera mounting: For further details please see the mounting instructions included in this documentation repository and also read the O3R manual.
    2. For stray light effects caused by overhanging load, please see the [overhanging load documentation](../../../Parameters/OverhangingLoads/overhanging_loads.md).
 4. Crosstalk:

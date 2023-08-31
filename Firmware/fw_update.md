@@ -6,7 +6,7 @@
 ## Download the firmware
 The firmware image is available on the [ifm.com](https://www.ifm.com/) website. Navigate to the site and follow the steps below:
 - Create an account (if you do not already have one) and log in.
-- Use the search bar to find OVP800 (VPU). This is also valid if you have pre-release sample units, e.g. M04239.
+- Use the search bar to find OVP800 (VPU). This is also valid if you have pre-release sample units, for example M04239.
 - Navigate to the article page an click on the "Downloads" tab.
 - Select the firmware from the list. It will start downloading the file.
 
@@ -36,7 +36,7 @@ if (sw->WaitForRecovery()) {
 ...
 :::
 ::::
-::::{group-tab} python
+::::{group-tab} Python
 :::python
 from ifm3dpy.swupdater import SWUpdater
 from ifm3dpy.device import O3R
@@ -53,7 +53,7 @@ if sw.wait_for_recovery():
 
 Once the device is in recovery mode (see section above), you can open the web interface:
 
-1. Open [http://192.168.0.69:8080/](http://192.168.0.69:8080/) in web browser. The SWUpdate web interface is shown.
+1. Open [http://192.168.0.69:8080/](http://192.168.0.69:8080/) in web browser. The `SWUpdate` web interface is shown.
 2. Drag and drop the `*.swu` firmware file into the `software update`-window. The upload procedure starts.
 
 The system will automatically reboot in productive mode. The web interface will not be available anymore (it is only available in recovery mode).
@@ -102,7 +102,7 @@ if (sw->FlashFirmware("<path/to/firmware_image.swu>")){
 }
 :::
 ::::
-::::{group-tab} python
+::::{group-tab} Python
 :::python
 if sw.flash_firmware('<path/to/firmware_image.swu>'):
     sw.wait_for_productive()
@@ -126,7 +126,7 @@ $ ifm3d dump | jq .device.swVersion.firmware
 ifm3d::json config = dev->Get({"/device/swVersion/firmware"});
 :::
 ::::
-::::{group-tab} python
+::::{group-tab} Python
 :::python
 o3r.get(["/device/swVersion/firmware"])
 :::
