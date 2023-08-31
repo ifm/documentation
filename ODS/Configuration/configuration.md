@@ -75,10 +75,8 @@ Increasing this value might prevent more false positives caused by the floor and
 To activate/deactivate the application use the following definition:
 
 - Active: "RUN"
-- Inactive: "CONF"
+- Inactive: "CONF" 
 
-Provide this information to the system to change the state of ODS.
-
-```JSON title="RUN/CONF"
-"state": "RUN"
-```
+:::{note}
+To ensure that restarting the data stream is as quick as possible, we recommend keeping the application always in "RUN" state. For an inactive application, set the `activePorts` list to an empty list `[]`.
+:::
