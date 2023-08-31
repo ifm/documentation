@@ -350,7 +350,7 @@ class VPUMisalignmentEstimationGUI:
         self.axtb0.text(0.5, 0.5,
                         "Record IMU data while moving vehicle\n" +
                         "on a path shaped like a \"lying eight\",\n" +
-                        "i.e., a right turn followed by a left turn,\n" +
+                        "that is, a right turn followed by a left turn,\n" +
                         "to estimate VPU misalignment and\n" +
                         "update extrinsic VPU calibration\n" +
                         "\n" +

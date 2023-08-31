@@ -1,5 +1,5 @@
 # FIRMWARE 0.14.23 RELEASE NOTES 
-The following release note provides an overview of the features of the (dev release) Firmware 0.14.23 Version.
+The following release note provides an overview of the features of the (developer release) Firmware 0.14.23 Version.
 Please refer to the ifm O3Rs website [www.ifm3d.com](http://www.ifm3d.com) for further information.
 
 
@@ -17,7 +17,7 @@ This firmware release can be applied to the following ifm image processing platf
   </tr>
   <tr>
     <th>M03975, M04239</th>
-    <th>preseries sample (without IMU)</th>
+    <th>pre-series sample (without IMU)</th>
   </tr>
   <tr>
     <th>OVP800</th>
@@ -61,22 +61,22 @@ This firmware release supports the following ifm camera articles:
 * Connectivity:
   The O3R image processing platform is a multi camera image processing platform.
   * Ports: ifm camera articles can be connected to all six ports (Port0 .. Port5)
-  * Ethernet 0: 1x GB ethernet connection [eth0]
-  * <mark>**NEW**</mark> Ethernet 1: 1x GB ethernet connection [eth1]
+  * Ethernet 0: 1x GB Ethernet connection [eth0]
+  * <mark>**NEW**</mark> Ethernet 1: 1x GB Ethernet connection [eth1]
   * <mark>**NEW**</mark> CAN
   * <mark>**NEW**</mark> USB3.0
 * Data Interface:
   The ifm3d library is recommended for interfacing with the O3R image processing platform (see installation instructions [here](https://ifm3d.com/sphinx-doc/build/html/ifm3d/doc/sphinx/content/installation_instructions/o3r_early_adopter_index.html)).
   The idea of ifm3d is to let developers quickly ramp up and also deploy code on the image processing platform.
   Sample programs, that illustrate the various functions and good usage, are provided for the following application frameworks:
-	* C++ and python [here](https://ifm3d.com/sphinx-doc/build/html/ifm3d/doc/sphinx/content/examples/index.html)
+	* C++ and Python [here](https://ifm3d.com/sphinx-doc/build/html/ifm3d/doc/sphinx/content/examples/index.html)
 	* <mark>**NEW**</mark> [ROS(1) wrapper](https://ifm3d.com/sphinx-doc/build/html/ROS/ifm3d-ros/README.html)
 	* <mark>**NEW**</mark> [ROS2 wrapper](https://ifm3d.com/sphinx-doc/build/html/ROS/ifm3d-ros2/README.html)
 * SSH access:
   Access to the embedded Linux operating system is enabled through the `oem` user.
 * Docker containers:
   Docker containers can be used to deploy code embedded on the image processing platform.
-  Management of docker containers, like upload, download, autostart, delete is handled through SSH access and Docker compose by the oem user.
+  Management of docker containers, like upload, download, autostart, delete is handled through SSH access and Docker compose by the OEM user.
 
 
 ## ifm Camera Usage
@@ -100,11 +100,11 @@ All data acquisitions are carried out in high dynamic mode with multiple exposur
   * <mark>**NEW**</mark> manual channel selection per 3D TOF imager:
     + channel selection between -100:100
     + manual selection: this first step is not randomized / based on MAC address
-  * framerate: periodic image acquisition at 1/framerate-intervals
-  * delay: not functional (timing is currently free-running only)
-  * expLong: long exposure time of high dynamic acquisition
-  * expShort: short exposure time of high dynamic acquisition
-  * offset: shift of measurement range in 0.5m steps
+  * `framerate`: periodic image acquisition at 1/framerate-intervals
+  * `delay`: not functional (timing is currently free-running only)
+  * `expLong`: long exposure time of high dynamic acquisition
+  * `expShort`: short exposure time of high dynamic acquisition
+  * `offset`: shift of measurement range in 0.5m steps
 * Available Output Data:
   * distance: radial distance between camera and object
   * x: x-coordinate of object pixel
@@ -140,11 +140,11 @@ The RGB cameras acquire color images of the objects.
 * Connectivity: ports must be connected pairwise with the same head-type: [Port0,Port1]   [Port2,Port3]   [Port4,Port5]
 * No time synchronization: synchronized data acquisition / image triggering between ports is currently not possible.
 * Software triggering in IDLE state is not operational
-* The rgb imagers have to be switched to CONF and then back to RUN before streaming data.
+* The RGB imagers have to be switched to CONF and then back to RUN before streaming data.
 
 
 ## Look forward to these features in future releases
 * trigger - trigger heads for a time synchronized operation
-* more user flash storage -  alternative flash space handling for redundancy and recovery will clear more flash space for the oem user
+* more user flash storage -  alternative flash space handling for redundancy and recovery will clear more flash space for the OEM user
 * new 2D RGB mode - it will be possible to set acquisition settings manually
-* synchronization among different ports - it will be possible to define the acquisition timing for SW-triggered and periodic acquisitions (eg. two heads have a synchronized acquisition)
+* synchronization among different ports - it will be possible to define the acquisition timing for SW-triggered and periodic acquisitions (for example two heads have a synchronized acquisition)

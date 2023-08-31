@@ -1,7 +1,7 @@
 # NTP(Network Time Protocol)
 
-The OVP8xx (and M04239) time system is based on the `Unix base time`. `Unix base time` started on the 1st of January, 1970. Get more information from [Wikipedia](https://en.wikipedia.org/wiki/Unix_time).
-By default, the OVP8xx (and M04239) will be reset every time a reboot occurs to an arbitrary time: e.g. `1581090786002917000`.
+The OVP8xx (and M04239) time system is based on the `Unix base time`. `Unix base time` started on the first of January, 1970. Get more information from [Wikipedia](https://en.wikipedia.org/wiki/Unix_time).
+By default, the OVP8xx (and M04239) will be reset every time a reboot occurs to an arbitrary time: for example `1581090786002917000`.
 
 
 `NTP` might be the right choice, to provide the same `base time` to all O3R systems per facility and to repeatably set the current time.
@@ -11,16 +11,16 @@ This whitepaper explains the application of `NTP` on an O3R system.
 
 Network Time Protocol(<https://en.wikipedia.org/wiki/Network_Time_Protocol>) is a network protocol for time synchronization between network systems/participants.
 
-To synchronize different systems, an `NTP` server is needed (e.g. chrony). An `NTP` client (O3R) can connect to the `NTP` server and apply the provided time from the `NTP` server. To provide stable synchronization, some systems are connected with several `NTP` servers to also have a fallback `NTP` server if the `lead` server goes offline.
+To synchronize different systems, an `NTP` server is needed (for example chrony). An `NTP` client (O3R) can connect to the `NTP` server and apply the provided time from the `NTP` server. To provide stable synchronization, some systems are connected with several `NTP` servers to also have a fallback `NTP` server if the `lead` server goes offline.
 
 ## Why use NTP with the O3R?
 
-Receiving data - 3D images, occupancy grid, diagnosis - is meaningless if it cannot be seen in the same time context as the system in the same location as this O3R (e.g. AGV). Typically, timestamps (for frames etc.) are measured in seconds, milliseconds or even nanoseconds. For (3D) image processing and other time-critical information, time synchronization is needed. One way could be measuring the start time for different systems, or synchronizing these systems with each other.
+Receiving data - 3D images, occupancy grid, diagnosis - is meaningless if it cannot be seen in the same time context as the system in the same location as this O3R (for example AGV). Typically, timestamps (for frames etc.) are measured in seconds, milliseconds or even nanoseconds. For (3D) image processing and other time-critical information, time synchronization is needed. One way could be measuring the start time for different systems, or synchronizing these systems with each other.
 
 If no NTP connection is established the systems default time will be set to a similar value at startup: `1581090786002917000`
 This Unix base time timestamp is equivalent to Fri Feb 07, 2020, 15:53:06 GMT+0000
 
-E.g.:
+for example:
 The received occupancy grid frame contains a timestamp based on the OVP8xx time. The AGV logs information about special events - like a detected object (detected by LIDAR and/or ODS). If both events, the AGV log and the ODS data are not within the same time frame, it is hard or near impossible to reference both to each other.
 
 The O3R platform can be synchronized to a central clock using Simple `NTP` - [Wikipedia](https://en.wikipedia.org/wiki/Network_Time_Protocol#SNTP).

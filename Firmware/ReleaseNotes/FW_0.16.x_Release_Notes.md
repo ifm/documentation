@@ -80,7 +80,7 @@ This firmware release supports the following ifm camera articles:
 ### Connectivity:
 + **USB support**
     + USB flash thumb drive / USB SSD support: `fat32` and `ext4` support. For `ext4` the VPU `oem` user id needs write access
-    + automounting of USB devices (may require reformatting)
+    + auto-mounting of USB devices (may require reformatting)
 + **CAN**
 + **ETH**
     + fallback IP if DHCP is selected for ETH0 and ETH1 and no DHCP server is present
@@ -91,7 +91,7 @@ This firmware release supports the following ifm camera articles:
     + Framerate
 
 ### Synchronization and trigger
-+ **SNTP** support added, configurable through json
++ **SNTP** support added, configurable through JSON
 + **Imager synchronization**
     + 3D imagers in RUN state having the same `acquisition/framerate` are now hardware synchronized (individual `acquisition/delay` possible)
 
@@ -108,7 +108,7 @@ This firmware release supports the following ifm camera articles:
 
 ### Diagnosis
 + Diagnosis data
-    + accessible through [ifm3D-library](https://www.ifm3d.com)
+    + accessible through [ifm3d library](https://www.ifm3d.com)
     + Camera specific diagnosis information
     + Application specific diagnose information
     + Example: temperature information for all system components
@@ -144,7 +144,7 @@ This firmware release supports the following ifm camera articles:
 * The IPv4 discovery feature for discovering a device on the local network is not working
 * ODS must not be used together with user-defined docker containers
 * ODS startup time high (~5s)
-* ODS in preseries state (refer to ODS documentation)
+* ODS in pre-series state (refer to ODS documentation)
 
 
 ## Look forward to these features in future releases

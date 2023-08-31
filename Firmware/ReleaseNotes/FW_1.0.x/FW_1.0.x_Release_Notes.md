@@ -66,13 +66,13 @@ This firmware release supports the following ifm camera articles:
     <tr>
     <th> O3R222 </th>
     <th> 3D: 38k 224x172, 60°x45° IP50 <br>  2D: 1280x800, 127°x80° </th>
-    <th> standard_range4m, standard_range2m, cyclic_4m_2m_4m_2m, extrinsic_calib, <br> standard_autoexposure2D, standard_manualexposure2D </th>
+    <th> `standard_range4m`, `standard_range2m`, `cyclic_4m_2m_4m_2m`, `extrinsic_calib`, <br> `standard_autoexposure2D`, `standard_manualexposure2D` </th>
     <th>  </th>
   </tr>
     <tr>
     <th> O3R225 AB</th>
     <th> 3D: 38k 224x172, 105°x78° IP50 <br>  2D: 1280x800, 127°x80° </th>
-    <th> standard_range4m, standard_range2m, cyclic_4m_2m_4m_2m, extrinsic_calib, <br> standard_autoexposure2D, standard_manualexposure2D </th>
+    <th> `standard_range4m`, `standard_range2m`, `cyclic_4m_2m_4m_2m`, `extrinsic_calib`, <br> `standard_autoexposure2D`, `standard_manualexposure2D` </th>
     <th>  </th>
   </tr>
     <tr>
@@ -98,7 +98,7 @@ The steps outlined there are required to change the device from a A/B redundant 
 
 ### Docker:
 + Docker container logs are included in systemD journal instead of separate files: less prone to deadlock systems with verbose logging inside containers, due to logs saving on device during runtime
-+ Docker service is persistent over oem user changes
++ Docker service is persistent over OEM user changes
 
 ### Library: ifm3d
 + update API -  ifm3d-library:
@@ -111,7 +111,7 @@ The steps outlined there are required to change the device from a A/B redundant 
 
 ### Diagnosis
 + Diagnosis data
-    + accessible through [ifm3D-library](https://www.ifm3d.com)
+    + accessible through [ifm3d library](https://www.ifm3d.com)
     + Camera specific diagnosis information
     + Example: temperature information for all system components
 + Application specific diagnosis information updated:
@@ -120,7 +120,7 @@ The steps outlined there are required to change the device from a A/B redundant 
 + Changed: update of the JSON structure of the diagnostic information provided through the `get_diagnostic`-function
 
 ### TensorRT
-+ TensorRT (version `tensorrt_version_7_1_3_0`) runtime libs are included by default
++ TensorRT (version `tensorrt_version_7_1_3_0`) runtime libraries are included by default
 + L4T Docker base version: r32.4.3
 
 ### Application Concept
@@ -135,7 +135,7 @@ The steps outlined there are required to change the device from a A/B redundant 
 
 ### Default camera state
 + The camera default state is now RUN. No manual state change required at first startup
-  + It is possible to define the camera state after bootup in the init JSON, e.g. to save battery power
+  + It is possible to define the camera state after boot-up in the init JSON, for example to save battery power
 
 ### 3D-Camera Features
 + New camera mode: `extrinsic_calib` mode specifically designed for extrinsic calibration processes with checkerboards
@@ -143,9 +143,9 @@ The steps outlined there are required to change the device from a A/B redundant 
 
 ### Factory Reset
 + Factory reset behavior allows two reset strategies: preserve or reset to default network settings
-+ All oem user settings and files are erased
++ All OEM user settings and files are erased
 + All cached information regarding prev. connected hardware and hardware calibration are erased
-  + Next bootup process will take longer as all calibration files are downloaded again
+  + Next boot-up process will take longer as all calibration files are downloaded again
 + All existing logs are deleted, systemD journal configuration reset to volatile
 + All docker containers are stopped and deleted. A Docker system prune is performed.
 
@@ -166,25 +166,25 @@ The steps outlined there are required to change the device from a A/B redundant 
 * Added overhanging load feature:
   * Feature for excluding overhanging load from the occupancy grid and zones introduced
 * Tools for extrinsic VPU calibration (extrinsicVPUToUser) are provided as part of the ODS application bundle:
-  * Standalone (Python) applications have to be run on the customers PC, e.g. laptop.
+  * Standalone (Python) applications have to be run on the customers PC, for example laptop.
 
 ### Fixes
-* Move maxHeight parameter from zone to grid section
+* Move `maxHeight` parameter from zone to grid section
 * Add support for 3 camera ODS application instances: 3 TOF camera streams are evaluated simultaneously
 
 ### Known Issues: ODS application
 * False positives:
   * Stray light caused by retro-reflectors inside and outside the camera's field of view might cause false positives
   * Dust particles might cause false positives
-  * Direct sun light might lead to performance degradation, i.e. detection range might be limited, objects might be missed, false positives may be seen
+  * Direct sun light might lead to performance degradation, that is detection range might be limited, objects might be missed, false positives may be seen
   * Approaching or leaving ramps might cause false positive detections
 * Objects in the occupancy grid appear 1 grid cell larger than they are in reality
 * On floors with not enough visible structure, ego motion might not be available (visible with diagnostics VELOCTIY_UNAVAILABLE)
-  This can lead to performance degradations, i.e. limited detection range, objects might be missed
+  This can lead to performance degradations, that is limited detection range, objects might be missed
 * Application conf parameter are not handled correctly
 * Initializing an ODS application instance with default extrinsic calibration parameters - ODS app with two heads:
   * Configuration description: One head with non-default extrinsic calibration and one with default extrinsic calibration parameters causes a instable non-recoverable app instance
-  * Outcome: The ODS error state may not be propagated to a correct diagnostic error code (implausible extrinsic calibration), The camera streams for the respective camera heads may not be released after error state occured
+  * Outcome: The ODS error state may not be propagated to a correct diagnostic error code (implausible extrinsic calibration), The camera streams for the respective camera heads may not be released after error state occurred
 
 
 ## Fixes
@@ -210,12 +210,12 @@ The steps outlined there are required to change the device from a A/B redundant 
 * Downgrading to older firmware versions not possible!
 * The IPv4 discovery feature for discovering the device in complex networks is not working
 * The framerate of the 2D RGB image stream can not be configured: A parameter change via the JSON interface has no effect on the acquisition framerate.
-* Non supported camera heads, e.g. O3R prototype heads: start with a `M0xxxx`, cause boot-up issues and may result in a non-functional state.
+* Non supported camera heads, for example O3R prototype heads: start with a `M0xxxx`, cause boot-up issues and may result in a non-functional state.
 * Algo debug recording:
-  * Algo debug recording (receiving) may not be functional on customer PCs, e.g. laptops, with high loads / low processing power and result in missed information.
+  * Algo-debug recording (receiving) may not be functional on customer PCs, for example laptops, with high loads / low processing power and result in missed information.
 * Configuring multiple applications at once can result in configuration times larger than the ifm3d API default timeout. A `importlib._bootstrap.Error: Lib: XMLRPC Timeout - can you 'ping' the system` error will be shown.
 * If no network connection can be established within 2 min during boot-up, following O3R system services such as imager streams may not be functional until rebooted.
-* Native data chunk type availability: AMPLITUDE_COMPRESSED buffer_id does not return valid dat. Please use NORM_AMPLITUDE_IMAGE instead.
+* Native data chunk type availability: AMPLITUDE_COMPRESSED `buffer_id` does not return valid data. Please use NORM_AMPLITUDE_IMAGE instead.
 * Slow receiver connections slow down the embedded O3R system: internally frames are not discarded as intended, but the system gets slowed down.
 * Repeated mechanical disconnects of Ethernet cables can result in refused data connections by the embedded devices.
 * Manually set date and time are not persistent over reboots.
@@ -232,7 +232,7 @@ The steps outlined there are required to change the device from a A/B redundant 
 * NEW ODS functionality: extended ODS applications functionality
   * Easier channel management: default exclusive channel parameter values
   * Easier port management: automatic port state changes
-* Extrinsic calibration application(s) will be moved to the embedded firmware as native non-licensed applications
+* Extrinsic calibration applications will be moved to the embedded firmware as native non-licensed applications
 * NEW licensed applications:
   * PDS: pallet detection system
 * Increased camera head temperature limit
