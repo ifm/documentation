@@ -30,7 +30,7 @@ vale-linting:
     - git config --global user.name "ifm-csr"
     - mkdir -p /builds/syntron/support/csr/o3r/vale
     - git clone https://gitlab-ci-token:${CI_JOB_TOKEN}@gitlab-ee.dev.ifm/syntron/support/csr/formatting-tools.git /builds/syntron/support/csr/o3r/formatting-tools
-    - cd /builds/syntron/support/csr/o3r/formatting-tools
+    - cd /builds/syntron/support/csr/o3r/vale
     - pwd
     - vale --minAlertLevel error /builds/syntron/support/csr/o3r/documentation/.
 
