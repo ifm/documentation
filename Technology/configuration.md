@@ -100,10 +100,9 @@ If an error is encountered during the configuration process, the parameters that
 
 ## Sticky parameters
 
-Typically, when changing a parameter that has an effect on the JSON schema, e.g. `/ports/portX/mode`, `/applications/instances/appX/ports` and `/applications/instances/appX/class`, all the related parameters are reset to their default value. However, some parameters are "sticky", meaning they keep their values in these cases.
+Typically, when changing a parameter that has an effect on the JSON schema, for example the `/ports/portX/mode`, `/applications/instances/appX/ports` and `/applications/instances/appX/class`, all the related parameters are reset to their default value. However, some parameters are "sticky", meaning they keep their values in these cases.
 
-This is the case only for the extrinsic calibration `/portX/processing/extrinsicHeadToUser`.
-
+This is the case only for properties with an attribute "sticky" in the JSON schema, for example the extrinsic calibration `/portX/processing/extrinsicHeadToUser`.
 For all other parameters, the settings, if different from default, have to be reapplied. 
 
 Sticky parameters are reset with a call to the `reset` function, or with a factory reset.
