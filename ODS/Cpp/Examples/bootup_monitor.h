@@ -15,7 +15,7 @@ public:
     const std::string IP;
     const int wait_time; // in seconds
 
-    BootupMonitor(ifm3d::O3R::Ptr o3r_, int timeout_ = 25, int wait_time_ = 0.5 ) :
+    BootupMonitor(ifm3d::O3R::Ptr o3r_, int timeout_ = 25, int wait_time_ = 1 ) :
         o3r(o3r_),
         timeout(timeout_),
         IP(o3r->IP()),
@@ -29,64 +29,39 @@ public:
         auto start = std::chrono::steady_clock::now();
         ifm3d::json config;
         do{
-            // This "ping" function will only work on linux-based systems.
-            // Since this is simply an example on how to monitor the proper 
-            // bootup of an O3R, Windows users can skip this step.
-            if (!Ping_()){
-                std::clog << "Awaiting successful 'ping' from VPU" << std::endl;
+            try{
+                config = o3r->Get();
+                std::clog << "Connected." << std::endl;
+            }catch(ifm3d::Error& e){
+                std::clog << "Awaiting data from VPU..." << std::endl;
             }
-            else{
-                try{
-                    config = o3r->Get();
-                    std::clog << "Connected." << std::endl;
-                }catch(ifm3d::Error& e){
-                    std::clog << "Awaiting data from VPU..." << std::endl;
-                }
-                if (!config.empty()){
-                    std::clog << "Checking the init stages." << std::endl;
-                    auto conf_init_stages = config["/device/diagnostic/confInitStages"_json_pointer];
-                    std::clog << conf_init_stages << std::endl;
-                    for (auto it : conf_init_stages)
-                    {
-                        if (it == "applications"){
-                            std::clog << "VPU fully booted." << std::endl;
-                            RetrieveBootDiagnostic_();
-                            return true;
-                        }
-                        if (it == "ports"){
-                            std::clog << "Ports recognized." << std::endl;
-                        }
-                        else if (it == "device")
-                        {
-                            std::clog << "Device recognized." << std::endl;
-                        }
+            if (!config.empty()){
+                std::clog << "Checking the init stages." << std::endl;
+                auto conf_init_stages = config["/device/diagnostic/confInitStages"_json_pointer];
+                std::clog << conf_init_stages << std::endl;
+                for (auto it : conf_init_stages)
+                {
+                    if (it == "applications"){
+                        std::clog << "VPU fully booted." << std::endl;
+                        RetrieveBootDiagnostic_();
+                        return true;
                     }
-                std::this_thread::sleep_for(std::chrono::seconds(wait_time));
+                    if (it == "ports"){
+                        std::clog << "Ports recognized." << std::endl;
+                    }
+                    else if (it == "device")
+                    {
+                        std::clog << "Device recognized." << std::endl;
+                    }
                 }
-
             }
+            std::this_thread::sleep_for(std::chrono::seconds(wait_time));
+
         }while(std::chrono::steady_clock::now() - start < std::chrono::seconds(timeout));
         throw std::runtime_error("Process timed out waiting for the VPU to boot.");
     }
 
 private:
-    // Linux-only pinging.
-    bool Ping_()
-    {
-        char ip[IP.length() + 1];
-        strcpy(ip, IP.c_str());
-        char ping[100] = "ping -c1 -s1 ";
-        char* command = std::strcat(ping, std::strcat(ip, " > /dev/null 2>&1"));
-
-        int x = std::system(command);
-        if (x==0){
-            std::clog << "Ping successful" << std::endl;
-            return true;
-        }else{
-            std::clog <<"Ping failed" << std::endl;
-            return false;
-        }
-    }
     void RetrieveBootDiagnostic_()
     {
         auto active_diag = o3r->GetDiagnosticFiltered(ifm3d::json::parse(R"({"state": "active"})"))["/events"_json_pointer];

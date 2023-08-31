@@ -28,17 +28,15 @@ int main()
     std::clog << "IP: " << IP << std::endl;
 
     ifm3d::FrameGrabber::BufferList buffer_list = {ifm3d::buffer_id::O3R_ODS_INFO, ifm3d::buffer_id::O3R_ODS_OCCUPANCY_GRID};
-    std::string forward_app = "app0";
-    std::string backward_app = "app1";
     int timeout_ms = 500; // Timeout used when retrieving data
     // Config file for extrinsic calibrations and apps
     std::string config_extrinsic_path = "../Configs/extrinsic_two_heads.json";
-    std::string config_app_path = "../Configs/ods_two_apps_config.json";
+    std::string config_app_path = "../Configs/ods_changing_views_config.json";
     // Data display configuration
     int step = 5;         // Used to reduce the frequency of the data displayed
     int d = 5;            // How long data will be displayed for each app
     // Logging configuration
-    bool log_to_file = true;
+    bool log_to_file = false;
     const std::string& log_file_name = "ODS_logfile.txt";
     
     std::ofstream logFile;
@@ -93,43 +91,38 @@ int main()
     // Configure two applications (forward and back)
     ////////////////////////////////////////////////
     ODSConfig ods_config(o3r);
-
+    o3r->Reset("/applications");
     ods_config.SetConfigFromFile(config_extrinsic_path);
-    // In FW <= 1.1.x, setting configurations is non-blocking.
-    // We add a sleep command to ensure the call has
-    // enought time to terminate.
-    std::this_thread::sleep_for(std::chrono::seconds(1));
     ods_config.SetConfigFromFile(config_app_path);
-    std::this_thread::sleep_for(std::chrono::seconds(1));
 
-    // Verifying the proper instantiation of the two apps
+    // Verifying the proper instantiation of the app and list of ports
     std::string j_string = "/applications/instances";
     ifm3d::json::json_pointer j(j_string);
-    auto apps = o3r->Get({j_string})[j];
+    auto app = o3r->Get({j_string})[j].begin().key();
+    std::clog << "Instantiated app: " << app << std::endl;
 
-    for (auto app = apps.begin(); app != apps.end(); ++app)
-    {
-        std::clog << "Instantiated app: " << app.key() << std::endl;
-    }
-        
-    ////////////////////////////////////////////////
-    // Start streaming data from forward app (app0)
-    ////////////////////////////////////////////////
+
+    std::string str_ports = "/applications/instances/" + app + "/ports";
+    ifm3d::json::json_pointer j2(str_ports);
+    auto ports = o3r->Get({str_ports})[j2];
+    std::clog << "Ports:" << ports << std::endl;
+
+    /////////////////////////////////////////////////
+    // Start streaming data from forward view (port2)
+    /////////////////////////////////////////////////
     // Set the app to "RUN" state
-    ods_config.SetConfigFromStr(R"({"applications": {"instances": {"app0": {"state": "RUN"}}}})");
-    // Ensure that the configuration has time to terminate
-    std::this_thread::sleep_for(std::chrono::seconds(1));
+    ods_config.SetConfigFromStr(R"({"applications": {"instances": {")" + app + R"(": {"state": "RUN"}}}})");
 
-    ODSStream ods_stream0(o3r, forward_app, buffer_list, timeout_ms);
-    ods_stream0.StartODSStream();
+    ODSStream ods_stream(o3r, app, buffer_list, timeout_ms);
+    ods_stream.StartODSStream();
     std::this_thread::sleep_for(std::chrono::seconds(1));
 
     // Print out every 5th dataset until stopped
     int count = 0;
     for (auto start = std::chrono::steady_clock::now(), now = start; now < start + std::chrono::seconds{d}; now = std::chrono::steady_clock::now())
     {
-        auto zones = ods_stream0.GetZones();
-        auto grid = ods_stream0.GetOccGrid();
+        auto zones = ods_stream.GetZones();
+        auto grid = ods_stream.GetOccGrid();
 
         if (count % step == 0)
         {
@@ -145,28 +138,18 @@ int main()
         count++;
     }
 
-    ods_stream0.StopODSStream();
-    // Set the app to "CONF" to save energy
-    ods_config.SetConfigFromStr(R"({"applications": {"instances": {"app0": {"state": "CONF"}}}})");
-    std::this_thread::sleep_for(std::chrono::seconds(1));
-
-    ////////////////////////////////////////////////
-    // Start streaming data from backward app (app1)
-    ////////////////////////////////////////////////    
+    //////////////////////////////////////////////////
+    // Start streaming data from backward view (port3)
+    //////////////////////////////////////////////////  
     // Set the app to "RUN" state
-    ods_config.SetConfigFromStr(R"({"applications": {"instances": {"app1": {"state": "RUN"}}}})");
-    std::this_thread::sleep_for(std::chrono::seconds(1));
-
-    ODSStream ods_stream1(o3r, backward_app, buffer_list, timeout_ms);
-    ods_stream1.StartODSStream();
-    std::this_thread::sleep_for(std::chrono::seconds(1));
+    ods_config.SetConfigFromStr(R"({"applications": {"instances": {")" + app + R"(": {"configuration": {"activePorts":[)" + to_string(ports[1]) + R"(]}}}}})");
 
     // Print out every 5th dataset until stopped
     count = 0;
     for (auto start = std::chrono::steady_clock::now(), now = start; now < start + std::chrono::seconds{d}; now = std::chrono::steady_clock::now())
     {
-        auto zones = ods_stream1.GetZones();
-        auto grid = ods_stream1.GetOccGrid();
+        auto zones = ods_stream.GetZones();
+        auto grid = ods_stream.GetOccGrid();
 
         if (count % step == 0)
         {
@@ -182,9 +165,9 @@ int main()
         count++;
     }
 
-    ods_stream1.StopODSStream();
+    ods_stream.StopODSStream();
     // Set the app to "CONF" to save energy
-    ods_config.SetConfigFromStr(R"({"applications": {"instances": {"app0": {"state": "CONF"}}}})");
+    ods_config.SetConfigFromStr(R"({"applications": {"instances": {")"+ app + R"(": {"state": "CONF"}}}})");
 
     // Stop streaming diagnostic data and exit
     diagnostic.StopAsyncDiag();

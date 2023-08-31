@@ -1,11 +1,11 @@
 # How to stream ODS data
 
-:::{literalinclude} Examples/ods_config.cpp
-:caption: ods_config.cpp
+:::{literalinclude} Examples/ods_get_data.cpp
+:caption: ods_get_data.cpp
 :language: cpp
 :::
 
-:::{literalinclude} Examples/ods_config.h
-:caption: ods_config.h
+:::{literalinclude} Examples/ods_get_data.h
+:caption: ods_get_data.h
 :language: cpp
 :::
