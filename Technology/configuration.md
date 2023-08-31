@@ -47,7 +47,7 @@ $ ifm3d jsonschema | jq .properties.ports.properties.port2.properties.acquisitio
 :::::
 
 The `attributes` section of the parameter schema shows the "conf" keyword if the parameter requires a switch to "CONF" state to be changed. If this keyword does not appear, then the parameter can be changed on-the-fly, and the new parameter will be applied to the next frame. Keep in mind that some parameters might take a couple frames to be fully stable, for instance the temporal filter.
-In the /ports section, changing a "CONF" parameter while the port is "RUN" or "IDLE" state results in an implicit state change to "CONF", the parameter change and an implicit state change back to "RUN" or "IDLE". Note that this is a slow operation and the filtering pipeline might take a couple frame to be stable (for example, the temporal filter will start from scratch).
+In the /ports section, changing a "CONF" parameter while the port is "RUN" or "IDLE" state results in an implicit state change to "CONF," the parameter change and an implicit state change back to "RUN" or "IDLE." Note that this is a slow operation and the filtering pipeline might take a couple frame to be stable (for example, the temporal filter will start from scratch).
 
 In the /applications section, changing a "CONF" parameter while the port is in "RUN" or "IDLE" results in an exception provided to the user.
 :::{warning}
@@ -100,7 +100,7 @@ If an error is encountered during the configuration process, the parameters that
 
 ## Sticky parameters
 
-Typically, when changing a parameter that has an effect on the JSON schema, for example the `/ports/portX/mode`, `/applications/instances/appX/ports` and `/applications/instances/appX/class`, all the related parameters are reset to their default value. However, some parameters are "sticky", meaning they keep their values in these cases.
+Typically, when changing a parameter that has an effect on the JSON schema, for example the `/ports/portX/mode`, `/applications/instances/appX/ports` and `/applications/instances/appX/class`, all the related parameters are reset to their default value. However, some parameters are "sticky," meaning they keep their values in these cases.
 
 This is the case only for properties with an attribute "sticky" in the JSON schema, for example the extrinsic calibration `/portX/processing/extrinsicHeadToUser`.
 For all other parameters, the settings, if different from default, have to be reapplied. 

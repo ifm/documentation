@@ -3,7 +3,7 @@
 | 101014 | ERROR_BOOT_SEQUENCE_VPU_EEPROM | VPU EEPROM content invalid |
 | 101018 | ERROR_BOOT_SEQUENCE_INVALID_CONFIGURATION | Unable to construct a valid device configuration |
 
-### tcu
+### TCU
 
 | ID | Name | Description |
 |----|------|-------------|
@@ -19,7 +19,7 @@
 | 101009 | ERROR_BOOT_SEQUENCE_HEAD_IDENTIFICATION | Head identification data is invalid |
 | 101016 | ERROR_BOOT_SEQUENCE_HEAD_COMBINATION | Only 2D/2D pairing or 3D/3D pairing is allowed |
 
-#### icc
+#### ICC
 
 | ID | Name | Description |
 |----|------|-------------|
@@ -28,7 +28,7 @@
 | 101012 | ERROR_BOOT_SEQUENCE_HEAD_ICC_FW_INCOMPATIBLE | Due to an incompatible ICC firmware version an ICC update is attempted |
 | 101013 | ERROR_BOOT_SEQUENCE_HEAD_ICC_FLASH | Unable to read the ICC flash |
 
-### imu
+### IMU
 
 | ID | Name | Description |
 |----|------|-------------|

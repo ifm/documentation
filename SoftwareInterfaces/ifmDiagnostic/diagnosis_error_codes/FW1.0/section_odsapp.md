@@ -10,6 +10,6 @@
 | 105007 | ERROR_ODSAPP_VELOCITY_UNAVAILABLE | Unable to determine velocity |
 | 105008 | ERROR_ODSAPP_DEFAULT_ZONE_USED | Using the default ODS zones |
 | 105009 | ERROR_ODSAPP_STANDSTILL_CHECKS_NOT_EXECUTED | Standstill condition not detected |
-| 105010 | ERROR_ODSAPP_ALGO_INTERNAL | Internal algo error; please see the logs for further information |
+| 105010 | ERROR_ODSAPP_ALGO_INTERNAL | Internal algorithm error; please see the logs for further information |
 | 105011 | ERROR_ODSAPP_EXTR_DI_CALIB_IMPLAUSIBLE | Implausible extrinsic head calibration |
 | 105012 | ERROR_ODSAPP_TEST_MODE_WARNING | Implausible extrinsic head calibration |

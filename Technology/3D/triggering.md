@@ -1,7 +1,7 @@
 # Synchronization and triggering
 
 The O3R platform is designed to handle very precise timing at the single system level: a system consists of a VPU and up to 6 heads connected via their respective ports.
-All imagers (only the 3D TOF sensors, not the RGB ones) are triggered internally by the Trigger Control Unit (TCU). This ensures precise timing with a higher accuracy than can normally be achieved with an external tool, e.g. for triggering ifm O3D cameras, which have to be synchronized with software trigger commands sent over a network.
+All imagers (only the 3D TOF sensors, not the RGB ones) are triggered internally by the Trigger Control Unit (TCU). This ensures precise timing with a higher accuracy than can normally be achieved with an external tool, for example for triggering ifm O3D cameras, which have to be synchronized with software trigger commands sent over a network.
 
 Per-system triggering can be handled in either RUN or IDLE states.
 
