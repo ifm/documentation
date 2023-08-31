@@ -13,7 +13,7 @@
 | `portX/acquisition/channelValue` | The camera channel value [-100, 100] used for a specific port to mitigate interference. Channel values should differ of at least 2.|
 | `portX/negObst` | Enable or disable the negative obstacle detection (see [the negative obstacle documentation](../NegativeObstacles/negative_obstacles.md)).|
 | `portX/seg/minObjectHeight`                       | Minimum object height in [m] e.g. 0.025 [m]. This does not mean that any objects of this height will always be detected, but that objects below this height will be excluded from any detection. |
-| `vo/voPorts`| Visual odometry - define a port which is the main camera stream for the visual odometry feature. Define multiple ports if a single reference port for visual odometry will not always be active.|
+| `vo/voPorts`| Visual odometry - define a port which is the main camera stream for the visual odometry feature. Define multiple ports if a single reference port for visual odometry will not always be active, e.g. when switching between forward and backward looking cameras.|
 | `zones`| Define the used protection zones - [See `ods zone definition` for a complete description](../Zones/zones.md)|
 
 
@@ -44,7 +44,7 @@ Due to this technical approach, it might happen that two heads are interfering w
 ## Minimum object height
 
 It is possible to change the minimum object height to improve ODS for certain conditions. ODS can use several heads for detecting obstacles. The heads themselves might be different (opening angle of 105° or 60°), and the mounting position of the heads can vary. Therefore the `minObjectHeight` might be different per connected head. The height is provided in [m].
-Increasing this value might prevent more false positives caused by the floor and/or smaller objects on the ground.
+Increasing this value might prevent false positives caused by the floor and/or smaller objects on the ground.
 
 :::{note}
     Note that this parameter is not the only factor defining whether an object will be detected or not: switching `minObjectHeight` to zero does not mean that every object will be detected. This is especially true for small objects on the floor, where pointcloud artifacts are the most pronounced.
