@@ -29,7 +29,7 @@ vale-linting:
     - git config --global user.email "support.robotics@ifm.com"
     - git config --global user.name "ifm-csr"
     - ls /builds/syntron/support/csr/o3r/
-    - ls /builds/syntron/support/csr/o3r/formatting-tools
+    - ls -la /builds/syntron/support/csr/o3r/formatting-tools
     # - mkdir -p /builds/syntron/support/csr/o3r/vale
     # - git clone https://gitlab-ci-token:${CI_JOB_TOKEN}@gitlab-ee.dev.ifm/syntron/support/csr/formatting-tools.git /builds/syntron/support/csr/o3r/vale
     # - cd /builds/syntron/support/csr/o3r/vale
