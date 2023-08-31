@@ -4,38 +4,29 @@
       "app0": {
         "class": "ods",
         "configuration": {
+          "activePorts": ["port2"],
           "port2": {
             "acquisition": {
-              "channelValue": 0
+              "channelValue": 20
             }
-          }
-        },
-        "name": "app0",
-        "ports": [
-          "port2",
-          "port6"
-        ],
-        "state": "CONF"
-      },
-      "app1": {
-        "class": "ods",
-        "configuration": {
+          },
           "port3": {
             "acquisition": {
               "channelValue": 30
             }
           },
-          "vo": {
-            "portNumber": 3
+          "vo":{
+            "voPorts": ["port2", "port3"]
           }
         },
-        "name": "app1",
+        "name": "app0",
         "ports": [
+          "port2",
           "port3",
           "port6"
         ],
         "state": "CONF"
       }
-    }
-  }
 }
+  }}
+  
