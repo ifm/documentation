@@ -1,7 +1,7 @@
 # How to switch ODS applications
 
 :::{note}
-The support for camera switching with ODS was introduced for firmware version 1.1.x., alleviating the need to switch between instances of ODS as implemented in prior firmware.
+The support for camera switching with ODS was introduced for firmware version 1.1.X., alleviating the need to switch between instances of ODS as implemented in prior firmware.
 :::
 
 ## Reconfigure application to use a different subset of ports
