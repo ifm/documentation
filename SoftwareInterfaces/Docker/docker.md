@@ -1,7 +1,7 @@
 # Docker: Getting started
 For a general introduction to the Docker software container technology please have a look at the [official Docker documentation website](https://docs.docker.com/get-started/).
 
-This will guide you to your fist steps on how to get started with Docker, i.e.:
+This will guide you to your fist steps on how to get started with Docker, that is:
 + Build and run an image as a container
 + Share images using Docker Hub
 + Deploy Docker applications using multiple containers with a database
@@ -17,12 +17,12 @@ This documentation includes:
 
 # Build and run a docker container for the O3R platform
 
-In this document we guide you through building a container from scratch. We start by building a small container. This container will increase in size and complexity the further we go. We will use a python base image and install the ifm3d (ifm3dpy) library.
+In this document we guide you through building a container from scratch. We start by building a small container. This container will increase in size and complexity the further we go. We will use a Python base image and install the ifm3d (ifm3dpy) library.
 
-If you want to use any of our available docker images or directly build on top of our Dockerfiles, you can jump directly to [this section](#building-on-top-of-the-ifm-base-image) or check out the list of docker images officially supported by ifm *coming soon*.
+If you want to use any of our available docker images or directly build on top of our Dockerfiles, you can jump directly to [this section](#building-on-top-of-the-ifm-base-image) or check out the list of [docker images officially supported by ifm](https://github.com/ifm/ifm3d/pkgs/container/ifm3d).
 
 Note that the O3R VPU (Video Processing Unit) is based on an NVIDIA Jetson system (TX2), which is arm64/aarch64 based.
-Building containers without the right base image will not run on the VPU, an arm64/aarch64 base image is needed. Please read carefully the instructions at the [Nvidia -> GitHub repository](<https://github.com/NVIDIA/nvidia-docker/wiki/NVIDIA-Container-Runtime-on-Jetson>) for set-up instruction. For running an aarch64 container on a x86-64 host the section [Running or building a container on x86](https://github.com/NVIDIA/nvidia-docker/wiki/NVIDIA-Container-Runtime-on-Jetson#enabling-jetson-containers-on-an-x86-workstation-using-qemu) is highly recommended.
+Building containers without the right base image will not run on the VPU, an arm64/aarch64 base image is needed. Please read carefully the instructions at the [NVIDIA -> GitHub repository](https://github.com/NVIDIA/nvidia-docker/wiki/NVIDIA-Container-Runtime-on-Jetson) for set-up instruction. For running an aarch64 container on a x86-64 host the section [Running or building a container on x86](https://github.com/NVIDIA/nvidia-docker/wiki/NVIDIA-Container-Runtime-on-Jetson#enabling-jetson-containers-on-an-x86-workstation-using-qemu) is highly recommended.
 
 :::{contents}
 :::
@@ -76,11 +76,11 @@ ifm3d                     latest              4770e646d0be   5 weeks ago     108
 Depending on the network infrastructure, docker might need the proxy information for building the container. You can input them directly when running the command:
 
 ```Docker
-#$HTTP_PROXY & $HTTPS_PROXY are variables containing the proxy address. E.g.: HTTPS_PROXY=https//[PROXY ADDRESS]
+#$HTTP_PROXY & $HTTPS_PROXY are variables containing the proxy address. for example: HTTPS_PROXY=https//[PROXY ADDRESS]
 $ docker image build --build-arg http_proxy=$HTTP_PROXY --build-arg https_proxy=$HTTPS_PROXY -t jupyter .
 ```
 
-You can also define the proxies in the `config.json` file. You should find the file within the home directory of the user executing docker, in a directory called `.docker`, which contains `config.json`. E.g. `~/.docker/config.json`. If not available, create and save a `config.json` file containing the following:
+You can also define the proxies in the `config.json` file. You should find the file within the home directory of the user executing docker, in a directory called `.docker`, which contains `config.json`. For example `~/.docker/config.json`. If not available, create and save a `config.json` file containing the following:
 
 ```json
 {
@@ -100,7 +100,7 @@ You can also define the proxies in the `config.json` file. You should find the f
 
 >Note: To run a container built for another chip architecture than the host system, you need to use `qemu` to handle the virtualization. For further information see:
 >- [Docker multi-CPU architecture](https://docs.docker.com/desktop/multi-arch/)
->- [NVIDIA container runtime using qemu](https://github.com/NVIDIA/nvidia-docker/wiki/NVIDIA-Container-Runtime-on-Jetson#enabling-jetson-containers-on-an-x86-workstation-using-qemu)
+>- [NVIDIA container runtime using QEMU](https://github.com/NVIDIA/nvidia-docker/wiki/NVIDIA-Container-Runtime-on-Jetson#enabling-jetson-containers-on-an-x86-workstation-using-qemu)
 
 To run the container, we use `docker run`. We can specify the run command through several arguments: we want to start the container interactively (`-it`) and with a bash interface (`/bin/bash`), so we can play around inside the container.
 
@@ -114,7 +114,7 @@ root@ee24eff3c797:/#
 
 Now we are within the container. The warning tells us that the base image was build for an arm64/aarch64 architecture, which is different from the architecture of the host (amd64).
 
-We should be able to ask for the python version and start a REPL:
+We should be able to ask for the Python version and start a REPL:
 
 ```bash
 root@ee24eff3c797:/$ python --version
@@ -159,7 +159,7 @@ $ docker run ifm3d
 
 ## Add features to the container
 
-Until now, our container is not really useful. Let's update the container's kernel, install python packages and create a user (this will improve security). To do that, we need to improve the Dockerfile:
+Until now, our container is not really useful. Let's update the container's kernel, install Python packages and create a user (this will improve security). To do that, we need to improve the Dockerfile:
 
 Dockerfile:
 
@@ -220,7 +220,7 @@ Successfully tagged ifm3d:latest
 
 >Note: For easier readability, the build process output was shortened.
 
-The build process  contains several layers and `intermediate` container builds (that we use for debugging). You can start the container with the typical commands and check if numpy was installed:
+The build process  contains several layers and `intermediate` container builds (that we use for debugging). You can start the container with the typical commands and check if NumPy was installed:
 
 ```bash
 $ docker run -it ifm3d:latest /bin/bash
@@ -231,7 +231,7 @@ numpy==1.21.1
 
 ## Install ifm3d in the container
 
-`ifm3dpy` is the python binding for the ifm3D library. You can install it from source (download it [here](https://github.com/ifm/ifm3d)) or use the [docker image](https://github.com/ifm/ifm3d/pkgs/container/ifm3d) provided by ifm which can be used on the VPU and contains the ifm3d and ifm3dpy libraries.
+`ifm3dpy` is the Python binding for the ifm3d library. You can install it from source (download it [here](https://github.com/ifm/ifm3d)) or use the [docker image](https://github.com/ifm/ifm3d/pkgs/container/ifm3d) provided by ifm which can be used on the VPU and contains the ifm3d and ifm3dpy libraries.
 
 The Dockerfile could look similar to this:
 
@@ -312,10 +312,10 @@ RUN apt-get update \
     && DEBIAN_FRONTEND=noninteractive apt-get install -y && apt-get clean
 ```
 
->Note: You should leverage the layering from Docker to improve the build speed if you need to build again. Qemu emulates a ARM64 CPU in software on a x86 System which is slow. In case you are planning to build large application from source please consider to run this on a ARM64 based host.
+>Note: You should leverage the layering from Docker to improve the build speed if you need to build again. QEMU emulates a ARM64 CPU in software on a x86 System which is slow. In case you are planning to build large application from source please consider to run this on a ARM64 based host.
 
-We provide up-to-date images containing the ifm3d library, both on the docker hub [here](https://hub.docker.com/r/ifmrobotics/ifm3d) and on github [here](https://github.com/ifm/ifm3d/pkgs/container/ifm3d).
-We recommend using the image available on github, as it does not come with rate limits. You can simply pull it like so:
+We provide up-to-date images containing the ifm3d library, both on the DockerHub [here](https://hub.docker.com/r/ifmrobotics/ifm3d) and on GitHub [here](https://github.com/ifm/ifm3d/pkgs/container/ifm3d).
+We recommend using the image available on GitHub, as it does not come with rate limits. You can simply pull it like so:
 
 ```bash
 $ docker pull ghcr.io/ifm/ifm3d:stable
@@ -356,7 +356,7 @@ Type "help", "copyright", "credits" or "license" for more information.
 
 ## Building on top of the ifm base image
 
-Now you want your own container, with your python script to run. Base your Dockerfile simply on the `ghcr.io/ifm/ifm3d:stable` image:
+Now you want your own container, with your Python script to run. Base your Dockerfile simply on the `ghcr.io/ifm/ifm3d:stable` image:
 
 ```Dockerfile
 FROM ghcr.io/ifm/ifm3d:stable

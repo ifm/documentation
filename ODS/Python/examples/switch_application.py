@@ -193,7 +193,7 @@ def main() -> None:
     apps_list = list(ods_config["applications"]["instances"].keys())
     app_handle = AppHandler(ip=IP, o3r=o3r, app_active="", apps=apps_list)
 
-    # 2. set ODS applications: i.e. create application instances
+    # 2. set ODS applications: that is create application instances
     single_apps = get_single_app_instances(ods_config)
     for sg in single_apps:
         app_handle.set_ods_config(sg)
@@ -219,7 +219,7 @@ def main() -> None:
     except RuntimeError as e:
         logger.error(e)
 
-    # 6. set all apps to inactive state, i.e. to save battery power
+    # 6. set all apps to inactive state, that is to save battery power
     app_handle.set_all_apps_inactive()
 
 

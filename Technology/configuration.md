@@ -5,7 +5,7 @@ This document details some aspect of the configuration of the O3R, including usi
 ## "CONF"-only parameters
 Some parameters require that the port or application instance is in "CONF" state to be edited. This is for example the case for the mode, or for enabling the detection of negative obstacles in an ODS application.
 
-To verify if a parameter requires a change to "CONF", you can use the JSON schema. For example, let's see if the framerate parameter for a camera connected to port2 (in this example) requires a change to "CONF":
+To verify if a parameter requires a change to "CONF," you can use the JSON schema. For example, let's see if the framerate parameter for a camera connected to port2 (in this example) requires a change to "CONF":
 :::::{tabs}
 ::::{group-tab} Python
 :::python
@@ -131,10 +131,10 @@ A typical delay (under regular embedded load and fast receivers) is expected to 
 
 #### Flushing the buffers
 The buffers are not flushed automatically when a configuration change occurs. If it is not acceptable for your application to process a couple of image with the old configuration, then you can manually ensure that all the buffers are empty before setting a new configuration:
-1. Set the respective port(s) state to "CONF",
+1. Set the respective ports states to "CONF,"
 2. Keep the FrameGrabber callback alive until no more new images are received,
 3. Request the new parameter set,
-4. Set the respective port(s) to "RUN" state.
+4. Set the respective ports to "RUN" state.
 
 #### Verify the frame's timestamps
 To verify that the new frame corresponds to the new parameters, you can use the frame timestamps:
@@ -173,7 +173,7 @@ To change a "CONF"-only application parameter:
 2. Request a new application parameter set for the application instance,
 3. Set the application to "RUN" state.
 
-Once the application state is changed back to "RUN", the internal processing application pipeline is reconfigured to use the new parameter set. This takes a finite amount of time.
+Once the application state is changed back to "RUN," the internal processing application pipeline is reconfigured to use the new parameter set. This takes a finite amount of time.
 
 On top of the small amount of time it takes for the application to be reconfigured, the user might still receive up to three pre-configuration frames due to the internal O3R buffers.
 
@@ -181,7 +181,7 @@ On top of the small amount of time it takes for the application to be reconfigur
 
 A JSON schema for the current O3R configuration is available and the user can use it to check the configuration before setting it.
 
-Third-party packages can be used in python or c++ to validate a configuration. For example:
+Third-party packages can be used in Python or c++ to validate a configuration. For example:
 :::::{tabs}
 ::::{group-tab} Python
 :::python
@@ -250,16 +250,16 @@ The following parameters will change the JSON schema for other parameters:
 
 ## Persistent configuration
 
-The O3R provides a way to persistently save a configuration so that the device reboots with the expected configuration: the [save_init() function in python](https://api.ifm3d.com/stable/_autosummary/ifm3dpy.device.O3R.html#ifm3dpy.device.O3R.save_init), or [SaveInit() in c++](https://api.ifm3d.com/stable/cpp_api/classifm3d_1_1O3R.html#a7316e073bf5625c08d7c11a70e5ce07a). It allows the user to write as persistent configuration the current configuration of the device.
+The O3R provides a way to persistently save a configuration so that the device reboots with the expected configuration: the [save_init() function in Python](https://api.ifm3d.com/stable/_autosummary/ifm3dpy.device.O3R.html#ifm3dpy.device.O3R.save_init), or [SaveInit() in c++](https://api.ifm3d.com/stable/cpp_api/classifm3d_1_1O3R.html#a7316e073bf5625c08d7c11a70e5ce07a). It allows the user to write as persistent configuration the current configuration of the device.
 
 If calling the `save_init` function without any argument, the exact configuration will be saved, including the sample numbers of the connected camera heads.
 
-During the boot-up process the VPU compares the persistent configuration to the current hardware configuration. If there is any mismatch, for instance a camera head was replaced, the respective port(s) will be put to ERROR state and the PORT LED flashes in RED.
+During the boot-up process the VPU compares the persistent configuration to the current hardware configuration. If there is any mismatch, for instance a camera head was replaced, the respective port will be put to ERROR state and the PORT LED flashes in RED.
 The `ERROR_BOOT_SEQUENCE_HEAD_INVALID_SERIALNUMBER` for the mismatched port will be displayed in the diagnostic.
 
 When facing this issue, the user can  do the following:
 1. As a first troubleshooting step, use the [`get_init` function](https://api.ifm3d.com/stable/_autosummary/ifm3dpy.device.O3R.html#ifm3dpy.device.O3R.get_init) ([`GetInit()`](https://api.ifm3d.com/stable/cpp_api/classifm3d_1_1O3R.html#a0d703bc04a0d893733cbb1f5c6983d82) in c++) to assess the current persistent configuration.
-1. If a configuration is saved and you want to change it, the only option currently is to perform a factory reset. This is available in all the provide software interfaces (ifm3d and the Vision Assistant) and will reset the setting to the factory settings. The only downside is that it will also erase the whole oem user space (docker container, application code, etc).
+1. If a configuration is saved and you want to change it, the only option currently is to perform a factory reset. This is available in all the provide software interfaces (ifm3d and the Vision Assistant) and will reset the setting to the factory settings. The only downside is that it will also erase the whole OEM user space (docker container, application code, etc).
 
 
 :::{note}
@@ -274,7 +274,7 @@ This feature was introduced in FW version 1.1.x
 The following settings will automatically be persistently saved on the device, without needing to call the `save_init` function:
 - Network settings
 - NTP settings
-- SSH oem keys
+- SSH OEM keys
 - Docker daemon registry configuration
 
 ## Factory reset

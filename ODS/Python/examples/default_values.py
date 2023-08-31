@@ -5,7 +5,7 @@
 
 import pathlib
 
-# This port mapping below only applies for a fully connected VPU, i.e. all ports starting from 0 have an imager connected to it
+# This port mapping below only applies for a fully connected VPU, that is all ports starting from 0 have an imager connected to it
 PORT_TEMPERATURE_MAPPING = {  # (1)
     "port0": 8,
     "port1": 9,

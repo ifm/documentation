@@ -1,0 +1,16 @@
+{"applications":{
+    "instances":{
+      "app0":{
+        "configuration":{
+          "grid":{
+            "overhangingLoads":[{
+              "active": true,
+              "maxLoadHeight": 0.4,
+              "minLoadHeight": 1.0,
+              "region": [[-1.5, -2.0], [1.5, -2.0], [1.5, 2.0], [-1.5, 2.0]]
+          }]
+          }
+        }
+      }
+    }
+  }}

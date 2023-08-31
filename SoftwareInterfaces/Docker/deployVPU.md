@@ -6,14 +6,14 @@ To load a container multiple alternative solutions apply:
 
 Every VPU has two users:
 
-- root - ifm user with all rights
-- oem - customer user, this is the only one you have access to.
+- `root` - ifm user with all rights
+- `oem` - customer user, this is the only one you have access to.
 
 The first step to access the VPU is to connect to it via SSH.
 ## Option 1 - Easy: transfer a Docker container image via SSH / SCP
 This option is mainly for testing purposes, where a Docker container has been built on a laptop for the O3Rs ARM64 architecture and now needs to be transferred directly to the VPU:
 
-This requires a "local connection" between the laptop and the VPU device, i.e. the laptop must be able to address the VPU's SSH port 22 in its network configuration.
+This requires a "local connection" between the laptop and the VPU device, that is the laptop must be able to address the VPU's SSH port 22 in its network configuration.
 
 To connect to the VPU via ssh, follow these steps:
 
@@ -66,7 +66,7 @@ $ ifm3d dump | jq --arg id "$(< ~/.ssh/id_o3r.pub)" '.device.network.authorized_
 
 - `ifm3d dump` - This command receives the current configuration from the VPU.
 - `jq --arg id "$(< ~/.ssh/id_o3r.pub)"` - This loads the public key into the variable `id` and provides it to the `jq` command
-- `'.device.network.authorized_keys=$id'` - Here the json value from `authorized_keys` is changed for the public key within the variable `id`
+- `'.device.network.authorized_keys=$id'` - Here the JSON value from `authorized_keys` is changed for the public key within the variable `id`
 - `ifm3d config` - The new json is now used to change the configuration of the VPU via `ifm3d config`
 
 ### 3. Connect to the VPU using the passphrase
@@ -86,7 +86,7 @@ There will be a prompt for the passphrase, configured during step 1.
 
 ### SCP
 
-The first way to transfer a container to the VPU is to copy a saved container via scp.
+The first way to transfer a container to the VPU is to copy a saved container via `scp`.
 
 ```bash
 path/to/container/folder$ scp ifm3d.tar oem@192.168.0.69:/home/oem/
@@ -100,7 +100,7 @@ To verify if the copy process worked, use the command `sync` on the VPU after th
 
 > Note: Use ssh to connect to the VPU - see [SSH connection](#option-1---easy-transfer-a-docker-container-image-via-ssh--scp).
 
-> Note: The `oem` user has no write rights outside of his/her home directory. Therefore use `/home/oem/` for saving files etc. It is possible to create folders within the oem directory.
+> Note: The OEM user has no write rights outside of his/her home directory. Therefore use `/home/oem/` for saving files etc. It is possible to create folders within the `oem` directory.
 
 When copying large containers to the VPU, we recommend using the following command in order to avoid requiring double space:
 ```bash

@@ -3,7 +3,6 @@
 
 The O3R software estimates distance noise per pixel as well as the distance information per pixel. This distance noise parameter is an estimation of the standard deviation of the radial distance measurement, given in meters. It is based on a noise model built upon the acquired time of flight (ToF) measurements of a single frame. Pixels with a noise value above the threshold `maxDistNoise` are invalidated.
 
-
 ## Description
 The O3R camera and software use the ifm ToF technology to measure the distance of objects per pixel. The result are a distance image as and a distance noise image. The distance noise deduction can be interpreted as a standard deviation of the distance measurement in a metric scale. The noise level is dependent on the received signal’s amplitude (lower amplitude means greater noise) and on the ambient light level (high ambient light level, especially sunlight, can lead to high noise level). 
 
@@ -14,7 +13,7 @@ Low `maxDistNoise` values will result in more noisy pixels being marked as inval
 
 The minimum allowed `maxDistNoise` value is 0.00 meters. This will switch off the validation process based on the estimated distance noise image. The distance noise image is still computed and available to the user.
 
-We suggest you start your experiments with the default values and assess the point cloud quality for your specific use case. The current default value is set to 0.02 meters, which allows for a robust point cloud with negligible noise. For applications where a rich point cloud (i.e., a cloud with more valid pixels) is preferred over accuracy, increasing the noise threshold can be a good idea.
+We suggest you start your experiments with the default values and assess the point cloud quality for your specific use case. The current default value is set to 0.02 meters, which allows for a robust point cloud with negligible noise. For applications where a rich point cloud (that is, a cloud with more valid pixels) is preferred over accuracy, increasing the noise threshold can be a good idea.
 
 ### Example
 The following table shows measurements for the same scene with two different distance noise threshold values. The scene consists of a box positioned 1 meter away from the camera, outside in full sunlight. The amount of noise due to the ambient light is high, but it is apparent that we can still get distance values for many pixels by increasing the noise threshold.

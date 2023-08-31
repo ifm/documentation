@@ -55,7 +55,7 @@ It is possible to change the minimum object height to improve ODS for certain co
 Increasing this value might prevent false positives caused by the floor and/or smaller objects on the ground.
 
 :::{note}
-    Note that this parameter is not the only factor defining whether an object will be detected or not: switching `minObjectHeight` to zero does not mean that every object will be detected. This is especially true for small objects on the floor, where pointcloud artifacts are the most pronounced.
+    Note that this parameter is not the only factor defining whether an object will be detected or not: switching `minObjectHeight` to zero does not mean that every object will be detected. This is especially true for small objects on the floor, where point cloud artifacts are the most pronounced.
 :::
 
 ```JSON title="minObjectHeight"

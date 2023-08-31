@@ -6,13 +6,13 @@ Next to unboxing and setting up of the O3R system, an initial test is beneficial
 
 ## Activating the heads for 2D & 3D data acquisition
 
-The first step to verify the overall functionality is setting all connected O3R-heads (e.g. O3R222/225) to "RUN" and receive 2D & 3D information.
+The first step to verify the overall functionality is setting all connected O3R-heads (for example O3R222/225) to "RUN" and receive 2D & 3D information.
 
 A newly unboxed O3R system does not show anything in the monitor area - yet.
 
 ![blank monitor](resources/blank_monitor.png)
 
-To set all heads at once to the "RUN", it is necessary to switch to `Port settings` and use the `Set all ports to RUN state` button.
+To set all heads at once to the "RUN," it is necessary to switch to `Port settings` and use the `Set all ports to RUN state` button.
 Please keep in mind that this is a Vision Assistant specific helper function, which isn't native to the underlying parameter JSON structure. Its working method is to iterate through every port and set its `state` to `RUN`.
 
 ![set all ports to run](resources/set_all_ports_to_run.gif)
@@ -33,7 +33,7 @@ Switching between the ports at the preview area also changes the main view. This
 
 ![main view 2D](resources/main_view_2D.gif)
 
-If all connected heads provide an image - after they have been set to "RUN" (i.e. continuous data acquisition) - the general hardware set up is working.
+If all connected heads provide an image - after they have been set to "RUN" (that is, continuous data acquisition) - the general hardware set up is working.
 
 **Tip: There are several other possibilities to inspect the 2D & 3D data. It is also possible to change the parameters and see the effect within the view. See the following and/or official ifmVisionAssistant documentation for further information.**
 

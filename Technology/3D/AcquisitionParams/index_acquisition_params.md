@@ -1,5 +1,5 @@
 # Acquisition parameters
-> Note: The min, max and default values of each parameter are defined in the json schema.
+> Note: The min, max and default values of each parameter are defined in the JSON schema.
 > To print out the schema, you can use the [ifm3d CLI](ifm3d/doc/sphinx/cli_link:ifm3d%20-%20Command%20Line%20Tool):
 > `ifm3d jsonschema`
 
@@ -62,14 +62,14 @@ In this scenario, PORT1 and PORT3 are part of the same synchronization group (gr
 | ------------- | -------------------------------------------------------------------------------------------------------- |
 | `offset`      | Shifts the start point of the measured range (see [mode](documentation/O3R/Parameters/parameters:modes)) |
 
-Coded modulation dictates the base range of the camera (e.g., 0 to 2 m). Coded modulation also allows this range to be offset or shifted from its start point. In the example of 0 – 2 m base range, an `offset` of 0.5 m would lead to a 0.5 – 2.5 m range. Continuing this example, an `offset` of 1 leads to a 1 – 3m range. The `offset` can be changed frame by frame.
+Coded modulation dictates the base range of the camera (for example 0 to 2 m). Coded modulation also allows this range to be offset or shifted from its start point. In the example of 0 to 2 m base range, an `offset` of 0.5 m would lead to a 0.5 to 2.5 m range. Continuing this example, an `offset` of 1 leads to a 1 to 3m range. The `offset` can be changed frame by frame.
 
 ### Details
 The offset parameter shifts the beginning of the measurement range in space. For instance, when using the 2m mode with an offset of 1m, the O3R will compute distance data for a range between 1 and 3 m from the camera.
 
-Using the offset can allow you to collect distance measurements past the measurement range set by the [mode](documentation/O3R/Parameters/AcquisitionSettings/modes:Modes) while taking advantage of the robust point cloud the O3R provides and the specificities of each mode.
+Using the offset can allow you to collect distance measurements past the measurement range set by the [mode](documentation/O3R/Parameters/AcquisitionSettings/modes:Modes) while taking advantage of the robust point cloud the O3R provides and the particularities of each mode.
 
-The offset can be set at negative values, which brings the end of the measurement range closer to the camera. This can be useful for mitigating MPI artifacts (*coming soon*)), for instance, or for avoiding artifacts caused by highly reflective objects (see [stray-light artifacts](documentation/O3R/Parameters/Filters/strayLight:Stray%20Light%20Filter)), by removing the cause of the artifact from the FoV.
+The offset can be set at negative values, which brings the end of the measurement range closer to the camera. This can be useful for mitigating MPI artifacts, for instance, or for avoiding artifacts caused by highly reflective objects (see [stray-light artifacts](documentation/O3R/Parameters/Filters/strayLight:Stray%20Light%20Filter)), by removing the cause of the artifact from the FOV.
 
 ### Example
 Let's look at the following scene. Three boxes are positioned in front of the camera at about one, two, and three meters away.
@@ -96,7 +96,7 @@ This concept for cross talk mitigation is based on channels, each channel corres
 The channel value has to be set per 3D TOF imager / O3R camera head. By default it is to value 0.
 
 A channel value difference of 2 has been shown to be adequate. Any additional channel value offset (> 2) will not improve crosstalk mitigation between O3R camera heads.
-Use intermediate, i.e. odd channel numbers if larger numbers of channels are required: We suggest to geometrically separate cameras with channel differences 1 - for example forward and backward facing cameras on an AGV / AMR.
+Use intermediate, that is odd channel numbers if larger numbers of channels are required: We suggest to geometrically separate cameras with channel differences 1 - for example forward and backward facing cameras on an AGV / AMR.
 
 As of firmware version 1.0.14 the channel value has to be manually set to a distinct value. We suggest to couple the channel value selection to a (randomized) channel value based your AGVs / AMRs serial number:
 O3R VPU ETH0 MAC IDs can be used but a “customer-serial number” or even “customer-site-specific-serial-number” is preferred. This is because these numbers are in better control by the customer than a MAC address. So finding a systematic way to map from an (arbitrary increasing) MAC-addresses to (linearly increasing) channels is difficult. Ideally there is a “customer-site-specific-serial-number” that more or less counts the vehicles in one location, i. e.  a simple `mod(number,200)` would do the trick.

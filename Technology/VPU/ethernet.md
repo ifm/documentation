@@ -1,6 +1,6 @@
 # Ethernet interfaces
 
-The O3R has two ethernet ports, `eth0` and `eth1`. These ports can both be used to communicate with the platform or with external devices (other sensors or computing platforms, displays, etc).
+The O3R has two Ethernet ports, `eth0` and `eth1`. These ports can both be used to communicate with the platform or with external devices (other sensors or computing platforms, displays, etc).
 
 By default, `eth0` is configured to the static IP `192.168.0.69`, and `eth1` to DHCP with automatic IP assignment. 
 

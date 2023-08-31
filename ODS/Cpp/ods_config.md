@@ -1,6 +1,6 @@
 # How to configure ODS
 
-## A basic json
+## A basic JSON
 
 The configuration example uses the following JSON for a simple configuration. This configuration expects at least one Head (3D imager) at port 2.
 
