@@ -11,16 +11,16 @@ When sending the ifm support team a debug request, please include the informatio
 	+ USB thumb drives / SSD
 	+ CAN hardware
 	+ ....
-+ The complete json configuration
++ The complete JSON configuration
 
 **Required Software version information:**
 + Embedded firmware version: three ways to find this out
-	+ Via CLI: requires `jq` and `ifm3dpy` libraries, which can be installed from [pypi.org](https://pypi.org/).
+	+ Via CLI: requires `jq` and `ifm3dpy` libraries, which can be installed from [PyPI](https://pypi.org/).
 
-		::::shell
+		:::shell
 		$ ifm3dpy dump | jq .device.swVersion.firmware
-		::::
-	+ Via the json: use the `get` method to receive the O3R configuration information formatted in json. See [how to receive the camera configuration](http://api.ifm3d.com/html/examples/o3r/configuration/configuration.html).
+		:::	
+	+ Via the JSON: use the `get` method to receive the O3R configuration information formatted in JSON. See [how to receive the camera configuration](http://api.ifm3d.com/html/examples/o3r/configuration/configuration.html).
 	+ Via the Vision Assistant: click the "Device Status" button in the top right-hand corner.
 	![055afc8c3b028c996ec20567e877b775.png](resources/2688a88ba71f432ca0cb99bd7acf2526.png)
 

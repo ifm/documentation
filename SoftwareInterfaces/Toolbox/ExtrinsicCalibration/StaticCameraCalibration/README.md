@@ -7,14 +7,14 @@ In this calibration routine, the camera and checkerboard can not be moved/distur
 Before proceeding to perform the calibration process we assume that the user:
 
 - has already connected the camera head to the VPU.
-- changed the PORT state from "CONF" to "RUN".
+- changed the PORT state from "CONF" to "RUN."
 - is able to receive the 3D Data because this routine uses only the amplitude image/reflectivity image for the calibration.
 - is not running the ifmVisionAssistant in parallel.
 - knows the exact position of a robot coordinate system.
 
 ## Shopping list
 
-- A Checkerboard of size 800 X 600 mm is printed either directly on a thick aluminum sheet or printed on matte finish paper and pasted to a board. The calibration board can not move during one camera's complete calibration, due to the design of the process. Please find the checkerboard in pdf format {download}` here <_resources/checkerboard.pdf>`,
+- A checkerboard of size 800 X 600 mm is printed either directly on a thick aluminum sheet or printed on matte finish paper and pasted to a board. The calibration board can not move during one camera's complete calibration, due to the design of the process. Please find the checkerboard in PDF format {download}` here <_resources/checkerboard.pdf>`,
 - Cardboard edges should not extend past the checkerboard dimensions as this will result in a calibration error.
 - If using a checkerboard of another dimension, make sure to edit the dimensions in the calibration script.
 
@@ -69,7 +69,7 @@ Please see this isometric view of a good scene to get a better understanding of 
 
 **Robot Coordinate System** **(RCS)** is assumed to be a right-handed coordinate system and rests on the ground plane.
 
-All measurements are in meters from the Robot coordinate system to the edges of the checkerboard in a cartesian coordinate system.
+All measurements are in meters from the robot coordinate system to the edges of the checkerboard in a Cartesian coordinate system.
 Rotation angle results are given in radiant.
 
 **Measurements for the camera having an offset along the y-axis respective to the RCS:**
@@ -125,7 +125,7 @@ The sample scene setup for a camera mounted on the right side of an AGV gives a 
 
 ## Run the calibration
 
-In this section, we edit the `calib_cam.py` python script to fit the user's configuration. Please read carefully the instructions below and the commends in the script on how to adjust each variable properly.
+In this section, we edit the `calib_cam.py` Python script to fit the user's configuration. Please read carefully the instructions below and the commends in the script on how to adjust each variable properly.
 
 1. Enter the camera configuration
 
@@ -181,7 +181,7 @@ if horizontal_mounting:
 
 7. If the Calibration succeeded then the calibration values are written to the O3R system.
 
-8. Assess the plausibility of the generated values: open a viewer of your choice (we recommend the vision assistant) and verify that:
+8. Assess the plausibility of the generated values: open a viewer of your choice (we recommend the Vision Assistant) and verify that:
     - the generated calibration values are applied, 
     - the floor plane corresponds to Z=0,
     - vertical surfaces are parallel to the (XY) plane,

@@ -57,7 +57,7 @@ A: No, the O3R camera heads were calibrated in the production state and don't ne
 
 **Q: Do I have to repeat the extrinsic calibration procedure every time I reconnect the camera?**
 
-A: No, once the extrinsic calibration parameters are saved to the VPU (via a [save_init function](https://api.ifm3d.com/stable/_autosummary/ifm3dpy.device.O3R.html#ifm3dpy.device.O3R.save_init)) and will be available even after the reboot. **However**, if the camera's position is changed then extrinsic calibration has to be redone.
+A: No, once the extrinsic calibration parameters are saved to the VPU (via a [`save_init` function](https://api.ifm3d.com/stable/_autosummary/ifm3dpy.device.O3R.html#ifm3dpy.device.O3R.save_init)) and will be available even after the reboot. **However**, if the camera's position is changed then extrinsic calibration has to be redone.
 
 **Q: Is it essential to connect the calibrated camera head to the same port to maintain the extrinsic calibration parameters**?
 
@@ -67,7 +67,7 @@ A: Yes. The VPU stores the extrinsic calibration parameters information for the 
 
 **Q: I am unable to receive the data after connecting the camera head?**
 
-A: The camera's default state is in "CONF" and to be able to receive data it has to be changed to "RUN".
+A: The camera's default state is in "CONF" and to be able to receive data it has to be changed to "RUN."
 
 **Q: I am unable able to receive the data from camera head after connecting to a different VPU**
 

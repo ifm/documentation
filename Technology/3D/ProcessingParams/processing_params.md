@@ -9,7 +9,7 @@ Typical filters tend to utilize “broad strokes” when making decisions on whi
 
 When to change default:
 - Lower the max. distance noise value if you are attempting to measure an object with high precision (e.g, box dimensioning).
-- Increase the max. distance noise value if it is more important to evaluate all pixels in the scene, regardless of their noise (e.g., obstacle detection).
+- Increase the max. distance noise value if it is more important to evaluate all pixels in the scene, regardless of their noise (for example obstacle detection).
 
 Learn more [here](documentation/O3R/Parameters/Filters/maxDistNoise:Maximum%20Distance%20Noise).
 
@@ -22,7 +22,7 @@ A pixel is valid if the energy (amplitude) received is above the defined thresho
 
 When to change the default:
 
-Lower the default value when the standard targets are known to have low reflectivity (e.g., <10% like matte black targets). A lower amplitude threshold is also valuable when attempting to detect negative obstacles (e.g., stairs).
+Lower the default value when the standard targets are known to have low reflectivity (for example <10% like matte black targets). A lower amplitude threshold is also valuable when attempting to detect negative obstacles (for example stairs).
 It is recommended to enable a noise filter (temporal or adaptive filter) when lowering the default minimum amplitude.
 
 Learn more about the minimum amplitude [here](documentation/O3R/Parameters/Filters/minAmplitude:Minimum%20Amplitude).
@@ -35,11 +35,11 @@ Learn more about the minimum reflectivity [here](documentation/O3R/Parameters/Fi
 |`anfFilterSizeDiv2`|Adaptive Noise Bilateral Filter. mask size is *(2\*anfFilterSizeDiv2+1)^2*.| 0: disable the filter <br />1: 3x3 <br />2: 5x5 <br />3: 7x7|
 |`medianSizeDiv2`|Size of the mask for spatial median filtering (the size is *(2\*medianSizeDiv2+1)^2)*|0: disable the filter <br />1: 3x3 <br />2: 5x5|
 
-The adaptive bilateral noise filter reduces distance noise while also preserving object edges. Utilizing a larger number of pixels (e.g., 7x7) in the mask will, in most cases, result in better image quality.
+The adaptive bilateral noise filter reduces distance noise while also preserving object edges. Utilizing a larger number of pixels (for example 7x7) in the mask will, in most cases, result in better image quality.
 
 **We recommend that you typically use the bilateral filter because it is more efficient and has a better incorporation of the noise.**
 
-The median filter does not preserve edges as well as the bilateral filter and tends to produce round corners, but being more computationally efficient, could be utilized with “in-motion” use cases (e.g., obstacle detection on mobile robots).
+The median filter does not preserve edges as well as the bilateral filter and tends to produce round corners, but being more computationally efficient, could be utilized with “in-motion” use cases (for example obstacle detection on mobile robots).
 
 Learn more [here](documentation/O3R/Parameters/Filters/bilateralFilter:Adaptive%20noise%20bilateral%20filter)
 

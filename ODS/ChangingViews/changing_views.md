@@ -51,7 +51,7 @@ with open(ods_2app_conf) as file:
 apps_list = list(ods_config["applications"]["instances"].keys())
 app_handle = AppHandler(ip=IP, o3r=o3r, app_active="", apps=apps_list)
 
-# 2. set ODS applications: i.e. create application instances
+# 2. set ODS applications: that is create application instances
 single_apps = get_single_app_instances(ods_config)
 for sg in single_apps:
     app_handle.set_ods_config(sg)
@@ -124,7 +124,7 @@ try:
 except RuntimeError as e:
     logger.error(e)
 
-# 6. set all apps to inactive state, i.e. to save battery power
+# 6. set all apps to inactive state, that is to save battery power
 app_handle.set_all_apps_inactive()
 
 ```
@@ -139,9 +139,9 @@ Such an App Handler class shall has three primary methods:
 + `set_app_active`: set one application to `RUN` state and resolve any other applications to `CONF` state
 + `set_all_apps_inactive`: set all application instances to `CONF` state to preserve battery power and allow for cool-off.
 
-The additional method implemented `get_data` is an example method for how to retrieve one data set from a live application. Please be aware the the internal FrameGrabber module of the ifm3d / ifm3dpy API needs 0.5 seconds of grace period after call it's constructor to buffer data.
+The additional method implemented `get_data` is an example method for how to retrieve one data set from a live application. Please be aware that the internal FrameGrabber module of the ifm3d / ifm3dpy API needs 0.5 seconds of grace period after call it's constructor to buffer data.
 
-If this grace period is not met the user might not be abele to receive any data from this FrameGrabber class instance at all!
+If this grace period is not met the user might not be able to receive any data from this `FrameGrabber` class instance at all.
 
 ## Full example
 > Note: the example code below was taken from the main method of the example implementation in [ods_examples/switch_application.py]

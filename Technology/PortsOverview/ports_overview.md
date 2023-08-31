@@ -67,6 +67,6 @@ app_port = o3r.get(["/applications/instances/app0/data/pcicTCPPort"])["applicati
 ```
 
 
-:::{note} With firmware versions 0.16.23 or higher, it is possible to receive the list of all  available ports on the O3R platform. Use the ifm3d helper function `ports` [in python](https://api.ifm3d.com/html/_autosummary/ifm3dpy.device.O3R.html#ifm3dpy.device.O3R.ports) or [c++](https://api.ifm3d.com/html/cpp_api/classifm3d_1_1O3R.html#ab82367443890c0526f2da7c79147e6b5).
+:::{note} With firmware versions 0.16.23 or higher, it is possible to receive the list of all  available ports on the O3R platform. Use the ifm3d helper function `ports` [in Python](https://api.ifm3d.com/html/_autosummary/ifm3dpy.device.O3R.html#ifm3dpy.device.O3R.ports) or [c++](https://api.ifm3d.com/html/cpp_api/classifm3d_1_1O3R.html#ab82367443890c0526f2da7c79147e6b5).
 :::
 

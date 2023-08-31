@@ -43,7 +43,7 @@ These are the steps to start ODS in the iVA:
 
 - Play with display
   - the application tab only shows the occupancy grid (white grid pattern marks occupied areas)
-  - change to monitor tab -> the pointcloud and the occupancy grid are shown
+  - change to monitor tab -> the point cloud and the occupancy grid are shown
 
 watch the video:
 ![Create a new ODS Application instance](img/start_ods.gif)

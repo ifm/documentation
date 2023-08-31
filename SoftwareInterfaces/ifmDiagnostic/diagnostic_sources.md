@@ -47,7 +47,7 @@ For camera head specific error codes on boot-up see the table head and its subca
 
 Port error codes hold information about data stream drops due to:
 + 3D imager timeouts
-+ FPD-Link internal communication errors, e.g. EMV shocks.
++ FPD-Link internal communication errors, for example EMV shocks.
 + Internal algorithmic errors while processing the time of flight data.
 
 ```{include} diagnosis_error_codes/FW1.1/section_port.md
@@ -57,7 +57,7 @@ Port error codes hold information about data stream drops due to:
 **WHEN:**
 
 + This list of error codes may occur at any time during the runtime of the system.
-+ Depending on the severity of these error codes: i.e. combination of error code and number of activations in a certain amount of time, the error escalation strategy has to be decided see  [error escalation strategy](diagnostic_reaction_strategy).
++ Depending on the severity of these error codes: that is combination of error code and number of activations in a certain amount of time, the error escalation strategy has to be decided see  [error escalation strategy](diagnostic_reaction_strategy).
 
 **CONTENT:**
 
@@ -72,7 +72,7 @@ Port error codes hold information about data stream drops due to:
 **WHEN:**
 
 + This list of error codes may occur at any time during the runtime of the system.
-+ Depending on the severity of these error codes: i.e. combination of error code and number of activations in a certain amount of time, the error escalation strategy has to be decided see  [error escalation strategy](diagnostic_reaction_strategy).
++ Depending on the severity of these error codes: that is combination of error code and number of activations in a certain amount of time, the error escalation strategy has to be decided see  [error escalation strategy](diagnostic_reaction_strategy).
 
 **CONTENT:**
 IMU specific errors such as implausible IMU data returned from the sensor.
@@ -85,7 +85,7 @@ IMU specific errors such as implausible IMU data returned from the sensor.
 **WHEN:**
 
 + This list of error codes may occur at any time during the runtime of the system.
-+ Depending on the severity of these error codes: i.e. combination of error code and number of activations in a certain amount of time, the error escalation strategy has to be decided see  [error escalation strategy](diagnostic_reaction_strategy).
++ Depending on the severity of these error codes: that is combination of error code and number of activations in a certain amount of time, the error escalation strategy has to be decided see  [error escalation strategy](diagnostic_reaction_strategy).
 
 **CONTENT:**
 
@@ -99,14 +99,14 @@ IMU specific errors such as implausible IMU data returned from the sensor.
 **WHEN:**
 
 + This list of error codes may occur at any time during the runtime of the ODS application.
-+ Depending on the severity of these error codes: i.e. combination of error code and number of activations in a certain amount of time, the error escalation strategy has to be decided see  [error escalation strategy](diagnostic_reaction_strategy).
++ Depending on the severity of these error codes: that is combination of error code and number of activations in a certain amount of time, the error escalation strategy has to be decided see  [error escalation strategy](diagnostic_reaction_strategy).
 
 **CONTENT:**
 
 ODS app error codes hold information about:
 + implausible extrinsic calibration of the camera heads.
 + mismatched timestamp between IMU data and image data.
-+ implausible extrinsic calibration, i.e. default values used for `extrinsic_head_to_user` and implausible extrinsic calibration (camera heads) values.
++ implausible extrinsic calibration, that is default values used for `extrinsic_head_to_user` and implausible extrinsic calibration (camera heads) values.
 + ODS app parameterization plausibility checks, i.e default zones used.
 + insufficient / unstable framerates during runtime.
 + missing stand still (3-5 sec) before starting each ODS run.

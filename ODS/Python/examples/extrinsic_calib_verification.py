@@ -121,7 +121,7 @@ def erode(image: np.ndarray, erosion_level=3, value_range=1) -> np.ndarray:
 
     Args:
         image (np.ndarray): image
-        erosion_level (int, optional): erosion level, i.e. size of the structuring kernel. Defaults to 3.
+        erosion_level (int, optional): erosion level, that is size of the structuring kernel. Defaults to 3.
         value_range (int, optional): value range of the original image: default binary image. Defaults to 1.
 
     Returns:
@@ -307,7 +307,7 @@ def verify_calibration(
     plot_img: bool = True,
 ) -> None:
 
-    # load data: ifm h5 data container - e.g. recording from ifm Vision Assistant
+    # load data: ifm h5 data container - for example recording from ifm Vision Assistant
     # file_name_of_recording = "tc_4_1_300_60_pall.h5"
 
     dis, dis_noise, modelID3D, intrinsics3D, extrinsic3D = _load_data_h5(filename)
