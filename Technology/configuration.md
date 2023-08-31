@@ -252,9 +252,13 @@ The following parameters will change the JSON schema for other parameters:
 
 The O3R provides a way to persistently save a configuration so that the device reboots with the expected configuration: the [save_init() function in Python](https://api.ifm3d.com/stable/_autosummary/ifm3dpy.device.O3R.html#ifm3dpy.device.O3R.save_init), or [SaveInit() in c++](https://api.ifm3d.com/stable/cpp_api/classifm3d_1_1O3R.html#a7316e073bf5625c08d7c11a70e5ce07a). It allows the user to write as persistent configuration the current configuration of the device.
 
-If calling the `save_init` function without any argument, the exact configuration will be saved, including the sample numbers of the connected camera heads.
+If calling the `save_init` function without any argument, the exact configuration will be saved, including the sample numbers of the connected camera heads. For this reason, **we strongly recommend persistently saving only snippets of the configuration** (only available in ifm3d >= 1.4.1).
 
-During the boot-up process the VPU compares the persistent configuration to the current hardware configuration. If there is any mismatch, for instance a camera head was replaced, the respective port will be put to ERROR state and the PORT LED flashes in RED.
+:::python
+o3r.save_init(["/ports/port2/processing/extrinsicHeadToUser"])
+:::
+
+During the boot-up process the VPU compares the persistent configuration to the current hardware configuration. If there is any mismatch, for instance a camera head was replaced, the respective port will be put to ERROR state and the port LED flashes in red.
 The `ERROR_BOOT_SEQUENCE_HEAD_INVALID_SERIALNUMBER` for the mismatched port will be displayed in the diagnostic.
 
 When facing this issue, the user can  do the following:
