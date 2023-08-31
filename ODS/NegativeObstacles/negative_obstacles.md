@@ -13,11 +13,16 @@ To the ODS app, a negative obstacle is defined as:
 - At least 20 centimeter large along the Y axis,
 - If the bottom of the negative obstacle is detected, it must be at least 20 centimeters below the floor plane.
 
+Use cases considered for negative obstacles include:
+- Stairs
+- Loading ramps
+- Missing ventilation tiles in dust-free clean rooms
+
 :::{note}
 We are using here the "robot" coordinate system: the X axis is pointing in the robot main driving direction, the Z axis is pointing upwards. The floor plane is defined by `Z=0`.
 :::
 
-Negative obstacles will not be detected equally well in all mounting positions. Due to the angle at which light is reflected from the ground, more or less range can be achieved for ground detection. Negative obstacle detection relies in part on being able to see pixels that belong to the ground, so in cases where range is limited, performance will be reduced.
+Negative obstacles will not be detected equally well in all mounting positions. Due to the angle at which light is reflected from the ground, more or less range can be achieved for ground detection. Negative obstacle detection relies in part on being able to see pixels that belong to the ground, so in cases where range is limited, performance will be reduced. Also note that the visibility of pixels below ground is sacrificed by low camera mountings.
 For more details on mounting recommendations, refer to the [mounting documentation](../Mounting/mounting.md).
 
 Due to the variability in true positive detections depending on the mounting position and the environment, we strongly encourage the user to perform tests in their facility. Take a look at our documentation about [performance verification](../FieldTest/PerformanceVerification/ods_performance_verification.md) and about the possible [iToF artifacts](../FieldTest/TOFArtifacts/ods_tof_artifacts.md) you can encounter.
@@ -41,7 +46,7 @@ The JSON below shows the `enableNegativeObstacles` parameter to consider to enab
 }
 ```
 
-The negative obstacle detection is a feature that [requires a switch to "CONF" state](../../Technology/configuration.md#conf-only-parameters) to be enabled.
+The negative obstacle detection is a feature that [requires a switch to "CONF" state](../../Technology/configuration.md#conf-only-parameters) to be enabled, so it is not recommended to switch that function on and off dynamically but to use a static setting during robot operation.
 
 In python, for example, the feature can be enable with the code below. Note that this code assumes the existence of an `app0` instance using a camera connected to `port0`.
 
