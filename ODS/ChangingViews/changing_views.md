@@ -33,7 +33,7 @@ ODS running on the OVP801 or M04239 is currently limited to 3 cameras running si
 ```
 
 :::{warning}
-The set() function will throw an exception if the number of 3d ports specified in "activePorts" exceeds the "maxNumSimultaneousCameras" specified when the application was initialized or the 3d port was not present in the "ports" parameter of the application.
+The set() function will throw an exception if the number of 3d ports specified in `activePorts` exceeds the `maxNumSimultaneousCameras` specified when the application was initialized or the 3d port was not present in the `ports` parameter of the application.
 :::
 
 # Update other aspects of the application in the same set() call
