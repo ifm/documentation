@@ -33,7 +33,7 @@ The `activePorts` parameter can be updated while the application is in state CON
 ```
 
 :::{warning}
-The set() function will throw an exception if the number of 3d ports specified in "activePorts" exceeds the "maxNumSimultaneousCameras" specified when the application was initialized or the 3d port was not present in the "ports" parameter of the application. The default maximum number of cameras is set to 2 as a notice to developers to be aware of resource limitations during use of ODS.
+The set() function will throw an exception if the number of 3d ports specified in `activePorts` exceeds the `maxNumSimultaneousCameras` specified when the application was initialized or the 3d port was not present in the `ports` parameter of the application. The default maximum number of cameras is set to 2 as a notice to developers to be aware of resource limitations during use of ODS.
 :::
 
 ## Update other aspects of the application in the same set() call
