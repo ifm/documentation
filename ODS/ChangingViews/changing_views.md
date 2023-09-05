@@ -14,7 +14,9 @@ Try `ods_demo.py` for an interactive visualization of the camera switching.  Thi
 
 ## Sample configuration snippet
 
-The `activePorts` parameter can be updated while the application is in state CONF or RUN or during the call to switch between states. Note that the "ports" parameter should not be changed while ODS is in RUN, but is included below to highlight the difference.
+The `activePorts` parameter is expected to be updated while the application is in state RUN or the application is being set to `RUN` in the same call. Set the `activePorts` to [] to turn off all cameras but leave the system prepared to continue operations once cameras are added back to the list. There is no need to return the application to CONF unless fundamental parameters are adjusted (i.e. extrinsic parameters of cameras or the `ports` list)
+
+Note that the `ports` parameter should not be changed while ODS is in RUN, but is included below to highlight the difference between `ports` and `activePorts`.
 
 ```json title
 {
@@ -42,14 +44,14 @@ For implementations of the zones feature, it will be necessary to switch the act
 
 In this case, the `maxHeight`, `zoneConfigID`, and `zoneCoordinates` are all changed in the same call as the `activePorts` call
 
-```json title="Change active cameras while ODS is in sta"
-# Update the app with a new set of active cameras and an updated set of zones
+```json
+// Update the app with a new set of active cameras and an updated set of zones
 {
     "applications": {
         "instances": {
             "app0": {
                 "configuration": {
-                    "activePorts": ["port3"],
+                    "activePorts": ["port2"],
                     "grid": {
                         "maxHeight": 1.4,
                     },
