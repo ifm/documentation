@@ -9,7 +9,7 @@
 
 
 :::{note}
-Other combination of versions than the ones listed in the table above could work but are not officially supported by ifm.
+Other combinations of versions than the ones listed in the table above could work but are not officially supported by ifm.
 :::
 
 To review hardware specifications, refer to the [available hardware documentation](../Technology/Hardware_Interfaces/hardware_specifications.md).

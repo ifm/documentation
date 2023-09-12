@@ -8,9 +8,11 @@
 
 import argparse
 from pathlib import Path
+
 import numpy as np
 import json
 import h5py
+
 import matplotlib.pyplot as plt
 import logging
 
@@ -152,7 +154,7 @@ def erode(image: np.ndarray, erosion_level=3, value_range=1) -> np.ndarray:
     for i in range(pimg_shape[0] - h_reduce):
         for j in range(pimg_shape[1] - w_reduce):
             flat_submatrices.append(
-                image_pad[i : (i + erosion_level), j : (j + erosion_level)]
+                image_pad[i: (i + erosion_level), j: (j + erosion_level)]
             )
     flat_submatrices = np.array(flat_submatrices)
 
@@ -168,7 +170,7 @@ def erode(image: np.ndarray, erosion_level=3, value_range=1) -> np.ndarray:
     return image_erode
 
 
-#%%
+# %%
 
 
 class CalibratioRotationVerification:
@@ -211,7 +213,8 @@ class CalibratioRotationVerification:
             self.modelID3D, self.intrinsics3D, *self.imager_size
         )
 
-        e_flatten = np.stack((ux.flatten(), uy.flatten(), uz.flatten()), axis=0)
+        e_flatten = np.stack(
+            (ux.flatten(), uy.flatten(), uz.flatten()), axis=0)
         e_rot = (RR @ R).dot(e_flatten)
         e_3 = e_rot[-1, :]
         d_rot_flat = -1 / e_3 * self.extrinsic3D[2]
@@ -299,7 +302,7 @@ def _load_data_h5(filename):
     return dis, dis_noise, modelID3D, intrinsics3D, extrinsic3D
 
 
-#%%
+# %%
 
 
 def verify_calibration(
@@ -310,7 +313,8 @@ def verify_calibration(
     # load data: ifm h5 data container - for example recording from ifm Vision Assistant
     # file_name_of_recording = "tc_4_1_300_60_pall.h5"
 
-    dis, dis_noise, modelID3D, intrinsics3D, extrinsic3D = _load_data_h5(filename)
+    dis, dis_noise, modelID3D, intrinsics3D, extrinsic3D = _load_data_h5(
+        filename)
 
     calib_verify = CalibratioRotationVerification(
         dist=dis,
@@ -325,12 +329,15 @@ def verify_calibration(
     d_soll_min, d_soll_max = calib_verify.calculate_d_rotation_bounds(
         r1=r_min, r2=r_max
     )
-    dd_max = (d_soll_max + calib_verify.get_dist_noise_img(k=2)).reshape((172, 224))
-    dd_min = (d_soll_min - calib_verify.get_dist_noise_img(k=2)).reshape((172, 224))
+    dd_max = (d_soll_max + calib_verify.get_dist_noise_img(k=2)
+              ).reshape((172, 224))
+    dd_min = (d_soll_min - calib_verify.get_dist_noise_img(k=2)
+              ).reshape((172, 224))
 
     if plot_img:
         # angle bisector used for plotting
-        angle_bisector = np.array([np.arange(0, 3.5, 0.01), np.arange(0, 3.5, 0.01)])
+        angle_bisector = np.array(
+            [np.arange(0, 3.5, 0.01), np.arange(0, 3.5, 0.01)])
 
         # plot 2D based floor distance representation
         plt.figure(1)
@@ -347,7 +354,8 @@ def verify_calibration(
             "g.",
             label="min allowed",
         )
-        plt.plot(calib_verify.reshape(calib_verify.d_soll_), dis, "y.", label="meas")
+        plt.plot(calib_verify.reshape(calib_verify.d_soll_),
+                 dis, "y.", label="meas")
         plt.plot([0, 3], [0, 3], "r-")
         plt.plot(angle_bisector[0, :], angle_bisector[1, :], "r")
         plt.grid()
@@ -383,10 +391,12 @@ def verify_calibration(
 
     # erode the valid pixel map and distance map for robustness (based on rotated distance map)
     valid_pixels_erode = erode(valid_pixels).astype(bool)
-    distance_map_erode = erode(calib_verify.get_dis_map(arr=dis), erosion_level=3)
+    distance_map_erode = erode(
+        calib_verify.get_dis_map(arr=dis), erosion_level=3)
 
     # apply the valid pixel map to rotated distance boundary values to get the valid floor pixel map
-    valid_floor = np.where(valid_pixels_erode, (dis < dd_max) * (dis > dd_min), 0)
+    valid_floor = np.where(
+        valid_pixels_erode, (dis < dd_max) * (dis > dd_min), 0)
 
     if plot_img:
         plt.figure(3)
@@ -420,7 +430,8 @@ def verify_calibration(
 
     num_invalid_pix_threshold = 20
     if num_invalid_pix > num_invalid_pix_threshold:
-        logger.info(f"Number of allowed invlid pixels: {num_invalid_pix_threshold}")
+        logger.info(
+            f"Number of allowed invlid pixels: {num_invalid_pix_threshold}")
         raise AssertionError(
             f"number of valid pixels larger than threshold: # invalid pix {num_invalid_pix}"
         )
@@ -437,7 +448,8 @@ if __name__ == "__main__":
     )
 
     parser.add_argument("filename")
-    parser.add_argument("-p", "--plot_images", default=True, action="store_true")
+    parser.add_argument("-p", "--plot_images",
+                        default=True, action="store_true")
     args = parser.parse_args()
 
     verify_calibration(filename=args.filename, plot_img=args.plot_images)
