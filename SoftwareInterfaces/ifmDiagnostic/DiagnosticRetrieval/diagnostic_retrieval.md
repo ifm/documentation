@@ -101,7 +101,7 @@ $ ssh oem@192.168.0.69
 o3r-vpu-c0:~$ journalctl > log.txt
 ```
 
-Alternatively one can retrieve this information via the APIs CLI:
+Alternatively one can retrieve this information via the API's CLI:
 ```sh
 $ ifm3d trace
 

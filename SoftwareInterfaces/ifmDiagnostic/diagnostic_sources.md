@@ -8,7 +8,7 @@ The O3R system provides diagnosis information for different root causes. We prov
 **WHEN:**
 
 + This list of error code may be present from start-up of the system.
-+ This list of error codes should not persist long-term, i.e. the error state has to switch to dormant for the boot-up to be successful.
++ This list of error codes should not persist long-term, that is, the error state has to switch to dormant for the boot-up to be successful.
 
 **CONTENT**
 
@@ -26,7 +26,7 @@ For camera head specific error codes on boot-up see the table head and its subca
 **WHEN:**
 
 + This list of error codes may occur at any time during the runtime of the system.
-+ Depending on the severity of these error codes: i.e. combination of error code and number of activations in a certain amount of time, the error escalation strategy has to be decided, see  [error escalation strategy](diagnostic_reaction_strategy).
++ Depending on the severity of these error codes, that is the combination of error code and number of activations in a certain amount of time, the error escalation strategy has to be decided, see  [error escalation strategy](diagnostic_reaction_strategy).
 
 **CONTENT:**
 
@@ -41,7 +41,7 @@ For camera head specific error codes on boot-up see the table head and its subca
 **WHEN:**
 
 + This list of error codes that may occur at any time during the runtime of the system.
-+ Depending on the severity of these error codes: i.e. combination of error code and number of activations in a certain amount of time, the error escalation strategy has to be decided, see  [error escalation strategy](diagnostic_reaction_strategy).
++ Depending on the severity of these error codes, that is the combination of error code and number of activations in a certain amount of time, the error escalation strategy has to be decided, see  [error escalation strategy](diagnostic_reaction_strategy).
 
 **CONTENT:**
 
@@ -77,7 +77,7 @@ Port error codes hold information about data stream drops due to:
 **CONTENT:**
 IMU specific errors such as implausible IMU data returned from the sensor.
 
-```{include} diagnosis_error_codes/FW1.1/section_IMU.md
+```{include} diagnosis_error_codes/FW1.1/section_imu.md
 ```
 
 ## Distance image processing

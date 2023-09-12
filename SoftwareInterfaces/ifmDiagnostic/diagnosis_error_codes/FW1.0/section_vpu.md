@@ -7,12 +7,12 @@
 | 103006 | ERROR_VPU_OVERVOLTAGE_1_8V | Overvoltage was detected for the 1.8V line |
 | 103007 | ERROR_VPU_UNDERVOLTAGE_1_8V | Undervoltage was detected for the 1.8V line |
 | 103008 | ERROR_VPU_OVERTEMPERATURE | Detected overtemperature for VPU mainboard |
-| 103009 | ERROR_VPU_NTP_NOT_SYNCHRONIZED | Unable to synchronise time with NTP server |
+| 103009 | ERROR_VPU_NTP_NOT_SYNCHRONIZED | Unable to synchronize time with NTP server |
 | 103010 | ERROR_VPU_TRIGGER_OVERRUN | A trigger overrun was detected |
 | 103011 | ERROR_VPU_NO_FREE_IMAGEBUFFERS | More image buffers are needed than are available |
-| 103012 | ERROR_VPU_WATCHDOG_TIMEOUT | A watchdog timeout occured; the component was restarted |
+| 103012 | ERROR_VPU_WATCHDOG_TIMEOUT | A watchdog timeout occurred; the component was restarted |
 
-### Comms
+### Communication
 
 | ID | Name | Description |
 |----|------|-------------|

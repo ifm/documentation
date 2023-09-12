@@ -47,7 +47,7 @@ $ ifm3d jsonschema | jq .properties.ports.properties.port2.properties.acquisitio
 :::::
 
 The `attributes` section of the parameter schema shows the "conf" keyword if the parameter requires a switch to "CONF" state to be changed. If this keyword does not appear, then the parameter can be changed on-the-fly, and the new parameter will be applied to the next frame. Keep in mind that some parameters might take a couple frames to be fully stable, for instance the temporal filter.
-In the /ports section, changing a "CONF" parameter while the port is "RUN" or "IDLE" state results in an implicit state change to "CONF", the parameter change and an implicit state change back to "RUN" or "IDLE". Note that this is a slow operation and the filtering pipeline might take a couple frame to be stable (for example, the temporal filter will start from scratch).
+In the /ports section, changing a "CONF" parameter while the port is "RUN" or "IDLE" state results in an implicit state change to "CONF," the parameter change and an implicit state change back to "RUN" or "IDLE." Note that this is a slow operation and the filtering pipeline might take a couple frame to be stable (for example, the temporal filter will start from scratch).
 
 In the /applications section, changing a "CONF" parameter while the port is in "RUN" or "IDLE" results in an exception provided to the user.
 :::{warning}
@@ -100,7 +100,7 @@ If an error is encountered during the configuration process, the parameters that
 
 ## Sticky parameters
 
-Typically, when changing a parameter that has an effect on the JSON schema, for example the `/ports/portX/mode`, `/applications/instances/appX/ports` and `/applications/instances/appX/class`, all the related parameters are reset to their default value. However, some parameters are "sticky", meaning they keep their values in these cases.
+Typically, when changing a parameter that has an effect on the JSON schema, for example the `/ports/portX/mode`, `/applications/instances/appX/ports` and `/applications/instances/appX/class`, all the related parameters are reset to their default value. However, some parameters are "sticky," meaning they keep their values in these cases.
 
 This is the case only for properties with an attribute "sticky" in the JSON schema, for example the extrinsic calibration `/portX/processing/extrinsicHeadToUser`.
 For all other parameters, the settings, if different from default, have to be reapplied. 
@@ -143,7 +143,7 @@ To verify that the new frame corresponds to the new parameters, you can use the 
 3. Verify the acquisition timestamps over the next 6 images: there shall be a noticeable time delay after the settings have been applied,
 
 :::{note}
-Make sure to monitor the acquisition timestamps, provided as part of the `TOF_INFO`, `RGB_INFO`, `O3R_ODS_INFO` and `O3R_ODS_OCCUPANCY_GRID` buffers, and not the reception timestamps, attached by ifm3d to the `Frame` object. Refer to the [timestamps documentation](ADD-LINK) for more details.
+Make sure to monitor the acquisition timestamps, provided as part of the `TOF_INFO`, `RGB_INFO`, `O3R_ODS_INFO` and `O3R_ODS_OCCUPANCY_GRID` buffers, and not the reception timestamps, attached by ifm3d to the `Frame` object. Refer to the [timestamps documentation](../Technology/VPU/Timestamps/timestamps.md) for more details.
 :::
 ### Camera streams configuration delays
 #### Acquisition parameters
@@ -252,9 +252,13 @@ The following parameters will change the JSON schema for other parameters:
 
 The O3R provides a way to persistently save a configuration so that the device reboots with the expected configuration: the [save_init() function in Python](https://api.ifm3d.com/stable/_autosummary/ifm3dpy.device.O3R.html#ifm3dpy.device.O3R.save_init), or [SaveInit() in c++](https://api.ifm3d.com/stable/cpp_api/classifm3d_1_1O3R.html#a7316e073bf5625c08d7c11a70e5ce07a). It allows the user to write as persistent configuration the current configuration of the device.
 
-If calling the `save_init` function without any argument, the exact configuration will be saved, including the sample numbers of the connected camera heads.
+If calling the `save_init` function without any argument, the exact configuration will be saved, including the sample numbers of the connected camera heads. For this reason, **we strongly recommend persistently saving only snippets of the configuration** (only available in ifm3d >= 1.4.1).
 
-During the boot-up process the VPU compares the persistent configuration to the current hardware configuration. If there is any mismatch, for instance a camera head was replaced, the respective port will be put to ERROR state and the PORT LED flashes in RED.
+:::python
+o3r.save_init(["/ports/port2/processing/extrinsicHeadToUser"])
+:::
+
+During the boot-up process the VPU compares the persistent configuration to the current hardware configuration. If there is any mismatch, for instance a camera head was replaced, the respective port will be put to ERROR state and the port LED flashes in red.
 The `ERROR_BOOT_SEQUENCE_HEAD_INVALID_SERIALNUMBER` for the mismatched port will be displayed in the diagnostic.
 
 When facing this issue, the user can  do the following:

@@ -58,6 +58,7 @@ int main()
     }
     catch (const ifm3d::Error& ex) {
         std::clog << "Caught exception: " << ex.message() << std::endl;
+        std::clog << "This was expected. Continuing on with the tutorial." << std::endl;
     }
 
     std::clog << "Finished getting configurations" << std::endl;
@@ -70,7 +71,8 @@ int main()
     // The user could directly use the ifm3d library
     // native calls to set the configuration.
     ODSConfig configurator(o3r);
-
+    
+    std::clog << "Setting test configurations:" << std::endl;
     configurator.SetConfigFromStr(R"(
         {"device": { "info": { "description": "I will use this O3R to change the world"}}})");
 
@@ -100,8 +102,9 @@ int main()
         configurator.SetConfigFromFile("/non/existent/file.json");
     }
     catch (...) {
-        // Failing silently to continue with the tutorial
-    }
+        std::clog << "Error caught while configuring from a non-existent file.\n"
+                  << "This is expected, continuing with the example.";
+                }
 
     std::clog << "You are done with the configuration tutorial!" << std::endl;
 
