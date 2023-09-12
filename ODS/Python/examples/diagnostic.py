@@ -6,6 +6,7 @@
 import json
 import logging
 from datetime import datetime
+
 from ifm3dpy.device import O3R
 from ifm3dpy.device import Error as ifm3dpy_error
 from ifm3dpy.framegrabber import FrameGrabber
@@ -18,7 +19,7 @@ class O3RDiagnostic:
     def __init__(self, o3r: O3R, log_to_file: bool):
         self._o3r = o3r
         self._fg = None
-        self.diagnostic = None
+        self.diagnostic = []
         ###########################
         # Logger configuration:
         self.logger = logging.getLogger(__name__)
@@ -44,7 +45,8 @@ class O3RDiagnostic:
         :return: the diagnostic, filtered with the filter_mask
         """
         try:
-            self.logger.info(f"Poll O3R diagnostic data with filter {filter_mask}.")
+            self.logger.info(
+                f"Poll O3R diagnostic data with filter {filter_mask}.")
             return self._o3r.get_diagnostic_filtered(filter_mask)
         except ifm3dpy_error as err:
             self.logger.exception("Error when getting diagnostic data.")
@@ -56,8 +58,8 @@ class O3RDiagnostic:
         :param id (int): ID of Error Message
         :param message (str): Whole Diagnostic Information
         """
-        self.logger.error("Got error %s with content: %s", id, message)
-        self.diagnostic={"id": id, "message": message}
+        self.logger.error("Recieved diagnostic message via callback with id=%s, content=%s", id, message)
+        self.diagnostic = {"id": id, "message": message}
         # Here the user should add custom error handling.
 
     def start_async_diag(self):
@@ -113,6 +115,7 @@ def main():
             o3r_diagnostic.logger.info(
                 "You reached the end of the O3R diagnostic tutorial! "
             )
+            break
 
 
 if __name__ == "__main__":

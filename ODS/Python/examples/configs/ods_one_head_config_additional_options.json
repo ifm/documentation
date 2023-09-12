@@ -23,17 +23,13 @@
           "port6": {
             "emParam": {}
           },
-          "vo": {
-            "interestPoints": {},
-            "portNumber": 2,
-            "validPixels": {}
-          },
           "zones": {
             "zoneConfigID": 0,
             "zoneCoordinates": []
-          }
+          },          
+          "maxNumSimultaneousCameras":2
         },
-        "name": "app0",
+        "name": "customized_ODS_app",
         "ports": [
           "port2",
           "port6"

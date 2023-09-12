@@ -2,13 +2,14 @@
 # Copyright 2023-present ifm electronic, gmbh
 # SPDX-License-Identifier: Apache-2.0
 #############################################
-#%%
+# %%
 
 import logging
 import os
-import platform  # For getting the operating system name
-import subprocess  # For executing a shell command
+import platform
+import subprocess
 import time
+
 from ifm3dpy.device import O3R
 from ifm3dpy.device import Error as ifm3dpy_error
 
@@ -50,11 +51,13 @@ class BootUpMonitor:
 
     def _retrieve_boot_up_diagnostic_v016(self):
         for error in self.o3r.get_diagnostic_filtered({"state": "active"}):
-            self.logger.warning("Active errors: %s, %s", error["id"], error["name"])
+            self.logger.warning("Active errors: %s, %s",
+                                error["id"], error["name"])
 
     def _retrieve_boot_up_diagnostic_v10(self):
         for error in self.o3r.get_diagnostic_filtered({"state": "active"})["events"]:
-            self.logger.warning("Active errors: %s, %s", error["id"], error["name"])
+            self.logger.warning("Active errors: %s, %s",
+                                error["id"], error["name"])
 
     def retrieve_boot_diagnostic(self):
         if self.fw_version[0] < 1:
@@ -118,9 +121,10 @@ class BootUpMonitor:
         return self
 
     def __exit__(self, type, value, traceback):
-        self.logger.info("Bootup monitoring finished. Check the logs to verify bootup status.")
+        self.logger.info(
+            "Bootup monitoring finished. Check the logs to verify bootup status.")
 
-    #%%
+    # %%
 
 
 def main():

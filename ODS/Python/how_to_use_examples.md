@@ -17,7 +17,7 @@ For these examples, we expect the following setup:
 - Two cameras heads are connected to the VPU, with the 2D ports connected to ports 0 and 1 and the 3D ports to port 2 and 3. Note we only use two cameras for the full example `ods_demo.py`. The individual tutorials only rely on one camera, 3D connected to port 2. 
 - In the full `ods_demo.py` example, we set a calibration for the cameras expecting port2 to face forward and port 3 to face backwards, both cameras mounted at 60 cm high. These are artificial calibrations for demonstration purposes. If the cameras are not mounted this way, the examples will still run--just keep in mind that the generated ODS values will not correspond to your physical setup.
 
-You can use any other configuration to use these examples, but you will need to adjust the configuration files use when configuring an application.
+You can use any other configuration to use these examples, but you will need to adjust the configuration files.
 
 ## Building blocks
 The example files provided in this mini-library are intended to be used as teaching resources and as building block in more complex applications. 
@@ -27,11 +27,11 @@ The user is free to disassemble, extend, or do whatever they please with this co
 - `diagnostic.py` shows how to retrieve diagnostic information on request or asynchronously whenever an error occurs. Monitoring the diagnostic at all times is crucial to ensure good functioning of the application.
    Note that if you run these examples using interactive Python, the asynchronous diagnostic messages might not be displayed.
 
-In the `ods_demo_client.py` script, we show how all these pieces can be used together to form a complete ODS application:
+In the `ods_demo.py` script, we show how all these pieces can be used together to form a complete ODS application:
 - We configure two applications, one for the "front" view and one for the "back" view,
 - We start streaming data from the front view and display it,
->Note that we use openCV to display images in a *very* bare bone viewer for teaching purposes only. Please use fully supported and maintained ifmVisionAssistant (iVA) for all viewing purposes.
-- On CTRL+C input from the user, we switch view to use the "back" view, and display the data.
+>Note that we use openCV to display images in a simple viewer. This cannot replace the far more capable tool for monitoring ODS, ifmVisionAssistant (iVA).
+- Using number keys we toggle cameras to change which view ODS can see. Using arrow keys we adjust the zones which ODS checks for us.
 
 ## Additional considerations
 
