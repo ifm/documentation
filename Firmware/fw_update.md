@@ -91,7 +91,7 @@ The code below is continued from the "reboot to recovery" section.
 :::::{tabs}
 ::::{group-tab} CLI
 :::bash
-$ ifm3d swupdate < <path/to/firmware_image.swu>
+$ ifm3d swupdate --file=<path/to/firmware_image.swu>
 :::
 ::::
 ::::{group-tab} c++
