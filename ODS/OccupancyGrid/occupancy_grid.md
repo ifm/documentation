@@ -8,7 +8,7 @@
 
 | Name                      | Type           | Description                                                                              |
 | ------------------------- | -------------- | ---------------------------------------------------------------------------------------- |
-| `timestamp_ns`              | uint64         | timestamp of occupancy grid in [ns] - NTP time if NTP server is synchronized             |
+| `timestamp_ns`              | uint64         | timestamp of occupancy grid in nanoseconds - NTP time if NTP server is synchronized             |
 | `width`                     | uint16         | number of grid cells - width (x)                                                         |
 | `height`                    | uint16         | number of grid cells - height (y)                                                        |
 | `transformCellCenterToUser` | float[2][3]    | affine mapping between grid cells and user coordinate system                             |

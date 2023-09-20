@@ -17,7 +17,7 @@ The parameters subgroups are automatically split equivalently to the `config.jso
 |Symbol|Parameters|Description|
 |---|---|---|
 |![general parameter](resources/general_paraemter.png)|General port parameter|General settings like mode, state|
-|![acquistion parameter](resources/acquisition_parameter.png)|acquisition|Imager configuration related parameters like exposure time|
+|![acquisition parameter](resources/acquisition_parameter.png)|acquisition|Imager configuration related parameters like exposure time|
 |![data parameter](resources/data_parameter.png)|data|Information about the transferred data|
 |![info parameter](resources/info_parameter.png)|info|Information about the connected hardware like hardware production state.|
 |![processing parameter](resources/processing_parameter.png)|processing|Parameters for post processing data. Like extrinsic calibration|
