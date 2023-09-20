@@ -106,7 +106,7 @@ plt.title('Distance Map of Recorded Data')
 
 
 ### False positive evaluation
-![Distance_Map_Output](img/distance_map.png)
+![Distance map output](img/distance_map.png)
 
 Above the distance map representation of the recorded ODS data is show.
 

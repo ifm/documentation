@@ -67,7 +67,7 @@ $ ifm3d dump | jq --arg id "$(< ~/.ssh/id_o3r.pub)" '.device.network.authorized_
 - `ifm3d dump` - This command receives the current configuration from the VPU.
 - `jq --arg id "$(< ~/.ssh/id_o3r.pub)"` - This loads the public key into the variable `id` and provides it to the `jq` command
 - `'.device.network.authorized_keys=$id'` - Here the JSON value from `authorized_keys` is changed for the public key within the variable `id`
-- `ifm3d config` - The new json is now used to change the configuration of the VPU via `ifm3d config`
+- `ifm3d config` - The new JSON is now used to change the configuration of the VPU via `ifm3d config`
 
 ### 3. Connect to the VPU using the passphrase
 

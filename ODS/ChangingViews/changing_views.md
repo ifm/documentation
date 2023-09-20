@@ -8,13 +8,13 @@ ODS running on the OVP801 or M04239 is currently limited to 3 cameras running si
 
 ## Demonstration
 
-Try `ods_demo.py` for an interactive visualization of the camera switching.  This will show active diagnostic messages and zone activation as well.
+Try `ods_demo.py` for an interactive visualization of the camera switching. This will show active diagnostic messages and zone activation as well.
 
 ![](changing_views.gif)
 
 ## Sample Configuration
 
-The `activePorts` parameter can be updated while the application is in state "CONF" or "RUN" or during the call to switch between states. Note that the "ports" parameter should not be changed while ODS is in "RUN", but is included below to highlight the difference.
+The `activePorts` parameter can be updated while the application is in state "CONF" or "RUN" or during the call to switch between states. Note that the "ports" parameter should not be changed while ODS is in "RUN," but is included below to highlight the difference.
 
 ```json title
 {

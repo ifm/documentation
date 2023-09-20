@@ -30,7 +30,7 @@ As of `FW version 1.0.14` an ODS application is limited to a maximum of three zo
 
 | Name         | Type    | Description                                                                  |
 | ------------ | ------- | ---------------------------------------------------------------------------- |
-| `timestamp_ns` | uint64  | timestamp of occupancy grid in [ns] - NTP time if NTP server is synchronized |
+| `timestamp_ns` | uint64  | timestamp of occupancy grid in nanoseconds - NTP time if NTP server is synchronized |
 | `zoneConfigID` | uint32  | the user-defined ID for the zone configuration                               |
 | `zoneOccupied` | int8[3] | a flag for each zone describing whether it is occupied or free               |
 
