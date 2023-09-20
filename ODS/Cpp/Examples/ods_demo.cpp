@@ -7,8 +7,8 @@
 #include "ods_config.h"
 #include "ods_get_data.h"
 #include "diagnostic.h"
-#define JSON_USE_GLOBAL_UDLS 0
-#include <nlohmann/json.hpp>
+// #define JSON_USE_GLOBAL_UDLS 0
+// #include <nlohmann/json.hpp>
 
 #include <ifm3d/device/o3r.h>
 using namespace ifm3d::literals;
