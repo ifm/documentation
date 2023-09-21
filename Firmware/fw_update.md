@@ -13,6 +13,13 @@ The firmware image is available on the [ifm.com](https://www.ifm.com/) website. 
 ## Starting firmware is version < 1.0.0
 When updating to a firmware version 1.0.0 or above, starting with a firmware version below 1.0.0, please refer to [the migration guide](../Firmware/ReleaseNotes/FW_1.0.x/FW_1.0.x_migration_guide.md).
 ## Starting firmware is version>= 1.0.0
+
+### (Optional) Save the current configuration
+The configuration of the device will be erased when updating from FW 1.0.14 to FW 1.1.x. If you want to reuse the same configuration after updating, make sure you save it locally on your machine before updating. 
+You can for example do so using the command line interface:
+```bash
+ifm3d dump > config_save.json
+```
 ### Reboot to recovery
 When the starting firmware is version 1.0.0 and above, a reboot to recovery state is necessary to perform an update. 
 
