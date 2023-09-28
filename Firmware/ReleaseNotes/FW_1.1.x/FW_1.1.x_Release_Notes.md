@@ -19,7 +19,7 @@ The update to FW version 1.0.14 is mandatory. A update to 1.1.29 requires a prev
 It is required to use this firmware release with the following software package versions.
 | Software | Version |
 | -------- | ------- |
-| ifmVisionAssistant | >= 2.6.23 |
+| ifmVisionAssistant | >= 2.6.24 |
 | ifm3d library | >= 1.4.2 |
 | ifm3d-ros ROS(1) wrapper | 1.1.2 (pre-release version) |
 | ifm3d-ros2 ROS2 wrapper | 1.1.2 |
@@ -72,10 +72,11 @@ This firmware release supports the following ifm camera articles:
 
 * All the settings persistently saved through the `save_init` function will be lost during the firmware update.
   * Settings that remain after a FW update: Network settings for ETH0
+  * Extrinsic parameters must be handled manually 
 * Connectivity: ports must be connected pairwise with the same head-type: [Port0,Port1]   [Port2,Port3]   [Port4,Port5]
 * Channel values have to be manually selected for each port. Ensure each port is set to a different channel value.
   * Channel value difference of >=2 improves crosstalk mitigation
-* The IPv4 discovery feature for discovering the device in complex networks is not available
+* The IPv4 discovery feature for discovering the device in routed networks is not available
 * 2D RGB image data:
   * The framerate of the 2D RGB image stream can not be configured: A parameter change via the JSON interface has no effect on the acquisition framerate.
   * The 2D RGB imager is configured to be "free running", i.e. it is not controlled via the internal hardware trigger mechanisms (as 3D TOF)
@@ -91,18 +92,18 @@ This firmware release supports the following ifm camera articles:
 * Slow receiver connections slow down the embedded O3R system: internally frames are not discarded, as intended, but the system gets slowed down.
 * Repeated mechanical disconnects of Ethernet cables can result in refused data connections by the embedded devices.
 * Manually set date and time are not persistent over reboots.
-* The diagnostic messages `ERROR_DI_MOTION_COMP_EGA_DATA_TIMESTAMP_MISMATCH` or `ERROR_PORT_FRAME_TIMEOUT` may become active for 3D heads used by an ODS application instance when switching the ODS instance from `RUN` to `CONF` states or removing a port from the activePorts list.
+* The diagnostic messages `ERROR_DI_MOTION_COMP_EGO_DATA_TIMESTAMP_MISMATCH` or `ERROR_PORT_FRAME_TIMEOUT` may become active for 3D heads used by an ODS application instance when switching the ODS instance from `RUN` to `CONF` states or removing a port from the activePorts list.
 * O3R camera filer related issues:
   * Temporal filter:
     * Temporal filter creates long-term history dependence of point cloud
     * Temporal filter leads to distance drift over temperature
 * Software trigger unstable:
   * A software trigger request may be required to be sent more than once
-  * No feedback loop for a software trigger request available atm
+  * No feedback loop for a software trigger request available at the moment
 * Using 5 or more 3D data streams @ 20 Hz:
   * FW 1.1.29 requires a processing filter parameter update that migrates parts of the filter pipeline to the GPU to enable the usage of simultaneous data streams.
   * Migrating parts of the filter pipeline to the GPU may reduce available GPU resources for the OEM user, i.e. OEM user GPU processes may be queued at a later stage.
-  * Please get in contact with the robotics support via email at `support.robotics@ifm.com` for a description on how to enable this feature.
+  * Please get in contact with the robotics support via email at `support.efector.object-ident@ifm.com` for a description on how to enable this feature.
 * When setting the configuration fails, the device does not revert to the configuration before the `Set` command and a partial configuation might be applied. See details in [the configuration documentation](../../../Technology/configuration.md#parameter-configuration-priorities).
 
 ## ODS Application specific release notes:
@@ -135,13 +136,7 @@ This firmware release supports the following ifm camera articles:
 - (Default) channel value handling:
   - The channel value of all camera head configurations is reset to 0 when an ODS application instance is created.
   - The default channel value is set to 0 - a manual configuration to a non zero value is required to mitigate inter-camera crosstalk
+- Only one ODS application instance is possible
 
 ## ifm3d
 For ifm3d-specific known issues, please refer to [the issue tracker on GitHub](https://github.com/ifm/ifm3d/issues/).
-
-## Look forward to these features in future releases
-* Extrinsic camera calibration application(s) will be moved to the embedded firmware as native non-licensed applications
-* IMU calibration app available as an embedded application
-* Improved ODS ego-motion handling: option to use external ego data input from the robot
-* IMU data available to the user as its own port
-* Persistent OEM partition on the device (~ 50 MB)
