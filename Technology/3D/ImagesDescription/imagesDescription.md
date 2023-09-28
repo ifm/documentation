@@ -17,7 +17,7 @@ The amplitude image is the normalized image over the different exposure times.
 
 ## Distance image (radial)
 
-Each pixel of the distance image denotes the ToF distance measured by the corresponding pixel or group of pixels of the imager, along the respective pixel direction. The distance value is corrected by the camera's calibration, excluding effects caused by multi-path interference and multiple objects contributions (for example [mixed pixels](documentation/O3R/Parameters/Filters/mixedPixelFilter:Mixed%20Pixel%20Filter)). The reference point is the center of the back of the camera head's housing. Invalid pixels have a value of zero.
+Each pixel of the distance image denotes the ToF distance measured by the corresponding pixel or group of pixels of the imager, along the respective pixel direction. The distance value is corrected by the camera's calibration, excluding effects caused by multi-path interference and multiple objects contributions (for example [mixed pixels](../ProcessingParams/mixedPixelFilter.md)). The reference point is the center of the back of the camera head's housing. Invalid pixels have a value of zero.
 
 .. warning::
     The radial distance image has to be normalized by multiplying each distance value by the global distance normalization factor `distanceResolution`.
@@ -27,11 +27,11 @@ Each pixel of the distance image denotes the ToF distance measured by the corres
 The distance noise represent the estimated standard deviation of the distance error, in meters for each pixel.
 
 ## Confidence
-The confidence image give detail about the validity of each pixel and the reason (if any) why it was invalidated. See details [here](documentation/O3R/ProductsDescription/ImagesDescription/confidenceImage:The%20confidence%20image).
+The confidence image give detail about the validity of each pixel and the reason (if any) why it was invalidated. See details [here](./confidenceImage.md).
 
 ## Reflectivity
 The reflectivity image represents the estimated reflectivity in the near infrared spectrum of the objects in the scene.
-See also the [minimum reflectivity filter](documentation/O3R/Parameters/Filters/minReflectivity:Minimum%20Reflectivity).
+See also the [minimum reflectivity filter](../ProcessingParams/minReflectivity.md).
 
 ## Point cloud (XYZ)
 The XYZ image (also called point cloud) is a 3-channel image of the spacial planes X, Y and Z. It uses the Cartesian coordinate system.

@@ -24,10 +24,9 @@ This method implicitly tests the extrinsic translation parameter in Z-component.
 
 ### Overview of extrinsic calibration angle parameters and their effect
 
-Extrinsic calibration methods estimate the 6 degree of freedom 3D pose of the camera in relation to a fixed point on in the robot coordinate system.
+Extrinsic calibration methods estimate the 6 degree of freedom 3D pose of the camera in relation to a fixed point in the robot coordinate system.
 
 This includes two sets of extrinsic calibration parameters: 3 translation vectors in 3D space, and 3 rotation angles in 3D space.
-For further details see the [whitepaper about extrinsic calibration methods for cameras](todo-insert-link).
 
 The presented method for extrinsic calibration verification validates 2 angle parameters: the roll and pitch angles in 3D space.
 

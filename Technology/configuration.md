@@ -103,16 +103,16 @@ If an error is encountered during the configuration process, the parameters that
 Typically, when changing a parameter that has an effect on the JSON schema, for example the `/ports/portX/mode`, `/applications/instances/appX/ports` and `/applications/instances/appX/class`, all the related parameters are reset to their default value. However, some parameters are "sticky," meaning they keep their values in these cases.
 
 This is the case only for properties with an attribute "sticky" in the JSON schema, for example the extrinsic calibration `/portX/processing/extrinsicHeadToUser`.
-For all other parameters, the settings, if different from default, have to be reapplied. 
+For all other parameters, the settings, if different from default, have to be reapplied.
 
 Sticky parameters are reset with a call to the `reset` function, or with a factory reset.
 
 ## Configuration delays
 
 The `Set` command can introduce a certain amount of latency depending on the parameters configured.
-The switch to "CONF" state required by some of the parameters introduces a short delay, as well as the image buffering configuration. We provide some details on these cases below. 
+The switch to "CONF" state required by some of the parameters introduces a short delay, as well as the image buffering configuration. We provide some details on these cases below.
 
-### Buffering 
+### Buffering
 
 The maximum number of raw images being buffered before the filtering pipeline is three. In addition to these three images, another three images maximum are buffered after the image processing pipeline, before being sent over Ethernet.
 This can result in up to six images being received before the received images show the new configuration.
@@ -121,7 +121,7 @@ This can result in up to six images being received before the received images sh
 To minimize images getting buffered before being sent over Ethernet, ensure a full Gigabit Ethernet connection and ensure the client can handle the data transfer on the Ethernet communication.
 :::
 
-#### Delays due to image buffering 
+#### Delays due to image buffering
 The worst case delay before new data is received can be calculated by the following formula:
 
 ` t = 1/FPS * nb_img_in_buffer`
@@ -151,7 +151,7 @@ Configuring acquisition parameters always requires a RUN-CONF-RUN state transiti
 
 This means that the image acquisition is stopped before the parameter can be set to its new value. Afterwards the imager process is automatically restarted.
 
-Some images may still be buffered by the embedded system and therefore represent the old configuration state (see [the section about buffering](#buffering)). 
+Some images may still be buffered by the embedded system and therefore represent the old configuration state (see [the section about buffering](#buffering)).
 
 #### Processing parameters
 Changing processing parameters only impact the image processing pipeline and can be done without the need to stop the image acquisition process: images are acquired without interruption.
@@ -166,7 +166,7 @@ being sent after the configuration change request.
 
 ### Application streams configuration delays
 The application do not automatically change the state to "CONF" when a new "CONF"-only parameter is requested.
-This ensures that no parameter is accidentally changed that could disrupt the functioning of the application. 
+This ensures that no parameter is accidentally changed that could disrupt the functioning of the application.
 
 To change a "CONF"-only application parameter:
 1. Set the application to "CONF" state,
@@ -272,7 +272,7 @@ The [`reset`](https://api.ifm3d.com/stable/_autosummary/ifm3dpy.device.O3R.html#
 
 ### Persistent settings without `save_init`
 :::{note}
-This feature was introduced in FW version 1.1.x
+This feature was introduced in FW version 1.1.30
 :::
 
 The following settings will automatically be persistently saved on the device, without needing to call the `save_init` function:

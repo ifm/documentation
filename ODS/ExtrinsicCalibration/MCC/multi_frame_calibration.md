@@ -3,7 +3,7 @@
 
 Camera calibration tools and tactics can change depending on the needs of the application.
 
-ifm provides [Python code samples](Software_Interfaces/Toolbox/ExtrinsicCalibration/StaticCameraCalibration/README) to facilitate calibration using a stationary checkerboard. This process can be used to build calibration cells for end-of-line testing of AMRs/AGVs camera systems.
+ifm provides [Python code samples](../../../SoftwareInterfaces/Toolbox/ExtrinsicCalibration/StaticCameraCalibration/README.md) to facilitate calibration using a stationary checkerboard. This process can be used to build calibration cells for end-of-line testing of AMRs/AGVs camera systems.
 
 When developing an AMR and testing the camera system, the static calibration methodology requires repeated measurements with each repositioning of the vehicle. An alternate tool was built to address the need for field-testing of cameras. This tool is called Motion Camera Calibration (MCC).
 

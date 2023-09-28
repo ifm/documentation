@@ -4,7 +4,7 @@ The O3R provides multiple timestamps that correspond to different times in the a
 
 ## Acquisition timestamps
 
-The acquisition timestamps refer to the center of [each individual HDR exposure time](../Technology/3D/AcquisitionParams/index_acquisition_params.md#exposure-times) (the O3R uses three exposures, a short, a medium, and a long, in that order). For the RGB image, there is only one exposure, so there is only one timestamp.
+The acquisition timestamps refer to the center of [each individual HDR exposure time](../../3D/AcquisitionParams/index_acquisition_params.md#exposure-times) (the O3R uses three exposures, a short, a medium, and a long, in that order). For the RGB image, there is only one exposure, so there is only one timestamp.
 
 These timestamps can be retrieved with the ifm3d library respectively in the [`TOF_INFO`](https://api.ifm3d.com/stable/_autosummary/ifm3dpy.deserialize.TOFInfoV4.html#ifm3dpy.deserialize.TOFInfoV4.exposure_timestamps_ns) or [`RGB_INFO`](https://api.ifm3d.com/stable/_autosummary/ifm3dpy.deserialize.RGBInfoV1.html#ifm3dpy.deserialize.RGBInfoV1.timestamp_ns) buffers.
 

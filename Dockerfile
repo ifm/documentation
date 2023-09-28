@@ -1,4 +1,4 @@
-FROM ghcr.io/ifm/ifm3d:v1.3.3-ubuntu-amd64
+FROM ghcr.io/ifm/ifm3d:v1.4.2-ubuntu-amd64
 
 RUN sudo apt update && sudo DEBIAN_FRONTEND=noninteractive apt-get install -y\
         build-essential \

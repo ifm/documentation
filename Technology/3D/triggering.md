@@ -41,7 +41,7 @@ The time synchronization and the trigger functionalities can be configured with 
 | `swTriggerGroup`| [0,6] | Software trigger group                                      |
 
 
-#### Framerate
+### Framerate
 
 All cameras configured to the same framerate are always synchronized.
 
@@ -53,14 +53,14 @@ The figure below shows the signals received from three different cameras running
 
 ![Camera 3 running at 12Hz frequency](resources/triggering/10_12fps.png)
 
-#### Delay
+### Delay
 
 The delay is the parameter that defines the minimum amount of time, in milliseconds, between the default framerate loop and the imager trigger.
 As shown in the below image, the second camera (in green) is running at 10 fps with a delay of 10 ms.
 
 ![Camera 2 delayed by 10 milliseconds](resources/triggering/delay_10ms.png)
 
-#### Software trigger group
+### Software trigger group
 
 Cameras belonging to the same group, that is having the same value for `swTriggerGroup` parameter, are synchronized (when in "RUN" state) and triggered simultaneously (when in "IDLE" state) when any one of the camera in the group is triggered. 
 By default the value of `swTriggerGroup` is 0 which means that the port is triggered independently from all the other ports.

@@ -2,7 +2,7 @@
 
 ## Hardware
 
-The O3R has a built-in CAN-bus interface, with the CAN-High and CAN-Low lines on pin 4 and 5 respectively (cf. [hardware diagram](documentation/O3R/GettingStarted/hw_unboxing:Hardware%20unboxing)). Note that cables will need a terminating resistor like the [E11589](https://www.ifm.com/de/en/product/E11589).
+The O3R has a built-in CAN-bus interface, with the CAN-High and CAN-Low lines on pin 4 and 5 respectively (cf. [hardware diagram](../../GettingStarted/Unboxing/hw_unboxing.md)). Note that cables will need a terminating resistor like the [E11589](https://www.ifm.com/de/en/product/E11589).
 
 ## Software
 
@@ -108,5 +108,5 @@ Writing tag: b'\xde\xad\xbe\xef'
 Reading tag: b'\xde\xad\xbe\xef\x00\x00\x00[...]\x00\x00\x00'
 ```
 
-For more information on necessary setup steps for [building](documentation/O3R/Docker/docker:Build%20and%20run%20a%20docker%20container%20for%20the%20O3R%20platform) and [deployment](documentation/O3R/Docker/deployVPU:Deploying%20a%20container%20to%20the%20VPU), please see the linked pages.
+For more information on necessary setup steps for [building](../../SoftwareInterfaces/Docker/docker.md#build-and-run-a-docker-container-for-the-o3r-platform) and [deployment](../../SoftwareInterfaces/Docker/deployVPU.md), please see the linked pages.
 

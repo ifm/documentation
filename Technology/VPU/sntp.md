@@ -36,7 +36,7 @@ When the `SNTP` synchronization is active, the timestamps of all the images sent
 
 ## How to activate NTP
 
-The `NTP` configuration is located within the clock parameter of the device configuration (JSON). 
+The `NTP` configuration is located within the clock parameter of the device configuration (JSON).
 
 The JSON configuration can be retrieved by ifm3d/ifm3dpy CLI.
 
@@ -79,7 +79,7 @@ To connect the O3R to an `NTP` server, provide the server address - `availableSe
 ```python
     # Output available servers --> No Servers
     print(o3r.get(["/device/clock/sntp/availableServers"]))
-    
+
     #set your local IP as an available server
     o3r.set({'device': {'clock': {'sntp': {'availableServers': ["192.168.0.110"]}}}})
 

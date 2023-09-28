@@ -16,7 +16,7 @@ The parameter `maxHeight` is a global parameter for all zones. The 3D extent (ma
 
 ### Zone extent
 
-The 3D zone extent is defined via the 2D (convex) hull of the points in space as defined by the list `zoneCoordinates`. Its volume is handled via the combined `maxHeight` parameter and `minObjectHeight` parameters. If configured, [overhanging loads](OverhangingLoads/overhanging_loads.md) will also be taken into account.
+The 3D zone extent is defined via the 2D (convex) hull of the points in space as defined by the list `zoneCoordinates`. Its volume is handled via the combined `maxHeight` parameter and `minObjectHeight` parameters. If configured, [overhanging loads](../OverhangingLoads/overhanging_loads.md) will also be taken into account.
 
 ### Probability threshold
 
