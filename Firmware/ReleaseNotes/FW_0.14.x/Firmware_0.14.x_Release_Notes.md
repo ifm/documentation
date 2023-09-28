@@ -66,12 +66,12 @@ This firmware release supports the following ifm camera articles:
   * <mark>**NEW**</mark> CAN
   * <mark>**NEW**</mark> USB3.0
 * Data Interface:
-  The ifm3d library is recommended for interfacing with the O3R image processing platform (see installation instructions [here](https://ifm3d.com/sphinx-doc/build/html/ifm3d/doc/sphinx/content/installation_instructions/o3r_early_adopter_index.html)).
+  The ifm3d library is recommended for interfacing with the O3R image processing platform (see installation instructions [here](https://api.ifm3d.com/stable/content/installation_instructions/index.html)).
   The idea of ifm3d is to let developers quickly ramp up and also deploy code on the image processing platform.
   Sample programs, that illustrate the various functions and good usage, are provided for the following application frameworks:
-	* C++ and Python [here](https://ifm3d.com/sphinx-doc/build/html/ifm3d/doc/sphinx/content/examples/index.html)
-	* <mark>**NEW**</mark> [ROS(1) wrapper](https://ifm3d.com/sphinx-doc/build/html/ROS/ifm3d-ros/README.html)
-	* <mark>**NEW**</mark> [ROS2 wrapper](https://ifm3d.com/sphinx-doc/build/html/ROS/ifm3d-ros2/README.html)
+	* C++ and Python [here](https://api.ifm3d.com/stable/examples/index.html)
+	* <mark>**NEW**</mark> [ROS(1) wrapper](https://ros.ifm3d.com/latest/)
+	* <mark>**NEW**</mark> [ROS2 wrapper](https://ros2.ifm3d.com/latest/)
 * SSH access:
   Access to the embedded Linux operating system is enabled through the `oem` user.
 * Docker containers:

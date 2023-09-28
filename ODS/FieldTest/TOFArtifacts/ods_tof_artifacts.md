@@ -53,13 +53,13 @@ For all possible sources of FPs above, the ODS application is tailored to be as 
 2. Motion blur / motion artifacts: We use specifically designed acquisition settings in conjunction with internal processing filters to allow us to detect motion artifacts effected part of scenes and react accordingly.
 3. Stray light: We use specifically designed internal processing filters to allow us to detect stray light effected scenarios. However such sources of stray light can only be detected if the source of the stray light lies within the inner boundaries of the cameras field of view (FOV).
    1. Please minimize all sources of possible stray light in close vicinity of the camera mounting: For further details please see the mounting instructions included in this documentation repository and also read the O3R manual.
-   2. For stray light effects caused by overhanging load, please see the [overhanging load documentation](../../../Parameters/OverhangingLoads/overhanging_loads.md).
+   2. For stray light effects caused by overhanging load, please see the [overhanging load documentation](../../OverhangingLoads/overhanging_loads.md).
 4. Crosstalk:
    1. For inter O3R camera crosstalk please use our channel implementation to mitigate inter O3R camera crosstalk. A channel difference of >= 2 between any two cameras will reduce the effects of crosstalk to the same level as typical background noise caused by ambient non-pulsed NIR light sources.
    2. For O3R to other active sensor devices crosstalk:
       1. Please mount the O3R cameras away from laser scanner mounting planes. This reduces the possibility of direct line-of-sights between the cameras and the laser scanner. We recommend at least a vertical offset of 10 cm between the scanner plane and the cameras optical center.
       2. Please refer to the laser scanner manuals for their suggested parameter sets for mobile robot applications: These typically state a multi sampling for all mobile robot applications. ifm internal tests have shown that for a correctly parameterized laser scanner in a mobile robot application, the O3R to laser scanner crosstalk does not cause significant amounts blinding events and no false positives.
-5. Dust: Improvements for dusty environments have been introduced in FW version 1.0.14. Additional to algorithmic mitigation approaches, please clean the O3R cameras regularly - refer to the respective chapter in [the hardware doc](../../Hardware/hardware.md)
+5. Dust: Improvements for dusty environments have been introduced in FW version 1.0.14. Additional to algorithmic mitigation approaches, please clean the O3R cameras regularly - refer to the respective chapter in [the hardware doc](../../../Technology/Hardware_Interfaces/camera_heads.md#cleaning-camera-heads)
 6. Other ToF artifacts of minor effect strength and frequency of occurrences: All of these are typically handled by internal processing filters - no user parameter fine tuning required.
       1. Low signal
       2. Pixel saturation

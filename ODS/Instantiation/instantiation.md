@@ -9,7 +9,7 @@ This would mean the camera head is inside the floor (`transZ == 0`) and looking 
 :::{note}
 Always forward all 6 extrinsic calibration values at the same time. You can edit the full configuration in a file and provide this file to the `ifm3d config` command.
 
-```JSON
+```json
 {
     "ports": {
         <port_number>: {
@@ -68,7 +68,7 @@ A VPU (OVP800) can connect up to 6 3D imager, ranging from `Port 0` to `Port 5`.
     The current ODS version do not support more than 3 used heads within an ODS application.
 :::
 
-```JSON
+```json
 "ports": [
             "port2",
             "port3",
@@ -85,7 +85,7 @@ Connected heads, which are not defined within the ODS JSON can be used separatel
 
 Provide the port number (head with floor data in the images) to the `vo` attribute.
 
-```JSON title="Visual odometry - vo"
+```json
 "vo": {
     "portNumber": 2
 }

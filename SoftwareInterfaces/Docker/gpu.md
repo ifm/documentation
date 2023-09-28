@@ -45,13 +45,13 @@ Successfully tagged cuda-samples:latest
 ```
 
 After building the container, you can follow the steps from the documentation to test the container on the VPU:
-- [Save the container](docker:#save-a-container): ```$ docker save cuda-samples > cuda-samples.tar```
-- [Transfer the container](deployVPU:#SCP): ```$ scp cuda-samples.tar oem@192.168.0.69:/home/oem```
-- [Load the container](docker:#Load-and-start-a-container): ```$ docker load < cuda-samples.tar```
+- [Save the container](./docker.md#save-a-container)): ```$ docker save cuda-samples > cuda-samples.tar```
+- [Transfer the container](./deployVPU#scp): ```$ scp cuda-samples.tar oem@192.168.0.69:/home/oem```
+- [Load the container](./docker#load-and-start-a-container): ```$ docker load < cuda-samples.tar```
 
 ### Start the container with the NVIDIA runtime
 
-To use CUDA and the GPU, you have to specify the NVIDIA runtime, either with the `docker run` command, or within the `docker-compose.yml` (see [autostart](autostart:Autostart-a-container-on-the-VPU)).
+To use CUDA and the GPU, you have to specify the NVIDIA runtime, either with the `docker run` command, or within the `docker-compose.yml` (see [autostart](./autostart.md#autostart-a-container-on-the-vpu)).
 
 #### Using `docker run`
 Use the `--runtime nvidia` argument when running your container. The output of the running container should look similar to this:

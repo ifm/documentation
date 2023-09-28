@@ -48,5 +48,4 @@ Device verification <DeviceVerification/index_device_verification>
 ifmVisionAssistant <iVA/index_ifmODS_iVA>
 Python <Python/index_ifmODS_python>
 C++ <Cpp/index_ifmODS_cpp>
-FAQ <faq>
 :::

@@ -15,13 +15,13 @@ When updating to a firmware version 1.0.0 or above, starting with a firmware ver
 ## Starting firmware is version>= 1.0.0
 
 ### (Optional) Save the current configuration
-The configuration of the device will be erased when updating from FW 1.0.14 to FW 1.1.x. If you want to reuse the same configuration after updating, make sure you save it locally on your machine before updating. 
+The configuration of the device will be erased when updating from FW 1.0.14 to FW 1.1.30. If you want to reuse the same configuration after updating, make sure you save it locally on your machine before updating.
 You can for example do so using the command line interface:
 ```bash
 ifm3d dump > config_save.json
 ```
 ### Reboot to recovery
-When the starting firmware is version 1.0.0 and above, a reboot to recovery state is necessary to perform an update. 
+When the starting firmware is version 1.0.0 and above, a reboot to recovery state is necessary to perform an update.
 
 :::::{tabs}
 ::::{group-tab} CLI
@@ -39,7 +39,7 @@ auto sw = std::make_shared<ifm3d::SWUpdater>(o3r);
 sw->RebootToRecovery();
 if (sw->WaitForRecovery()) {
     std::cout << "System in recovery mode" << std::endl;
-}  
+}
 ...
 :::
 ::::

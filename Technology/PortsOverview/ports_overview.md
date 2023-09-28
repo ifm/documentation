@@ -39,7 +39,7 @@ For reference, below is the application number to PCIC port correspondence.
    |App 1|51011|
    |App x|5101x|
    
-For more information on instantiating ODS applications, refer to the [ODS getting started documentation](../../../ODS/getting_started.md).
+For more information on instantiating ODS applications, refer to the [ODS getting started documentation](../../ODS/getting_started.md).
 
 ![Reference image for the hardware/application port correspondence to PCIC port](resources/mermaid-graph.png)
 

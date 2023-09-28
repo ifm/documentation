@@ -42,8 +42,8 @@ For implementations of the zones feature, it will be necessary to switch the act
 
 In this case, the `maxHeight`, `zoneConfigID`, and `zoneCoordinates` are all changed in the same call as the `activePorts` call.
 
+Update the app with a new set of active cameras and an updated set of zones:
 ```json title="Change active cameras live"
-# Update the app with a new set of active cameras and an updated set of zones
 {
     "applications": {
         "instances": {

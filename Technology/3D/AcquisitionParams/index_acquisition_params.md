@@ -1,6 +1,6 @@
 # Acquisition parameters
 > Note: The min, max and default values of each parameter are defined in the JSON schema.
-> To print out the schema, you can use the [ifm3d CLI](ifm3d/doc/sphinx/cli_link:ifm3d%20-%20Command%20Line%20Tool):
+> To print out the schema, you can use the [ifm3d CLI](https://api.ifm3d.com/stable/cli_link.html):
 > `ifm3d jsonschema`
 
 ## Framerate
@@ -21,14 +21,14 @@ The proper exposure time for a pixel depends on factors such as the dynamics of 
 As such, it is common that all targets of a scene cannot be properly exposed with a single exposure time.
 To reduce noise and the number of overexposed/underexposed pixels, we use three exposures for each frame. The `standard` modes provides two settable exposure times (`expLong` and `expShort`) plus a third *constant* exposure (set at 30 µs) designed to help detect highly reflective targets in the very near range (~1 m). Note that using a small ratio of exposure times helps reduce noise in transitions regions (where neighboring pixels use different exposure times).
 
-> Note: You can find which exposure time is used for each pixel by analyzing the confidence image as detailed [here](documentation/O3R/ProductsDescription/ImagesDescription/confidenceImage:The%20confidence%20image).
+> Note: You can find which exposure time is used for each pixel by analyzing the confidence image as detailed [here](../ImagesDescription/confidenceImage.md).
 
 ## Delay
 | Variable name | Short description                                                                                        |
 | ------------- | -------------------------------------------------------------------------------------------------------- |
 | `Delay`       | The delay defines the minimum time delay between the framerate loop start and the actual imager trigger. |
 
-The `Delay` parameter is not valid in `IDLE` state of the port and when `Delay` parameter is configured in `IDLE` state then the value is set back to its default(0). Please refer to [this](../triggering.md#synchronization) section for more details.
+The `Delay` parameter is not valid in `IDLE` state of the port and when `Delay` parameter is configured in `IDLE` state then the value is set back to its default(0). Please refer to [this](../triggering.md) section for more details.
 
 ## Software Trigger Group
 
@@ -60,22 +60,22 @@ In this scenario, PORT1 and PORT3 are part of the same synchronization group (gr
 ### Overview
 | Variable name | Short description                                                                                        |
 | ------------- | -------------------------------------------------------------------------------------------------------- |
-| `offset`      | Shifts the start point of the measured range (see [mode](documentation/O3R/Parameters/parameters:modes)) |
+| `offset`      | Shifts the start point of the measured range (see [mode](../modes.md)) |
 
 Coded modulation dictates the base range of the camera (for example 0 to 2 m). Coded modulation also allows this range to be offset or shifted from its start point. In the example of 0 to 2 m base range, an `offset` of 0.5 m would lead to a 0.5 to 2.5 m range. Continuing this example, an `offset` of 1 leads to a 1 to 3m range. The `offset` can be changed frame by frame.
 
 ### Details
 The offset parameter shifts the beginning of the measurement range in space. For instance, when using the 2m mode with an offset of 1m, the O3R will compute distance data for a range between 1 and 3 m from the camera.
 
-Using the offset can allow you to collect distance measurements past the measurement range set by the [mode](documentation/O3R/Parameters/AcquisitionSettings/modes:Modes) while taking advantage of the robust point cloud the O3R provides and the particularities of each mode.
+Using the offset can allow you to collect distance measurements past the measurement range set by the [mode](../modes.md) while taking advantage of the robust point cloud the O3R provides and the particularities of each mode.
 
-The offset can be set at negative values, which brings the end of the measurement range closer to the camera. This can be useful for mitigating MPI artifacts, for instance, or for avoiding artifacts caused by highly reflective objects (see [stray-light artifacts](documentation/O3R/Parameters/Filters/strayLight:Stray%20Light%20Filter)), by removing the cause of the artifact from the FOV.
+The offset can be set at negative values, which brings the end of the measurement range closer to the camera. This can be useful for mitigating MPI artifacts, for instance, or for avoiding artifacts caused by highly reflective objects (see [stray-light artifacts](../ProcessingParams/strayLight.md)), by removing the cause of the artifact from the FOV.
 
 ### Example
 Let's look at the following scene. Three boxes are positioned in front of the camera at about one, two, and three meters away.
 ![RGB view of the offset scene](resources/offset_scene.png)
 
-We are using the 2m [mode](documentation/O3R/Parameters/AcquisitionSettings/modes:Modes), with all the other settings as default. The table below shows the point cloud for multiple values of the offset.
+We are using the 2m [mode](../modes.md), with all the other settings as default. The table below shows the point cloud for multiple values of the offset.
 
 | Offset (meters) | Point Cloud                                                     |
 | --------------- | --------------------------------------------------------------- |

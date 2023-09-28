@@ -1,5 +1,5 @@
-# FIRMWARE 1.1.29 RELEASE NOTES
-The following release note provides an overview of the features of the Firmware **1.1.29** version.
+# FIRMWARE 1.1.30 RELEASE NOTES
+The following release note provides an overview of the features of the Firmware **1.1.30** version.
 Please refer to the ifm O3R's website [ifm3d.com](http://www.ifm3d.com) for further information.
 
 The software update file for the OVP800, OVP801 devices and dependent prototype hardware can be downloaded from [ifm.com](https://www.ifm.com/us/en/product/OVP800?tab=documents).
@@ -13,7 +13,7 @@ Downgrading to firmware versions < 1.0.14 is not possible!
 ## Previous Releases
 Previous firmware release is version 1.0.14.
 
-The update to FW version 1.0.14 is mandatory. A update to 1.1.29 requires a previous update to FW 1.0.14.
+The update to FW version 1.0.14 is mandatory. A update to 1.1.30 requires a previous update to FW 1.0.14.
 
 ## Compatible software versions
 It is required to use this firmware release with the following software package versions.
@@ -30,7 +30,7 @@ This firmware release can be applied to the following ifm video processing platf
 | Article | Description |
 | ------- | ----------- |
 | OVP800 | Series product |
-| OVP801 | Series product including ODS license | 
+| OVP801 | Series product including ODS license |
 | M04239 | Pre-series sample including ODS license |
 
 ## Supported Camera Articles
@@ -72,7 +72,7 @@ This firmware release supports the following ifm camera articles:
 
 * All the settings persistently saved through the `save_init` function will be lost during the firmware update.
   * Settings that remain after a FW update: Network settings for ETH0
-  * Extrinsic parameters must be handled manually 
+  * Extrinsic parameters must be handled manually
 * Connectivity: ports must be connected pairwise with the same head-type: [Port0,Port1]   [Port2,Port3]   [Port4,Port5]
 * Channel values have to be manually selected for each port. Ensure each port is set to a different channel value.
   * Channel value difference of >=2 improves crosstalk mitigation
@@ -101,7 +101,7 @@ This firmware release supports the following ifm camera articles:
   * A software trigger request may be required to be sent more than once
   * No feedback loop for a software trigger request available at the moment
 * Using 5 or more 3D data streams @ 20 Hz:
-  * FW 1.1.29 requires a processing filter parameter update that migrates parts of the filter pipeline to the GPU to enable the usage of simultaneous data streams.
+  * FW 1.1.30 requires a processing filter parameter update that migrates parts of the filter pipeline to the GPU to enable the usage of simultaneous data streams.
   * Migrating parts of the filter pipeline to the GPU may reduce available GPU resources for the OEM user, i.e. OEM user GPU processes may be queued at a later stage.
   * Please get in contact with the robotics support via email at `support.efector.object-ident@ifm.com` for a description on how to enable this feature.
 * When setting the configuration fails, the device does not revert to the configuration before the `Set` command and a partial configuation might be applied. See details in [the configuration documentation](../../../Technology/configuration.md#parameter-configuration-priorities).

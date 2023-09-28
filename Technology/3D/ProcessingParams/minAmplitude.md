@@ -20,7 +20,7 @@ In the table below, the same scene is measured with different amplitude threshol
 |50|![3D point cloud with minimum amplitude=50 values](./resources/amp_50_3D.png)|
 
 In certain cases, such as when black objects are in the field-of-view. Changing the default value from 20 to zero can be beneficial, because then more pixels are counted as valid pixels and the point cloud is more complete.
-Generally speaking, lowering the amplitude leads to more ambient noise and less accuracy in the distance measurement. In this case, we encourage you to test the [filters](documentation/O3R/Parameters/parameters:Settings%20Description) available with the O3R to mitigate the noise from black objects measurements.
+Generally speaking, lowering the amplitude leads to more ambient noise and less accuracy in the distance measurement. In this case, we encourage you to test the [filters](./processing_params.md) available with the O3R to mitigate the noise from black objects measurements.
 
 > Note: black objects in the visible spectrum are not necessarily black in the near infrared range.
 
@@ -29,6 +29,6 @@ Generally speaking, lowering the amplitude leads to more ambient noise and less 
 ## Related topics
 
 The minimum amplitude parameter is related to the maximum distance noise parameter: a low amplitude value with a high distance noise value ensures that more pixels are valid but will allow for a noisier measurement, requiring some filtering, for instance with the temporal filter. See the following:
-- [Distance noise](documentation/O3R/Parameters/Filters/maxDistNoise:Maximum%20Distance%20Noise)
-- [Temporal filter](documentation/O3R/Parameters/Filters/temporalFilter:Temporal%20Filter)
-- [Bilateral filter](documentation/O3R/Parameters/Filters/bilateralFilter:Adaptive%20noise%20bilateral%20filter)
+- [Distance noise](./maxDistNoise.md)
+- [Temporal filter](./temporalFilter.md)
+- [Bilateral filter](./bilateralFilter.md)
