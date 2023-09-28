@@ -1,4 +1,4 @@
-# How to switch cameras
+# How to switch active cameras
 
 :::{note}
 The support for active camera switching within the ODS application was introduced for firmware version 1.1.X., alleviating the need to switch between instances of ODS as implemented in prior firmware.
