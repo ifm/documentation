@@ -71,7 +71,7 @@ A: The camera's default state is in "CONF" and to be able to receive data it has
 
 **Q: I am unable able to receive the data from camera head after connecting to a different VPU**
 
-A: Once a camera head is connected to the VPU with firmware Version>=0.16.23 then it will no longer work on the other VPU with lower firmware version. The backward compatibility is nether supported nor recommended.
+A: Once a camera head is connected to the VPU with firmware version>=0.16.23, it will not work on the other VPU with a lower firmware version. Backward compatibility is neither supported nor recommended.
 
 **Q: Should I expect a delay in the reception of data after re-configuring the device?**
 

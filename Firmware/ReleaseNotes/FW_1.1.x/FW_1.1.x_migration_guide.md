@@ -35,7 +35,7 @@ Updates to the internal handling of ifm processes result in a different CPU reso
 
 ### Camera use only: 6 heads @ 20Hz
 
-In FW versions `0.16.23`, `1.0.14` and `1.1.X` the ifm camera data retrieval and filter as well as additional processes are pinned to the CPUs ARM A57 cores: cores [0,3,4,5].
+In FW versions `0.16.23`, `1.0.14` and `1.1.29` the ifm camera data retrieval and filter as well as additional processes are pinned to the CPUs ARM A57 cores: cores [0,3,4,5].
 Consequently, for the camera data use case (i.e. no ifm application), the user processes shall be pinned to the DENVER cores.
 
 Additional solutions are available where CPU intensive point cloud filtering operations are offloaded to the GPU. This frees up CPU resources.

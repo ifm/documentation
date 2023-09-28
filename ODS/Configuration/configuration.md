@@ -18,7 +18,7 @@
 
 
 :::{warning}
-All connected heads have their own specific configuration. However, all heads referenced by the ODS are also configured by the application itself. **Only `channelValue' and `minObjectHeight' can be changed by the user and for each port separately**. The general configuration of ports (`{"ports":{"port2":...}}`) must not be changed by the user.
+All connected heads have their own specific configuration. However, all heads referenced by the ODS are also configured by the application itself. **Only `channelValue` and `minObjectHeight` can be changed by the user and for each port separately**. The general configuration of ports (`{"ports":{"port2":...}}`) must not be changed by the user.
 :::
 
 ## Channel value

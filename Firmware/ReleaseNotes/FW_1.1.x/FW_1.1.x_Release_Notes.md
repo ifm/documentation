@@ -21,7 +21,7 @@ It is required to use this firmware release with the following software package 
 | -------- | ------- |
 | ifmVisionAssistant | >= 2.6.24 |
 | ifm3d library | >= 1.4.2 |
-| ifm3d-ros ROS(1) wrapper | 1.1.2 (pre-release version) |
+| ifm3d-ros ROS(1) wrapper | 1.1.2 |
 | ifm3d-ros2 ROS2 wrapper | 1.1.2 |
 
 ## Compatible Video Processing Platforms (VPUs)

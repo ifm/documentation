@@ -8,7 +8,7 @@ If nobody tampered with your O3R package, you should have following hardware:
 - FPD cables to connect the heads to the VPU
 
 
-You need a strong enough power source: 2.5A and 24V minimum.
+You need a strong enough power source: 3.5A and 24V minimum.
 
 1) First, connect the heads to the VPU; the only requirement is to connect pairs of same imager types together, for instance as shown below:  
 ![CONNECTION-OVERVIEW](./resources/connection_overview.png "Connections")  

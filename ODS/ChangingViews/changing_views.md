@@ -1,7 +1,7 @@
 # How to switch cameras
 
 :::{note}
-The support for camera switching within the ODS application was introduced for firmware version 1.1.X., alleviating the need to switch between instances of ODS as implemented in prior firmware.
+The support for active camera switching within the ODS application was introduced for firmware version 1.1.X., alleviating the need to switch between instances of ODS as implemented in prior firmware.
 :::
 
 ODS running on the OVP801 or M04239 is currently limited to 3 cameras running simultaneously. This means that many vehicles will need to switch active cameras to move in all directions and still detect obstacles on the floor or above their safety LiDARs. Additionally, selective deactivation of cameras reduces average power requirements of the system.

@@ -12,7 +12,7 @@ A newly unboxed O3R system does not show anything in the monitor area - yet.
 
 ![blank monitor](resources/blank_monitor.png)
 
-To set all heads at once to the "RUN," it is necessary to switch to `Port settings` and use the `Set all ports to RUN state` button.
+To set all heads at once to the "RUN state", it is necessary to switch to `Port settings` and use the `Set all ports to RUN state` button.
 Please keep in mind that this is a Vision Assistant specific helper function, which isn't native to the underlying parameter JSON structure. Its working method is to iterate through every port and set its `state` to `RUN`.
 
 ![set all ports to run](resources/set_all_ports_to_run.gif)
