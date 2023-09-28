@@ -67,7 +67,7 @@ A: Yes. The VPU stores the extrinsic calibration parameters information for the 
 
 **Q: I am unable to receive the data after connecting the camera head?**
 
-A: The camera's default state is in "CONF" and to be able to receive data it has to be changed to "RUN."
+A: In the firmware version < 1.0.14, the camera's default state is in "CONF" and to be able to receive data it has to be changed to "RUN."
 
 **Q: I am unable able to receive the data from camera head after connecting to a different VPU**
 
