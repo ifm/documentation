@@ -8,7 +8,7 @@ The type of "/device/clock/currentTime: changed from integer to string. This can
 - New property /applications/instances/appX/activePorts defines the camera ports currently active that will be used to generate the occupancy grid and zone data. By default, the first two available 3D ports will be selected.
 - /applications/instances/appX/vo/portNumber is now /applications/instances/appX/vo/voPorts.
 - New property /applications/instances/appX/portY/negObst: configure the negative obstacle detection (see [detailed documentation about negative obstacles](../../../ODS/NegativeObstacles/negative_obstacles.md)).
-- New property /applications/instances/appX/maxNumSimultaneousCameras for defining the maximum number of active cameras in /applications/instances/appX/activePorts. The default for this property is 2, if you need to run 3 cameras in parallel you should increase it. This parameter can only be changed in CONF mode. For Firmware 1.1.30, a setting of 3 reduces the bandwidth for algo debug recordings.
+- New property `/applications/instances/appX/maxNumSimultaneousCameras` for defining the maximum number of active cameras in `/applications/instances/appX/activePorts`. The default for this property is 2, if you need to run 3 cameras in parallel you should increase it. This parameter can only be changed in "CONF" mode. For Firmware 1.1.30, a setting of 3 reduces the bandwidth for algo-debug recordings.
 - Review the [updated ODS configuration document](../../../ODS/Configuration/configuration.md) for a list of all the ODS parameters.
 
 ## Changes in persistent configuration handling
@@ -36,10 +36,10 @@ Updates to the internal handling of ifm processes result in a different CPU reso
 ### Camera use only: 6 heads @ 20Hz
 
 In FW versions `0.16.23`, `1.0.14` and `1.1.30` the ifm camera data retrieval and filter as well as additional processes are pinned to the CPUs ARM A57 cores: cores [0,3,4,5].
-Consequently, for the camera data use case (i.e. no ifm application), the user processes shall be pinned to the DENVER cores.
+Consequently, for the camera data use case (that is, no ifm application), the user processes shall be pinned to the DENVER cores.
 
 Additional solutions are available where CPU intensive point cloud filtering operations are offloaded to the GPU. This frees up CPU resources.
-Such offloading of point cloud processing is required if the 6 `O3R222` or `O3R225` head data streams are to be processed at 20 Hz, i.e. full frame rate, without any frames being dropped internally by the software frame.
+Such offloading of point cloud processing is required if the 6 `O3R222` or `O3R225` head data streams are to be processed at 20 Hz, that is, full frame rate, without any frames being dropped internally by the software frame.
 Please contact your local ifm support or support.robotics@ifm.com for detailed instructions for this use case.
 
 ### ODS application use case
