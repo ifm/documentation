@@ -1,11 +1,11 @@
 # Autostart a container on the VPU
 
-Once the container(s) has(ve) been transferred to the VPU, you can set up an autostart service to automatically run the containers as start-up.
+Once the container has been transferred to the VPU, you can set up an autostart service to automatically run the containers as start-up.
 For auto-starting a container, `Docker compose` is used. The VPU already provides a service `.config/systemd/user/oem-dc@.service` which can be used for auto-starting a service: this is what we will use.
 
 ## Docker compose
 
-Generate a sample directory and a `docker-compose.yml` file at following destination: `/usr/share/oem/docker/compose/`. E.g. `/usr/share/oem/docker/compose/jupyter/docker-compose.yml`
+Generate a sample directory and a `docker-compose.yml` file at following destination: `/usr/share/oem/docker/compose/`. for example `/usr/share/oem/docker/compose/jupyter/docker-compose.yml`
 
 This file should contain the information for starting the container you need.
 
@@ -24,7 +24,7 @@ services:
 
 > Note: The Docker version on the VPU expects the docker-compose.yml to be either version 2.2 or 3.3. Fur further information refer to [docker compose](<https://docs.docker.com/compose/gettingstarted/>).
 
-## Start the container(s)
+## Start the container
 
 A `docker-compose.yml` can be started via `docker-compose up` within the `docker-compose.yml` directory.  
 <!-- **TODOOO: add example of `docker compose-up`**   -->
@@ -43,7 +43,7 @@ systemctl --user status oem-dc@jupyter
 
 Another way of seeing all running container is `docker ps`.
 
-## Auto start the container(s) after a reboot of the VPU
+## Auto start the container after a reboot of the VPU
 
 To restart the container automatically, simply `enable` the service:
 
@@ -51,7 +51,7 @@ To restart the container automatically, simply `enable` the service:
 systemctl --user enable oem-dc@jupyter
 ```
 
-See [Start the container](#start-the-containers) on how to start the container with a `docker-compose.yml file`
+See [Start the container](#autostart-a-container-on-the-vpu) on how to start the container with a `docker-compose.yml file`
 
 ## Save data on consistently on the VPU with a container
 **TODO: move this section to a more appropriate chapter**

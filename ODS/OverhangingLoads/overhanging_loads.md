@@ -1,91 +1,92 @@
 # Overhanging loads
 
-This feature introduces the possibility to define a static region in the user coordinate system which will be then excluded from the Obstacle Detection System. A typical use case is a situation where the load intersects with the FOV of at least one of the cameras on the AGV. A reasonable accuracy in the extrinsic calibration is a pre-requirement for this feature.
-
-However, it should be noted that even with a proper customization of the overhanging load, detection performance will be deteriorated due to stray light caused by the load.
+This feature introduces the possibility to define a static region in the user coordinate system which will be then excluded from the obstacle detection. 
 
 :::{note}
-    Feature added in `firmware version >= 1.0.14`
+    Feature added in firmware version 1.0.14.
 :::
 
-## Description
-For load-carrying AGVs a typical scenario exists where the load intersects with the FoV of the camera causing false positives in the occupancy grid.
-These false positives negatively impact the performance of ODS, by reducing its close-range detection capabilities.
+## Use case
+For load-carrying AGVs a typical scenario exists where the load intersects with the FOV of the camera causing false positives in the occupancy grid.
+These false positives negatively impact the performance of ODS, as an obstacle will be constantly reported in place of the load.
 
-To mitigate this effect, the ODS feature `overhanging loads` is introduced to exclude measurement data from a specific geometric region from ODS. Only false positives originating from this geometric region can be reliably excluded by the overhanging load feature.
+To mitigate this effect, the overhanging loads feature was introduced to exclude specific geometric region from the ODS measurements. Only false positives originating from this geometric region can be reliably excluded by the overhanging load feature.
 
-It has to be noted that the `overhanging loads` region should be static over time (w.r.t. to the robot coordinate system (RCS)).
+## Prerequisites
 
-This 3D exclusion region is defined by a 2D convex hull of up to 6 points in the XY plane (occupancy grid plane) in conjunction with the `minLoadHeight` and `maxLoadHeight` parameters for specifying its Z range. A pixel (3D measurement) is excluded if and only if the corresponding pixel ray intersects with the 3D exclusion region.
+A reasonable accuracy in the [extrinsic calibration](../ExtrinsicCalibration/index_extrinsic_calibration.md) is a pre-requirement for this feature.
 
+## Limitations: impact of stray light artifacts
+
+[Stray light](../FieldTest/TOFArtifacts/ods_tof_artifacts.md) designates light that is reflected on bright surfaces and scattered around the optical system, impacting the TOF measurements. Stray light is typically caused by objects in the close range or very bright objects just on the edges of the field of view. While the O3R has a very robust embedded stray light filter that mitigates most of the stray light artifacts, some disturbances can still be seen, and can occur when using overhanging loads. 
+One can think of this as the camera being partially blinded by the light reflecting on the load.
+
+What this means, in terms of ODS measurements, is that "difficult objects," that is low reflectivity, small, or far away objects, will be detected with degraded performances compared to a setup with no overhanging load. This is especially true if the load is relatively close to the camera.
+
+Stay light impacts the whole image, and not exclusively the area where the load is located. To mitigate this, it is recommended to configure the overhanging load shape to be larger than the object itself. 
+Considering how variable the impact of stray light can be depending on where the load is located and on the material of the load itself, no generic recommendations can be given as to the size of the load that should be configured. The user is expected to test their specific setup and adjust accordingly.
+
+## Definition
+
+In the context of ODS, and overhanging load is any object that:
+- is visible in one of the camera's FOV,
+- is static with respect to the robot coordinate system (RCS).
+
+:::{warning}
+The overhanging load feature is designed exclusively to exclude static (w.r.t to the RCS) objects from the ODS calculation. Using it for any other use case might significantly reduce performances.
+:::
+
+The overhanging load is defined as a 3D shape by a 2D convex hull of 3 to 6 points in the XY plane, in conjunction with a minimum and maximum height parameter for specifying its Z range. 
+A pixel is excluded if and only if the corresponding pixel-camera ray intersects with the 3D exclusion region.
 
 ![Zone Configuration](img/overhanging_load_config.png)
 
-
-## What can be considered an overhanging load?
-
-If a load is obstructing the FoV of any of the cameras mounted on the AGV it is considered an overhanging load.
-Please don't use this tool for other purposes that excluding static objects (w.r.t to the RCS). For use cases other that the designed applications this feature can reduce the ODS performance dramatically, and is therefore highly discouraged.
-
-The minimum Load Height parameter: `minLoadHeight` is by default set to 40 cm above the ground.
-It should not be confused with a parameter of an application use case where the user wants to exclude a particular region on the ground from ODS.
-
-Setting `minLoadHeight` to zero will result in the ground pixels getting excluded which in turn results in detecting no usable floor for visual odometry.
-
 ## How to configure
-
-The configuration parameters for the overhanging load feature are placed in the grid section of the ODS JSON. This enables the feature to be configurable per application instance.
-The loads defining geometric region has to be static over time. It can only be configured for a app instance in `CONF` state.
-
-### Shape Definition
-
-The 3d regions are defined by a 2D convex hull of up to 6 points in the XY plane and a minLoadHeight and maxLoadHeight parameter for specifying the z range. Therefore, each 3D region has n+2 boundary plane patches (where n is the number of points of the convex hull outline).  A pixel is invalidated if the corresponding pixel ray intersects with at least one of the boundary plane patches.
-
+The configuration parameters for the overhanging load feature are placed in the grid section of the ODS JSON:
 ```json
-{
-  "applications": {
-    "instances": {
-      "app0": {
-        "class": "ods",
-        "configuration": {
-          "grid": {
-            "overhangingLoads": [{
+{"applications":{
+    "instances":{
+      "app0":{
+        "configuration":{
+          "grid":{
+            "overhangingLoads":[{
               "active": true,
-              "minLoadHeight": 0.4,
-              "maxLoadHeight": 1.0,
+              "maxLoadHeight": 0.4,
+              "minLoadHeight": 1.0,
               "region": [[-1.5, -2.0], [1.5, -2.0], [1.5, 2.0], [-1.5, 2.0]]
-            }]
-          },
-                ....}
-            }
+          }]
+          }
         }
       }
-}
+    }
+  }}
 ```
+The `overhangingLoads` is an array of up to 16 different loads. 
+
+:::{note}
+The user is expected to configure all the necessary loads for the application, and to toggle the `active` parameter to `true` for the loads that are present at runtime. This is a more efficient approach than re-configuring load dimensions at runtime to accommodate a new type of load.
+:::
+
+For each load, consider the following parameters:
+- The feature has to be activated: `{"active": true}`.
+- The `minLoadHeight` parameter defines the lowest Z value of the region. This parameter should not be confused with the `minObjectHeight` (see [here](../Configuration/configuration.md#minimum-object-height)) that defines a minimum object height for the floor segmentation.
+Setting `minLoadHeight` to zero will result in some ground pixels being excluded, which in turn might results in detecting no usable floor for the visual odometry if the load is too large. In the example above, the bottom of the overhanging load is configured at 40 cm.
+- The `maxLoadHeight` defines the maximum Z value of the region. In the example above, the top of the overhanging load is configured at 1 m.
+- The `region` defines the (x, y) coordinates of the 3 to 6 corners of the convex hull that defines the overhanging load.
+
 ### Configuration in ifm Vision Assistant
 
 ![iVA](img/ol_iVA.gif)
 
 ## Example
 
-In the following test setup, an overhanging load, i.e. a flat wooden piece, is obstructing the FoV of the cameras on the AGV.
-If no overhanging load region were defined it will be picked up by ODS as an obstacle. By defining and activating the overhanging load feature, the load is ignored from ODS.
-
-### Comparing with and without overhanging load feature in ODS
+In the following test setup, a flat wooden piece, simulating an overhanging load, is intersecting with the FOV of the cameras on the AGV, resulting in a false positive detection, the load being considered an obstacle.
 
 ![Test Setup](img/test_setup.jpg)
 
-The flat piece of wood mounted above the cameras intersects the cameras' field of view resulting in a false positive when no overhanging load region is defined. After defining and activating the overhanging load region feature, the load is ignored.
+After defining and activating the overhanging load region feature, the load is ignored.
+
 
 | Overhanging load feature: Inactive                           | Overhanging load feature: Active                         |
 | ------------------------------------------------------------ | -------------------------------------------------------- |
 | ![Overhanging-load feature inactivated](img/inactive_ol.png) | ![Overhanging-load feature activated](img/active_ol.png) |
-
-## Impact of stray light artifacts
-
-The robustness of the system against different Time of Flight (ToF) artifacts with an overhanging load feature enabled have to be considered.
-The system does not exclude the ToF measurements (i.e. measurement data) or apply different acquisition settings, but masked-out pixels based on the rays intersecting with the defined cuboid.
-
-Therefore the stray light caused by the load can affect the performance of the ODS even though the exclusion cuboid excludes the whole geometric shape of the load. I.e. the stray light artifacts can be distributed over a larger area than the load itself. Please configure the geometric shape of the overhanging load area larger than the actual load shape, to be robust against stray light artifacts caused by the load.
-
-The result is that even with proper customization of overhanging load parameters, the detection performance of ODS may deteriorate.

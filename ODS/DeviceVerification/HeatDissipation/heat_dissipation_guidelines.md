@@ -1,6 +1,6 @@
 # Heat dissipation guidelines
 :::{admonition} Highlights
-- The bracket connecting the O3R camera to the vehicle chassis should be at least 1200cm² and 2mm thick.
+- The bracket connecting the O3R camera to the vehicle chassis should be at least 120cm²(10cm x 12cm) and 2mm thick.
 - The expected maximum thermal energy output of a VPU under full load is about `15 W`. A typical thermal energy output of the system is between `7.5 W to 15 W`.
 - Each O3R camera head has a thermal energy power output of about `8 W` under full load, that is, at maximum framerate.
 :::
@@ -33,15 +33,15 @@ This power consumption is shared between the VPU and the O3R camera heads:
 
 ## VPU mounting for heat dissipation
 
-The thermal energy output of the VPU and cameras, as described above, needs to dissipated. 
+The thermal energy output of the VPU and cameras, as described above, needs to be dissipated. 
 This includes:
 + A mounting bracket for the VPU device (an additional heat sync is usually not necessary),
 + A combined heat sink and mounting bracket for each O3R camera head
 
 ### VPU heat sink
-The VPU heat sink design can be fairly minimal. As long as the VPU is rigidly connected with enough clamping force, for example screwed down from the bottom side to a heat dissipating material, the energy flow from the housing into the mounting plate combined with the heat dissipation via air convection will be adequate under all load scenarios.
+The VPU heat sink design can be fairly minimal. As long as the VPU is rigidly connected with enough clamping force, for example screwed down from the bottom side to a heat-dissipating material, the energy flow from the housing into the mounting plate combined with the heat dissipation via air convection will be adequate under all load scenarios.
 
-In cases where heat dissipation is insufficient, for example if air gaps exist between the mounting surfaces, the internal temperatures will exceed normal operation conditions and the CPU and GPU will automatically downclock to cool down.
+In cases where heat dissipation is insufficient, for example, if air gaps exist between the mounting surfaces, the internal temperatures will exceed normal operation conditions and the CPU and GPU will automatically downclock to cool down.
 
 ## Camera mounting for heat dissipation
 The results of internal tests and simulations of heat sink designs are presented in this section.
@@ -56,15 +56,15 @@ The results of internal tests and simulations of heat sink designs are presented
 | Heat sink materials tested                            | Aluminum AW 5754 and Steel 1.4301​  |
 | Thermal energy output by the O3R camera head          | 8W                                 |
 
-+ The camera heads are connected to a bracket of different size and material using the mounting threads with screws at the back of the housing.
-+ The camera heads are positioned at different locations on the bracket material to test energy conduction and transfer capabilities of the bracket:
++ The camera heads are connected to a bracket of different sizes and material using the mounting threads with screws at the back of the housing.
++ The camera heads are positioned at different locations on the bracket material to test the energy conduction and transfer capabilities of the bracket:
   + At different maximum temperatures and thermal energy distributions,
   + For different thermal energy conduction inside the mounting bracket material.
 
 #### Outcome of the simulation
-Simulation test results are comparable to real world measurements.
-For comparability the simulation results had to be increased by +5 °C for the maximum internal temperature:
-+ Real world testing: maximum internal camera head temperature: 80 °C
+Simulation test results are comparable to real-world measurements.
+For comparability, the simulation results had to be increased by +5 °C for the maximum internal temperature:
++ Real-world testing: maximum internal camera head temperature: 80 °C
 + Simulation testing: maximum internal camera head temperature: 85 °C
 
 ### Example brackets
@@ -90,16 +90,16 @@ This simulation shows that if the surface area of the common mounting bracket is
 
 ### Simulation and testing results
 
-The simulation results show that per O3R camera head a heat dissipating aluminum bracket area of 1200 cm² is required to allow for enough energy transfer via heat convection.
+The simulation results show that per O3R camera head a heat dissipating aluminum bracket area of 120 cm²(10 cm X 12 cm) is required to allow for enough energy transfer via heat convection.
 Bracket material thickness can be neglected. Aluminum brackets with a thickness of 1 mm - 2 mm are sufficient to transfer the thermal energy over the required heat sink area.
 
 The ambient temperature for all tests was assumed to be 40 °C as stated in the manual.
 
 Thermal energy distribution inside the mounting bracket only has a minor impact on the heat transfer as long as "good" energy distribution from inside the camera head to the complete surface of the bracket can be assumed.
-Aluminum material is preferable as is has a lower heat conduction resistance.
+Aluminum material is preferable as it has a lower heat conduction resistance.
 
 ## Additional resources: theory of heat sink design
-When designing a an appropriate heat sink for a O3R hardware please consider the following points:
+When designing an appropriate heat sink for an O3R hardware please consider the following points:
 
 + Thermal barriers / thermal resistance
 + Thermal capacity
@@ -145,8 +145,8 @@ where `Q` is the rate of heat transfer, `h` is the convective heat transfer coef
 The convective heat transfer coefficient for air convection, `h`, depends on several factors, including the properties of the air, the velocity of the air, the shape and orientation of the object, and the temperature difference between the object and the air. The convective heat transfer coefficient can be calculated using empirical correlations or experimental data.
 
 Two cases are distinguished:
-+ natural convection (i.e., where air motion is driven solely by temperature differences)
-+ forced convection (i.e., where air motion is generated by a fan or other mechanical means)
++ natural convection (that is, where air motion is driven solely by temperature differences)
++ forced convection (that is, where air motion is generated by a fan or other mechanical means)
 
 ### Thermal energy dissipation via heat conduction and thermal energy capacity
 
@@ -170,11 +170,11 @@ where:
 `A` is the surface area of the object, and
 `T` is the absolute temperature in Kelvin.
 
-The law can still be used for not perfect blackbodies by introducing an emissivity factor, which takes into account how well the object absorbs and emits radiation relative to a perfect blackbody. The formula becomes:
+The law can still be used for non-perfect blackbodies by introducing an emissivity factor, which takes into account how well the object absorbs and emits radiation relative to a perfect blackbody. The formula becomes:
 
 `P = ε * σ * A * T^4`
 
 where:
 `ε` is the emissivity factor, which ranges from 0 to 1.
 
-As can be seen from the formulas above the energy dissipation via conduction is proportional to the fourth power of its absolute temperature. For this reason is can be disregarded.
+As can be seen from the formulas above the energy dissipation via conduction is proportional to the fourth power of its absolute temperature. For this reason it can be disregarded.

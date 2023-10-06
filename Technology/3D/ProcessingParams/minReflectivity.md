@@ -3,7 +3,7 @@
 ## Description
 
 Reflectivity in a near infrared (NIR) spectrum is a characteristic of the material of the object reflecting the light. It depends on its surface material, and the geometric configuration of the scene.
-The minimum reflectivity (`minReflectivity`) filter invalidates pixels with low amounts of received light (i.e., pixels on objects with a reflectivity below the minimum threshold).
+The minimum reflectivity (`minReflectivity`) filter invalidates pixels with low amounts of received light (that is, pixels on objects with a reflectivity below the minimum threshold).
 The reflectivity is computed from the distance and amplitude images.
 It can be used to discard unwanted pixels in scenes where an object’s reflectivity is known in advance. 
 It can also be used to identify highly reflective objects in a scene; a threshold of 200 would invalidate everything but the retro-reflectors.
@@ -26,5 +26,5 @@ In the table below, we show the computed distance image for the default settings
 > Note: In the first image, some pixels are missing from the side of the object. This area of the object does not reflect enough light, even when a low reflectivity threshold is allowed.
 
 ## Related topics
-- [Minimum amplitude](documentation/O3R/Parameters/Filters/minAmplitude:Minimum%20Amplitude)
-- [Available images](documentation/O3R/ProductsDescription/ImagesDescription/imagesDescription:Description%20of%20the%20available%20images)
+- [Minimum amplitude](./minAmplitude.md)
+- [Available images](../ImagesDescription/index_images_description.md)

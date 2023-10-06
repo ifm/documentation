@@ -5,7 +5,7 @@ The O3R-ODS performance for an AGV depends upon various factors. This whitepaper
 ## ODS Performance analysis
 
 ### How to read the data
-Please refer to the [iVA ODS recording documentation](../../../iVA/iVA_ODS_recording.md) to find out more details on how to record and import our open source hdf5 data files.
+Please refer to the [iVA ODS recording documentation](../../Recording/ods_data_recording.md#ifmvisionassistant) to find out more details on how to record and import our open source hdf5 data files.
 
 -----
 
@@ -19,7 +19,7 @@ The following code snippet analyzes the True Positive Test case i.e the maximum 
 
 **Test Scenario:**
 
-- Place an object of interest at a distance of 5 m - 7 m from the robot: i.e. enough free space wo an object in front of the camera
+- Place an object of interest at a distance of 5 m - 7 m from the robot: that is enough free space wo an object in front of the camera
 - Launch the ODS application instance via ifm Vision Assistant (iVA)
 - and start recording
 - Driving the robot towards the object at the desired speed: testing multiple speeds, especially for smaller objects close to the floor might be beneficial for understanding the ODS performance limits.
@@ -42,7 +42,7 @@ Below you can find an exemplary output of data as streamed and displayed using t
 
 **Question:**
 
-In the recorded data, at which frame does ODS detect the obstacle. Provide the distance from user coordinate-system origin (i.e. robot location) to the object.
+In the recorded data, at which frame does ODS detect the obstacle. Provide the distance from user coordinate-system origin (that is robot location) to the object.
 Please find the script to reproduce the following images from the recorded data.
 
 ```python title="Plot a distance map representation of the occupancy grid"
@@ -106,16 +106,16 @@ plt.title('Distance Map of Recorded Data')
 
 
 ### False positive evaluation
-![Distance_Map_Output](img/distance_map.png)
+![Distance map output](img/distance_map.png)
 
 Above the distance map representation of the recorded ODS data is show.
 
-This distance map is a representation of closest non zero distance per occupancy grid row (i.e. movement direction) over time. This representation takes a bit of time to get used to but gives a compact representation of object distance as color information over time per geometric Y-location.
+This distance map is a representation of closest non zero distance per occupancy grid row (that is movement direction) over time. This representation takes a bit of time to get used to but gives a compact representation of object distance as color information over time per geometric Y-location.
 
-If high color differences (e.g. "color contrasts") appear, this is equivalent to quick change of object distance at that location. Non-continuous color changes indicate that the detected object distance changes quickly over frame counter, i.e:
+If high color differences (for example "color contrasts") appear, this is equivalent to quick change of object distance at that location. Non-continuous color changes indicate that the detected object distance changes quickly over frame counter, i.e:
 - the object detection was "just picked up on"
-- the object detection was lost, e.g. the object left the field of view
-- the object might not be a true positive, but a false positive, e.g. a point cloud or occupancy grid artifact
+- the object detection was lost, for example the object left the field of view
+- the object might not be a true positive, but a false positive, for example a point cloud or occupancy grid artifact
 
 
 **Example evaluation of this distance map and occupancy grid**
@@ -149,5 +149,5 @@ for i,frame in enumerate (range_occ_grids):
 
 The following script shows how to track the distance between the User-Coordinate-System and first object detected in ROI.
 
-```{literalinclude} ../../iPython/examples/ods_data_analyze.py
+```{literalinclude} ../../Python/examples/ods_data_analyze.py
 ```

@@ -18,7 +18,7 @@ Stray light is a phenomenon that exists in any optical system where light reflec
 
 ## The stray light phenomenon
 
-Stray light designates any unwanted light reaching the optical lens of the camera. This light can be reflected light from an object within the field of view or emitted by an object outside the FoV. Stray light exists in any non-perfect optical systems, where an excessive amount of light is reflected on the internal parts of the system (within the lens or other camera components) and eventually reaches a pixel of the imager, interfering with the measurement. 
+Stray light designates any unwanted light reaching the optical lens of the camera. This light can be reflected light from an object within the field of view or emitted by an object outside the FOV. Stray light exists in any non-perfect optical systems, where an excessive amount of light is reflected on the internal parts of the system (within the lens or other camera components) and eventually reaches a pixel of the imager, interfering with the measurement. 
 Common objects found in warehouses and other industrial environments, like reflective cones or safety vests, are sources of stray light interference.
 
 A typical effect of stray light is to cause a halo of pixels around the reflective object, affecting the measurement of low-signal pixels in the area. But stray light can also affect pixels not in the direct vicinity of the reflector, creating ghosts pixels, typically in the close range, which can make the scene hard to analyze. 
@@ -40,7 +40,7 @@ Let's look at the first scene again, but this time with the filter activated. We
 ![Stray light filter activated](resources/filter_cone.png)
 ![Stray light filter activated with box](resources/filter_with_box.png)
 
-The stray light filter makes it possible to reduce mismeasured pixels in the vicinity of the reflector.
+The stray light filter makes it possible to reduce mis-measured pixels in the vicinity of the reflector.
 ### Second case: “Ghost” pixels
 Let's look at a second case of stray light. A reflective cone is placed 1 m in front of the camera. The background is a white wall, at around 2 m. The stray light filter is deactivated.
 ![Stray light filter deactivated, flying pixels appear](resources/no_filter_flying_pixels2-edits.png)
@@ -83,7 +83,7 @@ We can see that a whole side of the box disappears. This is due to the stray lig
 
 #### Adjusting the distance threshold
 
-Let's adjust the distance threshold setting, `excessiveCorrectionThreshDist`. Its default value is 0.08 m, which means that any pixel affected more than around 8 cm will be discarded.  Let's set it to `0.2 m`.
+Let's adjust the distance threshold setting, `excessiveCorrectionThreshDist`. Its default value is 0.08 m, which means that any pixel affected more than around 8 cm will be discarded. Let's set it to `0.2 m`.
 ![We can get the box back](resources/box_back_0.2.png)
 
 We can see that we are able to recover most of the pixels from the side of the box. However, the distance measured for the same pixel is now 1.590 m, when our reference measurement is 1.527 m. The side of the box is measured 6.3 cm off its actual position. This is acceptable because the robot will be able to drive along the reflector and still detect the presence of an obstacle.

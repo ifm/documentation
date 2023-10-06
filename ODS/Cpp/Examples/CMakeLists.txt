@@ -9,49 +9,60 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED true)
 
 #find ifm3d on the system
-find_package(ifm3d 1.2.6 CONFIG
-  REQUIRED COMPONENTS device framegrabber deserialize
+find_package(ifm3d 1.4.2 CONFIG
+REQUIRED COMPONENTS device framegrabber deserialize
+)
+
+# Copy the config files used by the executables
+add_custom_target(copyConfigs ALL
+  COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_CURRENT_SOURCE_DIR}/Configs/ ${CMAKE_CURRENT_BINARY_DIR}/../Configs
+  COMMENT "Copying the configs files to the build directory"
   )
 
+add_executable(ods_config ods_config.cpp)
 #Optional json validator package:
 find_package(nlohmann_json_schema_validator)
-if (NlohmannJsonSchemaValidator_FOUND)
-  set(ENV{NlohmannJsonSchemaValidator_FOUND} TRUE)
-else()
-  set(ENV{NlohmannJsonSchemaValidator_FOUND} FALSE)
+message(Schema found: ${nlohmann_json_schema_validator_FOUND})
+
+add_library(ods_config_lib ods_config.h)
+set_target_properties(ods_config_lib PROPERTIES LINKER_LANGUAGE CXX)
+if (nlohmann_json_schema_validator_FOUND)
+  target_compile_definitions(ods_config_lib PUBLIC "USE_JSONSCHEMA")
+  target_link_libraries(ods_config_lib
+    nlohmann_json_schema_validator 
+  )
 endif()
-message("Variable is $ENV{NlohmannJsonSchemaValidator_FOUND}")
 
-# Configuration example
-add_executable(ods_config ods_config.cpp)
+target_link_libraries(ods_config_lib
+  ifm3d::device
+)  
 target_link_libraries(ods_config
-                      nlohmann_json_schema_validator
-                      ifm3d::device
-                      )
+  ods_config_lib
+  ifm3d::device
+)  
 
-## Getting data example
 add_executable(ods_get_data ods_get_data.cpp)
 target_link_libraries(ods_get_data
-                      nlohmann_json_schema_validator
+                      ods_config_lib
                       ifm3d::device
                       ifm3d::framegrabber
                       ifm3d::deserialize
-                      )            
-                      
+)
+
 add_executable(diagnostic diagnostic.cpp)
 target_link_libraries(diagnostic
                       ifm3d::device
                       ifm3d::framegrabber
-                      )            
-
-add_executable(ods_demo ods_demo.cpp)
-target_link_libraries(ods_demo
-                      nlohmann_json_schema_validator
-                      ifm3d::device
-                      ifm3d::framegrabber
-                      ) 
+)            
 
 add_executable(bootup_monitor bootup_monitor.cpp)
 target_link_libraries(bootup_monitor
                       ifm3d::device
                       ) 
+
+add_executable(ods_demo ods_demo.cpp)
+target_link_libraries(ods_demo
+                    ods_config_lib
+                    ifm3d::device
+                    ifm3d::framegrabber
+)                   

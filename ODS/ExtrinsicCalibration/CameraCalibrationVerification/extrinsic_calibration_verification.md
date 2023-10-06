@@ -15,19 +15,18 @@ The users sets the 3D extrinsic calibration which is verified in using this proc
 
 The concept behind this verification is to test a measured horizontal floor plane (to be present in the scene) for rotation validity in two angle directions: roll, and pitch angles in 3D space against a reference plane. For this purpose a reference floor plane is calculated based on the user input extrinsic calibration parameters and an a-priori knowledge of the intrinsic camera calibration parameters.
 
-Rotating this reference floor plane with additional rotation matrices of the critical extrinsic calibration angles (in RCS space) provides the distance boundaries per pixel. The critical angles of the extrinsic calibration, i.e. precision required for ODS, determine the distance value boundaries per pixel.
+Rotating this reference floor plane with additional rotation matrices of the critical extrinsic calibration angles (in RCS space) provides the distance boundaries per pixel. The critical angles of the extrinsic calibration, that is precision required for ODS, determine the distance value boundaries per pixel.
 
-For easier handling the problem statement is reduced by one spatial domain, i.e. reduced from a three dimensional problem statement to a two dimensional problem statement, by comparing measured floor plane distances vs. reference floor plane distances.
+For easier handling the problem statement is reduced by one spatial domain, that is reduced from a three dimensional problem statement to a two dimensional problem statement, by comparing measured floor plane distances vs. reference floor plane distances.
 
 This method implicitly tests the extrinsic translation parameter in Z-component. The extrinsic translation parameters in X- and Y-components can not be tested.
 
 
 ### Overview of extrinsic calibration angle parameters and their effect
 
-Extrinsic calibration methods estimate the 6 degree of freedom (Dof) 3D pose of the camera in relation to a fixed point on in the robot coordinate system.
+Extrinsic calibration methods estimate the 6 degree of freedom 3D pose of the camera in relation to a fixed point in the robot coordinate system.
 
 This includes two sets of extrinsic calibration parameters: 3 translation vectors in 3D space, and 3 rotation angles in 3D space.
-For further details see the [whitepaper about extrinsic calibration methods for cameras](todo-insert-link).
 
 The presented method for extrinsic calibration verification validates 2 angle parameters: the roll and pitch angles in 3D space.
 
@@ -108,7 +107,7 @@ def rotMat(r, order=(0, 1, 2)):
 ```
 
 
-The following code block demonstrates the calculation routine for rotated floor distances, i.e. the building block of this verification method.
+The following code block demonstrates the calculation routine for rotated floor distances, that is the building block of this verification method.
 Based on two rotation matrices the distances of the floor pixels are calculated:
 
 + R corresponds to the rotation matrix as determined by the user input extrinsic calibration parameters.
@@ -135,7 +134,7 @@ d_rot = d_rot_flat.reshape(*imager_size)
 
 For easier calculation purpose the unit vectors matrices, which are 2D matrices of the same dimension as the image, have to be flattened.
 A consecutive left side matrix multiplication of combined rotation matrices gives the rotated unit vectors in RCS space.
-The expected floor distance (per pixel) can be calculated via a scalar multiplication of `1/unit__vector_in_Z` and `trans Z`: i.e. `d = (-1 / e_3) * extrinsic3D[2]`
+The expected floor distance (per pixel) can be calculated via a scalar multiplication of `1/unit__vector_in_Z` and `trans Z`: that is `d = (-1 / e_3) * extrinsic3D[2]`
 
 
 The mathematical concept behind this idea is a simple linear equation:
@@ -155,7 +154,7 @@ solving this equation for `d` gives:
 
 Based on the described concepts above reference floor plane can be estimated in RCS space.
 
-Rotating this reference floor plane with additional rotation matrices of the critical extrinsic calibration angles (in RCS space) provides the distance boundaries per pixel: i.e. a distance map per rotation.
+Rotating this reference floor plane with additional rotation matrices of the critical extrinsic calibration angles (in RCS space) provides the distance boundaries per pixel: that is a distance map per rotation.
 
 For all possible angle rotations in roll and pitch angle the distance map has to be compared for smaller and larger distances per pixel. These lower and upper boundaries determine the validity of the actual measured distances as a binary map.
 
@@ -164,7 +163,7 @@ For all possible angle rotations in roll and pitch angle the distance map has to
 Below a couple of application of a extrinsic calibration verification tool are sketched.
 
 ### CAD based extrinsic calibration parameters
-Using the CAD based calculations of the 3D extrinsics pose is a valid option if production and assembly accuracy is sufficient to ensure the demanded extrinsic calibrations accuracies, e.g. 1 deg per rotation angle parameters and 1 cm per translation parameter.
+Using the CAD based calculations of the 3D extrinsic pose is a valid option if production and assembly accuracy is sufficient to ensure the demanded extrinsic calibrations accuracies, for example 1 deg per rotation angle parameters and 1 cm per translation parameter.
 
 A sanity check that the calculated parameters are correct and no mechanical designs have been altered since the calculation of the parameters is highly suggested.
 
@@ -181,9 +180,9 @@ These errors might include:
    + wrong reference points
    + unintended rotations of the sensor relative to the RCS frame
    + wrong distance reference points when manually measuring the checkerboard position in relation to the RCS
-   + alterations in the positioning of the robot wrt to the calibration patter and vice versa
+   + alterations in the positioning of the robot with respect to the calibration patter and vice versa
 
-An additional sanity check based on the native 3D measurements and estimated extrinsic calibration can indicate possible systematic errors. This indication should be used to verify the result of the calibration right after its application and in regular time intervals to find possible alterations of "calibration stations".
+An additional sanity check based on the native 3D measurements and estimated extrinsic calibration can indicate possible systematic errors. This indication should be used to verify the result of the calibration right after its application and in regular time intervals to find possible alterations of "calibration stations."
 
 ### Sanity checks: in production - after modification
 Sanity checks of the extrinsic calibration are highly suggested. They should be done in regular time intervals and after specific events:
@@ -211,11 +210,11 @@ The plot shows the measured distances of the floor in yellow vs the expected flo
 
 The green dots mark the upper and lower boundaries for an acceptable calibration result with difference in angles (roll and pitch = [+1 deg, -1 deg]) as their respective distance measurements.
 
-As can be seen in this plot most yellow points, i.e. actual distance measurements, are outside the acceptable distance range - green points. This means the calibration result is not valid.
+As can be seen in this plot most yellow points, that is actual distance measurements, are outside the acceptable distance range - green points. This means the calibration result is not valid.
 
 ![Floor distance plot as measured by the camera](img/img_valid_floor_-1_1/floor_distance_plot_orig.png)
 
-Based on the maximum allowed rotation inaccuracies a distance map can be built: i.e. lower and upper distance thresholds per imager matrix pixel.
+Based on the maximum allowed rotation inaccuracies a distance map can be built: that is lower and upper distance thresholds per imager matrix pixel.
 
 ![Distance image based on angle rotations](img/img_valid_floor_-1_1/distance_image_based_on_max_rot.png)
 

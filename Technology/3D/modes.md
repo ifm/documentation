@@ -5,10 +5,9 @@
 |--|--|--|
 |`mode` (for the 3D imager) |This parameter designates the measurement range: 2 or 4 meters.|standard_range2m, standard_range4m, cyclic_4m_2m_4m_2m|
 
-Learn more [about the standard modes for the 3D imager](documentation/O3R/Parameters/AcquisitionSettings/modes:Modes).
 ## Description
 
-The O3R has the specificity to provide several measurement ranges. A distance measurement is computed only for a subspace of the scene. Elements *fully* outside of the range are not taken into account and have no impact on the measurement (for instance by causing artifacts like [stray-light](documentation/O3R/Parameters/Filters/strayLight:Stray%20Light%20Filter) or Multi-Path Interference(*coming soon*)).
+The O3R has the specificity to provide several measurement ranges. A distance measurement is computed only for a subspace of the scene. Elements *fully* outside of the range are not taken into account and have no impact on the measurement (for instance by causing artifacts like [stray-light](./ProcessingParams/strayLight.md) or Multi-Path Interference).
 
 >Note: Objects *very* close to the beginning or end of the measurement range can still have an impact on the measurement.
 
@@ -28,5 +27,5 @@ The table below shows the computed distance measurement in the distance image vi
 
 The third box, which is three meters away from the camera, is outside of the measurement range when using the two-meter mode; however it is visible when using the four-meter mode.
 
-> Note: Using the [offset](documentation/O3R/Parameters/AcquisitionSettings/offset:Offset) parameter in combination with the mode is interesting and allows for a lot of flexibility in using the coded modulation ToF technology. We encourage you to investigate strategies using multiple modes in combination with offsets (see our application note (*coming soon*) on the topic).
+> Note: Using the [offset](./AcquisitionParams/index_acquisition_params.md#offset) parameter in combination with the mode is interesting and allows for a lot of flexibility in using the coded modulation ToF technology. We encourage you to investigate strategies using multiple modes in combination with offsets.
 

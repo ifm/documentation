@@ -1,13 +1,13 @@
 # (Spatial) Median Filter
 
 ## Abstract
-The O3R software supports two spatial filters for improving the distance measurements: the median filter and the [bilateral filter](documentation/O3R/Parameters/Filters/bilateralFilter:Adaptive%20noise%20bilateral%20filter).   
+The O3R software supports two spatial filters for improving the distance measurements: the median filter and the [bilateral filter](./bilateralFilter.md).   
 **We recommend using the bilateral filter in most cases instead of the median filter because the median filter can have undesirable side effects.**
 
 ## Description
 
 The median filter is conceptually very similar to a [median filter applied to RGB 2D images](https://en.wikipedia.org/wiki/Median_filter). A median filter is a nonlinear, edge-preserving smoothing filter. It can be thought of as a filter that replaces the value per pixel with the median value of neighboring pixels. The computation is achieved by sliding the filter mask in the spatial domain until it covers the whole image. 
-This filtering technique is robust (i.e., not affected by outliers) and reduces noise while keeping edge information intact. 
+This filtering technique is robust (that is, not affected by outliers) and reduces noise while keeping edge information intact. 
 The median filter is applied to the distance image. The distance noise is lowered to heuristically reflect the new noise in the distance image.
 
 
@@ -22,7 +22,7 @@ Using larger filter mask sizes combines more pixels’ distance measurements int
  
 
 ## Example
-Below are images of the same scene with different settings for the median filter. Look more specifically at the distance noise image that shows the amount of noise in the scene—the larger the filter mask size, the lower the noise level. The color red corresponds to negligible noise levels and blue to noise around 1 cm and above. See the [bilateral filter](documentation/O3R/Parameters/Filters/bilateralFilter:Adaptive%20noise%20bilateral%20filter) example for comparison with the same scene.
+Below are images of the same scene with different settings for the median filter. Look more specifically at the distance noise image that shows the amount of noise in the scene—the larger the filter mask size, the lower the noise level. The color red corresponds to negligible noise levels and blue to noise around 1 cm and above. See the [bilateral filter](./bilateralFilter.md) example for comparison with the same scene.
 
 | Filter mask size `medianSizeDiv2`| Point cloud| Distance (top left), amplitude (top right), distance noise (bottom left), and reflectivity (bottom right) images| |
 |--|--|--|--|
@@ -34,7 +34,7 @@ Below are images of the same scene with different settings for the median filter
 ## Bilateral vs. median filtering
 ### Disadvantages of the median filter
 The median filter is not our spatial filter of choice for two reasons: it does not preserve corners of objects as well as the bilateral filter, and it uses a heuristic method for dealing with the distance noise image. Moreover, the median filter can introduce a bias in the distance image (locally) in some cases, an effect that is not present in the bilateral filter.
-We recommend using the [bilateral filter](documentation/O3R/Parameters/Filters/bilateralFilter:Adaptive%20noise%20bilateral%20filter) in most cases.
+We recommend using the [bilateral filter](./bilateralFilter.md) in most cases.
 
 ### Bilateral and median filters combined
 A combination of both spatial filters is rarely required, and we recommend increasing the filter mask size as a first step. However, if the filtering is not strong enough, then one can use both the bilateral and median filters at the same time. This will further reduce local noise levels but can result in bias in larger noise patterns. 
@@ -43,8 +43,8 @@ To give you an idea, the image below shows the effect of combined bilateral (`an
 ![bilateral3_median2](./resources/bilateral3_median2.png "3D point cloud with heavy spatial filtering: median filter mask set to 5x5 pixel neighbourhood, bilateral filter mask set to 7x7 pixel neighbourhood")   
  
 ## Related topics
-+ [Bilateral filter](documentation/O3R/Parameters/Filters/bilateralFilter:Adaptive%20noise%20bilateral%20filter)
-+ [Temporal filter](temporalFdocumentation/O3R/Parameters/Filters/temporalFilter:Temporal%20Filterilter)
++ [Bilateral filter](./bilateralFilter.md)
++ [Temporal filter](./temporalFilter.md)
 
 
 

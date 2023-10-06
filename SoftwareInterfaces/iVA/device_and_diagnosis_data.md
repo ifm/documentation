@@ -29,8 +29,8 @@ The diagnostic data contains several important information like temperature valu
 
 It is possible to filter between active and dormant errors to get a better overview about the actual system status.
 
-It is strongly recommended to monitor the diagnosis information, if the system shows unexpected behavior, e.g. after connecting new hardware or running new an application.
+It is strongly recommended to monitor the diagnosis information, if the system shows unexpected behavior, for example after connecting new hardware or running new an application.
 
 ![diagnostic data](resources/diagnostic_data.gif)
 
-**Tip: When contacting ifm due to possible issues, the list of active error(s) is essential for further debugging.**
+**Tip: When contacting ifm due to possible issues, the list of active errors is essential for further debugging.**

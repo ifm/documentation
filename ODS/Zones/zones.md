@@ -16,7 +16,7 @@ The parameter `maxHeight` is a global parameter for all zones. The 3D extent (ma
 
 ### Zone extent
 
-The 3D zone extent is defined via the 2D (convex) hull of the points in space as defined by the list `zoneCoordinates`. Its volume is handled via the combined `maxHeight` parameter and `minObjectHeight` parameters. If configured, [overhanging loads](OverhangingLoads/overhanging_loads.md) will also be taken into account.
+The 3D zone extent is defined via the 2D (convex) hull of the points in space as defined by the list `zoneCoordinates`. Its volume is handled via the combined `maxHeight` parameter and `minObjectHeight` parameters. If configured, [overhanging loads](../OverhangingLoads/overhanging_loads.md) will also be taken into account.
 
 ### Probability threshold
 
@@ -30,9 +30,9 @@ As of `FW version 1.0.14` an ODS application is limited to a maximum of three zo
 
 | Name         | Type    | Description                                                                  |
 | ------------ | ------- | ---------------------------------------------------------------------------- |
-| timestamp_ns | uint64  | timestamp of occupancy grid in [ns] - ntp time if ntp server is synchronized |
-| zoneConfigID | uint32  | the user-defined ID for the zone configuration                               |
-| zoneOccupied | int8[3] | a flag for each zone describing whether it is occupied or free               |
+| `timestamp_ns` | uint64  | timestamp of occupancy grid in nanoseconds - NTP time if NTP server is synchronized |
+| `zoneConfigID` | uint32  | the user-defined ID for the zone configuration                               |
+| `zoneOccupied` | int8[3] | a flag for each zone describing whether it is occupied or free               |
 
 You can also view the zones' output at the bottom left corner of the `Application` window as shown in the below figure.
 
@@ -40,13 +40,13 @@ You can also view the zones' output at the bottom left corner of the `Applicatio
 
 ### Timestamp
 
-Every ods data package (chunk) also contains a timestamp[ns]. If a `NTP-server` is provided, the timestamp[ns] is synchronized.
+Every ODS data package (chunk) also contains a timestamp[ns]. If a `NTP-server` is provided, the timestamp[ns] is synchronized.
 
-### zoneConfigID
+### `zoneConfigID`
 
 The user-defined ID for the currently used zone configuration.
 
-### zoneOccupied
+### `zoneOccupied`
 
 One zone state information for all zones: this is always an array of 3 elements independently of if 3 or less zones have been configured.
 

@@ -16,9 +16,9 @@ int main()
     // Examples on how to retrieve the diagnostic
     // active and/or dormant.
     ////////////////////////////////////////////////
-
+    // Using ifm3d::json::object() 
     std::clog << "All current diagnostics:\n"
-              << diagnostic.GetDiagnosticFiltered({}) << std::endl;
+              << diagnostic.GetDiagnosticFiltered(ifm3d::json::object()) << std::endl;
 
     std::clog << "Active diagnostics:\n"
               << diagnostic.GetDiagnosticFiltered(ifm3d::json::parse(R"({"state": "active"})"))

@@ -16,15 +16,13 @@
 #include <ifm3d/deserialize/struct_o3r_ods_info_v1.hpp>
 #include <ifm3d/deserialize/struct_o3r_ods_occupancy_grid_v1.hpp>
 
-#include <nlohmann/json-schema.hpp>
-
 int main()
 {
 
     ///////////////////////////////////////////////////
     // Variables needed for the example
     ///////////////////////////////////////////////////
-    std::string config_extrinsic_path = "../Configs/extrinsic_one_head_config.json";
+    std::string config_extrinsic_path = "../Configs/extrinsic_one_head.json";
     std::string config_app_path = "../Configs/ods_one_head_config.json";
 
 
@@ -35,9 +33,11 @@ int main()
     // Reset the configuration so that we configure
     // exactly what this example expects.
     ////////////////////////////////////////////////
+    std::clog << "Resetting the applications" << std::endl;
     o3r->Reset({"/applications"});
 
     try {
+        std::clog << "Trying to get data from app before instantiating" << std::endl;
         ODSStream ods_stream(o3r, "app0", {ifm3d::buffer_id::O3R_ODS_INFO, ifm3d::buffer_id::O3R_ODS_OCCUPANCY_GRID}, 500);
     } catch (...) { // Failing silently to continue with the tutorial.
         std::clog << "ODSStream cannot be configured with inexistent app0.\n"

@@ -1,13 +1,16 @@
+#############################################
+# Copyright 2021-present ifm electronic, gmbh
+# SPDX-License-Identifier: Apache-2.0
+#############################################
+
 # %% Import Libraries
 
+import math
+import logging
+from pathlib import Path, PosixPath
 
 import h5py
 import numpy as np
-import math
-import logging
-
-import pathlib
-from pathlib import Path
 from matplotlib import pyplot as plt
 from scipy.spatial import ConvexHull
 import skimage.measure
@@ -16,11 +19,10 @@ import skimage.filters
 
 
 logger = logging.getLogger(__name__)
+# %%
 
-#%%
 
-
-def get_data_from_h5(filepath: pathlib.PosixPath) -> tuple:
+def get_data_from_h5(filepath: PosixPath) -> tuple:
 
     with h5py.File(filepath, "r") as data:
         streams = list(data["streams"])
@@ -46,7 +48,6 @@ def get_data_from_h5(filepath: pathlib.PosixPath) -> tuple:
 
 
 def get_distance_map_data(data_ods: np.ndarray, roi: list = [85, 115]) -> tuple:
-
     """
     Retrieves the distance map of a recorded iVA dataset
 
@@ -164,7 +165,7 @@ def distance_tracker(data_ods: np.ndarray, frames: list, roi: list = [85, 115]):
     return frame_detected, coordinates
 
 
-#%%
+# %%
 
 
 def main():
@@ -172,8 +173,8 @@ def main():
     logging.getLogger("matplotlib").setLevel(logging.WARNING)
     logging.getLogger("skimage").setLevel(logging.WARNING)
 
-    FILENAME = "demo_test.h5"
-    FILEPATH = Path("/media/desengph/share/dettnas6/Data/O3Rxx/data/20230309_Demo_Data")
+    FILENAME = "8. pallet_jack_105deg.h5"
+    FILEPATH = Path("/path/to/local/file/directory/")
     FP = Path.joinpath(FILEPATH, FILENAME)
 
     (
@@ -249,7 +250,8 @@ def main():
     pos = np.arange(130, 166)
     for n in range(len(pos)):
         plt.subplot(6, 6, n + 1)
-        plt.imshow(data_ods[pos[n]]["image"] > 127, cmap="gray", interpolation="none")
+        plt.imshow(data_ods[pos[n]]["image"] > 127,
+                   cmap="gray", interpolation="none")
         try:
             idx = frame_detected.index(pos[n])
             plt.plot(coordinates[idx][1], coordinates[idx][0], "r+")

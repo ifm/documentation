@@ -3,7 +3,7 @@
 
 Camera calibration tools and tactics can change depending on the needs of the application.
 
-ifm provides [python code samples](Software_Interfaces/Toolbox/ExtrinsicCalibration/StaticCameraCalibration/README) to facilitate calibration using a stationary checkerboard. This process can be used to build calibration cells for end-of-line testing of AMRs/AGVs camera systems.
+ifm provides [Python code samples](../../../SoftwareInterfaces/Toolbox/ExtrinsicCalibration/StaticCameraCalibration/README.md) to facilitate calibration using a stationary checkerboard. This process can be used to build calibration cells for end-of-line testing of AMRs/AGVs camera systems.
 
 When developing an AMR and testing the camera system, the static calibration methodology requires repeated measurements with each repositioning of the vehicle. An alternate tool was built to address the need for field-testing of cameras. This tool is called Motion Camera Calibration (MCC).
 
@@ -15,19 +15,19 @@ The MCC tool allows the roboticist to perform camera calibration by moving the v
 The application will use the images that the camera collects while the vehicle is moving to determine the 3 rotation parameters of the camera's extrinsic calibration.
 
 Prerequisites:
-* An o3r camera system mounted on a vehicle.
+* An O3R camera system mounted on a vehicle.
 * A vehicle which can travel in a straight line in the negative-x direction (backward).
-* A computer connected to the VPU of the o3r camera system.
+* A computer connected to the VPU of the O3R camera system.
 * Measurements of the translations of the camera head (transX, transY, and transZ of the extrinsicHeadToUser properties). This can be measured manually, or derived from CAD. Note that the camera positions are relative to the center of the rear face of the camera head.
 <!-- TODO: ADD link to image -->
 * The Motion Camera Calibration software package. Currently, this is available upon request from support.robotics@ifm.com.
-* A printed calibration checkerboard (checkerboard.pdf in 0.8m x 0.6m) resting on the floor or at a height so that it is in the field of view of the camera being calibrated.
-Please find the checkerboard in pdf format {download}` here <_resources/MotionCameraCalibrationTarget_600X800.pdf>`
+* A printed calibration checkerboard (size 0.8m x 0.6m) resting on the floor or at a height so that it is in the field of view of the camera being calibrated.
+Please find the checkerboard in PDF format {download}` here <_resources/MotionCameraCalibrationTarget_600X800.pdf>`
 
 ### Installation
-We recommend installing the MCC tool to a fresh Python3 venv to minimize the risk of conflicting versions of dependent Python libraries.
+We recommend installing the MCC tool to a fresh Python3 virtual environment to minimize the risk of conflicting versions of dependent Python libraries.
 
-1. Create a new venv:
+1. Create a new virtual environment:
    ```
    python3 -m venv venv
    ```

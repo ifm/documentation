@@ -1,0 +1,1088 @@
+{
+    "applications": {
+        "classes": {
+            "mcc": {
+                "instanceSchema": {
+                    "$schema": "http://json-schema.org/draft-07/schema#",
+                    "additionalProperties": false,
+                    "properties": {
+                        "class": {
+                            "type": "string"
+                        },
+                        "configuration": {},
+                        "data": {},
+                        "name": {
+                            "maxLength": 64,
+                            "type": "string"
+                        },
+                        "ports": {
+                            "allOf": [
+                                {}
+                            ],
+                            "default": [
+                                "port2"
+                            ],
+                            "items": {
+                                "enum": [
+                                    "port2",
+                                    "port3"
+                                ],
+                                "type": "string"
+                            },
+                            "maxItems": 1,
+                            "minItems": 1,
+                            "type": "array",
+                            "uniqueItems": true
+                        },
+                        "state": {
+                            "default": "CONF",
+                            "enum": [
+                                "CONF",
+                                "ERROR",
+                                "RUN"
+                            ],
+                            "type": "string"
+                        }
+                    },
+                    "title": "Application parameter schema",
+                    "type": "object"
+                },
+                "license": "FREE",
+                "minimumFirmwareVersion": {
+                    "major": 1,
+                    "minor": 0,
+                    "patch": 0
+                },
+                "version": {
+                    "major": 1,
+                    "minor": 1,
+                    "patch": 7
+                }
+            },
+            "ods": {
+                "instanceSchema": {
+                    "$schema": "http://json-schema.org/draft-07/schema#",
+                    "additionalProperties": false,
+                    "properties": {
+                        "class": {
+                            "type": "string"
+                        },
+                        "configuration": {},
+                        "data": {},
+                        "name": {
+                            "maxLength": 64,
+                            "type": "string"
+                        },
+                        "ports": {
+                            "allOf": [
+                                {
+                                    "contains": {
+                                        "enum": [
+                                            "port6"
+                                        ]
+                                    }
+                                },
+                                {}
+                            ],
+                            "default": [
+                                "port6",
+                                "port2"
+                            ],
+                            "items": {
+                                "enum": [
+                                    "port2",
+                                    "port3",
+                                    "port6"
+                                ],
+                                "type": "string"
+                            },
+                            "maxItems": 7,
+                            "minItems": 2,
+                            "type": "array",
+                            "uniqueItems": true
+                        },
+                        "state": {
+                            "default": "CONF",
+                            "enum": [
+                                "CONF",
+                                "ERROR",
+                                "RUN"
+                            ],
+                            "type": "string"
+                        }
+                    },
+                    "title": "Application parameter schema",
+                    "type": "object"
+                },
+                "license": "LICENSED",
+                "minimumFirmwareVersion": {
+                    "major": 0,
+                    "minor": 16,
+                    "patch": 3
+                },
+                "version": {
+                    "major": 1,
+                    "minor": 1,
+                    "patch": 7
+                }
+            }
+        },
+        "instances": {
+            "app0": {
+                "class": "ods",
+                "configuration": {
+                    "activePorts": [
+                        "port2"
+                    ],
+                    "emvo": {},
+                    "grid": {
+                        "maxHeight": 2.0,
+                        "overhangingLoads": [],
+                        "temporalConsistencyConstraint": 1.0
+                    },
+                    "maxNumSimultaneousCameras": 1,
+                    "port2": {
+                        "acquisition": {
+                            "channelValue": 0
+                        },
+                        "diParam": {},
+                        "floor": {},
+                        "grid": {},
+                        "negObst": {
+                            "enableNegativeObstacles": false
+                        },
+                        "seg": {
+                            "minObjectHeight": 0.025
+                        }
+                    },
+                    "port6": {
+                        "emParam": {}
+                    },
+                    "version": {
+                        "major": 1,
+                        "minor": 1,
+                        "patch": 7
+                    },
+                    "vo": {
+                        "interestPoints": {},
+                        "validPixels": {},
+                        "voPorts": [
+                            "port2"
+                        ]
+                    },
+                    "zones": {
+                        "zoneConfigID": 0,
+                        "zoneCoordinates": [
+                            [
+                                [
+                                    0.0,
+                                    -1.0
+                                ],
+                                [
+                                    1.0,
+                                    -1.0
+                                ],
+                                [
+                                    1.0,
+                                    1.0
+                                ],
+                                [
+                                    0.0,
+                                    1.0
+                                ]
+                            ],
+                            [
+                                [
+                                    1.0,
+                                    -1.0
+                                ],
+                                [
+                                    2.0,
+                                    -1.0
+                                ],
+                                [
+                                    2.0,
+                                    1.0
+                                ],
+                                [
+                                    1.0,
+                                    1.0
+                                ]
+                            ],
+                            [
+                                [
+                                    2.0,
+                                    -1.0
+                                ],
+                                [
+                                    3.0,
+                                    -1.0
+                                ],
+                                [
+                                    3.0,
+                                    1.0
+                                ],
+                                [
+                                    2.0,
+                                    1.0
+                                ]
+                            ]
+                        ]
+                    }
+                },
+                "data": {
+                    "algoDebugConfiguration": {
+                        "channels": [
+                            {
+                                "id": "odsfusion/ifout",
+                                "type": "normal"
+                            },
+                            {
+                                "id": "odsfusion/profile",
+                                "type": "normal"
+                            },
+                            {
+                                "id": "odsfusion/dbg",
+                                "type": "normal"
+                            },
+                            {
+                                "id": "odsfusion/ifcustom",
+                                "type": "normal"
+                            },
+                            {
+                                "id": "odsfusion/diag",
+                                "type": "normal"
+                            },
+                            {
+                                "id": "emvo/profile",
+                                "type": "normal"
+                            },
+                            {
+                                "id": "emvo/dbg",
+                                "type": "normal"
+                            },
+                            {
+                                "id": "emvo/ifout",
+                                "type": "normal"
+                            },
+                            {
+                                "id": "emvo/state",
+                                "type": "normal"
+                            },
+                            {
+                                "id": "emvo/ifcustom",
+                                "type": "normal"
+                            },
+                            {
+                                "id": "ods_app/profiling",
+                                "type": "normal"
+                            },
+                            {
+                                "id": "ods_app/diag",
+                                "type": "normal"
+                            },
+                            {
+                                "id": "ods_app/ifcustom",
+                                "type": "normal"
+                            }
+                        ]
+                    },
+                    "algoDebugFlag": false,
+                    "availablePCICOutput": [
+                        "O3R_ODS_INFO",
+                        "O3R_ODS_OCCUPANCY_GRID",
+                        "O3R_ODS_FLAGS"
+                    ],
+                    "pcicTCPPort": 51010
+                },
+                "name": "app0",
+                "ports": [
+                    "port2",
+                    "port6"
+                ],
+                "state": "RUN"
+            }
+        }
+    },
+    "device": {
+        "clock": {
+            "currentTime": "1693335628674091592",
+            "sntp": {
+                "active": true,
+                "activeServerAddress": "192.168.0.111",
+                "activeServerName": "192.168.0.111",
+                "availableServers": [
+                    "192.168.0.111"
+                ],
+                "systemClockSynchronized": true
+            }
+        },
+        "diagnostic": {
+            "confInitStages": [
+                "device",
+                "ports",
+                "applications"
+            ],
+            "data": {
+                "pcicPort": 50009
+            },
+            "temperatures": [
+                {
+                    "entity": "PLL-therm",
+                    "value": 49.5
+                },
+                {
+                    "entity": "MCPU-therm",
+                    "value": 49.5
+                },
+                {
+                    "entity": "PMIC-Die",
+                    "value": 100.0
+                },
+                {
+                    "entity": "Tboard_tegra",
+                    "value": 44.0
+                },
+                {
+                    "entity": "GPU-therm",
+                    "value": 46.5
+                },
+                {
+                    "entity": "BCPU-therm",
+                    "value": 49.5
+                },
+                {
+                    "entity": "thermal-fan-est",
+                    "value": 48.29999923706055
+                },
+                {
+                    "entity": "Tdiode_tegra",
+                    "value": 46.5
+                },
+                {
+                    "entity": "port2",
+                    "overtemperature": false,
+                    "temperatureLimit": 85,
+                    "valid": true,
+                    "value": 73
+                },
+                {
+                    "entity": "port3",
+                    "overtemperature": false,
+                    "temperatureLimit": 85,
+                    "valid": true,
+                    "value": 54
+                }
+            ],
+            "upTime": 161000000000
+        },
+        "docker": {
+            "insecure-registries": []
+        },
+        "info": {
+            "description": "",
+            "device": "0302",
+            "features": {},
+            "guiSettings": "",
+            "name": "",
+            "partNumber": "M04239",
+            "productionState": "AA",
+            "serialNumber": "000018988497",
+            "vendor": "0001"
+        },
+        "log": {
+            "level": "warn",
+            "storage": "volatile"
+        },
+        "network": {
+            "authorized_keys": "",
+            "interfaces": {
+                "eth0": {
+                    "ipv4": {
+                        "address": "192.168.0.69",
+                        "dns": "0.0.0.0",
+                        "gateway": "192.168.0.201",
+                        "mask": 24
+                    },
+                    "mac": "00:04:4B:EA:A8:0F",
+                    "networkSpeed": 1000,
+                    "useDHCP": false
+                },
+                "eth1": {
+                    "mac": "00:02:01:43:45:49",
+                    "networkSpeed": 10,
+                    "useDHCP": true
+                }
+            }
+        },
+        "status": "OPERATE",
+        "swVersion": {
+            "euphrates": "1.32.20",
+            "firmware": "1.1.18-1657",
+            "kernel": "4.9.140-l4t-r32.4+g8c7b68130d9a",
+            "l4t": "r32.4.3",
+            "schema": "v1.5.4",
+            "tcu": "1.1.0"
+        }
+    },
+    "ports": {
+        "port0": {
+            "acquisition": {
+                "delay": 0,
+                "framerate": 10.0,
+                "version": {
+                    "major": 0,
+                    "minor": 0,
+                    "patch": 0
+                }
+            },
+            "data": {
+                "algoDebugConfig": {
+                    "channels": [
+                        {
+                            "id": "ov9782/calib",
+                            "type": "once"
+                        },
+                        {
+                            "id": "ov9782/dbg",
+                            "type": "normal"
+                        },
+                        {
+                            "id": "ov9782/frameInfo",
+                            "type": "normal"
+                        },
+                        {
+                            "id": "ov9782/ifcustom",
+                            "type": "normal"
+                        },
+                        {
+                            "id": "ov9782/ifout",
+                            "type": "normal"
+                        },
+                        {
+                            "id": "ov9782/profile",
+                            "type": "normal"
+                        }
+                    ],
+                    "version": {
+                        "major": 1,
+                        "minor": 1,
+                        "patch": 7
+                    }
+                },
+                "availablePCICOutput": [
+                    "JPEG_IMAGE",
+                    "RGB_INFO"
+                ],
+                "pcicTCPPort": 50010
+            },
+            "info": {
+                "calibration": {
+                    "version": {
+                        "major": 0,
+                        "minor": 1,
+                        "patch": 1
+                    }
+                },
+                "device": "2301",
+                "deviceTreeBinaryBlobOverlay": "001-ov9782.dtbo",
+                "features": {
+                    "fov": {
+                        "horizontal": 127,
+                        "vertical": 80
+                    },
+                    "resolution": {
+                        "height": 800,
+                        "width": 1280
+                    },
+                    "type": "2D"
+                },
+                "icc": {
+                    "version": {
+                        "major": 0,
+                        "minor": 0,
+                        "patch": 0
+                    }
+                },
+                "partNumber": "O3R225",
+                "productionState": "AB",
+                "sensor": "OV9782",
+                "sensorID": "OV9782_127x80_noIllu_Csample",
+                "serialNumber": "000020522359",
+                "vendor": "0001",
+                "version": {
+                    "major": 11,
+                    "minor": 1,
+                    "patch": 0
+                }
+            },
+            "mode": "standard_autoexposure2D",
+            "processing": {
+                "extrinsicHeadToUser": {
+                    "rotX": 0.0,
+                    "rotY": 0.0,
+                    "rotZ": 0.0,
+                    "transX": 0.0,
+                    "transY": 0.0,
+                    "transZ": 0.0
+                },
+                "version": {
+                    "major": 1,
+                    "minor": 1,
+                    "patch": 7
+                }
+            },
+            "state": "RUN"
+        },
+        "port1": {
+            "acquisition": {
+                "delay": 0,
+                "framerate": 10.0,
+                "version": {
+                    "major": 0,
+                    "minor": 0,
+                    "patch": 0
+                }
+            },
+            "data": {
+                "algoDebugConfig": {
+                    "channels": [
+                        {
+                            "id": "ov9782/calib",
+                            "type": "once"
+                        },
+                        {
+                            "id": "ov9782/dbg",
+                            "type": "normal"
+                        },
+                        {
+                            "id": "ov9782/frameInfo",
+                            "type": "normal"
+                        },
+                        {
+                            "id": "ov9782/ifcustom",
+                            "type": "normal"
+                        },
+                        {
+                            "id": "ov9782/ifout",
+                            "type": "normal"
+                        },
+                        {
+                            "id": "ov9782/profile",
+                            "type": "normal"
+                        }
+                    ],
+                    "version": {
+                        "major": 1,
+                        "minor": 1,
+                        "patch": 7
+                    }
+                },
+                "availablePCICOutput": [
+                    "JPEG_IMAGE",
+                    "RGB_INFO"
+                ],
+                "pcicTCPPort": 50011
+            },
+            "info": {
+                "calibration": {
+                    "version": {
+                        "major": 0,
+                        "minor": 1,
+                        "patch": 1
+                    }
+                },
+                "device": "2301",
+                "deviceTreeBinaryBlobOverlay": "001-ov9782.dtbo",
+                "features": {
+                    "fov": {
+                        "horizontal": 127,
+                        "vertical": 80
+                    },
+                    "resolution": {
+                        "height": 800,
+                        "width": 1280
+                    },
+                    "type": "2D"
+                },
+                "icc": {
+                    "version": {
+                        "major": 0,
+                        "minor": 0,
+                        "patch": 0
+                    }
+                },
+                "partNumber": "O3R222",
+                "productionState": "AB",
+                "sensor": "OV9782",
+                "sensorID": "OV9782_127x80_noIllu_Csample",
+                "serialNumber": "000019077126",
+                "vendor": "0001",
+                "version": {
+                    "major": 11,
+                    "minor": 1,
+                    "patch": 0
+                }
+            },
+            "mode": "standard_autoexposure2D",
+            "processing": {
+                "extrinsicHeadToUser": {
+                    "rotX": 0.0,
+                    "rotY": 0.0,
+                    "rotZ": 0.0,
+                    "transX": 0.0,
+                    "transY": 0.0,
+                    "transZ": 0.0
+                },
+                "version": {
+                    "major": 1,
+                    "minor": 1,
+                    "patch": 7
+                }
+            },
+            "state": "RUN"
+        },
+        "port2": {
+            "acquisition": {
+                "channelSelection": "manual",
+                "channelValue": 0,
+                "delay": 0,
+                "exposureLong": 5000,
+                "exposureShort": 400,
+                "framerate": 20.0,
+                "offset1": 0.0,
+                "offset2": 0.0,
+                "offset3": 0.0,
+                "offset4": 1.0,
+                "swTriggerGroup": 0,
+                "version": {
+                    "major": 0,
+                    "minor": 0,
+                    "patch": 0
+                }
+            },
+            "data": {
+                "algoDebugConfig": {
+                    "channels": [
+                        {
+                            "id": "irs2381/calib",
+                            "type": "once"
+                        },
+                        {
+                            "id": ":regexp:irs2381/raw/.*",
+                            "type": "normal"
+                        },
+                        {
+                            "id": "irs2381/dbg",
+                            "type": "normal"
+                        },
+                        {
+                            "id": "irs2381/ifcustom",
+                            "type": "normal"
+                        },
+                        {
+                            "id": "irs2381/ifout_compr",
+                            "type": "normal"
+                        },
+                        {
+                            "id": "irs2381/profile",
+                            "type": "normal"
+                        }
+                    ],
+                    "version": {
+                        "major": 1,
+                        "minor": 1,
+                        "patch": 7
+                    }
+                },
+                "availablePCICOutput": [
+                    "TOF_INFO",
+                    "RADIAL_DISTANCE_NOISE",
+                    "RADIAL_DISTANCE_COMPRESSED",
+                    "REFLECTIVITY",
+                    "AMPLITUDE_COMPRESSED",
+                    "CONFIDENCE"
+                ],
+                "pcicTCPPort": 50012
+            },
+            "info": {
+                "calibration": {
+                    "version": {
+                        "major": 0,
+                        "minor": 5,
+                        "patch": 2
+                    }
+                },
+                "device": "3101",
+                "deviceTreeBinaryBlobOverlay": "001-irs2381c.dtbo",
+                "features": {
+                    "fov": {
+                        "horizontal": 105,
+                        "vertical": 78
+                    },
+                    "resolution": {
+                        "height": 172,
+                        "width": 224
+                    },
+                    "type": "3D"
+                },
+                "icc": {
+                    "version": {
+                        "major": 1,
+                        "minor": 1,
+                        "patch": 1
+                    }
+                },
+                "partNumber": "O3R225",
+                "productionState": "AB",
+                "sensor": "IRS2381C",
+                "sensorID": "IRS2381C_105x78_4x2W_110x90_C7",
+                "serialNumber": "000020522359",
+                "vendor": "0001",
+                "version": {
+                    "major": 11,
+                    "minor": 1,
+                    "patch": 0
+                }
+            },
+            "mode": "cyclic_4m_2m_4m_2m",
+            "processing": {
+                "diParam": {
+                    "ambientLightThreshold": 2.0,
+                    "anfFilterSizeDiv2": 2,
+                    "dynAmpFactor": 0.01,
+                    "dynAmpFilterSizeDiv2": 32,
+                    "dynAmpGlobalDelay": 10,
+                    "dynAmpGlobalFactor": 0.0007,
+                    "dynamicSymmetryThreshold": 10.0,
+                    "dynamicSymmetryWindowSizeDiv2": 3,
+                    "enableCrosstalkMitigation": true,
+                    "enableFloorMotionCompensation": true,
+                    "enableTemporalFilter": false,
+                    "isolatedPxFilterMaxValid3x3": 3,
+                    "maxDistNoise": 0.0,
+                    "medianOutlierThreshold": 5.0,
+                    "medianSizeDiv2": 1,
+                    "minAmplitude": 20.0,
+                    "minReflectivity": 0.5,
+                    "mixedPixelFilterMode": 0,
+                    "mixedPixelThresholdRad": 0.05,
+                    "useCuda": true,
+                    "visualOdometryMeasurementBlocks": 5
+                },
+                "extrinsicHeadToUser": {
+                    "rotX": -1.57,
+                    "rotY": 1.57,
+                    "rotZ": 0.0,
+                    "transX": 0.0,
+                    "transY": 0.0,
+                    "transZ": 0.6
+                },
+                "version": {
+                    "major": 1,
+                    "minor": 1,
+                    "patch": 7
+                }
+            },
+            "state": "RUN"
+        },
+        "port3": {
+            "acquisition": {
+                "channelSelection": "manual",
+                "channelValue": 0,
+                "delay": 0,
+                "exposureLong": 5000,
+                "exposureShort": 400,
+                "framerate": 10.0,
+                "offset": 0.0,
+                "swTriggerGroup": 0,
+                "version": {
+                    "major": 0,
+                    "minor": 0,
+                    "patch": 0
+                }
+            },
+            "data": {
+                "algoDebugConfig": {
+                    "channels": [
+                        {
+                            "id": "irs2381/calib",
+                            "type": "once"
+                        },
+                        {
+                            "id": "irs2381/dbg",
+                            "type": "normal"
+                        },
+                        {
+                            "id": "irs2381/diag",
+                            "type": "normal"
+                        },
+                        {
+                            "id": "irs2381/ifcustom",
+                            "type": "normal"
+                        },
+                        {
+                            "id": "irs2381/ifout_compr",
+                            "type": "normal"
+                        },
+                        {
+                            "id": "irs2381/profile",
+                            "type": "normal"
+                        },
+                        {
+                            "id": "irs2381/raw/0",
+                            "type": "normal"
+                        },
+                        {
+                            "id": "irs2381/raw/1",
+                            "type": "normal"
+                        },
+                        {
+                            "id": "irs2381/raw/10",
+                            "type": "normal"
+                        },
+                        {
+                            "id": "irs2381/raw/11",
+                            "type": "normal"
+                        },
+                        {
+                            "id": "irs2381/raw/12",
+                            "type": "normal"
+                        },
+                        {
+                            "id": "irs2381/raw/13",
+                            "type": "normal"
+                        },
+                        {
+                            "id": "irs2381/raw/14",
+                            "type": "normal"
+                        },
+                        {
+                            "id": "irs2381/raw/15",
+                            "type": "normal"
+                        },
+                        {
+                            "id": "irs2381/raw/2",
+                            "type": "normal"
+                        },
+                        {
+                            "id": "irs2381/raw/3",
+                            "type": "normal"
+                        },
+                        {
+                            "id": "irs2381/raw/4",
+                            "type": "normal"
+                        },
+                        {
+                            "id": "irs2381/raw/5",
+                            "type": "normal"
+                        },
+                        {
+                            "id": "irs2381/raw/6",
+                            "type": "normal"
+                        },
+                        {
+                            "id": "irs2381/raw/7",
+                            "type": "normal"
+                        },
+                        {
+                            "id": "irs2381/raw/8",
+                            "type": "normal"
+                        },
+                        {
+                            "id": "irs2381/raw/9",
+                            "type": "normal"
+                        },
+                        {
+                            "id": "irs2381/raw/mode",
+                            "type": "normal"
+                        }
+                    ],
+                    "version": {
+                        "major": 1,
+                        "minor": 1,
+                        "patch": 7
+                    }
+                },
+                "availablePCICOutput": [
+                    "TOF_INFO",
+                    "RADIAL_DISTANCE_NOISE",
+                    "RADIAL_DISTANCE_COMPRESSED",
+                    "REFLECTIVITY",
+                    "AMPLITUDE_COMPRESSED",
+                    "CONFIDENCE"
+                ],
+                "pcicTCPPort": 50013
+            },
+            "info": {
+                "calibration": {
+                    "version": {
+                        "major": 0,
+                        "minor": 5,
+                        "patch": 1
+                    }
+                },
+                "device": "3101",
+                "deviceTreeBinaryBlobOverlay": "001-irs2381c.dtbo",
+                "features": {
+                    "fov": {
+                        "horizontal": 60,
+                        "vertical": 45
+                    },
+                    "resolution": {
+                        "height": 172,
+                        "width": 224
+                    },
+                    "type": "3D"
+                },
+                "icc": {
+                    "version": {
+                        "major": 1,
+                        "minor": 1,
+                        "patch": 1
+                    }
+                },
+                "partNumber": "O3R222",
+                "productionState": "AB",
+                "sensor": "IRS2381C",
+                "sensorID": "IRS2381C_60x45_4x2W_60x45_C2",
+                "serialNumber": "000019077126",
+                "vendor": "0001",
+                "version": {
+                    "major": 11,
+                    "minor": 1,
+                    "patch": 0
+                }
+            },
+            "mode": "standard_range4m",
+            "processing": {
+                "diParam": {
+                    "anfFilterSizeDiv2": 2,
+                    "dynamicSymmetryThreshold": 20.0,
+                    "enableTemporalFilter": true,
+                    "maxDistNoise": 0.05,
+                    "medianSizeDiv2": 0,
+                    "minAmplitude": 20.0,
+                    "minReflectivity": 2.0,
+                    "mixedPixelFilterMode": 1,
+                    "mixedPixelThresholdRad": 0.05
+                },
+                "extrinsicHeadToUser": {
+                    "rotX": -1.57,
+                    "rotY": -1.57,
+                    "rotZ": 0.0,
+                    "transX": 0.0,
+                    "transY": 0.0,
+                    "transZ": 0.6
+                },
+                "version": {
+                    "major": 1,
+                    "minor": 1,
+                    "patch": 7
+                }
+            },
+            "state": "RUN"
+        },
+        "port6": {
+            "acquisition": {
+                "pollrate": 20,
+                "version": {
+                    "major": 0,
+                    "minor": 0,
+                    "patch": 0
+                }
+            },
+            "data": {
+                "algoDebugConfig": {
+                    "channels": [
+                        {
+                            "id": "em/ifcalib",
+                            "type": "once"
+                        },
+                        {
+                            "id": "em/register",
+                            "type": "once"
+                        },
+                        {
+                            "id": "em/dbg",
+                            "type": "normal"
+                        },
+                        {
+                            "id": "em/ifcustom",
+                            "type": "normal"
+                        },
+                        {
+                            "id": "em/ifout",
+                            "type": "normal"
+                        },
+                        {
+                            "id": "em/profile",
+                            "type": "normal"
+                        },
+                        {
+                            "id": "em/raw",
+                            "type": "normal"
+                        }
+                    ],
+                    "version": {
+                        "major": 1,
+                        "minor": 1,
+                        "patch": 7
+                    }
+                },
+                "availablePCICOutput": [],
+                "pcicTCPPort": 50016
+            },
+            "info": {
+                "calibration": {
+                    "version": {
+                        "major": 0,
+                        "minor": 1,
+                        "patch": 0
+                    }
+                },
+                "device": "0302",
+                "deviceTreeBinaryBlobOverlay": "IIM42652.dtbo",
+                "features": {
+                    "type": "IMU"
+                },
+                "icc": {
+                    "version": {
+                        "major": 0,
+                        "minor": 0,
+                        "patch": 0
+                    }
+                },
+                "partNumber": "M04239",
+                "productionState": "AA",
+                "sensor": "IIM42652",
+                "sensorID": "IIM42652_C1",
+                "serialNumber": "000018988497",
+                "vendor": "0001",
+                "version": {
+                    "major": 11,
+                    "minor": 2,
+                    "patch": 0
+                }
+            },
+            "mode": "experimental_ods",
+            "processing": {
+                "emParam": {},
+                "extrinsicVPUToUser": {
+                    "rotX": 0.0,
+                    "rotY": 0.0,
+                    "rotZ": 0.0,
+                    "transX": 0.0,
+                    "transY": 0.0,
+                    "transZ": 0.0
+                },
+                "version": {
+                    "major": 1,
+                    "minor": 1,
+                    "patch": 7
+                }
+            },
+            "state": "RUN"
+        }
+    }
+}

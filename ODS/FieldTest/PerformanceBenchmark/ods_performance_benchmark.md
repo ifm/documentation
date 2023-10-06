@@ -7,7 +7,7 @@ The O3R-ODS performance depends upon various factor: this whitepaper gives an in
 The following list of conditions and dependencies gives an overview of considerations which have to be taken into account to achieve optimal ODS performance results:
 
 + Mounting position and mounting height
-+ Type of ifm camera head: different camera FOVs, i.e. focal lengths.
++ Type of ifm camera head: different camera FOVs, that is focal lengths.
 + Floor types and maximum visible range of floor pixels per floor type
 + Movement speed
 + Targeted object size
@@ -21,9 +21,9 @@ There are a list of considerations which have to be taken into account when sele
 **Floor range in relation to mounting height:**
 
 The amount of light reflected back from the floor in a diffuse reflection type depends on the angle of incidence.
-This means for higher mounted cameras, the angle of incidence (on the floor plane) is larger, i.e., more light is reflected to be suitable for a robust distance measurement. If the camera is too close to the ground, reflection artifacts may affect the system and negatively impact measurement ranges.
+This means for higher mounted cameras, the angle of incidence (on the floor plane) is larger, that is, more light is reflected to be suitable for a robust distance measurement. If the camera is too close to the ground, reflection artifacts may affect the system and negatively impact measurement ranges.
 
-In general we recommend mounting the cameras in a range of 250 mm to 700 mm (vertically) from the ground. This is a good compromise between diffuse reflections for typical floors and small radial distances to objects on the floor, i.e. maximization of the detection range.
+In general we recommend mounting the cameras in a range of 250 mm to 700 mm (vertically) from the ground. This is a good compromise between diffuse reflections for typical floors and small radial distances to objects on the floor, that is maximization of the detection range.
 
 The orientation should be adjusted such that at least one camera on the AGV must see the large portion of the floor (see the chapter about visual odometry).
 
@@ -32,14 +32,14 @@ The orientation should be adjusted such that at least one camera on the AGV must
 The benchmark results as provided by ifm are a measurement in difference in X-coordinates.
 It is expected that the main movement direction of the AGV / AMR is in forward X direction, hence the difference in X-coordinates for objects which are roughly aligned with a straight movement direction of the AGV.
 
-In practical application the radial distance between the camera and the the object of interest is mainly dependent on the mounting height (and for wide mounting baseline - the Y-difference).
-For longer radial distances the object reflection signal becomes significantly weaker and it is harder to robustly estimate true objects detections, i.e. the trade-off between better angles of attack (see chapter above) becomes negated by lower signal strength - smaller typical object ranges.
+In practical application the radial distance between the camera and the object of interest is mainly dependent on the mounting height (and for wide mounting baseline - the Y-difference).
+For longer radial distances the object reflection signal becomes significantly weaker and it is harder to robustly estimate true objects detections, that is the trade-off between better angles of attack (see chapter above) becomes negated by lower signal strength - smaller typical object ranges.
 
 The maximum range of ODS is limited to 4 meters in firmware version 1.0.x.
 
 **Dead zones**
 
-Depending on the mounting height and mounting position dead zones, e.g. triangles in space where no data is received, might be more or less pronounced.
+Depending on the mounting height and mounting position dead zones, for example triangles in space where no data is received, might be more or less pronounced.
 Objects in these triangles can not be seen unless a secondary camera monitors it.
 
 Depending on the restart strategy the effective braking distance is determined by the typical object detection range minus the extend of the dead zone in front of the AGV.
@@ -47,19 +47,19 @@ Depending on the restart strategy the effective braking distance is determined b
 
 **Visual odometry:**
 
-The Visual Odometry algorithm is an integral part of the ODS. For a fully working system visual odometry needs to be correctly configured for at least one suitable camera.
+The Visual odometry algorithm is an integral part of the ODS. For a fully working system visual odometry needs to be correctly configured for at least one suitable camera.
 This requires the camera to be mounted is such a way to be able to see the floors surface in front of the AGV / AMR or at one of the sides (angled to the main driving direction) of the machine.
-Typically visual odometry requires a floor range (i.e. floor pixels visible in a specific distance range) of `~ 1 m`. This means a part of the floor covering a distance range of about one meter has to be visible under typical driving conditions for the visual odometry software part to be functional.
+Typically visual odometry requires a floor range (that is floor pixels visible in a specific distance range) of `~ 1 m`. This means a part of the floor covering a distance range of about one meter has to be visible under typical driving conditions for the visual odometry software part to be functional.
 
 Please see the [mounting guide](../../Mounting/mounting.md) for more details on how to mount your cameras.
-This visual odometry camera in interaction with the O3Rs IMU is used to estimate ego motion data, i.e. the movement of the O3R system as part of the machine.
+This visual odometry camera in interaction with the O3Rs IMU is used to estimate ego motion data, that is the movement of the O3R system as part of the machine.
 
 In all ifm internally tested scenario and mounting configurations enough of the floor is visible for a stable ego motion estimation.
 
 ### Type of cameras
 The positioning of the cameras and the number of cameras mounted on the AGV has a great impact on the performance of the ODS system.
 
-As of now, there are two different types of O3R camera heads available in the market which have different Field Of View (FoV).
+As of now, there are two different types of O3R camera heads available in the market which have different Field Of View (FOV).
 
 | Camera Model | Horizontal FOV | Vertical FOV |
 | ------------ | -------------- | ------------ |
@@ -87,9 +87,9 @@ To benefit from the advantages of both cameras, we suggest to complement a O3R22
 
 Depending on the floor type the amount of light reflected back into the camera lens via a diffuse reflection type differs.
 
-The optical properties of a floors surface are similar in the visual spectrum compared to the spectrum of the O3R cameras. If floors appear "reflective" for the human eye, this will most likely mean they are also "reflective" in near infrared, i.e. the cameras working spectrum.
+The optical properties of a floors surface are similar in the visual spectrum compared to the spectrum of the O3R cameras. If floors appear "reflective" for the human eye, this will most likely mean they are also "reflective" in near infrared, that is the cameras working spectrum.
 
-For floors with specular reflective properties the maximum range of pixels on the floor will be a smaller distance. This is turn means that the floors plane estimation is limited by the reduced maximum floor range. This is especially important for small objects placed directly on the floor. Such small objects required a complete floor estimation in their local neighborhood, i.e. the floor to be visible to the same range as the objects itself.
+For floors with specular reflective properties the maximum range of pixels on the floor will be a smaller distance. This is turn means that the floors plane estimation is limited by the reduced maximum floor range. This is especially important for small objects placed directly on the floor. Such small objects required a complete floor estimation in their local neighborhood, that is the floor to be visible to the same range as the objects itself.
 
 For larger objects or elevated small objects this requirement is relaxed. These can be detected further / earlier than the respective local ground plane pixels.
 
@@ -116,7 +116,7 @@ For small surface areas and low reflective surface types and angles the object m
 
 **Obstacle Detection System**
 
-The ODS runs at 20 frames per second i.e the time difference between each ods frame is equal to 1/20 s (second) = 50 ms (millisecond).
+The ODS runs at 20 frames per second i.e the time difference between each ODS frame is equal to 1/20 s (second) = 50 ms (millisecond).
 The typical ODS "latency" is around 2-3 frames. This ensures robustness, via multiple detections in consecutive frames.
 
 
@@ -124,7 +124,7 @@ The typical ODS "latency" is around 2-3 frames. This ensures robustness, via mul
 
 - Network Latency:
     This latency refers to the delay in network communication between the host (VPU) and an additional IPC or PLC. High network load can introduce additional latency to the network. Ensure full Gigabit Ethernet speeds when designing your local AGV network.
-- Communication cycle times: e.g. PLC cycle times
+- Communication cycle times: for example PLC cycle times
     Typically kinematics handling (such as acceleration and braking) is handled in a low level PLC based application. Depending on the cycle time configuration this might introduce additional time delays before "stopping signals" are evaluated.
 
 

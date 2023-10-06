@@ -1,17 +1,19 @@
 # Deploying a container to the VPU
 
-There are several ways for deploying a container. This documentation focuses on the following two:
-
-- Using `scp`
-- Using a local docker registry
+To load a container multiple alternative solutions apply:
+1. Easy: transfer a Docker container image via SSH / SCP
+2. Advanced: load a container from a registry
 
 Every VPU has two users:
 
-- root - ifm user with all rights
-- oem - customer user, this is the only one you have access to.
+- `root` - ifm user with all rights
+- `oem` - customer user, this is the only one you have access to.
 
 The first step to access the VPU is to connect to it via SSH.
-## SSH connection
+## Option 1 - Easy: transfer a Docker container image via SSH / SCP
+This option is mainly for testing purposes, where a Docker container has been built on a laptop for the O3Rs ARM64 architecture and now needs to be transferred directly to the VPU:
+
+This requires a "local connection" between the laptop and the VPU device, that is the laptop must be able to address the VPU's SSH port 22 in its network configuration.
 
 To connect to the VPU via ssh, follow these steps:
 
@@ -21,7 +23,7 @@ To connect to the VPU via ssh, follow these steps:
 
 ### 1. Generate ssh key-pair
 
-All user specific ssh keys are located at `~/.ssh`. This is the place where the private key for the connection to the VPU should be stored. 
+All user specific ssh keys are located at `~/.ssh`. This is the place where the private key for the connection to the VPU should be stored.
 
 To generate an ssh key-pair, use `ssh-keygen`:
 
@@ -64,8 +66,8 @@ $ ifm3d dump | jq --arg id "$(< ~/.ssh/id_o3r.pub)" '.device.network.authorized_
 
 - `ifm3d dump` - This command receives the current configuration from the VPU.
 - `jq --arg id "$(< ~/.ssh/id_o3r.pub)"` - This loads the public key into the variable `id` and provides it to the `jq` command
-- `'.device.network.authorized_keys=$id'` - Here the json value from `authorized_keys` is changed for the public key within the variable `id`
-- `ifm3d config` - The new json is now used to change the configuration of the VPU via `ifm3d config`
+- `'.device.network.authorized_keys=$id'` - Here the JSON value from `authorized_keys` is changed for the public key within the variable `id`
+- `ifm3d config` - The new JSON is now used to change the configuration of the VPU via `ifm3d config`
 
 ### 3. Connect to the VPU using the passphrase
 
@@ -82,9 +84,9 @@ o3r-vpu-c0:~$
 
 There will be a prompt for the passphrase, configured during step 1.
 
-## SCP
+### SCP
 
-The first way to transfer a container to the VPU is to copy a saved container via scp.
+The first way to transfer a container to the VPU is to copy a saved container via `scp`.
 
 ```bash
 path/to/container/folder$ scp ifm3d.tar oem@192.168.0.69:/home/oem/
@@ -96,60 +98,90 @@ The system will ask for a password: `oem`
 
 To verify if the copy process worked, use the command `sync` on the VPU after the copying the container.
 
-> Note: Use ssh to connect to the VPU - see [SSH connection](#ssh-connection)
+> Note: Use ssh to connect to the VPU - see [SSH connection](#option-1---easy-transfer-a-docker-container-image-via-ssh--scp).
 
-> Note: The `oem` user has no write rights outside of his/her home directory. Therefore use `/home/oem/` for saving files etc. It is possible to create folders within the oem directory.
+> Note: The OEM user has no write rights outside of his/her home directory. Therefore use `/home/oem/` for saving files etc. It is possible to create folders within the `oem` directory.
 
 When copying large containers to the VPU, we recommend using the following command in order to avoid requiring double space:
 ```bash
 docker save <image> | ssh -C oem@192.168.0.69 docker load
 ```
-Once you copied the container, you can load and start it (see [instructions](docker.md:#load-and-start-a-container))
+Once you copied the container, you can load and start it (see [instructions](docker.md#load-and-start-a-container)).
 
-## Local docker registry
 
-Due to the fact that proxy servers are sometimes hard to deal with and that disk resources on the VPU is also limited, it might come handy to run a Docker registry in your local network.
+## Option 2. - Advanced: load a container from a Docker registry
+
+We recommend this approach as a deployment strategy:
++ A Docker container deployment during production, or
++ An advanced testing application where Docker images are built through a CI pipeline and deployed directly to test beds,
++ Other advanced applications where strict measures are taken to ensure the identity of the Docker image.
+
+To allow the user to download Docker images from a Docker registry, there are several steps to consider:
+1. Is the VPU setup able to access the Internet - this is necessary if Docker images are to be downloaded directly from the official Dockerhub, GHCR, etc.?
+2. Does the VPU setup need to reach a locally hosted Docker registry only?
+
+Due to the fact that proxy servers can sometimes be difficult to deal with, it may be useful to run a Docker registry on your local network where you have full control over firewalls and proxy setups. We therefore suggest option 2.
+
+
+### VPU configuration to access insecure registries:
+:::{note}
+This feature was added in FW 1.1
+:::
+
+To allow access to insecure registries, the Docker daemon configuration JSON file typically needs to be manually updated.
+In the case of the O3R system, this can be accomplished using the JSON parameter fields in the default configuration JSON:
+
+```json
+{
+  "device":{
+    "docker": {
+      "insecure-registries": []
+    }
+  }
+}
+```
+
+The respective configuration parameters can be found in the JSON schema:
+```json
+"docker": {
+  "additionalProperties": false,
+  "description": "Docker configuration",
+  "attributes": ["persistant"],
+  "properties": {
+    "insecure-registries": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array",
+      "default": [],
+      "maxItems": 3,
+      "uniqueItems": true
+    }
+  },
+  "type": "object"
+}
+```
+
+The insecure registry feature allows the configuration of up to 3 insecure registry URIs. A configuration of a fourth element will replace the first element.
+
+These insecure registry URIs are directly applied to the Docker daemon configuration JSON and are therefore persistent over reboots and power cycles without the need for a explicit `save_init` command call.
+
+To get a better understanding of how to use and configure an insecure registry please see the [official Docker documentation for registries](https://docs.docker.com/registry/).
+
 
 ### Create a local Docker registry
 
-The local Docker registry is created by using the container images provided by Docker itself and host them.
-On the host system (not the VPU) activate a local Docker registry with following commands:
+The local Docker registry is created by using and hosting the container images provided by Docker itself.
+On the host system (not the VPU), enable a local Docker registry with the following commands
 
 ```console
-$ docker pull registry:latest
-# Start the registry and bind the container ports to the host ports
+docker pull registry:latest
+# Run the registry and bind the container ports to the host ports
 $ docker run -d -p 5000:5000 --name registry registry:latest
 ```
-
-> Note: A local registry might seem complicated at first. For further information refer to the [official documentation](<https://docs.docker.com/registry/deploying/>).
-
-### Push a container to your local registry
-
-To push a container to the registry, it is recommended to first tag the image differently. E.g. if the registry is run on the localhost with port 5000, the image tag could be named:
-
-```Docker
-docker tag ifm3d localhost:5000/ifm3d
-```
-
-Use the normal push command for uploading to the local registry:
-
-```Docker
-docker push localhost:5000/ifm3d
-```
-
-### Pull a container from the local registry - host
-
-If a local Docker registry is running, use `docker pull` to pull the image:
-
-```console
-docker pull localhost:5000/ifm3d
-```
-
-### Pull a container from the local registry - VPU
-
-*Coming soon*
-
-### Stop the registry
+:::{note}
+A local registry may seem complicated at first. See the [official documentation](https://docs.docker.com/registry/deploying/) for more information.
+:::
 
 To stop the registry:
 

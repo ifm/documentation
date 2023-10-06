@@ -2,14 +2,14 @@
 
 ## Extrinsic calibration
 
-If no extrinsic calibration is provided, e.g. the extrinsic calibration parameters are set to their default values, the ODS application will not work!
+If no extrinsic calibration is provided, for example the extrinsic calibration parameters are set to their default values, the ODS application will not work!
 This would mean the camera head is inside the floor (`transZ == 0`) and looking towards to ceiling, which is not a valid ODS extrinsic calibration use case.
 
 
 :::{note}
 Always forward all 6 extrinsic calibration values at the same time. You can edit the full configuration in a file and provide this file to the `ifm3d config` command.
 
-```JSON
+```json
 {
     "ports": {
         <port_number>: {
@@ -68,7 +68,7 @@ A VPU (OVP800) can connect up to 6 3D imager, ranging from `Port 0` to `Port 5`.
     The current ODS version do not support more than 3 used heads within an ODS application.
 :::
 
-```JSON
+```json
 "ports": [
             "port2",
             "port3",
@@ -81,11 +81,11 @@ Connected heads, which are not defined within the ODS JSON can be used separatel
 
 ## Visual odometry 
 
-`vo` - Visual Odometry - is an algorithmic approach to provide - together with the IMU - ego motion data to the ODS algorithm. Images from one head are used together with the IMU data to continuously improve the ODS ego-motion estimation. The best performance is achieved by using a head with (the most) floor data visible in its images. The floors distance range needs to be at least between 1.00m and 1.50m.
+`vo` - Visual odometry - is an algorithmic approach to provide - together with the IMU - ego motion data to the ODS algorithm. Images from one head are used together with the IMU data to continuously improve the ODS ego-motion estimation. The best performance is achieved by using a head with (the most) floor data visible in its images. The floors distance range needs to be at least between 1.00m and 1.50m.
 
 Provide the port number (head with floor data in the images) to the `vo` attribute.
 
-```JSON title="Visual odometry - vo"
+```json
 "vo": {
     "portNumber": 2
 }

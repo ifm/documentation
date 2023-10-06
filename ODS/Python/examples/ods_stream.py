@@ -6,9 +6,11 @@
 # data stream and add the received frame to a
 # queue using ifm3dpy.
 #############################################
-
+# %%
 import logging
 from time import perf_counter, sleep
+
+import numpy as np
 from ifm3dpy import O3R, FrameGrabber, buffer_id
 
 from ods_queue import ODSDataQueue
@@ -26,11 +28,11 @@ class ODSStream:
     def __init__(
         self,
         o3r: O3R,
-        app_name: str,
+        app_name: str = "app0",
         stream_zones=True,
         stream_occupancy_grid=True,
         buffer_length=5,
-        timeout=500,  # Timeout in miliseconds #TODO: discuss if we need one timeout per data type
+        timeout=500,
     ) -> None:
         self.ods_data_queue = ODSDataQueue(buffer_length=buffer_length)
 
@@ -66,7 +68,7 @@ class ODSStream:
 
     def get_zones(self) -> list:
         """
-        Retieve deserialized data from the queue.
+        Retrieve deserialized data from the queue.
 
         :raises TimeoutError: if no data is received within specified timeout.
         :return: the zones info
@@ -79,13 +81,14 @@ class ODSStream:
         self.logger.exception(msg)
         raise TimeoutError(msg)
 
-    def get_occupancy_grid(self):
-        """Retieve deserialized data from the queue.
+    def get_occupancy_grid(self) -> np.ndarray:
+        """
+        Retrieve deserialized data from the queue.
         return: the occupancy grid data
         raises: a timeout if no data is received within specified timeout.
         """
-        start = perf_counter() *100
-        while perf_counter()* 100 - start <= self.timeout:
+        start = perf_counter() * 100
+        while perf_counter() * 100 - start <= self.timeout:
             self.logger.debug("Waiting for occupcancy grid data")
             if len(self.ods_data_queue.occupancy_grid_queue):
                 return self.ods_data_queue.occupancy_grid
@@ -108,7 +111,7 @@ def main():
     # This will fail as no ODS application exists on the device.
     try:
         ods_stream = ODSStream(
-            o3r, "app0", stream_zones=True, stream_occupancy_grid=True
+            o3r, "app0", stream_zones=True, stream_occupancy_grid=True, timeout=500
         )
     # Failing silently to continue with the example
     except Exception:
@@ -120,28 +123,33 @@ def main():
     # port 2. Change the config file if
     # needed.
     ###################################
-    from ods_config import ODSConfig
+    from ods_config import load_config_from_file, validate_json
 
-    ods_config = ODSConfig(o3r)
     # Assuming a camera facing forward, label up,
     # 60 cm above the floor.
     # We keep the extrinsic calibration and the ODS configuration
     # separate for clarity. You can keep all configurations
-    # in one file is necessary.
-    ods_config.set_config_from_file("configs/extrinsic_one_head.json")
-    ods_config.set_config_from_file("configs/ods_one_head_config.json")
+    # in one file if necessary.
+    schema = o3r.get_schema()
+    config_snippet = validate_json(
+        schema, load_config_from_file("configs/extrinsic_one_head.json"))
+    o3r.set(config_snippet)
+    config_snippet = validate_json(
+        schema, load_config_from_file("configs/ods_one_head_config.json"))
+    o3r.set(config_snippet)
     # We did not start the application when configuring it,
     # so we need to start it now (change state to "RUN")
-    ods_config.set_config_from_dict(
-        {"applications": {"instances": {"app0": {"state": "RUN"}}}}
-    )
+    config_snippet = (
+        {"applications": {"instances": {"app0": {"state": "RUN"}}}})
+    o3r.set(config_snippet)
 
     ###################################
     # Start streaming ODS data and get
     # zone and occupancy grid output
     # Expect an app in "app0".
     ###################################
-    ods_stream = ODSStream(o3r, "app0", stream_zones=True, stream_occupancy_grid=True)
+    ods_stream = ODSStream(o3r, "app0", stream_zones=True,
+                           stream_occupancy_grid=True)
     ods_stream.start_ods_stream()
 
     zones = ods_stream.get_zones()
@@ -150,10 +158,12 @@ def main():
     ods_stream.logger.info(f"Zones info timestamp: {zones.timestamp_ns}")
 
     occupancy_grid = ods_stream.get_occupancy_grid()
-    ods_stream.logger.info(f"Occupancy grid (first row): {occupancy_grid.image[0]}")
-    ods_stream.logger.info(f"Occupancy grid timestamp: {occupancy_grid.timestamp_ns}")
     ods_stream.logger.info(
-        f"Center of cell to user transformation matric: {occupancy_grid.transform_cell_center_to_user}"
+        f"Occupancy grid (first row): {occupancy_grid.image[0]}")
+    ods_stream.logger.info(
+        f"Occupancy grid timestamp: {occupancy_grid.timestamp_ns}")
+    ods_stream.logger.info(
+        f"Center of cell to user transformation matrix: {occupancy_grid.transform_cell_center_to_user}"
     )
 
     ods_stream.stop_ods_stream()
@@ -162,3 +172,5 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+# %%
