@@ -58,11 +58,39 @@ Before reading this section, make sure to read [how to get started with the iVA]
 3. After creating a new PDS application, change the state of application from `CONF` to `IDLE`.
 4. To choose the port to be used for PDS, user has to pause the application and select the port under `ports` section.
 5. `Configuation`:
-   1. User can set the command to be processed under `customization/command` option.
+   1. User can set the command to be processed under the `customization/command` option.
       1. `nop` --> No Operation.
+      
       2. `getPallet` --> Triggers the algorithm to detect the pallet in the camera's field of view. There are two parameters to configure the `getPallet` command.
-         1. `depthHint`: Approximate distance (distance in meters along the x-axis) that the camera is expected to be away from the pallet.By default it is set to **-1** to use an auto-detection of the distance. Please note that this works best with pallets having full-size load and will most likely fail on empty pallets.
-         2. `palletIndex`: Index of the pallet type. The ifm has developed PDS based on standardized pallets as below. 
-         <!-- 3. TODO -->
-      3. `getRack` --> Triggers the algorithm to detect the industrial rack at given depthHint and
+         1. `depthHint`: Approximate distance (distance in meters along the x-axis) that the camera is expected to be away from the pallet.By default it is set to **-1** to use an auto-detection of the distance. Please note that this works best with pallets having full-size loads and will most likely fail on empty pallets.
+         2. `palletIndex`: Index of the pallet type. The ifm has developed PDS based on standardized pallets (Block/Stringer/EPAL side). 
+         3. `palletOrder`: Set the order of pallets based on their `score`/`height`(height from floor)
+      
+      3. `getRack` --> Triggers the algorithm to detect the industrial rack considering the folowing parameters.
+         1. `clearingVolume`: The bounding box parameters in the camera's FoV where the position of rack is expected.
+         2. `depthHint`: Approximate distance (distance in meters along the x-axis) that the camera is expected to be away from the rack. The default value is `1.8 m`.
+         3. `horizontalDropPosition`: Selection of the horizontal drop setting. The user has to specify the upright to PDS algorithm to detect the pose of a rack. User can input
+            1. `left`: To detect the left upright and output the pose of the rack's bottom left corner.
+            2. `right`: To detect the right upright and output the pose of the rack's bottom right corner.
+            3. `center`: Set this parameter when there is no information about upright is available. The PDS makes the decision based on detection score.
+         4. `verticalDropPosition`: Selection of the vertical drop setting. The user has to specify the drop position to PDS algorithm. User can input
+            1. `interior`: When the user wants to drop the items/pallets over the rack's beam
+            2. `floor`: When the user wants to drop the items/pallets under the rack's beam and on the floor.
+         5. `zHint`: Approximate distance from the coordinate system's center to the rack's beam.
+   
+      4. `getItem` --> Triggers the algorithm to detect the customized item (For example: Dolleys/Trolleys) considering the folowing parameters. This functionality is available only for specific items. Please contact the ifm support team to avail this functionality to your item.
+          1. `depthHint`: Approximate distance (distance in meters along the x-axis) that the camera is expected to be away from the pallet.By default it is set to **-1** to use an auto-detection of the distance. Please note that this works best with pallets having full-size loads and will most likely fail on empty pallets.
+          2. `itemIndex`: Index of the item type.
+          3. `itemOrder`: Set the order of detected items(when multiple items are detected) based on their `score`/`height`(height from floor)
 
+      5. `volCheck` --> Triggers the algorithm to detect the number of valid pixels in a user-defined region of interest.
+         1. `xMax`: Maximum bounding box dimension of VOI along X-Axis.
+         2. `xMin`: Minimum bounding box dimension of VOI along X-Axis.
+         3. `yMax`: Maximum bounding box dimension of VOI along Y-Axis.
+         4. `yMin`: Minimum bounding box dimension of VOI along Y-Axis.
+         5. `zMax`: Maximum bounding box dimension of VOI along Z-Axis.
+         6. `zMin`: Minimum bounding box dimension of VOI along Z-Axis.
+
+Please follow the following GIF to set up the PDS application via ifmVisionAssistant.
+
+![PDS via iVA](resources/pds_app.gif)
