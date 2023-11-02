@@ -1,14 +1,14 @@
 # PDS (Pose Detection System)
 
 
-PDS - `Pose Detection System` - provided by [ifm](https://www.ifm.com), is a software solution building on top of the O3R ecosystem to enable AGVs (Automated Guided Vehicles), fork trucks and other robots to detect the pose of objects within a 3D environment. This solution has profound implications for a multitude of industries, particularly in the fields of logistics, industrial automation.
+PDS - `Pose Detection System` - provided by [ifm](https://www.ifm.com), is a software solution building on top of the O3R ecosystem to enable AGVs (Automated Guided Vehicles), fork trucks and other robots to detect the pose of objects within a 3D environment. This solution has profound implications for a multitude of industries, particularly in the fields of logistics, and industrial automation.
 
 ## PDS Features
 
 PDS uses the O3R camera as its primary data source: at least one 3D camera stream is required.
 
 **Command Flexibility**
-PDS can able to process four different type of commands which are pivotal in logistics, warehouse management and facilitates the optimal material handling.
+PDS can able to process four different types of commands which are pivotal in logistics and warehouse management and facilitate optimal material handling.
 
 | **Command** | **Output**                                                                      |
 | ----------- | ------------------------------------------------------------------------------- |
@@ -37,8 +37,8 @@ A typical procedure would be:
 
 ## Coordinate Systems and Extrinsic Calibration
 
-The standard O3Rxx coordinate system is right handed, with
-* x-axis pointing pointing in the opposite direction from the FAKRA-connector
+The standard O3Rxx coordinate system is right-handed, with
+* x-axis pointing in the opposite direction from the FAKRA connector.
 * y-axis is pointing “up”
 * z-axis pointing away from the camera (depth).
 
@@ -51,15 +51,15 @@ A new feature is introduced in latest ifmVisionassistant (iVA) where the user ca
 
 **Procedure:**
 
-1. Click on `Manual calibration of ports for vehicle algorithms` under `Port settings` window.
+1. Click on `Manual calibration of ports for vehicle algorithms` under the `Port settings` window.
     ```{image} GettingStarted/resources/step_1_iva_man_calibration.png
    :alt: Step 1
    :width: 800px
    :align: center
    ```
 2. Select the port to calibrate
-3. Select the orientation of camera mounted when looking from the front of camera.
-4. Input the translation parameters i.e the translation distances from user/robot coordinate system to the camera
+3. Select the orientation of the camera mounted when looking from the front of the camera.
+4. Input the translation parameters i.e the translation distances from the user/robot coordinate system to the camera
 5. Finally, click on `Rotate like a vehicle front camera` to calibrate.
 
     ```{image} GettingStarted/resources/step_2_to_5_iva_man_calibration.png
@@ -72,45 +72,45 @@ A new feature is introduced in latest ifmVisionassistant (iVA) where the user ca
 
 Before reading this section, make sure to read [how to get started with the iVA](../../GettingStarted/ifmVisionAssistant/index_iVA.md).
 
-1. Extrinsic calibration is pre-requisite stepp before creating a PDS application. Follow the above guide to calibrate the cameras manually.
-2. To create a PDS application instance, click on `Application` window and click on **+** to create a new application.
-3. After creating a new PDS application, change the state of application from `CONF` to `IDLE`.
-4. To choose the port to be used for PDS, user has to pause the application and select the port under `ports` section.
+1. Extrinsic calibration is the pre-requisite step before creating a PDS application. Follow the above guide to calibrate the cameras manually.
+2. To create a PDS application instance, click on the `Application` window and click on **+** to create a new application.
+3. After creating a new PDS application, change the state of the application from `CONF`` to `IDLE`.
+4. To choose the port to be used for PDS, the user has to pause the application and select the port under the `ports` section.
 5. `Configuation`:
-   1. User can set the command to be processed under `customization/command` option.
+   1. User can set the command to be processed under the `customization/command` option.
       1. `nop` --> No Operation.
       
       2. `getPallet` --> Triggers the algorithm to detect the pallet in the camera's field of view. There are two parameters to configure the `getPallet` command.
-         1. `depthHint`: Approximate distance (distance in meters along the x-axis) that the camera is expected to be away from the pallet.By default it is set to **-1** to use an auto-detection of the distance. Please note that this works best with pallets having full-size load and will most likely fail on empty pallets.
+         1. `depthHint`: Approximate distance (distance in meters along the x-axis) that the camera is expected to be away from the pallet.By default it is set to **-1** to use an auto-detection of the distance. Please note that this works best with pallets having full-size loads and will most likely fail on empty pallets.
          2. `palletIndex`: Index of the pallet type. The ifm has developed PDS based on standardized pallets (Block/Stringer/EPAL side). 
          3. `palletOrder`: Set the order of pallets based on their `score`/`height`(height from floor)
       
       3. `getRack` --> Triggers the algorithm to detect the industrial rack considering the folowing parameters.
-         1. `clearingVolume` : The bounding box parameters in the camera's FoV where the position of rack is expected.
+         1. `clearingVolume`: The bounding box parameters in the camera's FoV where the position of rack is expected.
          2. `depthHint`: Approximate distance (distance in meters along the x-axis) that the camera is expected to be away from the rack. The default value is `1.8 m`.
-         3. `horizontalDropPosition`:Selection of the horizontal drop setting. The user has to specify the upright to PDS algorithm to detect the pose of a rack. User can input
+         3. `horizontalDropPosition`: Selection of the horizontal drop setting. The user has to specify the upright to PDS algorithm to detect the pose of a rack. User can input
             1. `left`: To detect the left upright and output the pose of the rack's bottom left corner.
             2. `right`: To detect the right upright and output the pose of the rack's bottom right corner.
             3. `center`: Set this parameter when there is no information about upright is available. The PDS makes the decision based on detection score.
          4. `verticalDropPosition`: Selection of the vertical drop setting. The user has to specify the drop position to PDS algorithm. User can input
-            1. `interior`: When user wants to drop the items/pallets over the rack's beam
-            2. `floor`: When user wants to drop the items/pallets under the rack's beam and on floor.
-         5. `zHint`: Approximate distance from coordinate system's center to the rack's beam.
+            1. `interior`: When the user wants to drop the items/pallets over the rack's beam
+            2. `floor`: When the user wants to drop the items/pallets under the rack's beam and on the floor.
+         5. `zHint`: Approximate distance from the coordinate system's center to the rack's beam.
    
       4. `getItem` --> Triggers the algorithm to detect the customized item (For example: Dolleys/Trolleys) considering the folowing parameters. This functionality is available only for specific items. Please contact the ifm support team to avail this functionality to your item.
-          1. `depthHint`: Approximate distance (distance in meters along the x-axis) that the camera is expected to be away from the pallet.By default it is set to **-1** to use an auto-detection of the distance. Please note that this works best with pallets having full-size load and will most likely fail on empty pallets.
+          1. `depthHint`: Approximate distance (distance in meters along the x-axis) that the camera is expected to be away from the pallet.By default it is set to **-1** to use an auto-detection of the distance. Please note that this works best with pallets having full-size loads and will most likely fail on empty pallets.
           2. `itemIndex`: Index of the item type.
           3. `itemOrder`: Set the order of detected items(when multiple items are detected) based on their `score`/`height`(height from floor)
 
-      5. `volCheck` --> Triggers the algorithm to detect the number of valid pixels in user-defined region of interest.
-         1. `xMax`:Maximum bounding box dimension of VOI along X-Axis 
-         2. `xMin`:Minimum bounding box dimension of VOI along X-Axis 
-         3. `yMax`:Maximum bounding box dimension of VOI along Y-Axis 
-         4. `yMin`:Minimum bounding box dimension of VOI along Y-Axis 
-         5. `zMax`:Maximum bounding box dimension of VOI along Z-Axis 
-         6. `zMin`:Minimum bounding box dimension of VOI along Z-Axis 
+      5. `volCheck` --> Triggers the algorithm to detect the number of valid pixels in a user-defined region of interest.
+         1. `xMax`: Maximum bounding box dimension of VOI along X-Axis.
+         2. `xMin`: Minimum bounding box dimension of VOI along X-Axis.
+         3. `yMax`: Maximum bounding box dimension of VOI along Y-Axis.
+         4. `yMin`: Minimum bounding box dimension of VOI along Y-Axis.
+         5. `zMax`: Maximum bounding box dimension of VOI along Z-Axis.
+         6. `zMin`: Minimum bounding box dimension of VOI along Z-Axis.
 
-Please follow the following GIF to setup the PDS application via ifmVisionAssistant.
+Please follow the following GIF to set up the PDS application via ifmVisionAssistant.
 
 ![PDS via iVA](GettingStarted/resources/pds_app.gif)
 
@@ -234,96 +234,14 @@ If the multiple pallets were detected in the field of view then you can set the 
 
 To initialize a nd configuring the PDS application to execute `getPallet` command, please see the code example below.
 
-```python
-###########################################
-###2023-present ifm electronic, gmbh
-###SPDX-License-Identifier: Apache-2.0
-###########################################
-"""
-Setup:  * O3R222   3D on port2 
-            * orientation: camera horizontally (Fakra cable to the left)
-        * getPallet: pallet with load in FoV @ 1.5m distance
-"""
-import ifm3dpy
-from ifm3dpy.device import Error as ifm3dpy_error
-import json
-from ifm3dpy.framegrabber import FrameGrabber, buffer_id
-import numpy as np
-import time
-import default_values
-
-o3r = ifm3dpy.O3R()
-try:
-    o3r.reset("/applications/instances")
-except Exception as e:
-    print("Reset failed: %s" % (e))
-    pass
-
-c = dict(transX=0.0, transY=0, transZ=0.0, rotX=-1.57, rotY=1.57, rotZ=0)
-print("set(/ports/port2/processing/extrinsicHeadToUser)")
-o3r.set({"ports": {"port2": {"processing":{"extrinsicHeadToUser": c}}}})
-
-print("set(/applications/instances/app0/class:pds, ports:port2)")
-o3r.set({"applications": {"instances": {"app0": {"class": "pds", "ports": ["port2"]}}}})
-
-print("set(/applications/instances/app0/state:IDLE)")
-o3r.set({"applications": {"instances": {"app0": {"state": "IDLE"}}}})
-
-time.sleep(0.5)
-
-print("create framegrabber instance")
-fg = FrameGrabber(o3r,51010)
-
-PCIC_FORMAT = {
-  "layouter": "flexible",
-  "format": {
-    "dataencoding": "ascii"
-  },
-  "elements": [
-    {
-      "type": "string",
-      "value": "star",
-      "id": "start_string"
-    },
-    {
-      "type": "blob",
-      "id": "O3R_RESULT_JSON"
-    },
-    {
-      "type": "blob",
-      "id": "O3R_RESULT_ARRAY2D"
-    },
-    {
-      "type": "string",
-      "value": "stop",
-      "id": "end_string"
-    }
-  ]
-}
-fg.start([1002,1003], pcic_format=PCIC_FORMAT)
-print("Init done")
-
-GET_PALLET_PARAMETERS = {
-          "depthHint": -1, 
-          "palletIndex": 0, # Block Pallet/EPAL pallet
-          "palletOrder": "scoreDescending"
-        }
-
-o3r.set({"applications": {"instances": {"app0": {"configuration": {"customization":{"command": "getPallet", "getPallet":GET_PALLET_PARAMETERS }}}}}})
-[ok, frame] = fg.wait_for_frame().wait_for(6000)
-
-if ok:
-    if frame.has_buffer(buffer_id(1003)):
-            json_chunk = frame.get_buffer(buffer_id(1002))
-            json_array = np.frombuffer(json_chunk[0], dtype=np.uint8)
-            json_array = json_array.tobytes()
-            parsed_json_array = json.loads(json_array.decode())
-            print(parsed_json_array["getPallet"]["pallet"])
-```
+:::{literalinclude} Examples/getPallet.py
+:caption: getPallet.py
+:language: python
+:::
 
 ## volCheck
 
-The `volCheck`(short for Volume Check) functionality of PDS offers an easy to use possibility to test whether a 3D box-volume is free of obstacles. An obstacle is defined by an adjustable pixel-count threshold. This command is useful to check wether the block stack or floor drop for obstacles is occupied or not before placing the load.
+The `volCheck`(short for Volume Check) functionality of PDS offers an easy-to-use possibility to test whether a 3D box volume is free of obstacles. An obstacle is defined by an adjustable pixel-count threshold. This command is useful to check whether the block stack or floor drop for obstacles is occupied or not before placing the load.
 
 #### Input
 **Bounding box parameters for Volume of Interest(VoI)**
@@ -345,107 +263,23 @@ The default bounding box parameters for `volCheck`
 
 **numPixels** : Number of valid pixels inside the given volume of interest. (Data type: `uint32`)
 
-```python
-###########################################
-###2023-present ifm electronic, gmbh
-###SPDX-License-Identifier: Apache-2.0
-###########################################
-"""
-Setup:  * O3R222   3D on port2 
-            * orientation: camera horizontally (Fakra cable to the left)
-"""
-import ifm3dpy
-from ifm3dpy.device import Error as ifm3dpy_error
-import json
-from ifm3dpy.framegrabber import FrameGrabber, buffer_id
-import numpy as np
-import time
-
-o3r = ifm3dpy.O3R()
-try:
-    o3r.reset("/applications/instances")
-except Exception as e:
-    print("Reset failed: %s" % (e))
-    pass
-
-c = dict(transX=0.0, transY=0, transZ=0.0, rotX=-1.57, rotY=1.57, rotZ=0)
-print("set(/ports/port2/processing/extrinsicHeadToUser)")
-o3r.set({"ports": {"port2": {"processing":{"extrinsicHeadToUser": c}}}})
-
-print("set(/applications/instances/app0/class:pds, ports:port2)")
-o3r.set({"applications": {"instances": {"app0": {"class": "pds", "ports": ["port2"]}}}})
-
-print("set(/applications/instances/app0/state:IDLE)")
-o3r.set({"applications": {"instances": {"app0": {"state": "IDLE"}}}})
-
-time.sleep(0.5)
-
-print("create framegrabber instance")
-fg = FrameGrabber(o3r,51010)
-
-PCIC_FORMAT = {
-  "layouter": "flexible",
-  "format": {
-    "dataencoding": "ascii"
-  },
-  "elements": [
-    {
-      "type": "string",
-      "value": "star",
-      "id": "start_string"
-    },
-    {
-      "type": "blob",
-      "id": "O3R_RESULT_JSON"
-    },
-    {
-      "type": "blob",
-      "id": "O3R_RESULT_ARRAY2D"
-    },
-    {
-      "type": "string",
-      "value": "stop",
-      "id": "end_string"
-    }
-  ]
-}
-fg.start([1002,1003], pcic_format=PCIC_FORMAT)
-print("Init done")
-
-VOLCHECK_PARAMETERS = {
-                        "xMin": 2,
-                        "xMax": 3.5,
-                        "yMin": -0.5,
-                        "yMax": 0.5,
-                        "zMin": -.8,
-                        "zMax":0.4
-                    }
-
-o3r.set({"applications": {"instances": {"app0": {"configuration": {"customization":{"command": "volCheck", "volCheck":VOLCHECK_PARAMETERS }}}}}})
-[ok, frame] = fg.wait_for_frame().wait_for(6000)
-
-if ok:
-    if frame.has_buffer(buffer_id(1003)):
-            json_chunk = frame.get_buffer(buffer_id(1002))
-            json_array = np.frombuffer(json_chunk[0], dtype=np.uint8)
-            json_array = json_array.tobytes()
-            parsed_json_array = json.loads(json_array.decode())
-            print(parsed_json_array["volCheck"]["numPixels"])
-```
+:::{literalinclude} Examples/volCheck.py
+:caption: volCheck.py
+:language: python
+:::
 
 ## getItem
-
-The  `getItem` functionality of PDS is developed to detect the pose of a specific item. To achieve this, the PDS requires a depth template of the item it aims to detect. A depth template is essentially a reference model of the object, consisting of 3D point cloud data that represents the item from various angles and orientations. This template serves as a basis for comparison during the pose detection process.
+The `getItem` functionality of PDS is developed to detect the pose of a specific item. To achieve this, the PDS requires a depth template of the item it aims to detect. A depth template is essentially a reference model of the object, consisting of 3D point cloud data that represents the item from various angles and orientations. This template serves as a basis for comparison during the pose detection process.
 
 To detect a custom item, please contact your local ifm support or support.robotics@ifm.com for detailed instructions for this use case.
 
 #### Input Parameters
 
 **Depth Hint:**
-The Depth Hint is an approximate distance (distance in meters along the x-axis) that the camera is expected to be away from the item. The default value is **-1** that can be passed to use an auto-detection of the distance.
+The Depth Hint is an approximate distance (distance in meters along the x-axis) that the camera is expected to be away from the item. The default value is **-1** which can be passed to use an auto-detection of the distance.
 
 **itemIndex:**
-The ifm development team had developed and tested this functionality on the following trolley types corresponding to their item index.
+The ifm development team developed and tested this functionality on the following trolley types corresponding to their item index.
 
 | itemIndex | Trolley type |
 | --------- | ------------ |
@@ -494,92 +328,9 @@ Information of item's pose. The output structure of an item is given below.
 | rotY | `float32` | Rotation around y-axis in radians |
 | rotZ | `float32` | Rotation around z-axis in radians |
 
-To initialize a nd configuring the PDS application to execute `getItem` command, please see the code example below.
+To initialize and configure the PDS application to execute `getItem` command, please see the code example below.
 
-
-```python
-###########################################
-###2023-present ifm electronic, gmbh
-###SPDX-License-Identifier: Apache-2.0
-###########################################
-"""
-Setup:  * O3R222   3D on port2 
-            * orientation: camera horizontally (Fakra cable to the left)
-        * getItem: item/s in FoV @ 1.5m distance
-"""
-import ifm3dpy
-from ifm3dpy.device import Error as ifm3dpy_error
-import json
-from ifm3dpy.framegrabber import FrameGrabber, buffer_id
-import numpy as np
-import time
-
-o3r = ifm3dpy.O3R()
-try:
-    o3r.reset("/applications/instances")
-except Exception as e:
-    print("Reset failed: %s" % (e))
-    pass
-
-c = dict(transX=0.0, transY=0, transZ=0.0, rotX=-1.57, rotY=1.57, rotZ=0)
-print("set(/ports/port2/processing/extrinsicHeadToUser)")
-o3r.set({"ports": {"port2": {"processing":{"extrinsicHeadToUser": c}}}})
-
-print("set(/applications/instances/app0/class:pds, ports:port2)")
-o3r.set({"applications": {"instances": {"app0": {"class": "pds", "ports": ["port2"]}}}})
-
-print("set(/applications/instances/app0/state:IDLE)")
-o3r.set({"applications": {"instances": {"app0": {"state": "IDLE"}}}})
-
-time.sleep(0.5)
-
-print("create framegrabber instance")
-fg = FrameGrabber(o3r,51010)
-
-PCIC_FORMAT = {
-  "layouter": "flexible",
-  "format": {
-    "dataencoding": "ascii"
-  },
-  "elements": [
-    {
-      "type": "string",
-      "value": "star",
-      "id": "start_string"
-    },
-    {
-      "type": "blob",
-      "id": "O3R_RESULT_JSON"
-    },
-    {
-      "type": "blob",
-      "id": "O3R_RESULT_ARRAY2D"
-    },
-    {
-      "type": "string",
-      "value": "stop",
-      "id": "end_string"
-    }
-  ]
-}
-fg.start([1002,1003], pcic_format=PCIC_FORMAT)
-print("Init done")
-
-GET_ITEM_PARAMETERS = {
-          "depthHint": -1, 
-          "itemIndex": 0, # TA LSB (DHL wagon)
-          "palletOrder": "scoreDescending"
-        }
-
-o3r.set({"applications": {"instances": {"app0": {"configuration": {"customization":{"command": "getItem", "getItem":GET_ITEM_PARAMETERS }}}}}})
-
-[ok, frame] = fg.wait_for_frame().wait_for(6000)
-
-if ok:
-    if frame.has_buffer(buffer_id(1003)):
-            json_chunk = frame.get_buffer(buffer_id(1002))
-            json_array = np.frombuffer(json_chunk[0], dtype=np.uint8)
-            json_array = json_array.tobytes()
-            parsed_json_array = json.loads(json_array.decode())
-            print(parsed_json_array["getItem"]["item"])
-```
+:::{literalinclude} Examples/getItem.py
+:caption: getItem.py
+:language: python
+:::
