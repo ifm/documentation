@@ -2,9 +2,9 @@
 
 ## getPallet
 
-The `getPallet` functionality of PDS is designed to detect the position and orientation of pallets in front of autonomous and semi-autonomous pallet handling vehicles. Usually, such a system has a priori knowledge from the warehouse management like the approximate distance to the pallet and the pallet type.
+The `getPallet` functionality of PDS is designed to detect the position and orientation of pallets in the vicinity of autonomous and semi-autonomous pallet handling vehicles. Typically, such a system has a priori knowledge from warehouse management, such as the approximate distance to the pallet and the type of pallet.
 
-`getPallet` supports the pick-operation by detecting the precise location of the pallet. In case of unexpected situations like occluded pockets or missing pallet blocks, the pick is considered to be unsafe and the detection will be aborted.
+`getPallet` supports the picking operation by determining the exact location and orientation of the pallet.
 
 #### Usage guidelines
 The typical use cases for `getPallet` are pallets with two pockets, either with broad blocks or thin stringers as vertical support structures.
@@ -15,8 +15,8 @@ The typical use cases for `getPallet` are pallets with two pockets, either with 
 #### Input Parameters
 
 **Depth Hint**
-The Depth Hint is the approximate distance (distance in meters along the x-axis) that the camera is expected to be away from the pallet. Zero or a negative value can be passed to use an auto-detection of the distance. Please note that this works best with pallets having full-size load and will most likely fail on empty pallets.
-
+The Depth Hint is the approximate distance (in meters along the X-axis) between the camera and the pallet. Depending on additional extrinsic calibration values, the distance along the X-axis can be increased or decreased with respect to the Robot Coordinate System (RCS) Zero or a negative value can be passed to use automatic distance detection. Note that this works best with full pallets and will most likely fail with empty pallets.
+.
 **palletIndex**
 
 Input the pallet index based on the pallet type.
@@ -27,12 +27,12 @@ Input the pallet index based on the pallet type.
 | 1            | `Stringer`  |
 | 2            | `EPAL side` |
 
-Other variants of pallets, having three or more pockets for example, might also work with PDS, but will require adjustments of the PDS settings. Please contact the ifm support team, if you need to detect further pallet types.
+Other variants of pallets, having three or more pockets for example, will also work with PDS, but require adjustments of the PDS settings. Please contact the ifm support team, if you need to detect further pallet types.
 
 **palletOrder**
 If the multiple pallets were detected in the field of view then you can set the order of pallets based on three properties.
 - `scoreDescending`(default): The pallet order will be based upon the score (highest to lowest)
-- `zAscending`/`zDescending`: The pallet order will be based upon the height from floor.(`zAscending` - lower to upper, `zDescending` - upper to lower)
+- `zAscending`/`zDescending`: The pallet order will be based upon the height from floor, i.e. along the calibrated Z-axis (`zAscending` - lower to upper, `zDescending` - upper to lower).
 
 #### Output
 
@@ -41,33 +41,33 @@ If the multiple pallets were detected in the field of view then you can set the 
 
 | Name               | Type            | Description                        |
 | ------------------ | --------------- | ---------------------------------- |
-| numDetectedPallets | uint32          | Number of valid pallets in the FoV |
-| pallet             | PalletDetection | Array of PalletDetection Structure |
+| numDetectedPallets | `uint32`          | Number of valid pallets in the FoV |
+| pallet             | `PalletDetection` | Array of PalletDetection Structure |
 
-**PalletDetection Structure**
+**`PalletDetection` Structure**
 | Name   | Type               | Description                                                       |
 | ------ | ------------------ | ----------------------------------------------------------------- |
 | score  | `float32`          | Detection score of the pallet [0..1]                              |
-| center | DetectedPalletItem | Center Position and size information of the pallet's center block |
-| left   | DetectedPalletItem | Center Position and size information of the pallet's right pocket |
-| right  | DetectedPalletItem | Center Position and size information of the pallet's left pocket  |
-| angles | Angles3D           | Rotation angles of the pallet                                     |
+| center | `DetectedPalletItem` | Center Position and size information of the pallet's center block |
+| left   | `DetectedPalletItem` | Center Position and size information of the pallet's right pocket |
+| right  | `DetectedPalletItem` | Center Position and size information of the pallet's left pocket  |
+| angles | `Angles3D`           | Rotation angles of the pallet                                     |
 
-**DetectedPalletItem structure**
+**`DetectedPalletItem` structure**
 | Name     | Type       | Description                       |
 | -------- | ---------- | --------------------------------- |
-| position | Position3D | Cartesian coordinates of the item |
+| position | `Position3D` | Cartesian coordinates of the item |
 | width    | `float32`  | Width of the item in meters       |
 | height   | `float32`  | Height of the item in meters      |
 
-**Position3D structure**
+**`Position3D` structure**
 | Name | Type      | Description                      |
 | ---- | --------- | -------------------------------- |
 | x    | `float32` | Cartesian x coordinate in meters |
 | y    | `float32` | Cartesian y coordinate in meters |
 | z    | `float32` | Cartesian z coordinate in meters |
 
-**Angles3D structure**
+**`Angles3D` structure**
 
 | Name | Type      | Description                       |
 | ---- | --------- | --------------------------------- |
@@ -100,15 +100,15 @@ If the multiple pallets were detected in the field of view then you can set the 
     "right": {                                       # Center position and size information of the pallet's right pocket
         "position": {
             "x": Cartesian x coordinate in meters,
-            "y": Cartesian y coordinate in meters,    
+            "y": Cartesian y coordinate in meters,
             "z": Cartesian z coordinate in meters
-            }, 
+            },
         "width": Width of the item in meters,
         "height": Height of the item in meters
-        }, 
+        },
     "angles": {                                     # Rotation angles of the pallet
-        "rotX": rotation around x-axis in radians, 
-        "rotY": rotation around y-axis in radians, 
+        "rotX": rotation around x-axis in radians,
+        "rotY": rotation around y-axis in radians,
         "rotZ": rotation around z-axis in radians
     }
 }
@@ -123,7 +123,7 @@ To initialize and configuring the PDS application to execute `getPallet` command
 
 ## volCheck
 
-The `volCheck`(short for Volume Check) functionality of PDS offers an easy-to-use possibility to test whether a 3D box volume is free of obstacles. An obstacle is defined by an adjustable pixel-count threshold. This command is useful to check whether the block stack or floor drop for obstacles is occupied or not before placing the load.
+The `volCheck`(short for Volume Check) functionality of PDS offers an easy-to-use possibility to test whether a 3D box volume (Volume Of Interest - VOI) is free of obstacles, i.e. object. An obstacle is defined by an adjustable pixel-count threshold. This command is useful to check whether the block stack or floor drop for obstacles is occupied or not before placing the load.
 
 #### Input
 **Bounding box parameters for Volume of Interest(VoI)**
@@ -151,7 +151,8 @@ The default bounding box parameters for `volCheck`
 :::
 
 ## getItem
-The `getItem` functionality of PDS is developed to detect the pose of a specific item. To achieve this, the PDS requires a depth template of the item it aims to detect. A depth template is essentially a reference model of the object, consisting of 3D point cloud data that represents the item from various angles and orientations. This template serves as a basis for comparison during the pose detection process.
+The `getItem` function of PDS is designed to detect the pose of a given item. To do this, PDS needs a template of the item to be detected. A template can be understood as a reference model of the object, consisting of point cloud data from one side of the object, representing the shape of the object as seen from different angles. This template serves as a basis for comparison during the pose detection process.
+Please note that these templates typically allow for an angular deviation of up to 10° - 15° from the normal vector.
 
 To detect a custom item, please contact your local ifm support or support.robotics@ifm.com for detailed instructions for this use case.
 
@@ -166,8 +167,9 @@ The ifm development team developed and tested this functionality on the followin
 | itemIndex | Trolley type |
 | --------- | ------------ |
 | 0         | `TA LSB`     |
-| 1         | `TA SS`      |
-| 2         | `Dolly BR`   |
+
+<!-- | 1         | `TA SS`      |
+| 2         | `Dolly BR`   | -->
 
 **itemOrder:**
 When multiple items are detected then the order of the detected items can be set based on the following properties.
@@ -185,24 +187,24 @@ Information of item's pose. The output structure of an item is given below.
 
 | Name             | Type          | Description                      |
 | ---------------- | ------------- | -------------------------------- |
-| numDetecteditems | uint32        | Number of valid items in the FoV |
-| item             | itemDetection | Array of itemDetection Structure |
+| numDetectedItems | `uint32`        | Number of valid items in the FoV |
+| item             | `itemDetection` | Array of itemDetection Structure |
 
-**itemDetection Structure**
+**`itemDetection` Structure**
 | Name     | Type       | Description                        |
 | -------- | ---------- | ---------------------------------- |
 | score    | `float32`  | Detection score of the item [0..1] |
-| position | Position3D | Cartesian coordinates of the item  |
-| angles   | Angles3D   | Rotation angles of the item        |
+| position | `Position3D` | Cartesian coordinates of the item  |
+| angles   | `Angles3D`   | Rotation angles of the item        |
 
-**Position3D structure**
+**`Position3D` structure**
 | Name | Type      | Description                      |
 | ---- | --------- | -------------------------------- |
 | x    | `float32` | Cartesian x coordinate in meters |
 | y    | `float32` | Cartesian y coordinate in meters |
 | z    | `float32` | Cartesian z coordinate in meters |
 
-**Angles3D structure**
+**`Angles3D` structure**
 
 | Name | Type      | Description                       |
 | ---- | --------- | --------------------------------- |
