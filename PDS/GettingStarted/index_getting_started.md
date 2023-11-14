@@ -10,13 +10,7 @@ A typical procedure for getting started would be as follows
 + Connect to ifmVisionAssistant (iVA)
 + Verify that live images are being received
 
-## Compatibility Matrix
-
-| Firmware Version | Supported VPU Hardware | Supported Camera Hardware | ifm3d-library | ifmVisionAssistant |
-| ---------------- | ---------------------- | ------------------------- | ------------- | ------------------ |
-| 1.2.x            | `M04311`               | O3R222                    | >=1.4.3       | >=2.7.2            |
-
-## Coordinate Systems and Extrinsic Calibration
+## Calibrate the camera
 
 The standard O3R coordinate system is right-handed, with
 * x-axis points in the opposite direction to the FAKRA connector
@@ -54,8 +48,8 @@ Before reading this section, make sure you are familiar with the documentation p
 
 1. Extrinsic calibration is a necessary step before creating a PDS application. Follow the instructions above to calibrate the cameras manually.
 2. To create a PDS application instance, click on the `Application' window and click on **+** to create a new application.
-3. After creating a new PDS application, change the state of the application from `CONF` to `IDLE`.
-4. To select the port to be used for PDS, the user has to pause the application instance (pause button on the top) and select the port in the `Ports` section.
+3. Select the port to be used for PDS in the `Ports` section.
+4. After creating a new PDS application, change the state of the application from `CONF` to `IDLE`.
 5. Configuration:
    1. The user can set the command to be processed in the `Customization/Command` option.
       1. `nop` --> No operation.
@@ -65,14 +59,14 @@ Before reading this section, make sure you are familiar with the documentation p
          2. PalletIndex: Pallet type index. The ifm has developed PDS based on standardized pallets (Block/Stringer/EPAL side).
          3. PalletOrder: Sets the order of pallets based on their `score`/`height` (height from floor).
 
-      3. `getRack` --> Triggers the industrial rack recognition algorithm, taking into account the following parameters
+      3. `getRack` --> Triggers the industrial rack recognition algorithm, taking into account the following parameters:
                1. `clearingVolume`: The bounding box parameters in the camera's FoV where the position of the rack is expected.
                2. `depthHint`: Approximate distance (in meters along the x-axis) that the camera is expected to be away from the rack. The default value is `1.8 m`.
-               3. `horizontalDropPosition`: Selection of the horizontal drop position. The user must specify the upright to PDS algorithm to detect the pose of a rack. The user can enter
+               3. `horizontalDropPosition`: Selection of the horizontal drop position. The user must specify the upright to PDS algorithm to detect the pose of a rack. The user can enter:
                   1. `left`: To detect the left upright and output the pose of the lower left corner of the rack.
                   2. `right`: To detect the right upright and output the pose of the lower right corner of the rack.
                   3. `center`: Set this parameter if there is no upright information available. The PDS will make the decision based on the detection score.
-               4. `verticalDropPosition`: Selection of the vertical drop position. The user must specify the drop position for the PDS algorithm. The user can enter
+               4. `verticalDropPosition`: Selection of the vertical drop position. The user must specify the drop position for the PDS algorithm. The user can enter:
                   1. `inside`: When the user wants to drop the items/pallets over the beam of the rack.
                   2. `floor`: When the user wants to drop the items/pallets under the beam of the rack and on the floor.
                5. `zHint: Approximate distance from the center of the coordinate system to the beam of the rack.
