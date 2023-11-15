@@ -24,5 +24,8 @@ PDS provides four different commands:
 :::{toctree}
     :maxdepth: 2
 Getting started <GettingStarted/index_getting_started>
-Application notes <PDS/application_notes>
+Pallet <GetPallet/getPallet>
+Rack <GetRack/getRack>
+Item <GetItem/getItem>
+Volume check <VolCheck/volCheck>
 :::
