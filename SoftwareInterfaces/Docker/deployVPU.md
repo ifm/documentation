@@ -21,7 +21,70 @@ To connect to the VPU via ssh, follow these steps:
 2. Upload the public key to the VPU
 3. Connect to the VPU using the passphrase
 
-## SCP
+### 1. Generate ssh key-pair
+
+All user specific ssh keys are located at `~/.ssh`. This is the place where the private key for the connection to the VPU should be stored.
+
+To generate an ssh key-pair, use `ssh-keygen`:
+
+```console
+$ cd ~/.ssh/
+~/.ssh$ ssh-keygen -t rsa -b 4096 -C "[email-address]"
+Generating public/private rsa key pair.
+Enter file in which to save the key (/home/devoegse/.ssh/id_rsa): id_o3r
+Enter passphrase (empty for no passphrase):
+Enter same passphrase again:
+...
+```
+
+A passphrase is also needed. After that command, two new keys are generated within the `~/.ssh` directory. With the example above it would be: `id_o3r` & `id_o3r.pub`.
+
+### 2. Upload the public key to the VPU
+
+Uploading the public (`.pub`) ssh key to the VPU is achieved via the ifm3d library.
+The device configuration includes a parameter for authorized keys: `authorized_keys`.
+
+```json
+"network": {
+      "authorized_keys": "",
+      "ipAddressConfig": 0,
+      "macEth0": "00:04:4B:EA:95:FB",
+      "macEth1": "00:02:01:23:33:36",
+      "networkSpeed": 1000,
+      "staticIPv4Address": "192.168.0.69",
+      "staticIPv4Gateway": "192.168.0.201",
+      "staticIPv4SubNetMask": "255.255.255.0",
+      "useDHCP": false
+    },
+```
+
+To add a new key, the VPU configuration needs to be changed. This can be done with several ways (see [configuring the camera](https://api.ifm3d.com/stable/examples/o3r/configuration/configuration.html)). The easiest way in this case is to use the `jq` command:
+
+```console
+$ ifm3d dump | jq --arg id "$(< ~/.ssh/id_o3r.pub)" '.device.network.authorized_keys=$id' | ifm3d config
+```
+
+- `ifm3d dump` - This command receives the current configuration from the VPU.
+- `jq --arg id "$(< ~/.ssh/id_o3r.pub)"` - This loads the public key into the variable `id` and provides it to the `jq` command
+- `'.device.network.authorized_keys=$id'` - Here the JSON value from `authorized_keys` is changed for the public key within the variable `id`
+- `ifm3d config` - The new JSON is now used to change the configuration of the VPU via `ifm3d config`
+
+### 3. Connect to the VPU using the passphrase
+
+After the key is uploaded, it is possible to connect with `ssh` and the username `oem` to the VPU:
+
+```console
+$ ssh oem@192.168.0.69
+The authenticity of host '192.168.0.69 (192.168.0.69)' can't be established.
+ECDSA key fingerprint is SHA256:8gjC9za45TTRZNz5JCMwaNJ27BLfsPyDtjBaBQ2vyHw.
+Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
+Warning: Permanently added '192.168.0.69' (ECDSA) to the list of known hosts.
+o3r-vpu-c0:~$
+```
+
+There will be a prompt for the passphrase, configured during step 1.
+
+### SCP
 
 The first way to transfer a container to the VPU is to copy a saved container via `scp`.
 
