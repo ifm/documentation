@@ -1,24 +1,43 @@
 # Deploying a container to the VPU
 
 To load a container multiple alternative solutions apply:
-1. Using SCP: good solution for testing and small scale deployment.
-2. Using a Docker registry: for production and larger scale deployment.
+1. Easy: transfer a Docker container image via SSH / SCP
+2. Advanced: load a container from a registry
 
-The user has access to the `oem` user for deploying all custom application code.
+Every VPU has two users:
 
-## Using SCP
-This option is mainly for testing purposes, where a Docker container has been built on a laptop for the O3Rs ARM64 architecture and now needs to be transferred directly to the VPU.
-This requires an SSH connection between the laptop and the VPU device.
-To connect to the VPU via SSH, follow the instructions in the [SSH documentation](../../Technology/VPU/ssh.md).
+- `root` - ifm user with all rights
+- `oem` - customer user, this is the only one you have access to.
 
-Once SSH connection configured, you can copy the Docker image using the following command (assuming an `ifm3d.tar` image saved in the current directory):
+The first step to access the VPU is to connect to it via SSH.
+## Option 1 - Easy: transfer a Docker container image via SSH / SCP
+This option is mainly for testing purposes, where a Docker container has been built on a laptop for the O3Rs ARM64 architecture and now needs to be transferred directly to the VPU:
+
+This requires a "local connection" between the laptop and the VPU device, that is the laptop must be able to address the VPU's SSH port 22 in its network configuration.
+
+To connect to the VPU via ssh, follow these steps:
+
+1. Generate an ssh key-pair
+2. Upload the public key to the VPU
+3. Connect to the VPU using the passphrase
+
+## SCP
+
+The first way to transfer a container to the VPU is to copy a saved container via `scp`.
 
 ```bash
-$ scp ifm3d.tar oem@192.168.0.69:/home/oem/
+path/to/container/folder$ scp ifm3d.tar oem@192.168.0.69:/home/oem/
+oem@192.168.0.69’s password:
 ifm3d.tar                                                                       100%  108MB  51.5MB/s   00:02
 ```
 
-You might be prompted to enter the password to access the authorized SSH key.
+The system will ask for a password: `oem`
+
+To verify if the copy process worked, use the command `sync` on the VPU after the copying the container.
+
+> Note: Use ssh to connect to the VPU - see [SSH connection](#option-1---easy-transfer-a-docker-container-image-via-ssh--scp).
+
+> Note: The OEM user has no write rights outside of his/her home directory. Therefore use `/home/oem/` for saving files etc. It is possible to create folders within the `oem` directory.
 
 When copying large containers to the VPU, we recommend using the following command in order to avoid requiring double space:
 ```bash
@@ -27,26 +46,27 @@ docker save <image> | ssh -C oem@192.168.0.69 docker load
 Once you copied the container, you can load and start it (see [instructions](docker.md#load-and-start-a-container)).
 
 
-## Using a Docker registry
+## Option 2. - Advanced: load a container from a Docker registry
 
 We recommend this approach as a deployment strategy:
-+ During production,
-+ As an advanced testing application where Docker images are built through a CI pipeline and deployed directly to test beds, or
++ A Docker container deployment during production, or
++ An advanced testing application where Docker images are built through a CI pipeline and deployed directly to test beds,
 + Other advanced applications where strict measures are taken to ensure the identity of the Docker image.
 
 To allow the user to download Docker images from a Docker registry, there are several steps to consider:
-1. Is the VPU able to access the Internet? This is necessary if Docker images are to be downloaded directly from the official Dockerhub, GHCR, etc
-2. Does the VPU need to reach a locally hosted Docker registry only?
+1. Is the VPU setup able to access the Internet - this is necessary if Docker images are to be downloaded directly from the official Dockerhub, GHCR, etc.?
+2. Does the VPU setup need to reach a locally hosted Docker registry only?
 
-Due to the fact that proxy servers can sometimes be difficult to deal with, it may be useful to run a Docker registry on your local network where you have full control over firewalls and proxy setups. We therefore suggest to use a locally hosted registry.
+Due to the fact that proxy servers can sometimes be difficult to deal with, it may be useful to run a Docker registry on your local network where you have full control over firewalls and proxy setups. We therefore suggest option 2.
 
 
-### Configuration
+### VPU configuration to access insecure registries:
 :::{note}
 This feature was added in FW 1.1
 :::
 
-To allow access to insecure registries, the Docker daemon configuration need to be updated through the O3R JSON configuration.
+To allow access to insecure registries, the Docker daemon configuration JSON file typically needs to be manually updated.
+In the case of the O3R system, this can be accomplished using the JSON parameter fields in the default configuration JSON:
 
 ```json
 {
@@ -62,18 +82,16 @@ The respective configuration parameters can be found in the JSON schema:
 ```json
 "docker": {
   "additionalProperties": false,
-  "attributes": [
-    "persistent"
-  ],
   "description": "Docker configuration",
+  "attributes": ["persistant"],
   "properties": {
     "insecure-registries": {
-      "default": [],
       "items": {
         "type": "string"
       },
-      "maxItems": 3,
       "type": "array",
+      "default": [],
+      "maxItems": 3,
       "uniqueItems": true
     }
   },
@@ -93,14 +111,17 @@ To get a better understanding of how to use and configure an insecure registry p
 The local Docker registry is created by using and hosting the container images provided by Docker itself.
 On the host system (not the VPU), enable a local Docker registry with the following commands
 
-```bash
-$ docker pull registry:latest
+```console
+docker pull registry:latest
 # Run the registry and bind the container ports to the host ports
 $ docker run -d -p 5000:5000 --name registry registry:latest
 ```
+:::{note}
+A local registry may seem complicated at first. See the [official documentation](https://docs.docker.com/registry/deploying/) for more information.
+:::
 
 To stop the registry:
 
-```bash
+```console
 docker container stop registry && docker container rm -v registry
 ```
