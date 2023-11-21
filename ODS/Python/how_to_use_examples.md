@@ -5,7 +5,6 @@
 We provide a couple of the examples as web pages for you to browse, but we recommend getting the full example folder from git.
 
 The examples are provided as part of the documentation. You can clone them with:
-<!-- TODO edit path -->
 ```shell
 git clone https://github.com/ifm/documentation.git
 ```
