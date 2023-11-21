@@ -16,6 +16,7 @@ image: ubuntu:22.04
 
 stages:          # List of stages for jobs, and their order of execution
   - build
+  - deploy
 
 vale-linting:
   image:
@@ -35,3 +36,36 @@ vale-linting:
     - vale --minAlertLevel error /builds/syntron/support/csr/o3r/documentation/.
 
 
+internal-pages:
+  image: python:3.8-slim
+  stage: build
+  script:
+    - pip install sphinx myst-parser
+    - mkdir site && cd site
+    - sphinx-quickstart 
+        -p PDS 
+        -a ifm-CSR 
+        -r [] 
+        -l en 
+        --extensions 'myst_parser' 
+        --sep 
+    - echo "master_doc = 'index_pds'" >> source/conf.py
+    - echo "myst_enable_extensions = ['colon_fence',]" >> source/conf.py
+    - cp -r ../PDS/* source/.
+    - sphinx-build source build
+  after_script: 
+    - pwd
+    - ls site
+    - cp -r site/build public
+  artifacts:
+    paths:
+      - public
+
+
+pages:
+  stage: deploy
+  script:
+    - ls public
+  artifacts:
+    paths:
+      - public
