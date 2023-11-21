@@ -25,7 +25,7 @@ All timestamps can be synchronized using [sNTP](../sntp.md).
 The example below displays the acquisition and receive timestamps for 2D and 3D frames. 
 It also shows timestamps when NTP synchronization is enabled: this relies on having a NTP server running on the user's machine. 
 
-```{literalinclude} /code_examples/Python/Utils/timestamps.py
+```{literalinclude} timestamps.py
     :language: python
 ```
 

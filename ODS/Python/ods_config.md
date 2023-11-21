@@ -4,7 +4,7 @@
 
 The configuration example uses the following `JSON` for a simple configuration. This configuration expects at least one Head (3D imager) at `port 2`.
 
-:::{literalinclude} /code_examples/Python/ODS/configs/ods_one_head_config.json
+:::{literalinclude} examples/configs/ods_one_head_config.json
 :language: json
 :::
 
@@ -12,8 +12,7 @@ The configuration example uses the following `JSON` for a simple configuration. 
 `port6` is always part of the "ports" configuration. It refers to the `IMU` and is needed for the ODS algorithm to work properly.
 :::
 ## The configuration example
-
-:::{literalinclude} /code_examples/Python/ODS/ods_config.py
+:::{literalinclude} examples/ods_config.py
 :language: python
 :::
 
