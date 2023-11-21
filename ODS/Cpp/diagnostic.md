@@ -1,9 +1,9 @@
 # How to monitor the diagnostic
 
-:::{literalinclude} Examples/diagnostic.cpp
+:::{literalinclude} /code_examples/Cpp/ODS/diagnostic.cpp
 :language: cpp
 :::
 
-:::{literalinclude} Examples/diagnostic.h
+:::{literalinclude} /code_examples/Cpp/ODS/diagnostic.h
 :language: cpp
 :::

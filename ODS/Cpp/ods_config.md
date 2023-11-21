@@ -4,7 +4,7 @@
 
 The configuration example uses the following JSON for a simple configuration. This configuration expects at least one Head (3D imager) at port 2.
 
-:::{literalinclude} Examples/Configs/ods_one_head_config.json
+:::{literalinclude} /code_examples/Cpp/ODS/Configs/ods_one_head_config.json
 :language: json
 :::
 
@@ -19,12 +19,12 @@ The dependency to `nlohmann_json_schema_validator` is set as optional in the exa
 
 ## The configuration example
 
-:::{literalinclude} Examples/ods_config.cpp
+:::{literalinclude} /code_examples/Cpp/ODS/ods_config.cpp
 :caption: ods_config.cpp
 :language: cpp
 :::
 
-:::{literalinclude} Examples/ods_config.h
+:::{literalinclude} /code_examples/Cpp/ODS/ods_config.h
 :caption: ods_config.h
 :language: cpp
 :::

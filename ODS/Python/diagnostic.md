@@ -1,4 +1,5 @@
 # How to monitor the diagnostic
-:::{literalinclude} examples/diagnostic.py
+
+:::{literalinclude} /code_examples/Python/ODS/diagnostic.py
 :language: python
 :::
