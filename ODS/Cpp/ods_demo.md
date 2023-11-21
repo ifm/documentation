@@ -1,6 +1,6 @@
 # Full ODS example
 
-:::{literalinclude} Examples/ods_demo.cpp
+:::{literalinclude} /code_examples/Cpp/ODS/ods_demo.cpp
 :caption: ods_demo.cpp
 :language: cpp
 :::

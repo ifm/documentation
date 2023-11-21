@@ -142,6 +142,6 @@ o3r.get(["/device/swVersion/firmware"])
 
 ## The full example script
 
-:::{literalinclude} fw_update_utils.py
+:::{literalinclude} /code_examples/Python/Utils/fw_update_utils.py
 :language: python
 :::

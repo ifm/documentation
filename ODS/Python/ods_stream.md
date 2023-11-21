@@ -1,8 +1,9 @@
 # How to stream data
-:::{literalinclude} examples/ods_stream.py
+
+:::{literalinclude} /code_examples/Python/ODS/ods_stream.py
 :language: python
 :::
 
-:::{literalinclude} examples/ods_queue.py
+:::{literalinclude} /code_examples/Python/ODS/ods_queue.py
 :language: python
 :::
