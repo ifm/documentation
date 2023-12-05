@@ -13,24 +13,29 @@ In the `View options` tab under the display window, you can enable the pixel mas
 
 ![app mask](resources/iVA_pixel_mask.png)
 
-## Input Parameters
+## Input
 
-**depthHint:** The Depth Hint is an approximate distance (distance in meters along the x-axis) that the camera is expected to be away from the item. The default value is **1.8** which can be has to be configured based on the actual approximate distance.
+### `depthHint` 
+The Depth Hint is an approximate distance (distance in meters along the x-axis) that the camera is expected to be away from the item. The default value is **1.8** which can be has to be configured based on the actual approximate distance.
 
-**horizontalDropPosition:** The drop operation of the pallet is based on the `horizontalDropPosition` parameter. There are three configurations available for this parameter.
+### `horizontalDropPosition`
+The drop operation of the pallet is based on the `horizontalDropPosition` parameter. There are three configurations available for this parameter.
 
 - `left`: if the drop operation has to take place on the left side of the shelf. The left upright of the rack is considered as a reference.
 - `right`: if the drop operation has to take place on the right side of the shelf. The right upright of the rack is considered as a reference.
 - `center`: if the user wishes to drop the pallet in the center.
 
-**verticalDropPosition:** This parameter informs the PDS about the drop information of the pallet. Depending on the drop vertical drop position, this parameter can be configured as 
+### `verticalDropPosition`
+This parameter informs the PDS about the drop information of the pallet. Depending on the drop vertical drop position, this parameter can be configured as 
 
 - `interior`(default): If the pallet has to be dropped on the interior shelf which is one or more levels off the ground.
 - `floor`: If the drop operation is to take place directly on the floor or on a bottom shelf that is very near to the floor.
 
-**zHint:** The Z-Hint is the approximate expected height (distance in meters along the z-axis) of the front beam with respect to the camera’s optical center. GetRack uses this value to optimize the search volume (and thus performance). The Z-Hint should be within +/- 0.4m of the true height of the front beam.
+### `zHint`
+The Z-Hint is the approximate expected height (distance in meters along the z-axis) of the front beam with respect to the camera’s optical center. GetRack uses this value to optimize the search volume (and thus performance). The Z-Hint should be within +/- 0.4m of the true height of the front beam.
 
-**clearingVolume:** Volume to sweep for obstacles with respect to the established origin of the racking system. These values will typically be obtained from warehouse management and will correspond to the approximate volume of the load to be placed.
+### `clearingVolume` 
+Volume to sweep for obstacles with respect to the established origin of the racking system. These values will typically be obtained from warehouse management and will correspond to the approximate volume of the load to be placed.
 
 ## Output
 | Name      | Type         | Description                                                                                    |
@@ -43,14 +48,14 @@ In the `View options` tab under the display window, you can enable the pixel mas
 | flags     | `uint32_t`   | Bitmask with debugging information for GetRack                                                 |
 
 
-**`Position3D` structure**
+### `Position3D` structure
 | Name | Type      | Description                      |
 | ---- | --------- | -------------------------------- |
 | x    | `float32` | Cartesian x coordinate in meters |
 | y    | `float32` | Cartesian y coordinate in meters |
 | z    | `float32` | Cartesian z coordinate in meters |
 
-**`Angles3D` structure**
+### `Angles3D` structure
 
 | Name | Type      | Description                       |
 | ---- | --------- | --------------------------------- |
@@ -58,7 +63,7 @@ In the `View options` tab under the display window, you can enable the pixel mas
 | rotY | `float32` | Rotation around y-axis in radians |
 | rotZ | `float32` | Rotation around z-axis in radians |
 
-**flags**
+### Flags
 
 | Bit No. | Name                | Description                                                                                                                                  |
 | ------- | ------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -76,7 +81,7 @@ The resultant flag value is a decimal value and has to be converted to binary va
 
 In the below section, the possible reasons why the flags are set are discussed in detail.
 
-**NO_BEAM** 
+#### `NO_BEAM`
 
 The horizontal beam of the rack grid location could not be segmented (this is a 'hard' error). Possible reasons/observations are:
    1. Incorrect depthHint: The algorithm looks for the beams around the given depth hint.  The tolerance for depth hint **0.23 m**
@@ -84,20 +89,20 @@ The horizontal beam of the rack grid location could not be segmented (this is a 
    3. No beam candidate meets the minimum length requirement: The algorithm looks for beams with a minimum length of 1.0 m.
    4. No beam candidate meets min/max height requirement: The algorithm looks for beams with a minimum / maximum height of 6 / 15 cm.
 
-**MULTIPLE_BEAMS**
+#### `MULTIPLE_BEAMS`
 
 Multiple horizontal beam candidates were segmented, and the one with the largest extent in the y-direction was selected. Possible reasons/observations are:
    1. Loaded pallet or other obstacle above or below beam.
    2. True second beam in the scene.
    3. More than one beam candidate meets the minimum length and minimum/maximum height requirements.
 
-**BEAM_COVERAGE**
+#### `BEAM_COVERAGE`
 
 A threshold of pixel coverage over the surface area of the beam was not met. Possible reasons/observations are:
    1. The segmented beam has lots of non-planar points.
    2. The segmented beam does not meet the minimum coverage requirement.
 
-**NO_UPRIGHT**
+#### `NO_UPRIGHT`
 
 A vertical upright was not detected, and the rack frame was established based on the segmented beam, sweeping volume, and (optionally) the floor. Possible reasons/observations are:
    1. Incorrect `horizontalDropPosition`: The algorithm looks to either the right side or left side, not to both sides except `horizontaDropPosition = Center`.
@@ -105,14 +110,14 @@ A vertical upright was not detected, and the rack frame was established based on
    3. No upright candidate meets the minimum length requirement: The algorithm looks for uprights with a minimum length of 0.6m.
    4. No upright candidate meets the minimum/maximum width requirement: The algorithm looks for uprights with a minimum/maximum width of 3/12cm.
 
-**MULTIPLE_UPRIGHTS**
+#### `MULTIPLE_UPRIGHTS`
 
 Multiple upright candidates (on the anchor side of interest) were segmented. The leftmost or the rightmost was selected, depending on the `horizontalDropPosition`. Possible reasons/observations are:
    1. Loaded pallet or other obstacle above or below beam
    2. True second upright in the scene.
    3. More than one upright candidate meets the minimum length and minimum/maximum width requirements.
 
-**UPRIGHT_COVERAGE**
+#### `UPRIGHT_COVERAGE`
 
 A threshold of pixel coverage over the surface area of the upright was not met. Possible reasons/observations are:
    1. The segmented upright has lots of non-planar points.
@@ -121,7 +126,7 @@ A threshold of pixel coverage over the surface area of the upright was not met. 
 :::{note}
    If `NO_UPRIGHT` flag is set, then `UPRIGHT_COVERAGE` is also set. -->
 
-**NO_JOIN**
+#### `NO_JOIN`
 
 The beam and the upright used to establish the rack frame do not intersect in the point cloud. Possible reasons/observations are:
    1. The segmented beam and segmented upright do not intersect.
@@ -129,12 +134,12 @@ The beam and the upright used to establish the rack frame do not intersect in th
 <!-- :::{note} 
    If `NO_UPRIGHT` flag is set, then `NO_JOIN` is also set. -->
 
-**BAD_TRANSFORM**
+#### `BAD_TRANSFORM`
 
 The origin of the computed rack frame is outside of an expected tolerance (indicative of a beam-only localization anchoring to an obstacle). Possible reasons/observations are:
    1. Position of selected upright deviates from expected position (only y-coordinate is considered): The algorithm expects the upright to be within tolerance on either the left side or right side.
 
-**SHELF_OBSTACLE**
+#### `SHELF_OBSTACLE`
 
 An obstacle was detected within the shelf sweeping volume with respect to the established rack frame. Possible reasons/observations are:
    1. The obstacle was detected within the shelf clearing volume: The algorithm checks the specified shelf clearing volume (defined with respect to the rack origin) for obstacles.

@@ -11,12 +11,13 @@ The typical use cases for `getPallet` are pallets with two pockets, either with 
 
 <!-- **Composed pallets** TODO -->
 
-## Input Parameters
+## Input
 
-**Depth Hint**
+### `depthHint`
 The Depth Hint is the approximate distance (in meters along the X-axis) between the camera and the pallet. Depending on additional extrinsic calibration values, the distance along the X-axis can be increased or decreased with respect to the Robot Coordinate System (RCS) Zero or a negative value can be passed to use automatic distance detection. Note that this works best with full pallets and will most likely fail with empty pallets.
 .
-**palletIndex**
+
+### `palletIndex`
 
 Input the pallet index based on the pallet type.
 
@@ -28,7 +29,7 @@ Input the pallet index based on the pallet type.
 
 Other variants of pallets, having three or more pockets for example, will also work with PDS, but require adjustments of the PDS settings. Please contact the ifm support team, if you need to detect further pallet types.
 
-**palletOrder**
+### `palletOrder`
 If the multiple pallets were detected in the field of view then you can set the order of pallets based on three properties.
 - `scoreDescending`(default): The pallet order will be based upon the score (highest to lowest)
 - `zAscending`/`zDescending`: The pallet order will be based upon the height from floor, i.e. along the calibrated Z-axis (`zAscending` - lower to upper, `zDescending` - upper to lower).
@@ -43,7 +44,7 @@ If the multiple pallets were detected in the field of view then you can set the 
 | numDetectedPallets | `uint32`          | Number of valid pallets in the FoV |
 | pallet             | `PalletDetection` | Array of PalletDetection Structure |
 
-**`PalletDetection` Structure**
+### `PalletDetection` Structure
 | Name   | Type               | Description                                                       |
 | ------ | ------------------ | ----------------------------------------------------------------- |
 | score  | `float32`          | Detection score of the pallet [0..1]                              |
@@ -52,66 +53,27 @@ If the multiple pallets were detected in the field of view then you can set the 
 | right  | `DetectedPalletItem` | Center Position and size information of the pallet's left pocket  |
 | angles | `Angles3D`           | Rotation angles of the pallet                                     |
 
-**`DetectedPalletItem` structure**
+#### `DetectedPalletItem` structure
 | Name     | Type       | Description                       |
 | -------- | ---------- | --------------------------------- |
 | position | `Position3D` | Cartesian coordinates of the item |
 | width    | `float32`  | Width of the item in meters       |
 | height   | `float32`  | Height of the item in meters      |
 
-**`Position3D` structure**
+##### `Position3D` structure
 | Name | Type      | Description                      |
 | ---- | --------- | -------------------------------- |
 | x    | `float32` | Cartesian x coordinate in meters |
 | y    | `float32` | Cartesian y coordinate in meters |
 | z    | `float32` | Cartesian z coordinate in meters |
 
-**`Angles3D` structure**
+#### `Angles3D` structure
 
 | Name | Type      | Description                       |
 | ---- | --------- | --------------------------------- |
 | rotX | `float32` | Rotation around x-axis in radians |
 | rotY | `float32` | Rotation around y-axis in radians |
 | rotZ | `float32` | Rotation around z-axis in radians |
-
-
-```json
-{
-    "score": Detection score of the pallet [0 ... 1]
-    "center": {                                         # Center Position and size information of the pallet's center block
-        "position": {
-            "x": Cartesian x coordinate in meters,
-            "y": Cartesian y coordinate in meters,
-            "z": Cartesian z coordinate in meters
-            },
-        "width": Width of the item in meters,
-        "height": Height of the item in meters
-        },
-    "left": {                                         # Center position and size information of the pallet's left pocket
-        "position": {
-            "x": Cartesian x coordinate in meters,
-            "y": Cartesian y coordinate in meters,
-            "z": Cartesian z coordinate in meters
-            },
-        "width": Width of the item in meters,
-        "height": Height of the item in meters
-        },
-    "right": {                                       # Center position and size information of the pallet's right pocket
-        "position": {
-            "x": Cartesian x coordinate in meters,
-            "y": Cartesian y coordinate in meters,
-            "z": Cartesian z coordinate in meters
-            },
-        "width": Width of the item in meters,
-        "height": Height of the item in meters
-        },
-    "angles": {                                     # Rotation angles of the pallet
-        "rotX": rotation around x-axis in radians,
-        "rotY": rotation around y-axis in radians,
-        "rotZ": rotation around z-axis in radians
-    }
-}
-```
 
 ## Example
 

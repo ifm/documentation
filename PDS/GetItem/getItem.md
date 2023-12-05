@@ -7,10 +7,10 @@ To detect a custom item, please contact your local ifm support or support.roboti
 
 ## Input
 
-**Depth Hint:**
+### `depthHint`
 The Depth Hint is an approximate distance (distance in meters along the x-axis) that the camera is expected to be away from the item. The default value is **-1** which can be passed to use an auto-detection of the distance.
 
-**itemIndex:**
+### `itemIndex`
 The ifm development team developed and tested this functionality on the following trolley types corresponding to their item index.
 
 | itemIndex | Trolley type |
@@ -20,7 +20,7 @@ The ifm development team developed and tested this functionality on the followin
 <!-- | 1         | `TA SS`      |
 | 2         | `Dolly BR`   | -->
 
-**itemOrder:**
+### `itemOrder`
 When multiple items are detected then the order of the detected items can be set based on the following properties.
 
 - `scoreDescending`(default): The item order will be based upon the score (highest to lowest)
@@ -28,10 +28,10 @@ When multiple items are detected then the order of the detected items can be set
 
 ## Output
 
-**numDetectedItems:**
+### `numDetectedItems`
 Number of items detected in the camera's FoV.
 
-**item:**
+### item
 Information of item's pose. The output structure of an item is given below.
 
 | Name             | Type          | Description                      |
@@ -39,21 +39,21 @@ Information of item's pose. The output structure of an item is given below.
 | numDetectedItems | `uint32`        | Number of valid items in the FoV |
 | item             | `itemDetection` | Array of itemDetection Structure |
 
-**`itemDetection` Structure**
+#### `itemDetection` Structure
 | Name     | Type       | Description                        |
 | -------- | ---------- | ---------------------------------- |
 | score    | `float32`  | Detection score of the item [0..1] |
 | position | `Position3D` | Cartesian coordinates of the item  |
 | angles   | `Angles3D`   | Rotation angles of the item        |
 
-**`Position3D` structure**
+#### `Position3D` structure
 | Name | Type      | Description                      |
 | ---- | --------- | -------------------------------- |
 | x    | `float32` | Cartesian x coordinate in meters |
 | y    | `float32` | Cartesian y coordinate in meters |
 | z    | `float32` | Cartesian z coordinate in meters |
 
-**`Angles3D` structure**
+#### `Angles3D` structure
 
 | Name | Type      | Description                       |
 | ---- | --------- | --------------------------------- |
