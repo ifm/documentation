@@ -1,17 +1,22 @@
-# getRack
+# `getRack`
 
 The `getRack` functionality of PDS is designed to help an AGV to safely place a pallet/load into a standard racking system. The `getRack` function has two phases.
    1. 6-DoF transformation from the camera frame to the racking coordinate system, allowing the AGV control system to account for any errors in navigation, mast
 deflection due to the mass of the load, or any other sources of positional error.
    2. Perform a volume sweep (in the racking coordinate frame) for a specified volume to check and flag for any obstacles present within the desired rack position.
 
-![getRack](resources/getRack_result_array.png)
+![`getRack`](resources/getRack_result_array.png)
 
 In the above picture, the vertical blue line is the estimated upright structure and the horizontal green line is the estimated horizontal beam(a support structure of racking systems where the pallets will be placed.)
 
 In the `View options` tab under the display window, you can enable the pixel masks to show which pixels to be displayed by clicking on `app mask` option.
 
 ![app mask](resources/iVA_pixel_mask.png)
+
+## Coordinate system
+
+The origin of the rack coordinate system is the intersection of the detected upright and the beam, on the front of the beam plane.
+If the left upright is segmented then the Y-axis of the rack coordinate reference frame points to the right and if the right upright is segmented then the Y-axis will point towards the left.
 
 ## Input
 
@@ -40,12 +45,12 @@ Volume to sweep for obstacles with respect to the established origin of the rack
 ## Output
 | Name      | Type         | Description                                                                                    |
 | --------- | ------------ | ---------------------------------------------------------------------------------------------- |
-| score     | `float32`    | Detection score of the rack [0..1]                                                             |
-| position  | `Position3D` | Position of the rack coordinate system origin                                                  |
-| angles    | `Angles3D`   | Rotation of the rack coordinates system                                                        |
-| side      | `char[25]`   | Type of the rack coordinate system. Either "right" for right-handed or "left" for left-handed. |
-| numPixels | `uint32_t`   | Number of pixels inside the shelf volume of interest                                           |
-| flags     | `uint32_t`   | Bitmask with debugging information for GetRack                                                 |
+| `score`     | `float32`    | Detection score of the rack [0..1]                                                             |
+| `position`  | `Position3D` | Position of the rack coordinate system origin                                                  |
+| `angles`    | `Angles3D`   | Rotation of the rack coordinates system                                                        |
+| `side`      | `char[25]`   | Type of the rack coordinate system. Either "right" for right-handed or "left" for left-handed. |
+| `numPixels` | `uint32_t`   | Number of pixels inside the shelf volume of interest                                           |
+| `flags`     | `uint32_t`   | Bitmask with debugging information for GetRack                                                 |
 
 
 ### `Position3D` structure
@@ -77,14 +82,14 @@ Volume to sweep for obstacles with respect to the established origin of the rack
 | 7       | `BAD_TRANSFORM`     | The origin of the computed rack frame is outside of an expected tolerance (indicative of a beam-only localization anchoring to an obstacle)  |
 | 8       | `SHELF_OBSTACLE`    | An obstacle was detected within the shelf sweeping volume with respect to the established rack frame                                         |
 
-The resultant flag value is a decimal value and has to be converted to binary value to know which flags were set to **1**. If the value of the flag is set to **384** then the resultant binary value is `11000000` i.e. bit numbers 8 and 9 were set to *1* (`BAD_TRANSFORM` and `SHELF_OBSTACLE`).
+The resultant flag value is a decimal value and has to be converted to binary value to know which flags were set to **1**. If the value of the flag is set to **384** then the resultant binary value is `11000000`, that is, bit numbers 8 and 9 were set to *1* (`BAD_TRANSFORM` and `SHELF_OBSTACLE`).
 
 In the below section, the possible reasons why the flags are set are discussed in detail.
 
 #### `NO_BEAM`
 
 The horizontal beam of the rack grid location could not be segmented (this is a 'hard' error). Possible reasons/observations are:
-   1. Incorrect depthHint: The algorithm looks for the beams around the given depth hint.  The tolerance for depth hint **0.23 m**
+   1. Incorrect `depthHint`: The algorithm looks for the beams around the given depth hint. The tolerance for depth hint **0.23 m**
    2. Incorrect Z-Hint: The algorithm looks for beams around Z-Hint (tolerance: +/- 0.4m)
    3. No beam candidate meets the minimum length requirement: The algorithm looks for beams with a minimum length of 1.0 m.
    4. No beam candidate meets min/max height requirement: The algorithm looks for beams with a minimum / maximum height of 6 / 15 cm.
