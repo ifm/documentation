@@ -2,9 +2,9 @@
 
 PDS - `Pose Detection System` - provided by [ifm](https://www.ifm.com), is a software solution building on top of the O3R ecosystem to enable AGVs (Automated Guided Vehicles), fork trucks and other robots to detect the pose of objects within a 3D environment.
 
-**PDS Features**
+## Features
 
-PDS uses the O3R 3D camera as its primary data source: at least one 3D camera stream is required.
+PDS uses the O3R platform as its primary data source: at least one 3D camera stream is required.
 
 PDS provides four different commands:
 | **Command** | **Output**                                                                      |
@@ -23,9 +23,14 @@ PDS provides four different commands:
 
 :::{toctree}
     :maxdepth: 2
+    :hidden:
 Getting started <GettingStarted/index_getting_started>
+Calibration <Calibration/pds_calibration>
+Configuration <Configuration/configuration>
 Pallet <GetPallet/getPallet>
 Rack <GetRack/getRack>
 Item <GetItem/getItem>
 Volume check <VolCheck/volCheck>
+Recording <Recording/recordings_iVA>
+Integration <Integration/index_integration>
 :::
