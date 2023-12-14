@@ -7,15 +7,23 @@ The `getPallet` functionality of PDS is designed to detect the position and orie
 
 ## Usage guidelines
 The typical use cases for `getPallet` are pallets with two pockets, either with broad blocks or thin stringers as vertical support structures.
-![getPallet Usage](resources/getPallet_usage.png)
+![`getPallet` Usage](resources/getPallet_usage.png)
 
-<!-- **Composed pallets** TODO -->
+PDS is able to detect pallets with the following characteristics:
+- For a block-type pallet:
+    - The pockets should be between 0.24 and 0.44 m,
+    - The blocks should be between 0.05 and 0.25 m.
+- For a stringer-type pallet:
+    - The pockets should be between 0.4 and 0.49 m,
+    - The stringers should be between 0.01 and 0.06 m.
+
+Two pocket pallets with different dimensions than the ones stated above will require specific configuration of the algorithm. Reach out to your ifm representative or to the support team for more details.
 
 ## Input
 
 ### `depthHint`
-The Depth Hint is the approximate distance (in meters along the X-axis) between the camera and the pallet. Depending on additional extrinsic calibration values, the distance along the X-axis can be increased or decreased with respect to the Robot Coordinate System (RCS) Zero or a negative value can be passed to use automatic distance detection. Note that this works best with full pallets and will most likely fail with empty pallets.
-.
+The depth hint is the approximate distance (in meters along the X-axis) between the camera and the pallet. Providing an accurate depth hint allows the algorithm to target a specific area of the scene for the pallet detection and speeds up processing times.
+Zero or a negative value can be passed to use automatic distance detection. Note that automatic detection works best with fully loaded pallets and will most likely fail with empty pallets.
 
 ### `palletIndex`
 
@@ -23,57 +31,54 @@ Input the pallet index based on the pallet type.
 
 | Pallet Index | Pallet type |
 | ------------ | ----------- |
-| 0(default)   | `Block`     |
+| 0 (default)  | `Block`     |
 | 1            | `Stringer`  |
 | 2            | `EPAL side` |
 
-Other variants of pallets, having three or more pockets for example, will also work with PDS, but require adjustments of the PDS settings. Please contact the ifm support team, if you need to detect further pallet types.
+Other variants of pallets, having three or more pockets for example, require adjustments of the PDS settings. Reach out to your ifm representative or to the support team for more details.
 
 ### `palletOrder`
-If the multiple pallets were detected in the field of view then you can set the order of pallets based on three properties.
-- `scoreDescending`(default): The pallet order will be based upon the score (highest to lowest)
-- `zAscending`/`zDescending`: The pallet order will be based upon the height from floor, i.e. along the calibrated Z-axis (`zAscending` - lower to upper, `zDescending` - upper to lower).
+If multiple pallets were detected in the field of view, you can set the order of pallets based on three properties:
+- `scoreDescending` (default): the pallet order will be based upon the detection score (highest to lowest),
+- `zAscending`/`zDescending`: the pallet order will be based upon the height from the floor, that is, along the calibrated Z-axis (`zAscending` - lower to upper, `zDescending` - upper to lower).
 
 ## Output
 
-1. **numDetectedPallets** : Returns the number of valid pallets detected by the PDS in camera's FoV. (Data type: `uint32`)
-2. **pallet**             : Information about pallet's pose. The structure of pallet is given below.
-
 | Name               | Type            | Description                        |
 | ------------------ | --------------- | ---------------------------------- |
-| numDetectedPallets | `uint32`          | Number of valid pallets in the FoV |
-| pallet             | `PalletDetection` | Array of PalletDetection Structure |
+| `numDetectedPallets` | `uint32`          | Number of valid pallets in the FOV |
+| `pallet`             | `PalletDetection` | Information about the pallet's pose. The structure of the `PalletDetection` type is given below. |
 
-### `PalletDetection` Structure
+### `PalletDetection` structure
 | Name   | Type               | Description                                                       |
 | ------ | ------------------ | ----------------------------------------------------------------- |
-| score  | `float32`          | Detection score of the pallet [0..1]                              |
-| center | `DetectedPalletItem` | Center Position and size information of the pallet's center block |
-| left   | `DetectedPalletItem` | Center Position and size information of the pallet's right pocket |
-| right  | `DetectedPalletItem` | Center Position and size information of the pallet's left pocket  |
-| angles | `Angles3D`           | Rotation angles of the pallet                                     |
+| `score`  | `float32`          | Detection score of the pallet [0..1]                              |
+| `center` | `DetectedPalletItem` | Position and size of the pallet's center block |
+| `left`   | `DetectedPalletItem` | Position and size of the pallet's right pocket |
+| `right`  | `DetectedPalletItem` | Position and size of the pallet's left pocket  |
+| `angles` | `Angles3D`           | Rotation angles of the pallet                  |
 
 #### `DetectedPalletItem` structure
 | Name     | Type       | Description                       |
 | -------- | ---------- | --------------------------------- |
-| position | `Position3D` | Cartesian coordinates of the item |
-| width    | `float32`  | Width of the item in meters       |
-| height   | `float32`  | Height of the item in meters      |
+| `position` | `Position3D` | Cartesian coordinates of the item |
+| `width`    | `float32`  | Width of the item in meters       |
+| `height`   | `float32`  | Height of the item in meters      |
 
 ##### `Position3D` structure
 | Name | Type      | Description                      |
 | ---- | --------- | -------------------------------- |
-| x    | `float32` | Cartesian x coordinate in meters |
-| y    | `float32` | Cartesian y coordinate in meters |
-| z    | `float32` | Cartesian z coordinate in meters |
+| `x`    | `float32` | Cartesian X coordinate in meters |
+| `y`    | `float32` | Cartesian Y coordinate in meters |
+| `z`    | `float32` | Cartesian Z coordinate in meters |
 
 #### `Angles3D` structure
 
 | Name | Type      | Description                       |
 | ---- | --------- | --------------------------------- |
-| rotX | `float32` | Rotation around x-axis in radians |
-| rotY | `float32` | Rotation around y-axis in radians |
-| rotZ | `float32` | Rotation around z-axis in radians |
+| `rotX` | `float32` | Rotation around X-axis in radians |
+| `rotY` | `float32` | Rotation around Y-axis in radians |
+| `rotZ` | `float32` | Rotation around Z-axis in radians |
 
 ## Example
 

@@ -9,7 +9,7 @@ The flags are defined as below:
 | 1       | `ORTHO_PROJECTED`     | Used for orthographic projection | various     |
 | 2       | `GP_RANSAC`           | Part of pallet's face            | `getPallet`   |
 | 3       | `GT_FLOOR_PLATE`      | Part of item's floor plate       | `getItem`     |
-| 4       | `VOL_CHECK`           | Pixel inside volCheck volume     | `volCheck`    |
+| 4       | `VOL_CHECK`           | Pixel inside `volCheck` volume     | `volCheck`    |
 | 5       | `GR_BEAM_FACE`        | Part of beam face                | `getRack`     |
 | 6       | `GR_BEAM_EDGE`        | Part of beam edge                | `getRack`     |
 | 7       | `GR_UPRIGHT_FACE`     | Part of upright face             | `getRack`     |
