@@ -11,6 +11,7 @@ Navigate to the Toolbox folder to find the example you are looking for.
 :::{toctree}
     :maxdepth: 2
 Introduction to calibrations <IntroToCalibrations/README>
+Calibration cheat sheet <IntroToCalibrations/calibration_cheat_sheet>
 Collect calibration values <Registration2d3d/collect_calibration_data>
 Extrinsic calibrations <ExtrinsicCalibration/README>
 2D/3D registration <Registration2d3d/README>
