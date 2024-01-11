@@ -23,7 +23,7 @@ To optimize the detection process, we recommend the user configured the depth hi
 The drop operation of the pallet is based on the `horizontalDropPosition` parameter. There are three configurations available for this parameter:
 - `left`: if the drop operation has to take place on the left side of the shelf. The left upright of the rack is considered as a reference.
 - `right`: if the drop operation has to take place on the right side of the shelf. The right upright of the rack is considered as a reference.
-- `center`: if the user wishes to drop the pallet in the center.
+- `center`: if the user wishes to drop the pallet in the center. In this case, the algorithm can use a detected up-beam on either side or another pallet on the same rack as a reference. If no reference is found on either side, the leftmost part of the horizontal beam will be used.
 
 ### `verticalDropPosition`
 This parameter informs the PDS about the drop location of the pallet. Depending on the drop vertical drop position, this parameter can be configured as:
