@@ -35,7 +35,7 @@ This is equivalent to setting the following parameters in the relevant port's JS
 }
 ```
 :::{note}
-Make sure to update the `rotX`, `rotY`, and `rotZ` for cameras mounted vertically or in a different orientation.
+Make sure to update the `rotX`, `rotY`, and `rotZ` for cameras mounted vertically or in a different orientation. You can use the [calibration cheat sheet](/SoftwareInterfaces/Toolbox/IntroToCalibrations/calibration_cheat_sheet.md) as a reference, or use the calibration wizard in the Vision Assistant.
 :::
 
 The translations `transX`, `transY` and `transZ` should be left at zero. This is due to:
