@@ -12,10 +12,10 @@ The typical use cases for `getPallet` are pallets with two pockets, either with 
 PDS is able to detect pallets with the following characteristics:
 - For a block-type pallet:
     - The pockets should be between 0.24 and 0.44 m,
-    - The blocks should be between 0.05 and 0.25 m.
+    - The blocks should be between 0.05 and 0.4 m.
 - For a stringer-type pallet:
-    - The pockets should be between 0.4 and 0.49 m,
-    - The stringers should be between 0.01 and 0.06 m.
+    - The pockets should be between 0.4 and 0.48 m,
+    - The stringers should be between 0.02 and 0.08 m.
 
 Two pocket pallets with different dimensions than the ones stated above will require specific configuration of the algorithm. Reach out to your ifm representative or to the support team for more details.
 
@@ -39,7 +39,7 @@ Other variants of pallets, having three or more pockets for example, require adj
 
 ### `palletOrder`
 If multiple pallets were detected in the field of view, you can set the order of pallets based on three properties:
-- `scoreDescending` (default): the pallet order will be based upon the detection score (highest to lowest),
+- `scoreDescending` (default): the pallet order will be based upon the detection score (highest to lowest), which corresponds to how well the pallet matches the expected pallet shape,
 - `zAscending`/`zDescending`: the pallet order will be based upon the height from the floor, that is, along the calibrated Z-axis (`zAscending` - lower to upper, `zDescending` - upper to lower).
 
 ## Output
