@@ -30,14 +30,14 @@ The calibrate the cameras, the easiest way is to use the ifmVisionAssistant manu
    :align: center
    ```
 1. Select the port to calibrate
-   ```{image} resources/steps_iva_man_calibration.png
+   ```{image} resources/iva_calibration.png
    :alt: Step manual calib wizard
    :width: 400px
    :align: center
    ```
-1. Click `Rotate like a vehicle front camera`. This orients the coordinate system to match the typical robot coordinate system.
-3. Select the orientation of the mounted camera when looking at the front of the camera. Optionally enter additional rotation parameters, if the camera is tilted.
-4. Enter the translation parameters, that is, the distances from the robot coordinate system to the camera.
+1. Click `Rotate like a vehicle front camera`. This orients the coordinate system to match the typical robot coordinate system. 
+3. If the camera is mounted horizontally, with the label facing up, you can skip this step. Otherwise, select the orientation of the camera when looking at the front of the camera. If the camera is tilted, enter the additional rotation parameters.
+4. Set all the translation parameters to zero.
 
 ## PDS with ifmVisionAssistant
 
