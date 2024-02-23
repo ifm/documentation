@@ -1,7 +1,7 @@
 
 # `volCheck`
 
-The `volCheck`(short for volume check) functionality of PDS offers an easy-to-use possibility to test whether a 3D volume (Volume Of Interest - VOI) is free of obstacles. An obstacle is defined by an adjustable pixel-count threshold. This command is useful to check whether the location is occupied or not before placing the load.
+The `volCheck`(short for volume check) functionality of PDS offers an easy-to-use possibility to test whether a 3D volume (Volume Of Interest - VOI) is free of obstacles. The number of pixels present in the defined VOI is provided, and the user can decide of their own threshold as to how many pixels are considered an obstacle. This command is useful to check whether the location is occupied or not before placing the load.
 
 ## Input
 
@@ -20,6 +20,7 @@ The default bounding box parameters for `volCheck`
 ## Output
 
 | Name | Type | Description |
+| ---- | ---- | ----------- |
 | `numPixels` | `uint32` | Number of valid pixels inside the given volume of interest. |
 
 ## Example

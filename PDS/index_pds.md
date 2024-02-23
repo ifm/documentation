@@ -9,17 +9,17 @@ PDS uses the O3R platform as its primary data source: at least one 3D camera str
 PDS provides four different commands:
 | **Command** | **Output**                                                                      |
 | ----------- | ------------------------------------------------------------------------------- |
-| `getPallet` | Pose of the pallet                                                              |
+| `getPallet` | Pose of up to 10 pallets                                                        |
 | `getRack`   | Pose of an industrial rack                                                      |
-| `getItem`   | Pose of a custom item                                                           |
+| `getItem`   | Pose of up to 10 custom item (experimental feature)                             |
 | `volCheck`  | Quantifies the number of valid pixels within a defined volume of interest (VOI) |
 
 
 ## Compatibility Matrix
 
-| Firmware Version | Supported VPU Hardware | Supported Camera Hardware | ifm3d-library | ifmVisionAssistant |
-| ---------------- | ---------------------- | ------------------------- | ------------- | ------------------ |
-| 1.2.x            | `M04311`               | O3R222                    | >=1.4.3       | >=2.7.2            |
+| Firmware Version | Supported VPU Hardware | Supported Camera Hardware | ifm3d-library | ifmVisionAssistant | Comments |
+| ---------------- | ---------------------- | ------------------------- | ------------- | ------------------ | -------- |
+| 1.2.x            | `M04311`               | O3R222                    | >=1.4.3       | >=2.7.2                  | Field test only version. Do not use for production.
 
 :::{toctree}
     :maxdepth: 2

@@ -15,7 +15,7 @@ To record PDS data, navigate to the `Monitor` window and click on `Recording` in
 4. Select the duration.
 5. Start the recording.
 6. Parametrize and trigger the desired PDS command. Note that you cannot view the result after triggering the command in the display window and the command returns to `nop` after processed. Make sure you allow enough time for processing the first command before triggering it again (around 0.5 second).
-7. Trigger the command more than 20 times for more data.
+7. Trigger the command several times to gather more data.
 8. Stop the recording, if you didn't select the continuous recording.
 
 ![Recording iVA](resources/record.png)

@@ -16,7 +16,7 @@ If the left upright is segmented then the Y-axis of the rack coordinate referenc
 ## Input
 
 ### `depthHint` 
-The depth hint is an approximate distance in meters along the X-axis from the camera to the rack. The default value is 1.8 m.
+The depth hint is an approximate distance in meters along the X-axis from the origin of the reference coordinate system (typically the fork tines coordinate system) to the rack. The default value is 1.8 m.
 To optimize the detection process, we recommend the user configured the depth hint to the actual distance.
 
 ### `horizontalDropPosition`
@@ -31,7 +31,7 @@ This parameter informs the PDS about the drop location of the pallet. Depending 
 - `floor`: if the drop operation is to take place directly on the floor or on a bottom shelf that is very near to the floor.
 
 ### `zHint`
-The Z-hint is the approximate expected height (distance in meters along the z-axis) of the front beam with respect to the camera’s optical center. `getRack` uses this value to optimize the search volume (and thus performance). The Z-hint should be within +/- 0.4 m of the true height of the front beam.
+The Z-hint is the approximate expected height (distance in meters along the Z axis) of the front beam with respect to the origin of the coordinate system. `getRack` uses this value to optimize the search volume (and thus performance). The Z-hint should be within +/- 0.4 m of the true height of the front beam.
 
 ### `clearingVolume` 
 Volume to sweep for obstacles with respect to the established origin of the racking system. These values will typically be obtained from warehouse management and will correspond to the approximate volume of the load to be placed.
@@ -76,7 +76,7 @@ Volume to sweep for obstacles with respect to the established origin of the rack
 | 7       | `BAD_TRANSFORM`     | The origin of the computed rack frame is outside of an expected tolerance (indicative of a beam-only localization anchoring to an obstacle)  |
 | 8       | `SHELF_OBSTACLE`    | An obstacle was detected within the shelf sweeping volume with respect to the established rack frame                                         |
 
-The resultant flag value is a decimal value and has to be converted to binary value to know which flags were set to 1. If the value of the flag is set to 384 then the resultant binary value is `11000000`, that is, bit numbers 8 and 9 were set to 1 (`BAD_TRANSFORM` and `SHELF_OBSTACLE`).
+The resultant flag value is a decimal value and has to be converted to binary value to know which flags were set to 1. If the value of the flag is set to 384 then the resultant binary value is `11000000`, that is, bit numbers 7 and 8 were set to 1 (`BAD_TRANSFORM` and `SHELF_OBSTACLE`).
 
 In the below section, the possible reasons why the flags are set are discussed in detail.
 

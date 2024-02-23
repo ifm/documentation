@@ -1,9 +1,7 @@
 # Camera calibration for PDS
 
-The PDS application always returns the position of an object with respect to the camera reference frame.
-The definition is as follows:
-+ The camera position is the origin of the coordinate reference frame.
-+ The camera orientation is defined by the parameters in `portX/processing/extrinsicHeadToUser`.
+The PDS application always returns the position of an object with respect to the fork tines coordinate system.
+The camera position and orientation is defined by the parameters in `portX/processing/extrinsicHeadToUser`.
 
 By default, PDS expects:
 - The camera to be placed between 22 and 35 cm above the bottom plane of the pallet,

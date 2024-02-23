@@ -1,7 +1,7 @@
 
 # `getPallet`
 
-The `getPallet` functionality of PDS is designed to detect the position and orientation of pallets in the vicinity of autonomous and semi-autonomous pallet handling vehicles. Typically, such a system has a priori knowledge from warehouse management, such as the approximate distance to the pallet and the type of pallet.
+The `getPallet` functionality of PDS is designed to detect the position and orientation of up to 10 pallets in the vicinity of autonomous and semi-autonomous pallet handling vehicles. Typically, such a system has a priori knowledge from warehouse management, such as the approximate distance to the pallet and the type of pallet.
 
 `getPallet` supports the picking operation by determining the exact location and orientation of the pallet.
 
@@ -22,7 +22,7 @@ Two pocket pallets with different dimensions than the ones stated above will req
 ## Input
 
 ### `depthHint`
-The depth hint is the approximate distance (in meters along the X-axis) between the camera and the pallet. Providing an accurate depth hint allows the algorithm to target a specific area of the scene for the pallet detection and speeds up processing times.
+The depth hint is the approximate distance (in meters along the X-axis) between the origin of the fork tines coordinate system and the pallet. Providing an accurate depth hint allows the algorithm to target a specific area of the scene for the pallet detection and speeds up processing times.
 Zero or a negative value can be passed to use automatic distance detection. Note that automatic detection works best with fully loaded pallets and will most likely fail with empty pallets.
 
 ### `palletIndex`
@@ -46,7 +46,7 @@ If multiple pallets were detected in the field of view, you can set the order of
 
 | Name               | Type            | Description                        |
 | ------------------ | --------------- | ---------------------------------- |
-| `numDetectedPallets` | `uint32`          | Number of valid pallets in the FOV |
+| `numDetectedPallets` | `uint32`          | Number of valid pallets in the FOV (up to 10)|
 | `pallet`             | `PalletDetection` | Information about the pallet's pose. The structure of the `PalletDetection` type is given below. |
 
 ### `PalletDetection` structure

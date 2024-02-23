@@ -17,10 +17,12 @@ The standard O3R coordinate system is right-handed, with:
 - Y-axis pointing up,
 - Z-axis pointing away from the camera (depth).
 
-For PDS, this coordinate system is rotated to match the typical robot coordinate system:
+For PDS, this coordinate system is rotated to match the typical robot coordinate system orientation, and fixed to the fork tines so that the reference point moves with the forks:
 - X-axis pointing in the forward direction of the robot,
 - Y-axis pointing to the left, and
 - Z-axis pointing up.
+- The origin of the coordinate system is fixed to the forks.
+
 
 The calibrate the cameras, the easiest way is to use the ifmVisionAssistant manual calibration wizard (available for iVA >= 2.7.6):
 
@@ -37,7 +39,7 @@ The calibrate the cameras, the easiest way is to use the ifmVisionAssistant manu
    ```
 1. Click `Rotate like a vehicle front camera`. This orients the coordinate system to match the typical robot coordinate system. 
 3. If the camera is mounted horizontally, with the label facing up, you can skip this step. Otherwise, select the orientation of the camera when looking at the front of the camera. If the camera is tilted, enter the additional rotation parameters.
-4. Set all the translation parameters to zero.
+4. Enter the translation parameters from the fork tines coordinate system to the camera.
 
 ## PDS with ifmVisionAssistant
 
@@ -46,12 +48,12 @@ Before reading this section, make sure you are familiar with the documentation p
 1. Extrinsic calibration is a necessary step before creating a PDS application. Follow the instructions above to calibrate the cameras manually.
 2. To create a PDS application instance, click on the `Application' window and click on **+** to create a new application.
 3. Select the port in the `Ports` section which is used by PDS application.
-4. Change the state of the application from `CONF` to `IDLE`.
+4. Change the state of the application from `CONF` to `IDLE`. In `IDLE` mode, the camera can be triggered upon request to collect a frame at a specific time, unlike in `RUN` mode where the camera is continuously streaming data.
    
    ![iVA_state](resources/iVA_state.png)
 
 5. In PDS, only one command can be executed at a time. Customize the PDS parameters for the command to be executed.
-6. Trigger the command in `Customization/Command` section. The default command has `nop` value. After processing the given command, it returns to its default command value. 
+6. Trigger the command in `Customization/Command` section. The default command has `nop` value ("no operation"). After processing the given command, it returns to its default command value. 
 7. View results in the display.
 
 ![`getPallet` Result](resources/getPallet_result.png)
