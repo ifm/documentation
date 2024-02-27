@@ -47,7 +47,7 @@ Before reading this section, make sure you are familiar with the documentation p
 
 1. Extrinsic calibration is a necessary step before creating a PDS application. Follow the instructions above to calibrate the cameras manually.
 2. To create a PDS application instance, click on the `Application' window and click on **+** to create a new application.
-3. Select the port in the `Ports` section which is used by PDS application.
+3. Select the port in the `Ports` section which is used by PDS application. Only one port can be selected.
 4. Change the state of the application from `CONF` to `IDLE`. In `IDLE` mode, the camera can be triggered upon request to collect a frame at a specific time, unlike in `RUN` mode where the camera is continuously streaming data.
    
    ![iVA_state](resources/iVA_state.png)
