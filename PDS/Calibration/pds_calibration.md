@@ -2,7 +2,7 @@
 
 The PDS application always returns the position of an object with respect to the calibrated coordinate system. Typically, the calibrated coordinate system corresponds to the fork tines, so that the coordinate system will go up and down with the forks and the pallet position will always be provided with reference to the current position of the forks.
 
-## Orientation
+## Concepts
 
 PDS expects the orientation of the coordinate frame to be as follows:
 - X is pointing in direction of the forks,
@@ -21,14 +21,25 @@ To fit the expected coordinate system of PDS, the coordinate system has to be ro
 
 Note that the user can decide where to place the origin of the coordinate system. We show a couple examples [below](#examples).
 
-## Translation
-PDS will look for a pallet within a defined volume of interest. By default, it expects the camera to be placed between 22 and 35 cm above the bottom plane of the pallet.  
+PDS will look for a pallet within a defined volume of interest. By default, it expects the camera to be placed between 22 and 35 cm above the bottom plane of the pallet. 
+TODO: add details about the VOI, understand how VOI changes with calibration.
 
+Note that errors in the camera calibration will lead to errors in the position of the targeted object. If CAD data is known to be precise enough, it can be used to extract calibration values for the camera. Otherwise, any of [the calibration methods](/SoftwareInterfaces/Toolbox/ExtrinsicCalibration/README.md) provided by ifm can be used.
 
 ## Examples
-This means that a horizontally mounted camera (label on top, cables on the left) should be calibrated as follows:  
 
-![Calibration for a PDS camera](resources/calibration.png)
+### Horizontally mounted camera, tip of fork coordinate system
+Let's take for example a camera mounted horizontally, looking straight ahead, directly between the two forks. 
+Let's assume the fork tines coordinate system's origin is at the tip of the right fork, like shown in the image below:
+![Coordinate system calibrated to the tip of the right fork](resources/forks_tips_coord_sys.png)
+
+Let's also assume the following measurements:
+
+![Translation values from the camera to the tip of the right fork](resources/translations_to_fork_tip.png)
+
+Then, the values for the rotation and translations are as follows, shown in the Vision Assistant calibration wizard:
+
+![Calibration values for the tip of fork example](resources/calibration_values_fork_tips.png)
 
 This is equivalent to setting the following parameters in the relevant port's JSON configuration:
 ```json
@@ -41,9 +52,9 @@ This is equivalent to setting the following parameters in the relevant port's JS
                         "rotX": 0,
                         "rotY": 1.57,
                         "rotZ": -1.57,
-                        "transX": 0,
-                        "transY": 0,
-                        "transZ": 0
+                        "transX": 1.00,
+                        "transY": 0.25,
+                        "transZ": 0.05
                     }
                 }
             }
@@ -51,12 +62,4 @@ This is equivalent to setting the following parameters in the relevant port's JS
     }
 }
 ```
-:::{note}
-Make sure to update the `rotX`, `rotY`, and `rotZ` for cameras mounted vertically or in a different orientation. You can use the [calibration cheat sheet](/SoftwareInterfaces/Toolbox/IntroToCalibrations/calibration_cheat_sheet.md) as a reference, or use the calibration wizard in the Vision Assistant.
-:::
-
-The translations `transX`, `transY` and `transZ` should be left at zero. This is due to:
-- the fact that the camera is expected to move up and down along with the forks, which makes the `transZ` value irrelevant,
-- the `(X, Y, Z)` position of the camera is provided in reference to the camera center, which makes the camera's `transX` and `transY` irrelevant in the world coordinate system.
-
-Note that errors in the camera calibration will lead to errors in the position of the targeted object. If CAD data is known to be precise enough, it can be used to extract calibration values for the camera. Otherwise, any of [the calibration methods](/SoftwareInterfaces/Toolbox/ExtrinsicCalibration/README.md) provided by ifm can be used.
+### Other example
