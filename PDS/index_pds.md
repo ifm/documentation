@@ -1,6 +1,21 @@
+
 # PDS (Pose Detection System)
 
 PDS - `Pose Detection System` - provided by [ifm](https://www.ifm.com), is a software solution building on top of the O3R ecosystem to enable AGVs (Automated Guided Vehicles), fork trucks and other robots to detect the pose of objects within a 3D environment.
+
+:::{toctree}
+    :maxdepth: 2
+    :hidden:
+Getting started <GettingStarted/index_getting_started>
+Calibration <Calibration/pds_calibration>
+Configuration <Configuration/configuration>
+Pallet <GetPallet/getPallet>
+Rack <GetRack/getRack>
+Item <GetItem/getItem>
+Volume check <VolCheck/volCheck>
+Recording <Recording/recordings_iVA>
+Integration <Integration/index_integration>
+:::
 
 ## Features
 
@@ -20,17 +35,3 @@ PDS provides four different commands:
 | Firmware Version | Supported VPU Hardware | Supported Camera Hardware | ifm3d-library | ifmVisionAssistant | Comments |
 | ---------------- | ---------------------- | ------------------------- | ------------- | ------------------ | -------- |
 | 1.2.x            | `M04311`               | O3R222                    | >=1.4.3       | >=2.7.2                  | Field test only version. Do not use for production.
-
-:::{toctree}
-    :maxdepth: 2
-    :hidden:
-Getting started <GettingStarted/index_getting_started>
-Calibration <Calibration/pds_calibration>
-Configuration <Configuration/configuration>
-Pallet <GetPallet/getPallet>
-Rack <GetRack/getRack>
-Item <GetItem/getItem>
-Volume check <VolCheck/volCheck>
-Recording <Recording/recordings_iVA>
-Integration <Integration/index_integration>
-:::
