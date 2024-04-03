@@ -15,6 +15,7 @@ Item <GetItem/getItem>
 Volume check <VolCheck/volCheck>
 Recording <Recording/recordings_iVA>
 Integration <Integration/index_integration>
+Vision Assistant release notes <VisionAssistant/PDS_iVA_release_notes_2.7.13>
 :::
 
 ## Features
