@@ -1,21 +1,10 @@
 # Toolbox
 
-Find here tools and resources related to the O3R platform. 
-The documentation can be browsed on this site. 
-To try the code, you can clone it with:
-```bash
-git clone https://github.com/ifm/documentation.git
-```
-Navigate to the Toolbox folder to find the example you are looking for.
+:::{warning}
+The examples of the toolbox section were moved to the `ifm3d-examples` repository.
+Find them at [https://github.com/ifm/ifm3d-examples](https://github.com/ifm/ifm3d-examples).
+:::
 
 :::{note}
 The calibration section was moved to [Calibration Routines](../../CalibrationRoutines/index_calibrations.md).
-:::
-
-:::{toctree}
-    :maxdepth: 2
-Collect calibration values <Registration2d3d/collect_calibration_data>
-2D/3D registration <Registration2d3d/README>
-Angle conversion <AngleConverter/angle_converter>
-Data conversions <H5ToPCDConverter/h5_to_pcd_converter>
 :::
