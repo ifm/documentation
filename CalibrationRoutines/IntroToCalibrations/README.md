@@ -17,7 +17,7 @@ Out-of-the-box, all O3R camera heads are calibrated. This means they can provide
 In the following a short overview is given to help you understand these three reference frames better. For details of their relation and the exact methods to retrieve the calibration parameters / perform the transformation with the methods provided in this example, please see the calibrations schema.
 
 ```{image} img/calibrations_schematic.png
-:alt: top_view
+:alt: Diagram showing the different calibrations for the O3R camera
 :width: 400px
 :align: center
 ```

@@ -24,7 +24,7 @@ More specifically, we can determine which pixel in the color image corresponds t
    ```
 4. Try the script 2D-3D_registration.py
 
-To better understand how the script works, review the introduction to [O3R calibration](../IntroToCalibrations/README.md).
+To better understand how the script works, review the introduction to [O3R calibration](/documentations/CalibrationRoutines/IntroToCalibrations/README.md).
 
 <!-- 
 TODOOOO: add example output
