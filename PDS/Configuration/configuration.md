@@ -3,7 +3,7 @@
 | Parameter                                                    | Description                                                                                                                                       |
 | ------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `name`                                                       | Providing a custom name for the PDS application                                                                                                   |
-| `ports`                                                      | The port that is used by the PDS application                                                                                                      |
+| `ports`                                                      | The port that is used by the PDS application. Only one port can be used per application.                                                          |
 | `state`                                                      | The current app state (default: `CONF`)                                                                                                           |
 | `configuration/customization/command`                        | The command to be executed by PDS.                                                                                                                |
 | `configuration/customization/command/nop`                    | No Operation State. After the command is executed by the PDS, the command parameter is set back to `nop` value                                    |
@@ -13,7 +13,7 @@
 | `configuration/customization/command/volCheck`               | Trigger the `volCheck` command to output the number of valid pixels inside the user-defined volume of interest                                    |
 | `configuration/customization/getPallet/depthHint`            | An approximate distance (in meters along the X-axis) between the camera and the pallet                                                            |
 | `configuration/customization/getPallet/palletIndex`          | Pallet index based on the pallet type                                                                                                             |
-| `configuration/customization/getPallet/palletOrder`          | Order of the pallets detected with respect to height or score when multiple pallets detected.                                                                                     |
+| `configuration/customization/getPallet/palletOrder`          | Order of the pallets detected with respect to height or score when multiple pallets detected.                                                     |
 | `configuration/customization/getRack/depthHint`              | An approximate distance (in meters along the X-axis) between the camera and the beam                                                              |
 | `configuration/customization/getRack/horizontalDropPosition` | The horizontal drop position of the pallet/load i.e left/right/center of the rack/shelf                                                           |
 | `configuration/customization/getRack/verticalDropPosition`   | The vertical drop position of the pallet/load i.e on an empty shelf one or more levels above floor or on floor                                    |
@@ -21,7 +21,7 @@
 | `configuration/customization/getRack/clearingVolume`         | Volume to sweep for obstacles with respect to the established origin of the racking system.                                                       |
 | `configuration/customization/getItem/depthHint`              | An approximate distance (in meters along the X-axis) between the camera and the item                                                              |
 | `configuration/customization/getItem/itemIndex`              | Item index based on the item type                                                                                                                 |
-| `configuration/customization/getItem/itemOrder`              | Order of the items detected when multiple items were detected based on the detection score/height.                                                                                     |
+| `configuration/customization/getItem/itemOrder`              | Order of the items detected when multiple items were detected based on the detection score/height.                                                |
 | `configuration/customization/volCheck`                       | Minimum and maximum bounding box parameters along X, Y and Z axis                                                                                 |
 | `configuration/port/mode`                                    | To designate the measurement range: 2 or 4 meters. This parameter is configurable only in `CONF` state                                            |
 | `configuration/port/acquisition/channelValue`                | Channel value where each channel corresponding to a different modulation frequency This parameter is configurable only in `CONF` state            |
