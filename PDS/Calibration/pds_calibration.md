@@ -3,8 +3,8 @@
 The PDS application always returns the position of an object with respect to the calibrated coordinate system. Typically, the calibrated coordinate system corresponds to the fork tines, so that the coordinate system will go up and down with the forks and the pallet position will always be provided with reference to the current position of the forks.
 
 ## Concepts
-
-PDS expects the orientation of the coordinate frame to be as follows:
+### PDS' coordinate system
+PDS expects the orientation of the coordinate system to be as follows:
 - X is pointing in direction of the forks,
 - Y is pointing to the left of the forks,
 - Z is pointing up.
@@ -15,20 +15,30 @@ When uncalibrated, the camera coordinate system is such that Z is pointing away 
 
 The uncalibrated coordinate system does not correspond to what PDS expects. Consequently, if no calibration is set, PDS will raise an error.
 
-To fit the expected coordinate system of PDS, the coordinate system has to be rotated. An example of a correctly calibrated coordinate system would be as shown in the image below, where the origin of the coordinate system is place at the center of the base of the forks:
+To fit the expected coordinate system of PDS, the coordinate system has to be rotated. An example of a correctly calibrated coordinate system would be as shown in the image below, where the origin of the coordinate system is placed at the center of the base of the forks:
 
 ![Coordinate system calibrated to the center of the base of the forks](resources/forks_base_center_coord_sys.png)
 
 Note that the user can decide where to place the origin of the coordinate system. We show a couple examples [below](#examples).
 
 PDS will look for a pallet within a defined volume of interest. By default, it expects the camera to be placed between 22 and 35 cm above the bottom plane of the pallet. 
-TODO: add details about the VOI, understand how VOI changes with calibration.
+For more details about the volume of interest for the different PDS commands, refer to their respective documentation.
 
 Note that errors in the camera calibration will lead to errors in the position of the targeted object. If CAD data is known to be precise enough, it can be used to extract calibration values for the camera. Otherwise, any of [the calibration methods](/SoftwareInterfaces/Toolbox/ExtrinsicCalibration/README.md) provided by ifm can be used.
 
+### Robot's coordinate system
+Typically, PDS' coordinate system will be different from the Robot Coordinate System (RCS):
+- The RCS is usually in a fixed position on the robot's chassis, when PDS's coordinate systems moves with the forks. The transformation between the RCS and the PDS coordinate system will depend on the position of the forks.
+- The RCS is typically in the middle of the steering axis, when PDS's coordinate system is located around the forks base or tip.
+- The axis of the RCS and the PDS coordinate systems will typically be parallel. The X axis of the RCS typically points in the direction of travel, and PDS' coordinate system X axis points in the direction of the forks, which would typically be towards the back of the vehicle. X and Y axis will consequently be pointing in opposite directions in the RCS and the PDS coordinate system. The Z axis will point upwards in both coordinate system.
+
+:::{note}
+Note that these comments represent most typical use cases, but your coordinate systems might be different. The coordinate systems can be adjusted to fit your specific setup.
+:::
+
 ## Examples
 
-### Horizontally mounted camera, tip of fork coordinate system
+### Tip of fork coordinate system
 Let's take for example a camera mounted horizontally, looking straight ahead, directly between the two forks. 
 Let's assume the fork tines coordinate system's origin is at the tip of the right fork, like shown in the image below:
 ![Coordinate system calibrated to the tip of the right fork](resources/forks_tips_coord_sys.png)
@@ -49,9 +59,9 @@ This is equivalent to setting the following parameters in the relevant port's JS
             "processing":{
                 "extrinsicHeadToUser":{
                     {
-                        "rotX": 0,
-                        "rotY": 1.57,
-                        "rotZ": -1.57,
+                        "rotX": -1.57,
+                        "rotY": -1.57,
+                        "rotZ": 0,
                         "transX": 1.00,
                         "transY": 0.25,
                         "transZ": 0.05
@@ -62,4 +72,42 @@ This is equivalent to setting the following parameters in the relevant port's JS
     }
 }
 ```
-### Other example
+
+:::{note}
+Note that the X axis is pointing backwards with respect to the RCS. This explains why we have the 180 yaw angle.
+:::
+### Base of forks coordinate system
+
+Let's take another example and assume the camera is mounted horizontally pointing forward, directly between the two forks, and the origin of the coordinate system is at the base of forks, right between the two forks, as shown in the image below:
+![Coordinate system calibrated to the center of the base of the forks](resources/forks_base_center_coord_sys_with_cam.png)
+
+Let's assume that the center of the coordinate system is 5 cm below the camera, and on the same (YZ) plane:
+![Measurements between the camera and the coordinate system](resources/translation_to_forks_base_center.png) 
+
+With these measurements, we would have the following calibration values:
+![Calibration values with the coordinate system at the base of the forks](resources/calibration_values_fork_base.png)
+This is equivalent to setting the following parameters in the relevant port's JSON configuration:
+```json
+{
+    "ports":{
+        "portX":{
+            "processing":{
+                "extrinsicHeadToUser":{
+                    {
+                        "rotX": -1.57,
+                        "rotY": -1.57,
+                        "rotZ": 0,
+                        "transX": 0.00,
+                        "transY": 0.00,
+                        "transZ": 0.05
+                    }
+                }
+            }
+        }
+    }
+}
+```
+
+:::{note}
+Note that the X axis is pointing backwards with respect to the RCS. This explains why we have the 180 yaw angle.
+:::
