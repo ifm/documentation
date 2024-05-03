@@ -41,6 +41,12 @@ The calibrate the cameras, the easiest way is to use the ifmVisionAssistant manu
 3. If the camera is mounted horizontally, with the label facing up, you can skip this step. Otherwise, select the orientation of the camera when looking at the front of the camera. If the camera is tilted, enter the additional rotation parameters.
 4. Enter the translation parameters from the fork tines coordinate system to the camera.
 
+:::{note}
+For more details on the calibration process, you can refer to [the calibration documentation](../Calibration/pds_calibration.md).
+For a quick test setup, it is acceptable to have an approximate calibration, as long as the orientation of the camera is correct and the translations are correct to a centimeter or so. 
+For a production setup and for testing the performance algorithm, we recommend to precisely calibrate the camera with one of [ifm's provided calibration methods](../../CalibrationRoutines/index_calibrations.md). 
+:::
+
 ## PDS with ifmVisionAssistant
 
 Before reading this section, make sure you are familiar with the documentation page: [how to get started with the iVA](../../GettingStarted/ifmVisionAssistant/index_iVA.md).
