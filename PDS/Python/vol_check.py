@@ -16,6 +16,7 @@ from ifm3dpy.framegrabber import FrameGrabber, buffer_id
 # Device specific configuration
 IP = "192.168.0.69"
 CAMERA_PORT = "port2"
+APP_PORT = "app0"
 
 o3r = O3R(IP)
 try:
@@ -29,27 +30,17 @@ o3r.set({"ports": {CAMERA_PORT: {"processing": {"extrinsicHeadToUser": c}}}})
 
 print(f"Create a PDS instance using the camera in {CAMERA_PORT}")
 o3r.set(
-    {"applications": {"instances": {"app0": {"class": "pds", "ports": [CAMERA_PORT]}}}}
+    {"applications": {"instances": {APP_PORT: {"class": "pds", "ports": [CAMERA_PORT]}}}}
 )
 
 print("Set the PDS application state to IDLE")
-o3r.set({"applications": {"instances": {"app0": {"state": "IDLE"}}}})
+o3r.set({"applications": {"instances": {APP_PORT: {"state": "IDLE"}}}})
 
 time.sleep(0.5)
 
-fg = FrameGrabber(o3r, 51010)
+fg = FrameGrabber(o3r, o3r.port(APP_PORT).pcic_port)
 
-PCIC_FORMAT = {
-    "layouter": "flexible",
-    "format": {"dataencoding": "ascii"},
-    "elements": [
-        {"type": "string", "value": "star", "id": "start_string"},
-        {"type": "blob", "id": "O3R_RESULT_JSON"},
-        {"type": "blob", "id": "O3R_RESULT_ARRAY2D"},
-        {"type": "string", "value": "stop", "id": "end_string"},
-    ],
-}
-fg.start([1002], pcic_format=PCIC_FORMAT)
+fg.start([buffer_id.O3R_RESULT_JSON])
 
 
 def volume_callback(frame):
@@ -58,8 +49,8 @@ def volume_callback(frame):
 
     :param frame: frame containing the results of the volCheck command
     """
-    if frame.has_buffer(buffer_id(1002)):
-        json_chunk = frame.get_buffer(buffer_id(1002))
+    if frame.has_buffer(buffer_id.O3R_RESULT_JSON):
+        json_chunk = frame.get_buffer(buffer_id.O3R_RESULT_JSON)
         json_array = np.frombuffer(json_chunk[0], dtype=np.uint8)
         json_array = json_array.tobytes()
         parsed_json_array = json.loads(json_array.decode())
@@ -81,7 +72,7 @@ o3r.set(
     {
         "applications": {
             "instances": {
-                "app0": {
+                APP_PORT: {
                     "configuration": {
                         "customization": {
                             "command": "volCheck",

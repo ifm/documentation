@@ -18,26 +18,14 @@ from ifm3dpy.framegrabber import FrameGrabber, buffer_id
 # Device specific configuration
 IP = "192.168.0.69"
 CAMERA_PORT = "port2"
+APP_PORT = "app0"
 
-# MAGIC NUMBERS
-APP_PCIC_PORT = 51010
-PCIC_FORMAT = {
-    "layouter": "flexible",
-    "format": {"dataencoding": "ascii"},
-    "elements": [
-        {"type": "string", "value": "star", "id": "start_string"},
-        {"type": "blob", "id": "O3R_RESULT_JSON"},
-        {"type": "blob", "id": "O3R_RESULT_ARRAY2D"},
-        {"type": "string", "value": "stop", "id": "end_string"},
-    ],
-}
 GET_ITEM_PARAMETERS = {
     "depthHint": -1,
     "itemIndex": 0,
     "itemOrder": "scoreDescending",
 }
 TIMEOUT = 6000
-BUFFER_ID_PDS_JSON = 1002
 
 o3r = O3R(IP)
 
@@ -54,16 +42,16 @@ o3r.set({"ports": {CAMERA_PORT: {"processing": {"extrinsicHeadToUser": c}}}})
 # 2. Create the application instance
 print(f"Create a PDS instance using camera in {CAMERA_PORT}")
 o3r.set(
-    {"applications": {"instances": {"app0": {"class": "pds", "ports": [CAMERA_PORT]}}}}
+    {"applications": {"instances": {APP_PORT: {"class": "pds", "ports": [CAMERA_PORT]}}}}
 )
 
 # 3. Set app state to "IDLE" - this is equal to the trigger mode required for the PDS app
 print("Set the PDS application to IDLE")
-o3r.set({"applications": {"instances": {"app0": {"state": "IDLE"}}}})
+o3r.set({"applications": {"instances": {APP_PORT: {"state": "IDLE"}}}})
 
 # 4. Create the Framegrabber instance and start listening on the socket
-fg = FrameGrabber(o3r, APP_PCIC_PORT)
-fg.start([BUFFER_ID_PDS_JSON], pcic_format=PCIC_FORMAT)
+fg = FrameGrabber(o3r, o3r.port(APP_PORT).pcic_port)
+fg.start([buffer_id.O3R_RESULT_JSON])
 
 
 # Define a callback function to be executed every time a frame is received
@@ -74,8 +62,8 @@ def item_callback(frame):
     :param frame: A frame containing the data for all the buffer ids
     requested in the start function of the framegrabber.
     """
-    if frame.has_buffer(buffer_id(BUFFER_ID_PDS_JSON)):
-        json_chunk = frame.get_buffer(buffer_id(BUFFER_ID_PDS_JSON))
+    if frame.has_buffer(buffer_id.O3R_RESULT_JSON):
+        json_chunk = frame.get_buffer(buffer_id.O3R_RESULT_JSON)
         json_array = np.frombuffer(json_chunk[0], dtype=np.uint8)
         json_array = json_array.tobytes()
         parsed_json_array = json.loads(json_array.decode())
@@ -89,7 +77,7 @@ o3r.set(
     {
         "applications": {
             "instances": {
-                "app0": {
+                APP_PORT: {
                     "configuration": {
                         "customization": {
                             "command": "getItem",

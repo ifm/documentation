@@ -17,6 +17,8 @@ from ifm3dpy.framegrabber import FrameGrabber, buffer_id
 # Edit for the IP address of your OVP8xx and the camera port
 IP = "192.168.0.69"
 CAMERA_PORT = "port2"
+APP_PORT = "app0"
+
 o3r = O3R(IP)
 
 # Ensure a clean slate before running the example
@@ -34,12 +36,12 @@ o3r.set({"ports": {CAMERA_PORT: {"processing": {"extrinsicHeadToUser": c}}}})
 # choose the camera port
 print(f"Creating a PDS instance with camera in {CAMERA_PORT}")
 o3r.set(
-    {"applications": {"instances": {"app0": {"class": "pds", "ports": [CAMERA_PORT]}}}}
+    {"applications": {"instances": {APP_PORT: {"class": "pds", "ports": [CAMERA_PORT]}}}}
 )
 
 # Set the application to IDLE (ready to be triggered)
 print("Setting the PDS application to IDLE")
-o3r.set({"applications": {"instances": {"app0": {"state": "IDLE"}}}})
+o3r.set({"applications": {"instances": {APP_PORT: {"state": "IDLE"}}}})
 
 time.sleep(0.5)
 # %%
@@ -53,26 +55,15 @@ def pallet_callback(frame):
     deserialize it into a JSON array.
     :param frame: the result of the getPallet command.
     """
-    if frame.has_buffer(buffer_id(1002)):
-        json_chunk = frame.get_buffer(buffer_id(1002))
+    if frame.has_buffer(buffer_id.O3R_RESULT_JSON):
+        json_chunk = frame.get_buffer(buffer_id.O3R_RESULT_JSON)
         json_array = np.frombuffer(json_chunk[0], dtype=np.uint8)
         json_array = json_array.tobytes()
         parsed_json_array = json.loads(json_array.decode())
         print(f"Pallet: {parsed_json_array['getPallet']['pallet']}")
         print(f"Full getPallet array: {parsed_json_array}")
 
-
-PCIC_FORMAT = {
-    "layouter": "flexible",
-    "format": {"dataencoding": "ascii"},
-    "elements": [
-        {"type": "string", "value": "star", "id": "start_string"},
-        {"type": "blob", "id": "O3R_RESULT_JSON"},
-        {"type": "blob", "id": "O3R_RESULT_ARRAY2D"},
-        {"type": "string", "value": "stop", "id": "end_string"},
-    ],
-}
-fg.start([1002], pcic_format=PCIC_FORMAT)
+fg.start([buffer_id.O3R_RESULT_JSON])
 fg.on_new_frame(pallet_callback)
 
 GET_PALLET_PARAMETERS = {
@@ -87,7 +78,7 @@ o3r.set(
     {
         "applications": {
             "instances": {
-                "app0": {
+                APP_PORT: {
                     "configuration": {
                         "customization": {
                             "command": "getPallet",

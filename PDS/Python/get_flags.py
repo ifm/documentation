@@ -11,6 +11,7 @@ from ifm3dpy.framegrabber import FrameGrabber, buffer_id
 # Edit for the IP address of your OVP8xx and the camera port
 IP = "192.168.0.69"
 CAMERA_PORT = "port2"
+APP_PORT = "app0"
 o3r = O3R(IP)
 
 # Ensure a clean slate before running the example
@@ -28,16 +29,16 @@ o3r.set({"ports": {CAMERA_PORT: {"processing": {"extrinsicHeadToUser": c}}}})
 # choose the camera port
 print(f"Creating a PDS instance with camera in {CAMERA_PORT}")
 o3r.set(
-    {"applications": {"instances": {"app0": {"class": "pds", "ports": [CAMERA_PORT]}}}}
+    {"applications": {"instances": {APP_PORT: {"class": "pds", "ports": [CAMERA_PORT]}}}}
 )
 
 # Set the application to IDLE (ready to be triggered)
 print("Setting the PDS application to IDLE")
-o3r.set({"applications": {"instances": {"app0": {"state": "IDLE"}}}})
+o3r.set({"applications": {"instances": {APP_PORT: {"state": "IDLE"}}}})
 
 time.sleep(0.5)
 # %%
-fg = FrameGrabber(o3r, 51010)
+fg = FrameGrabber(o3r, o3r.port(APP_PORT).pcic_port)
 
 
 # Define a callback to be executed when a frame is received
@@ -47,24 +48,14 @@ def flags_callback(frame):
     deserialize it into a JSON array.
     :param frame: the result of the getPallet command.
     """
-    if frame.has_buffer(buffer_id(1003)):
-        flag_chunk = frame.get_buffer(buffer_id(1003))
+    if frame.has_buffer(buffer_id.O3R_RESULT_ARRAY2D):
+        flag_chunk = frame.get_buffer(buffer_id.O3R_RESULT_ARRAY2D)
         flag_array = np.frombuffer(flag_chunk[0], dtype=np.uint16)
         flag_array = np.reshape(flag_array, (172, 224))
         print(f"Pixel flags: {flag_array}")
 
 
-PCIC_FORMAT = {
-    "layouter": "flexible",
-    "format": {"dataencoding": "ascii"},
-    "elements": [
-        {"type": "string", "value": "star", "id": "start_string"},
-        {"type": "blob", "id": "O3R_RESULT_JSON"},
-        {"type": "blob", "id": "O3R_RESULT_ARRAY2D"},
-        {"type": "string", "value": "stop", "id": "end_string"},
-    ],
-}
-fg.start([1003], pcic_format=PCIC_FORMAT)
+fg.start([buffer_id.O3R_RESULT_ARRAY2D])
 fg.on_new_frame(flags_callback)
 
 GET_PALLET_PARAMETERS = {
@@ -79,7 +70,7 @@ o3r.set(
     {
         "applications": {
             "instances": {
-                "app0": {
+                APP_PORT: {
                     "configuration": {
                         "customization": {
                             "command": "getPallet",
