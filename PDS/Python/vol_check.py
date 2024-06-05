@@ -4,7 +4,7 @@
 ###########################################
 """
 Setup:  * Camera: O3R222, 3D on port2 
-            * orientation: camera horizontally (Fakra cable to the left)
+            * orientation: camera horizontally (Fakra cable to the left, label up)
 """
 import json
 import time
@@ -17,29 +17,44 @@ from ifm3dpy.framegrabber import FrameGrabber, buffer_id
 IP = "192.168.0.69"
 CAMERA_PORT = "port2"
 APP_PORT = "app0"
-
 o3r = O3R(IP)
+
+############################################
+# Setup the application
+############################################
 try:
     o3r.reset("/applications/instances")
 except Exception as e:
     print(f"Reset failed: {e}")
 
-c = {"transX": 0.0, "transY": 0, "transZ": 0.0, "rotX": -1.57, "rotY": 1.57, "rotZ": 0}
+calibration = {
+    "transX": 0.0,
+    "transY": 0.0,
+    "transZ": 0.2,  # 20 cm above the ground
+    "rotX": 0,
+    "rotY": 1.57,  # rotY and rotZ define camera horizontal and looking straight forward
+    "rotZ": -1.57,
+}
 print(f"Setting the calibration for camera in {CAMERA_PORT}")
-o3r.set({"ports": {CAMERA_PORT: {"processing": {"extrinsicHeadToUser": c}}}})
+o3r.set({"ports": {CAMERA_PORT: {"processing": {"extrinsicHeadToUser": calibration}}}})
 
 print(f"Create a PDS instance using the camera in {CAMERA_PORT}")
 o3r.set(
-    {"applications": {"instances": {APP_PORT: {"class": "pds", "ports": [CAMERA_PORT]}}}}
+    {
+        "applications": {
+            "instances": {
+                APP_PORT: {"class": "pds", "ports": [CAMERA_PORT], "state": "IDLE"}
+            }
+        }
+    }
 )
 
-print("Set the PDS application state to IDLE")
-o3r.set({"applications": {"instances": {APP_PORT: {"state": "IDLE"}}}})
-
 time.sleep(0.5)
-
+############################################
+# Setup the framegrabber to receive frames
+# when the application is triggered.
+############################################
 fg = FrameGrabber(o3r, o3r.port(APP_PORT).pcic_port)
-
 fg.start([buffer_id.O3R_RESULT_JSON])
 
 
@@ -50,24 +65,34 @@ def volume_callback(frame):
     :param frame: frame containing the results of the volCheck command
     """
     if frame.has_buffer(buffer_id.O3R_RESULT_JSON):
+        print("Received a frame")
         json_chunk = frame.get_buffer(buffer_id.O3R_RESULT_JSON)
         json_array = np.frombuffer(json_chunk[0], dtype=np.uint8)
         json_array = json_array.tobytes()
         parsed_json_array = json.loads(json_array.decode())
-        print(parsed_json_array["volCheck"]["numPixels"])
+        print(
+            f"Number of pixels in the volume: {parsed_json_array['volCheck']['numPixels']}"
+        )
 
 
 fg.on_new_frame(volume_callback)
 
+############################################
+# Trigger the volCheck command
+############################################
+time.sleep(2)  # Grace period after the framegrabber starts
+
+# Define the boudaries of the volume to be checked
 VOLCHECK_PARAMETERS = {
-    "xMin": 2,
-    "xMax": 3.5,
+    "xMin": 1,
+    "xMax": 2,
     "yMin": -0.5,
     "yMax": 0.5,
-    "zMin": -0.8,
+    "zMin": 0.0,
     "zMax": 0.4,
 }
 
+print("Triggering the volCheck command")
 o3r.set(
     {
         "applications": {
