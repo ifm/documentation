@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 #############################################
 # Copyright 2023-present ifm electronic, gmbh
 # SPDX-License-Identifier: Apache-2.0
