@@ -25,4 +25,11 @@ add_executable(get_pallet get_pallet.cpp)
 target_link_libraries(get_pallet
                       ifm3d::device
                       ifm3d::framegrabber
-                      )                        
+                      )  
+
+## Get item example
+add_executable(get_item get_item.cpp)
+target_link_libraries(get_item
+                      ifm3d::device
+                      ifm3d::framegrabber
+                      )                                              

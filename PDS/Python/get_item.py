@@ -19,40 +19,44 @@ from ifm3dpy.framegrabber import FrameGrabber, buffer_id
 IP = "192.168.0.69"
 CAMERA_PORT = "port2"
 APP_PORT = "app0"
-
-GET_ITEM_PARAMETERS = {
-    "depthHint": -1,
-    "itemIndex": 0,
-    "itemOrder": "scoreDescending",
-}
-TIMEOUT = 6000
-
 o3r = O3R(IP)
 
+############################################
+# Setup the application
+############################################
 try:
     o3r.reset("/applications/instances")
 except Exception as e:
     print(f"Reset failed: {e}")
 
-# 1. Set the correct extrinsic calibration
-c = {"transX": 0.0, "transY": 0, "transZ": 0.0, "rotX": -1.57, "rotY": 1.57, "rotZ": 0}
+# Set the correct extrinsic calibration of the camera.
+calibration = {
+    "transX": 0.0,
+    "transY": 0.0,
+    "transZ": 0.2,
+    "rotX": 0.0,
+    "rotY": 1.57,
+    "rotZ": -1.57,
+}
 print(f"Setting the extrinsic calibration for camera in {CAMERA_PORT}")
-o3r.set({"ports": {CAMERA_PORT: {"processing": {"extrinsicHeadToUser": c}}}})
+o3r.set({"ports": {CAMERA_PORT: {"processing": {"extrinsicHeadToUser": calibration}}}})
 
-# 2. Create the application instance
+# Create the application instance and set to IDLE (ready to be triggered)
 print(f"Create a PDS instance using camera in {CAMERA_PORT}")
 o3r.set(
-    {"applications": {"instances": {APP_PORT: {"class": "pds", "ports": [CAMERA_PORT]}}}}
+    {
+        "applications": {
+            "instances": {APP_PORT: {"class": "pds", "ports": [CAMERA_PORT], "state": "IDLE"}}
+        }
+    }
 )
 
-# 3. Set app state to "IDLE" - this is equal to the trigger mode required for the PDS app
-print("Set the PDS application to IDLE")
-o3r.set({"applications": {"instances": {APP_PORT: {"state": "IDLE"}}}})
-
-# 4. Create the Framegrabber instance and start listening on the socket
+############################################
+# Setup the framegrabber to receive frames
+# when the application is triggered.
+############################################
 fg = FrameGrabber(o3r, o3r.port(APP_PORT).pcic_port)
 fg.start([buffer_id.O3R_RESULT_JSON])
-
 
 # Define a callback function to be executed every time a frame is received
 def item_callback(frame):
@@ -67,12 +71,21 @@ def item_callback(frame):
         json_array = np.frombuffer(json_chunk[0], dtype=np.uint8)
         json_array = json_array.tobytes()
         parsed_json_array = json.loads(json_array.decode())
-        print(parsed_json_array["getItem"]["item"])
-
+        print(f"Detected item: {parsed_json_array['getItem']['item']}")
 
 fg.on_new_frame(item_callback)
 
-# 5. Call a getItem command: this triggers the image acquisition and pose detection algorithm
+############################################
+# Trigger the getItem command
+############################################
+time.sleep(2)  # Grace period after the framegrabber starts
+
+GET_ITEM_PARAMETERS = {
+    "depthHint": -1, #Estimated position of the item (-1 for automatic detection)
+    "itemIndex": 0, #Type of item
+}
+
+print("Triggering the getItem command")
 o3r.set(
     {
         "applications": {
