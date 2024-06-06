@@ -32,4 +32,10 @@ add_executable(get_item get_item.cpp)
 target_link_libraries(get_item
                       ifm3d::device
                       ifm3d::framegrabber
-                      )                                              
+                      )   
+## Get rack example
+add_executable(get_rack get_rack.cpp)
+target_link_libraries(get_rack
+                      ifm3d::device
+                      ifm3d::framegrabber
+                      )                                                                    
