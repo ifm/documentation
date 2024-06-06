@@ -12,7 +12,7 @@ import json
 import time
 import numpy as np
 
-from ifm3dpy.device import O3R
+from ifm3dpy.device import O3R, Error
 from ifm3dpy.framegrabber import FrameGrabber, buffer_id
 
 # Device specific configuration
@@ -26,7 +26,7 @@ o3r = O3R(IP)
 ############################################
 try:
     o3r.reset("/applications/instances")
-except Exception as e:
+except Error as e:
     print(f"Reset failed: {e}")
 
 # Set the correct extrinsic calibration of the camera.
@@ -46,7 +46,9 @@ print(f"Create a PDS instance using camera in {CAMERA_PORT}")
 o3r.set(
     {
         "applications": {
-            "instances": {APP_PORT: {"class": "pds", "ports": [CAMERA_PORT], "state": "IDLE"}}
+            "instances": {
+                APP_PORT: {"class": "pds", "ports": [CAMERA_PORT], "state": "IDLE"}
+            }
         }
     }
 )
@@ -57,6 +59,7 @@ o3r.set(
 ############################################
 fg = FrameGrabber(o3r, o3r.port(APP_PORT).pcic_port)
 fg.start([buffer_id.O3R_RESULT_JSON])
+
 
 # Define a callback function to be executed every time a frame is received
 def item_callback(frame):
@@ -73,6 +76,7 @@ def item_callback(frame):
         parsed_json_array = json.loads(json_array.decode())
         print(f"Detected item: {parsed_json_array['getItem']['item']}")
 
+
 fg.on_new_frame(item_callback)
 
 ############################################
@@ -81,8 +85,8 @@ fg.on_new_frame(item_callback)
 time.sleep(2)  # Grace period after the framegrabber starts
 
 GET_ITEM_PARAMETERS = {
-    "depthHint": -1, #Estimated position of the item (-1 for automatic detection)
-    "itemIndex": 0, #Type of item
+    "depthHint": -1,  # Estimated position of the item (-1 for automatic detection)
+    "itemIndex": 0,  # Type of item
 }
 
 print("Triggering the getItem command")

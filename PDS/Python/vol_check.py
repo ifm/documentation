@@ -10,7 +10,7 @@ import json
 import time
 import numpy as np
 
-from ifm3dpy.device import O3R
+from ifm3dpy.device import O3R, Error
 from ifm3dpy.framegrabber import FrameGrabber, buffer_id
 
 # Device specific configuration
@@ -24,7 +24,7 @@ o3r = O3R(IP)
 ############################################
 try:
     o3r.reset("/applications/instances")
-except Exception as e:
+except Error as e:
     print(f"Reset failed: {e}")
 
 calibration = {
