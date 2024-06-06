@@ -8,12 +8,15 @@ import numpy as np
 from ifm3dpy.device import O3R
 from ifm3dpy.framegrabber import FrameGrabber, buffer_id
 
-# Edit for the IP address of your OVP8xx and the camera port
+#%% Edit for the IP address of your OVP8xx and the camera port
 IP = "192.168.0.69"
 CAMERA_PORT = "port2"
 APP_PORT = "app0"
 o3r = O3R(IP)
 
+#%%#########################################
+# Setup the application
+############################################
 # Ensure a clean slate before running the example
 try:
     o3r.reset("/applications/instances")
@@ -21,25 +24,23 @@ except Exception as e:
     print(f"Reset failed: {e}")
 
 # Set the extrinsic calibration of the camera
-c = {"transX": 0.0, "transY": 0, "transZ": 0.0, "rotX": -1.57, "rotY": 1.57, "rotZ": 0}
+calibration = {"transX": 0.0, "transY": 0, "transZ": 0.0, "rotX": -1.57, "rotY": 1.57, "rotZ": 0}
 print(f"Setting extrinsic calibration for {CAMERA_PORT}")
-o3r.set({"ports": {CAMERA_PORT: {"processing": {"extrinsicHeadToUser": c}}}})
+o3r.set({"ports": {CAMERA_PORT: {"processing": {"extrinsicHeadToUser": calibration}}}})
 
 # Create the PDS application and
 # choose the camera port
 print(f"Creating a PDS instance with camera in {CAMERA_PORT}")
 o3r.set(
-    {"applications": {"instances": {APP_PORT: {"class": "pds", "ports": [CAMERA_PORT]}}}}
+    {"applications": {"instances": {APP_PORT: {"class": "pds", "ports": [CAMERA_PORT], "state": "IDLE"}}}}
 )
 
-# Set the application to IDLE (ready to be triggered)
-print("Setting the PDS application to IDLE")
-o3r.set({"applications": {"instances": {APP_PORT: {"state": "IDLE"}}}})
-
-time.sleep(0.5)
-# %%
+#%%#########################################
+# Setup the framegrabber to receive frames
+# when the application is triggered.
+############################################
 fg = FrameGrabber(o3r, o3r.port(APP_PORT).pcic_port)
-
+fg.start([buffer_id.O3R_RESULT_ARRAY2D])
 
 # Define a callback to be executed when a frame is received
 def flags_callback(frame):
@@ -49,22 +50,23 @@ def flags_callback(frame):
     :param frame: the result of the getPallet command.
     """
     if frame.has_buffer(buffer_id.O3R_RESULT_ARRAY2D):
-        flag_chunk = frame.get_buffer(buffer_id.O3R_RESULT_ARRAY2D)
-        flag_array = np.frombuffer(flag_chunk[0], dtype=np.uint16)
-        flag_array = np.reshape(flag_array, (172, 224))
-        print(f"Pixel flags: {flag_array}")
+        flags = frame.get_buffer(buffer_id.O3R_RESULT_ARRAY2D)
+        print(f"Pixel flags: {flags}")
+        print(f"Flag fox pixel (100, 100): {flags[100, 100]}")
 
-
-fg.start([buffer_id.O3R_RESULT_ARRAY2D])
 fg.on_new_frame(flags_callback)
 
+#%%#########################################
+# Trigger the getPallet command: we need to
+# trigger a command to retrieve the corresponding
+# flags for each pixel in the image.
+############################################
+time.sleep(2)
 GET_PALLET_PARAMETERS = {
     "depthHint": -1,
     "palletIndex": 0,  # Block Pallet/EPAL pallet
-    "palletOrder": "scoreDescending",
 }
 
-# %%
 print("Triggering the getPallet command")
 o3r.set(
     {
@@ -84,5 +86,6 @@ o3r.set(
 )
 # Sleep to ensure we have time to execute the callback before exiting.
 time.sleep(3)
-# %%
+
+#%% Stop the framegrabber
 fg.stop()
