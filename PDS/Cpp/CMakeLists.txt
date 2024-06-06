@@ -19,3 +19,10 @@ target_link_libraries(vol_check
                       ifm3d::device
                       ifm3d::framegrabber
                       )  
+
+## Get pallet example
+add_executable(get_pallet get_pallet.cpp)
+target_link_libraries(get_pallet
+                      ifm3d::device
+                      ifm3d::framegrabber
+                      )                        
