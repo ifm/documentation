@@ -84,7 +84,7 @@ int main(){
     // Trigger the application
     ////////////////////////////////
     std::this_thread::sleep_for(2s);
-    ifm3d::json volcheck_parameters = {
+    ifm3d::json volCheck_parameters = {
         {"xMin", 1},
         {"xMax", 2},
         {"yMin", -0.5},
@@ -92,14 +92,14 @@ int main(){
         {"zMin", 0.0},
         {"zMax", 0.4},
     };
-    ifm3d::json volcheck_command = {
+    ifm3d::json volCheck_command = {
             {"applications",{
                 {"instances",{
                     {APP_PORT,{
                         {"configuration", {
                             {"customization",{
                                 {"command", "volCheck"},
-                                {"volCheck", volcheck_parameters}
+                                {"volCheck", volCheck_parameters}
                             }}
                         }}
                     }}
@@ -107,7 +107,7 @@ int main(){
             }}
         };
     std::cout << "Triggering the volCheck command" << std::endl;
-    o3r->Set(volcheck_command);
+    o3r->Set(volCheck_command);
 
     std::this_thread::sleep_for(3s);
     fg->Stop();

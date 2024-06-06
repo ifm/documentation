@@ -65,7 +65,6 @@ def volume_callback(frame):
     :param frame: frame containing the results of the volCheck command
     """
     if frame.has_buffer(buffer_id.O3R_RESULT_JSON):
-        print("Received a frame")
         json_chunk = frame.get_buffer(buffer_id.O3R_RESULT_JSON)
         json_array = np.frombuffer(json_chunk[0], dtype=np.uint8)
         json_array = json_array.tobytes()
