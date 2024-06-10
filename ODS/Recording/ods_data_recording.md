@@ -115,7 +115,7 @@ While recording the data there are two Toggle Buttons beside the `Start/Stop` bu
 Record the Algo-Debug data when you need technical support from ifm to debug the scenario.
 :::
 
-<img src="img/Record_options.png" alt="Recording Options" style="height:300px; width:1080px;">
+![Recording options](img/Record_options.png)
 
 **Data Recording**
 
@@ -134,7 +134,7 @@ The data analyzed below is recorded by an O3R225 camera head connected to a VPU 
 
 **Python snippet to read the data from a recording**
 
-```python title="Read O3R h5 data files"
+```python title="Read and plot O3R h5 data files"
 import h5py
 from matplotlib import pyplot as plt
 
@@ -146,9 +146,7 @@ print('Available streams in the recorded data : ',list(data["streams"]))
 stream_2d   = data["streams"]['o3r_rgb_0']
 stream_3d   = data["streams"]['o3r_tof_0']
 stream_ods  = data["streams"]['o3r_app_ods_0']
-```
 
-```python title="Plot O3R h5 data files contents"
 # show all available data per stream
 print(stream_2d.dtype)
 
@@ -157,8 +155,8 @@ rgb_encoded = stream_2d[0]['jpeg']
 rgb_decoded = cv2.imdecode(rgb_encoded,cv2.IMREAD_UNCHANGED)
 rgb_image   = cv2.cvtColor(rgb_decoded,cv2.COLOR_BGR2RGB)
 
-distance_image  = stream_3d[0]['distance']
-amplitude_image = stream_3d[0]['amplitude']
+distance_image  = stream_3d[0]['distance']*stream_3d[0]['distanceResolution']
+amplitude_image = stream_3d[0]['amplitude']*stream_3d[0]['amplitudeResolution']
 occupancy_grid  = stream_ods[0]['image']
 
 plt.figure()
@@ -182,4 +180,4 @@ plt.title('Distance Image')
 The occupancy grid image is 200 x 200 px² image (1px == 50mm) rotated 90° clockwise with respect to the camera's orientation. The newest data in the robot's forward direction is a column on the right-hand side of the occupancy grid.
 :::
 
-See notes on [concurrent workloads](../FieldTest/ConcurrentWorkloads/concurrent_workloads.md) for additional information on performance when running many simultaneous 3D camera streams.
+See notes on [concurrent workloads](../Performance/ConcurrentWorkloads/concurrent_workloads.md) for additional information on performance when running many simultaneous 3D camera streams.

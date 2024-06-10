@@ -22,7 +22,7 @@ services:
             - 8888:8888
 ```
 
-> Note: The Docker version on the VPU expects the docker-compose.yml to be either version 2.2 or 3.3. Fur further information refer to [docker compose](<https://docs.docker.com/compose/gettingstarted/>).
+> Note: The Docker version on the VPU expects the `docker-compose.yml` to be either version 2.2 or 3.3. For further information refer to [Docker compose](<https://docs.docker.com/compose/gettingstarted/>).
 
 ## Start the container
 
@@ -53,6 +53,8 @@ systemctl --user enable oem-dc@jupyter
 
 See [Start the container](#autostart-a-container-on-the-vpu) on how to start the container with a `docker-compose.yml file`
 
-## Save data on consistently on the VPU with a container
+## Consistently save data on the VPU within a container
 
-Data created and saved within a container is only available for the running instance of the container itself. Restarting the container leads to a loss of the previously saved data. Use `volumes` to avoid this scenario.
+Data that is created and stored within a container is exclusive to the current running instance of that container. 
+If the container is restarted, any data previously saved will be lost. 
+To prevent this, consider using Docker `volumes`.

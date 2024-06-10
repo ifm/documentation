@@ -17,13 +17,39 @@ The following file system formats are supported for the external storage devices
 + FAT32
 + EXT4
 
-See the limitations imposed by the [use of EXT4 below](#ext4-format-usb-mounting-preparation)
+See the limitations imposed by the [use of EXT4 below](#ext4)
 
 **Other USB mass storage devices**
 
 Other USB mass storage devices that require the installation of additional drivers may be functional if the drivers are installed within the respective Docker software containers. ifm does not provide official support for these devices - the user may use them in development / production use cases at his own risk. Possible compatibility limitations due to updates of the embedded firmware may require updates of the device drivers in the user's software containers. No continuous compatibility over embedded FW versions is assured.
 
+### USB Cameras
 
+From the firmware version 1.4.30 and above, the USB cameras will be assigned to `/dev/video0` node by the VPU. USB cameras like webcams are only tested which uses the default `v4l2` framework on linux kernel. It should be noted that user cannot access the **V4L** devices or `/dev/video0` node directly on the VPU without Docker container. To make use of the nodes, please pass the respective video device node to the Docker container using the flag `--device`.
+
+If the USB camera device needs any special drivers, they should be installed in a Docker container and should be tested.
+
+**Example: How to use USB web camera on VPU using Docker container**
+- Install `ffmpeg` and `v4l-utils` in the Docker container by copying the following lines in your Dockerfile.
+
+```docker
+RUN apt-get update && \
+    apt-get install -y ffmpeg \
+    v4l-utils
+```
+
+- Run the Docker container in the interactive mode
+```shell
+$ docker run -ti -v $(pwd):/home/ifm/ --device=/dev/video0:/dev/video0:rwm <docker-image-name>
+```
+
+- Capture a frame using `ffmpeg` tool inside Docker container
+
+```shell
+root@<docker_id>$ ffmpeg -f v4l2 -video_size 1280x720 -i /dev/video0 -frames 1 out.jpg
+```
+
+- A image **out.png** will be created in the home folder.
 
 ### USB hubs
 The use of USB hubs is at the user's own risk.
@@ -36,11 +62,10 @@ Advanced "USB network topologies" may not be supported by the OVP8xx VPU devices
 ### Other USB devices: USB HID, USB network adapters, ...
 
 Other USB devices such as:
-+ USB mice,
++ USB mice
 + USB keyboards,
 + Generic USB input devices such as controllers,
 + USB-to-Ethernet network devices
-+ USB cameras
 + USB sensors
 are not supported by the OVP8xx VPU device.
 
@@ -59,14 +84,15 @@ oem docker systemd-journal
 
 Additional Ethernet interfaces via USB-to-Ethernet adapters are not supported by the OVP8xx VPU devices.
 
-Additional sensor devices, such as generic USB sensors or USB cameras, are not supported by the OVP8x VPU devices.
+Additional sensor devices, such as generic USB sensors are not supported by the OVP8x VPU devices.
 
 ## Using a USB drive with the VPU
 It is possible to increase the VPU memory size by utilizing USB thumb drives or USB SSDs on the USB-A interface. To use any USB storage device, it is necessary to mount the drive first.
 
 
-.. note::
+:::{note}
 The USB auto mount service mounts your USB mass storage device to `/run/media/system/<USB_name>/`. See the details below.
+:::
 
 ### Preparing the USB drive
 
@@ -110,23 +136,22 @@ This means, that is has to be done for the OEM user on the VPU to write to the d
 
 Below an exemplary workflow is shown for setting the VPU's OEM users UID and GID.
 
-On the VPU:
-1. Find out the requested users UID and GID on the VPU or inside the Docker container
-```bash
-oem@o3r-vpu-c0:~# id -u oem
-989
-oemt@o3r-vpu-c0:~# id -g oem
-987
-```
-On your Linux laptop of choice:
-1. Change the USB mount point on your **Linux Laptop** via `chown`
-```bash
-user@laptop:~$ sudo chown 989:987 -R /media/<mount_point>
-```
+1. On the VPU: Find out the requested users UID and GID on the VPU or inside the Docker container
+    ```bash
+    oem@o3r-vpu-c0:~# id -u oem
+    989
+    oemt@o3r-vpu-c0:~# id -g oem
+    987
+    ```
 
-.. note::
+2. On your Linux laptop of choice: Change the USB mount point on your **Linux Laptop** via `chown`
+    ```bash
+    user@laptop:~$ sudo chown 989:987 -R /media/<mount_point>
+    ```
+
+:::{note}
 Please be aware that changing the GID and UID mount points may result in missing read access on your laptop. To restore read access on your laptop to the USB storage device, change the GID and UID back to match your personal user accounts ones.
-
+:::
 
 ### Plug in and mounting
 

@@ -13,7 +13,7 @@ Which method to calibrate your camera?
 :gutter: 1
 
 :::{grid-item-card}  In the field
-:link: MCC/mcc_with_iVA
+:link: MCC/mcc_with_wizard
 :link-type: doc
 Check out our camera calibration in motion.
 :::
@@ -50,6 +50,6 @@ Need a refresher?
 :hidden:
 Introduction to calibration <IntroToCalibrations/README>
 Static Camera Calibration <SCC/README>
-Motion Camera Calibration <MCC/mcc_with_iVA>
+Motion Camera Calibration <MCC/mcc_with_wizard>
 OVP8xx calibration <OVPCalibration/README>
 :::
