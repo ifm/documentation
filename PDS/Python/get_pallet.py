@@ -5,8 +5,8 @@
 ###########################################
 """
 Setup:  * Camera: O3R222, 3D on port 2 
-            * orientation: camera horizontally oriented (Fakra cable to the left)
-        * Pallet: pallet with load in FoV @ 1.5m distance from the camera
+            * orientation: camera horizontally oriented (label up, Fakra cable to the left)
+        * Pallet: pallet in FoV @ 1.5m distance from the camera
 """
 # %%
 import json
@@ -53,7 +53,6 @@ o3r.set(
     }
 )
 
-time.sleep(0.5)
 # %%
 ############################################
 # Setup the framegrabber to receive frames
@@ -81,9 +80,8 @@ def pallet_callback(frame):
 fg.on_new_frame(pallet_callback)
 
 ############################################
-# Trigger the volCheck command
+# Trigger the getPallet command
 ############################################
-time.sleep(2)  # Grace period after the framegrabber starts
 
 # Provide the estimated distance to the pallet and the pallet type.
 GET_PALLET_PARAMETERS = {
