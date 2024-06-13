@@ -15,13 +15,13 @@ We recommend adjusting the projection volume directly if you need to detect pall
 
 ![shifted](./resources/shifted.svg)
 
-To change the coordinates of the projection volume, the following parameter needs to be added to the configuration:
+To change the coordinates of the projection volume, the following parameter needs to be added to the configuration (change the `APP_PORT` with your app, for example `app0`):
 
 ```json
 {
     "applications": {
         "instances": {
-            "APP_PORT": {
+            APP_PORT: {
                 "configuration": {
                     "parameter": {
                         "getPallet": {
