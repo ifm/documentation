@@ -21,16 +21,18 @@ To change the coordinates of the projection volume, the following parameter need
 {
     "applications": {
         "instances": {
-            APP_PORT: {
+            "APP_PORT": {
                 "configuration": {
                     "parameter": {
                         "getPallet": {
-                            "0": "orthoProjection": {
-                                "voi": {
-                                    "yMin": -0.8 + y_shift,
-                                    "yMax": 0.8 + y_shift,
-                                    "zMin": -0.4 + z_shift,
-                                    "zMax": 0.4 + z_shift,
+                            "0": {
+                                "orthoProjection": {
+                                    "voi": {
+                                        "yMin": -0.8 + y_shift,
+                                        "yMax": 0.8 + y_shift,
+                                        "zMin": -0.4 + z_shift,
+                                        "zMax": 0.4 + z_shift,
+                                    }
                                 }
                             }
                         }
@@ -58,9 +60,9 @@ o3r.set(
                             "command": "getPallet",
                             "getPallet": {"depthHint": 1.2},
                         },
-                        "parameter":{
+                        "parameter": {
                             "getPallet": {
-                                "0":{
+                                "0": {
                                     "orthoProjection": {
                                         "voi": {
                                             "yMin": -0.8 + y_shift,
@@ -69,7 +71,8 @@ o3r.set(
                                             "zMax": 0.4 + z_shift,
                                         }
                                     }
-                            }}
+                                }
+                            }
                         }
                     }
                 }
@@ -77,38 +80,42 @@ o3r.set(
         }
     }
 )
+
 ```
 ::::
 ::::{group-tab} C++
 ```cpp
 // Note that the imports are omitted in this snippet of code.
 ifm3d::json getPallet_command ={
-        "applications": {
-            "instances": {
-                APP_PORT: {
-                    "configuration": {
-                        "customization": {
-                            "command": "getPallet",
-                            "getPallet": {"depthHint": 1.2},
-                        },
-                        "parameter":{
-                            "getPallet": {
-                                "0":{
-                                    "orthoProjection": {
-                                        "voi": {
-                                            "yMin": -0.8 + y_shift,
-                                            "yMax": 0.8 + y_shift,
-                                            "zMin": -0.4 + z_shift,
-                                            "zMax": 0.4 + z_shift,
-                                        }
-                                    }
+    {"applications", {
+        {"instances", {
+            {APP_PORT, {
+                {"configuration", {
+                    {"customization", {
+                        {"command", "getPallet"},
+                        {"getPallet", {
+                            {"depthHint", 1.2}
+                        }},
+                    }},
+                    {"parameter", {
+                        {"getPallet", {
+                            {"0", {
+                                {"orthoProjection", {
+                                    {"voi", {
+                                        {"yMin", -0.8 + y_shift},
+                                        {"yMax", 0.8 + y_shift},
+                                        {"zMin", -0.4 + z_shift},
+                                        {"zMax", 0.4 + z_shift},
+                                    }}
+                                }}
                             }}
-                        }
-                    }
-                }
-            }
-        }
-    };
+                        }}
+                    }}
+                }}
+            }}
+        }}
+    }}
+};
 o3r->Set(getPallet_command);
 ```
 ::::
