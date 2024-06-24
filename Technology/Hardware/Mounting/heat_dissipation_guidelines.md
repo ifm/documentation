@@ -7,13 +7,7 @@
 
 ## Power consumption
 
-The datasheets for both the O3R VPU and cameras can be found on [ifm.com](https://www.ifm.com/) in the respective product pages and gather the power consumption specifications.
-<!-- [O3R VPU specification](https://www.ifm.com/restservices/us/en/assets/c3VwcGxpZXJzL2lmbS9kb2N1bWVudHMvcHJvZHVjdC9PVlA4MDAtMDAvZGF0ZW5ibGFldHRlci9PVlA4MDAtMDBfRU4tVVMucGRm?v=134) -->
-<!-- [O3R222 camera head specification](https://www.ifm.com/restservices/us/en/assets/c3VwcGxpZXJzL2lmbS9kb2N1bWVudHMvcHJvZHVjdC9PM1IyMjItMDAvZGF0ZW5ibGFldHRlci9PM1IyMjItMDBfRU4tVVMucGRm?v=54)
-
-[O3R225 camera head specification](https://www.ifm.com/restservices/us/en/assets/c3VwcGxpZXJzL2lmbS9kb2N1bWVudHMvcHJvZHVjdC9PM1IyMjUtMDAvZGF0ZW5ibGFldHRlci9PM1IyMjUtMDBfRU4tVVMucGRm?v=52)
-
-[O3R user manual](https://www.ifm.com/mounting/11400774UK.pdf) -->
+The datasheets for both the OVP8xx and O3R22x cameras can be found on [ifm.com](https://www.ifm.com/) in the respective product pages, and gather the power consumption specifications.
 
 The power consumption is dependent on the processing load and the number of connected cameras. It can be calculated with the following formula: 
 `Power consumption [W] = 7,4 + n x ((FPS x 0,32) + 2,2); n = number of cameras; FPS = camera frame rate`
