@@ -1,4 +1,6 @@
-## Available hardware
+# Available hardware
+
+## Hardware list
 
 | Hardware                                                  | Specification                                               | Link to Hardware on ifm website                                                                                                                                                                                                                                   | Comment      |
 | --------------------------------------------------------- | ----------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------ |
@@ -13,4 +15,14 @@
 | HFM Cable (High-speed FAKRA Mini) - drag chain compatible | Connecting both 2D and 3D output of camera heads to the VPU | Contact Sales Engineer for availability <br>2 meter - E3R106 <br>5 meter - E3R110 <br>10 meter - E3R111                                                                                                                                                           | --           |
 | M12 Connector Cable                                       | Connector cable for power supply/CAN to VPU                 | [EVC948](https://www.ifm.com/us/en/product/EVC948)                                                                                                                                                                                                                | --           |
 
-<!--TODO: Add the information about adapter cables->
+<!-- TODO: Add the information about adapter cables -->
+
+## CAD drawings
+
+The following table includes the links to the CAD files of the available hardware:
+
+| Hardware                               | CAD Drawings                                             |
+| -------------------------------------- | -------------------------------------------------------- |
+| OVP800, OVP801, M04239, OVP810, OVP811 | <https://www.ifm.com/us/en/product/OVP800?tab=documents> |
+| O3R222                                 | <https://www.ifm.com/us/en/product/O3R222?tab=documents> |
+| O3R225                                 | <https://www.ifm.com/us/en/product/O3R225?tab=documents> |
