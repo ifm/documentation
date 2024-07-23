@@ -11,9 +11,13 @@ To retrieve flags, a command must be triggered (we use
 the getPallet command in this example).
 """
 # %%
+import logging
 import time
 from ifm3dpy.device import O3R, Error
 from ifm3dpy.framegrabber import FrameGrabber, buffer_id
+
+logging.basicConfig(level=logging.DEBUG)
+logger = logging.getLogger(__name__)
 
 # %% Edit for the IP address of your OVP8xx and the camera port
 IP = "192.168.0.69"
@@ -28,7 +32,7 @@ o3r = O3R(IP)
 try:
     o3r.reset("/applications/instances")
 except Error as e:
-    print(f"Reset failed: {e}")
+    logger.error(f"Reset failed: {e}")
 
 # Set the extrinsic calibration of the camera
 calibration = {
@@ -39,12 +43,12 @@ calibration = {
     "rotY": 1.57,
     "rotZ": 0,
 }
-print(f"Setting extrinsic calibration for {CAMERA_PORT}")
+logger.info(f"Setting extrinsic calibration for {CAMERA_PORT}")
 o3r.set({"ports": {CAMERA_PORT: {"processing": {"extrinsicHeadToUser": calibration}}}})
 
 # Create the PDS application and
 # choose the camera port
-print(f"Creating a PDS instance with camera in {CAMERA_PORT}")
+logger.info(f"Creating a PDS instance with camera in {CAMERA_PORT}")
 o3r.set(
     {
         "applications": {
@@ -72,8 +76,8 @@ def flags_callback(frame):
     """
     if frame.has_buffer(buffer_id.O3R_RESULT_ARRAY2D):
         flags = frame.get_buffer(buffer_id.O3R_RESULT_ARRAY2D)
-        print(f"Pixel flags: {flags}")
-        print(f"Flag fox pixel (100, 100): {flags[100, 100]}")
+        logger.info(f"Pixel flags: {flags}")
+        logger.info(f"Flag fox pixel (100, 100): {flags[100, 100]}")
 
 
 fg.on_new_frame(flags_callback)
@@ -89,7 +93,7 @@ GET_PALLET_PARAMETERS = {
     "palletIndex": 0,  # Block Pallet/EPAL pallet
 }
 
-print("Triggering the getPallet command")
+logger.info("Triggering the getPallet command")
 o3r.set(
     {
         "applications": {

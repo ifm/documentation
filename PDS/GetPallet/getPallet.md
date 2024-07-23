@@ -9,7 +9,7 @@ The `getPallet` functionality of PDS is designed to detect the position and orie
 The typical use cases for `getPallet` are pallets with two pockets, either with broad blocks or thin stringers as vertical support structures.
 ![`getPallet` Usage](resources/getPallet_usage.png)
 
-PDS is able to detect pallets with the following characteristics:
+By default, PDS is able to detect pallets with the following characteristics:
 - For a block-type pallet:
     - The pockets should be between 0.24 and 0.44 m,
     - The blocks should be between 0.05 and 0.4 m.
@@ -20,96 +20,161 @@ PDS is able to detect pallets with the following characteristics:
 Two pocket pallets with different dimensions than the ones stated above will require specific configuration of the algorithm. Reach out to your ifm representative or to the support team for more details.
 
 ## Input
+### Command
+The input of the `getPallet` command must be provided in JSON.
+Below is an example, assuming an initiated PDS app `app0`:
+```json
+    {
+        "applications": {
+            "instances": {
+                "app0": {
+                    "configuration": {
+                        "customization": {
+                            "command": "getPallet",
+                            "getPallet": {
+                                "depthHint": 1.2, 
+                                "palletIndex": 0, 
+                                "palletOrder": "zAscending"
+                            },
+                        }
+                    }
+                }
+            }
+        }
+    }
+```
+:::{note}
+Only the `command` parameter has to be provided. The other parameters are optional.
+If they are left blank, the default settings will be used.
+:::
 
 ### `depthHint`
-The depth hint is the approximate distance (in meters along the X axis) between the origin of the fork tines coordinate system and the pallet. Providing an accurate depth hint allows the algorithm to target a specific area of the scene for the pallet detection and speeds up processing times.
-Zero or a negative value can be passed to use automatic distance detection. Note that automatic detection works best with fully loaded pallets and will most likely fail with empty pallets.
+
+| Name        | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
+| ----------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `depthHint` | Approximate distance (in meters along the X axis) between the origin of the calibrated coordinate system and the pallet. Providing an accurate depth hint allows the algorithm to target a specific area of the scene for the pallet detection and speeds up processing times. <br>Zero or a negative value can be passed to use automatic distance detection. Note that automatic detection works best with fully loaded pallets and will most likely fail with empty pallets. |
 
 ### `palletIndex`
 
-Input the pallet index based on the pallet type.
-
-| Pallet Index | Pallet type |
-| ------------ | ----------- |
-| 0 (default)  | `Block`     |
-| 1            | `Stringer`  |
-| 2            | `EPAL side` |
+| Name          | Description                                                                                  |
+| ------------- | -------------------------------------------------------------------------------------------- |
+| `palletIndex` | Defines the type of pallet to detect. <br>0: block, <br>1: stringer, <br>2: EPAL, side view. |
 
 Other variants of pallets, having three or more pockets for example, require adjustments of the PDS settings. Reach out to your ifm representative or to the support team for more details.
 
 ### `palletOrder`
-If multiple pallets were detected in the field of view, you can set the order of pallets based on three properties:
-- `scoreDescending` (default): the pallet order will be based upon the detection score (highest to lowest), which corresponds to how well the pallet matches the expected pallet shape,
-- `zAscending`/`zDescending`: the pallet order will be based upon the height from the floor, that is, along the calibrated Z axis (`zAscending` - lower to upper, `zDescending` - upper to lower).
 
-## Output
+| Name          | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
+| ------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `palletOrder` | If multiple pallets were detected in the field of view, you can set the order of pallets based on three properties: <br>`scoreDescending` (default): the pallet order will be based upon the detection score (highest to lowest), which corresponds to how well the pallet matches the expected pallet shape; <br>`zAscending`/`zDescending`: the pallet order will be based upon the height from the floor, that is, along the calibrated Z axis (`zAscending` - lower to upper, `zDescending` - upper to lower). |
 
-| Name                 | Type              | Description                                                                                      |
-| -------------------- | ----------------- | ------------------------------------------------------------------------------------------------ |
-| `numDetectedPallets` | `uint32`          | Number of valid pallets in the FOV (up to 10)                                                    |
-| `pallet`             | `PalletDetection` | Information about the pallet's pose. The structure of the `PalletDetection` type is given below. |
-
-### `PalletDetection` structure
-| Name     | Type                 | Description                                    |
-| -------- | -------------------- | ---------------------------------------------- |
-| `score`  | `float32`            | Detection score of the pallet [0..1]           |
-| `center` | `DetectedPalletItem` | Position and size of the pallet's center block |
-| `left`   | `DetectedPalletItem` | Position and size of the pallet's right pocket |
-| `right`  | `DetectedPalletItem` | Position and size of the pallet's left pocket  |
-| `angles` | `Angles3D`           | Rotation angles of the pallet                  |
-
-#### `DetectedPalletItem` structure
-| Name       | Type         | Description                       |
-| ---------- | ------------ | --------------------------------- |
-| `position` | `Position3D` | Cartesian coordinates of the item |
-| `width`    | `float32`    | Width of the item in meters       |
-| `height`   | `float32`    | Height of the item in meters      |
-
-##### `Position3D` structure
-| Name | Type      | Description                      |
-| ---- | --------- | -------------------------------- |
-| `x`  | `float32` | Cartesian X coordinate in meters |
-| `y`  | `float32` | Cartesian Y coordinate in meters |
-| `z`  | `float32` | Cartesian Z coordinate in meters |
-
-#### `Angles3D` structure
-
-| Name   | Type      | Description                       |
-| ------ | --------- | --------------------------------- |
-| `rotX` | `float32` | Rotation around X axis in radians |
-| `rotY` | `float32` | Rotation around Y axis in radians |
-| `rotZ` | `float32` | Rotation around Z axis in radians |
 
 ## `getPallet` volumes of interest
 
 The `getPallet` command expects the pallet to be in front of the robot and in the field of view of the camera, as illustrated below. 
 
-![expected](./resources/expected.svg)
+![expected](resources/expected.svg)
 
 The `getPallet` command works as follows:
-1. If the `depthHint` is set to a positive value (this is the recommended option), the user is expected to have a priori knowledge about where the pallet is with respect to the robot coordinate reference frame. In this case, the pallet's pose estimation is performed inside the `projection volume`, which is set at the `depthHint` including +/- 0.2 m.
-2. If the `depthHint` is set to zero or a negative value, then the pallet will be searched for in the `depth estimation volume`. Once the distance to the pallet is estimated, the `projection volume` is set at this distance including a +/- 0.2 m buffer in X direction on each side. The pixels in the `projection volume` will be used to estimate the position of the pallet.
+1. If the `depthHint` is set to a positive value (this is the recommended option), the user is expected to have a priori knowledge about where the pallet is with respect to the robot coordinate system. In this case, the pallet's pose estimation is performed inside the `projection volume`, which is set at the `depthHint` including +/- 0.2 m.
+2. If the `depthHint` is set to zero or a negative value, then the pallet will be searched for in the `depth estimation volume`. The majority of the pixels inside the depth estimation volume should be on the plane of the front face of the pallet. Once the distance to the pallet is estimated, the `projection volume` is set at this distance including a +/- 0.2 m buffer in X direction on each side. The pixels in the `projection volume` will be used to estimate the position of the pallet. 
 
 For better understanding please see the figure below where the green box represents the `projection volume` and the blue box represents the `depth estimation volume`.
 ![volumes](./resources/pds_volumes.png)
 
 ### Camera position and projection volume
 
-The projection volume of the `getPallet` command uses the reference coordinate system, which in our case is the RCS (Robot Coordinate System). The default values of the projection volume are displayed in the figure below.
+The projection volume of the `getPallet` command uses the reference coordinate system, which in our case is the FCS (Forks Coordinate System). The default values of the projection volume are displayed in the figure below.
 
 ![projectionVOI](./resources/projectionVOI.svg)
 
-::{note}
-It is important to note that the projection volume will be perpendicular to the X axis of the reference coordinate system.
-If the camera is mounted sideways on the robot, meaning the projection volume should be perpendicular to the robot's Y axis, the projection volume will be incorrect. 
-To solve this issue, please get in contact with the ifm support team for instructions on how to edit the projection volume.
-:::
+
+## Output
+
+The output of a `getPallet` command is formatted in JSON. 
+An example JSON result, where the position of one pallet was identified, is shown below:
+```json
+"getPallet": {
+    "depthEstimationVoi": {
+        "xMax": 3,
+        "xMin": 1,
+        "yMax": 0.4000000059604645,
+        "yMin": -0.4000000059604645,
+        "zMax": 0.4000000059604645,
+        "zMin": -0.10000000149011612
+    },
+    "pallet": [
+        {
+            "angles": {
+                "rotX": -0.0016640322282910347,
+                "rotY": 0,
+                "rotZ": -0.02186517044901848
+            },
+            "center": {
+                "height": 0.10177253931760788,
+                "position": {
+                    "x": 1.405822515487671,
+                    "y": -0.08359906077384949,
+                    "z": 0.07647071033716202
+                },
+                "width": 0.12625007331371307
+            },
+            "left": {
+                "height": 0.10320165008306503,
+                "position": {
+                    "x": 1.4106969833374023,
+                    "y": 0.13937455415725708,
+                    "z": 0.07622720301151276
+                },
+                "width": 0.320925772190094
+            },
+            "right": {
+                "height": 0.10034343600273132,
+                "position": {
+                    "x": 1.4009480476379395,
+                    "y": -0.30657267570495605,
+                    "z": 0.07671421766281128
+                },
+                "width": 0.3186997175216675
+            },
+            "score": 0.9556106328964233
+        }
+    ],
+    "projectionVoi": {
+        "xMax": 1.600000023841858,
+        "xMin": 1.1999999284744263,
+        "yMax": 1,
+        "yMin": -1,
+        "zMax": 0.6000000238418579,
+        "zMin": -0.6000000238418579
+    }
+},
+```
+The output has three main components: `depthEstimationVoi`, `pallet` and `projectionVoi`.
+
+### `pallet`
+This component of the JSON result lists out all the detected pallets (up to 10). 
+For each pallet, the following information is provided:
+| Name                         | Description                                                                                                                                                                                                                              |
+| ---------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `angles`                     | Rotations components `rotX`, `rotY` and `rotZ` of the pallet, along the three axis of the calibrated coordinate system, in radians.                                                                                                      |
+| `center`, `left` and `right` | Position and size of the center beam, the left pocket and the right pocket respectively. <br>For each, the width and height is provided, as well as the coordinates of the center of the pocket or beam along the X, Y an Z axis.        |
+| `score`                      | The score of the pallet. The score corresponds to how well the pallet fits the pallet template. <br>Note that the score does *not* correspond to how well a pallet is detected or to whether a pallet is damaged, but rather how close to the model pallet this pallet is. |
+
+### `depthEstimationVoi` and `projectionVoi`
+
+The `depthEstimationVoi` and `projectionVoi` components provides the volumes that were used internally to detect the pallet:
+| Name                 | Description                                                                                                                                                |
+| -------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `depthEstimationVoi` | Volume used in the algorithm to approximate the position of the front face of the pallet.                                                                  |
+| `projectionVoi`      | Area where the precise estimation of the position of the two pockets, center beam and rotation angle was done. The pixels outside this area are discarded. |
+
 
 ## Python example
 
 To initialize and configuring the PDS application to execute `getPallet` command, please see the code example below.
 
-:::{literalinclude} ../Python/getPallet.py
+:::{literalinclude} ../Python/get_pallet.py
 :caption: getPallet.py
 :language: python
 :::

@@ -10,10 +10,14 @@ Setup:  * Camera: O3R222, 3D on port 2
 """
 # %%
 import json
+import logging
 import time
 import numpy as np
 from ifm3dpy.device import O3R, Error
 from ifm3dpy.framegrabber import FrameGrabber, buffer_id
+
+logging.basicConfig(level=logging.DEBUG)
+logger = logging.getLogger(__name__)
 
 # Device specific configuration
 IP = "192.168.0.69"
@@ -28,7 +32,7 @@ o3r = O3R(IP)
 try:
     o3r.reset("/applications/instances")
 except Error as e:
-    print(f"Reset failed: {e}")
+    logger.info(f"Reset failed: {e}")
 
 # Set the extrinsic calibration of the camera
 calibration = {
@@ -39,10 +43,10 @@ calibration = {
     "rotY": 1.57,
     "rotZ": -1.57,
 }
-print(f"Setting extrinsic calibration for {CAMERA_PORT}")
+logger.info(f"Setting extrinsic calibration for {CAMERA_PORT}")
 o3r.set({"ports": {CAMERA_PORT: {"processing": {"extrinsicHeadToUser": calibration}}}})
 
-print(f"Creating a PDS instance with camera in {CAMERA_PORT}")
+logger.info(f"Creating a PDS instance with camera in {CAMERA_PORT}")
 o3r.set(
     {
         "applications": {
@@ -74,7 +78,7 @@ def pallet_callback(frame):
         json_array = np.frombuffer(json_chunk[0], dtype=np.uint8)
         json_array = json_array.tobytes()
         parsed_json_array = json.loads(json_array.decode())
-        print(f"Detected pallet(s): {parsed_json_array['getPallet']['pallet']}")
+        logger.info(f"Detected pallet(s): {parsed_json_array['getPallet']['pallet']}")
 
 
 fg.on_new_frame(pallet_callback)
@@ -90,7 +94,7 @@ GET_PALLET_PARAMETERS = {
 }
 
 # %%
-print("Triggering the getPallet command")
+logger.info("Triggering the getPallet command")
 o3r.set(
     {
         "applications": {
