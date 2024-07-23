@@ -5,7 +5,9 @@ Throughout the stages of integration, development, and testing of the PDS soluti
 
 The user can record 2 types of data: "normal" data (distance, amplitude, etc) and algo-debug data. The "normal" data can be used in user-specific algorithms. However, it is not sufficient for ifm to improve or verify the ifm applications, filters, etc.
 
-Algo-debug records all necessary data for ifm to re-simulate the event as it occurred during live operation. This includes the “normal” ifm data streams and additional information from applications that might be protected because they are considered the intellectual property of ifm. This data is used to replay scenarios and reevaluate algorithmic approaches. Without this data, no feedback can be provided.
+Algo-debug records all necessary data for ifm to re-simulate the event as it occurred during live operation. This includes the “normal” ifm data streams and additional information from applications that might be protected because they are considered the intellectual property of ifm. 
+This data is used to replay scenarios and reevaluate algorithmic approaches. 
+Without this data, it is not possible to perform an in-depth analysis of the issue.
 
 To record PDS data, navigate to the `Monitor` window and click on `Recording` in the bottom toolbar. There are two buttons beside the `Start/Stop` button which toggle the option to record `algo-debug` data and to include `point cloud` data.
 

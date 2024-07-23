@@ -8,11 +8,15 @@ Setup:  * Camera: O3R222, 3D on port2
             * orientation: camera horizontally (Fakra cable to the left, label up)
 """
 import json
+import logging
 import time
 import numpy as np
 
 from ifm3dpy.device import O3R, Error
 from ifm3dpy.framegrabber import FrameGrabber, buffer_id
+
+logging.basicConfig(level=logging.DEBUG)
+logger = logging.getLogger(__name__)
 
 # Device specific configuration
 IP = "192.168.0.69"
@@ -26,7 +30,7 @@ o3r = O3R(IP)
 try:
     o3r.reset("/applications/instances")
 except Error as e:
-    print(f"Reset failed: {e}")
+    logger.info(f"Reset failed: {e}")
 
 calibration = {
     "transX": 0.0,
@@ -36,10 +40,10 @@ calibration = {
     "rotY": 1.57,  # rotY and rotZ define camera horizontal and looking straight forward
     "rotZ": -1.57,
 }
-print(f"Setting the calibration for camera in {CAMERA_PORT}")
+logger.info(f"Setting the calibration for camera in {CAMERA_PORT}")
 o3r.set({"ports": {CAMERA_PORT: {"processing": {"extrinsicHeadToUser": calibration}}}})
 
-print(f"Create a PDS instance using the camera in {CAMERA_PORT}")
+logger.info(f"Create a PDS instance using the camera in {CAMERA_PORT}")
 o3r.set(
     {
         "applications": {
@@ -70,7 +74,7 @@ def volume_callback(frame):
         json_array = np.frombuffer(json_chunk[0], dtype=np.uint8)
         json_array = json_array.tobytes()
         parsed_json_array = json.loads(json_array.decode())
-        print(
+        logger.info(
             f"Number of pixels in the volume: {parsed_json_array['volCheck']['numPixels']}"
         )
 
@@ -92,7 +96,7 @@ VOLCHECK_PARAMETERS = {
     "zMax": 0.4,
 }
 
-print("Triggering the volCheck command")
+logger.info("Triggering the volCheck command")
 o3r.set(
     {
         "applications": {

@@ -20,7 +20,9 @@ Vision Assistant release notes <VisionAssistant/PDS_iVA_release_notes_2.7.13>
 
 ## Features
 
-PDS uses the O3R platform as its primary data source: at least one 3D camera stream is required.
+PDS uses the O3R platform as its primary data source: one 3D camera stream can be used at one time. The current firmware version for PDS application is tested only with `O3R222` camera head.
+The support for O3R225 wide FoV heads is experimental at the moment.
+The support for (H)VGA  camera heads will be added in the future.
 
 PDS provides four different commands:
 | **Command** | **Output**                                                                      |
@@ -33,6 +35,6 @@ PDS provides four different commands:
 
 ## Compatibility Matrix
 
-| Firmware Version | Supported VPU Hardware | Supported Camera Hardware | ifm3d-library | ifmVisionAssistant | Comments |
-| ---------------- | ---------------------- | ------------------------- | ------------- | ------------------ | -------- |
-| 1.2.x            | `M04311`               | O3R222                    | >=1.4.3       | >=2.7.2                  | Field test only version. Do not use for production.
+| Firmware Version | Supported VPU Hardware | Supported Camera Hardware | ifm3d-library | ifmVisionAssistant | Comments                                            |
+| ---------------- | ---------------------- | ------------------------- | ------------- | ------------------ | --------------------------------------------------- |
+| 1.2.x            | `M04311`               | O3R222                    | >=1.4.3       | >=2.7.2            | Field test only version. Do not use for production. |

@@ -10,11 +10,15 @@ Setup:  * Camera: O3R222, 3D on port2
         * Item: item in FoV @ 1.5m distance
 """
 import json
+import logging
 import time
 import numpy as np
 
 from ifm3dpy.device import O3R, Error
 from ifm3dpy.framegrabber import FrameGrabber, buffer_id
+
+logging.basicConfig(level=logging.DEBUG)
+logger = logging.getLogger(__name__)
 
 # Device specific configuration
 IP = "192.168.0.69"
@@ -28,7 +32,7 @@ o3r = O3R(IP)
 try:
     o3r.reset("/applications/instances")
 except Error as e:
-    print(f"Reset failed: {e}")
+    logging.error(f"Reset failed: {e}")
 
 # Set the correct extrinsic calibration of the camera.
 calibration = {
@@ -39,11 +43,11 @@ calibration = {
     "rotY": 1.57,
     "rotZ": -1.57,
 }
-print(f"Setting the extrinsic calibration for camera in {CAMERA_PORT}")
+logger.info(f"Setting the extrinsic calibration for camera in {CAMERA_PORT}")
 o3r.set({"ports": {CAMERA_PORT: {"processing": {"extrinsicHeadToUser": calibration}}}})
 
 # Create the application instance and set to IDLE (ready to be triggered)
-print(f"Create a PDS instance using camera in {CAMERA_PORT}")
+logger.info(f"Create a PDS instance using camera in {CAMERA_PORT}")
 o3r.set(
     {
         "applications": {
@@ -75,7 +79,7 @@ def item_callback(frame):
         json_array = np.frombuffer(json_chunk[0], dtype=np.uint8)
         json_array = json_array.tobytes()
         parsed_json_array = json.loads(json_array.decode())
-        print(f"Detected item: {parsed_json_array['getItem']['item']}")
+        logger.info(f"Detected item: {parsed_json_array['getItem']['item']}")
 
 
 fg.on_new_frame(item_callback)
@@ -90,7 +94,7 @@ GET_ITEM_PARAMETERS = {
     "itemIndex": 0,  # Type of item
 }
 
-print("Triggering the getItem command")
+logger.info("Triggering the getItem command")
 o3r.set(
     {
         "applications": {

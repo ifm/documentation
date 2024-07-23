@@ -10,11 +10,15 @@ Setup:  * Camera: O3R222, 3D on port2
         * Rack: rack in FoV @ 1.5m distance
 """
 import json
+import logging
 import time
 import numpy as np
 
 from ifm3dpy.device import O3R, Error
 from ifm3dpy.framegrabber import FrameGrabber, buffer_id
+
+logging.basicConfig(level=logging.DEBUG)
+logger = logging.getLogger(__name__)
 
 # Device specific configuration
 IP = "192.168.0.69"
@@ -28,7 +32,7 @@ o3r = O3R(IP)
 try:
     o3r.reset("/applications/instances")
 except Error as e:
-    print(f"Reset failed: {e}")
+    logger.info(f"Reset failed: {e}")
 
 # Set the correct extrinsic calibration of the camera.
 calibration = {
@@ -39,11 +43,11 @@ calibration = {
     "rotY": 1.57,
     "rotZ": -1.57,
 }
-print(f"Setting the extrinsic calibration for camera in {CAMERA_PORT}")
+logger.info(f"Setting the extrinsic calibration for camera in {CAMERA_PORT}")
 o3r.set({"ports": {CAMERA_PORT: {"processing": {"extrinsicHeadToUser": calibration}}}})
 
 # Create the application instance and set to IDLE (ready to be triggered)
-print(f"Create a PDS instance using camera in {CAMERA_PORT}")
+logger.info(f"Create a PDS instance using camera in {CAMERA_PORT}")
 o3r.set(
     {
         "applications": {
@@ -75,7 +79,7 @@ def rack_callback(frame):
         json_array = np.frombuffer(json_chunk[0], dtype=np.uint8)
         json_array = json_array.tobytes()
         parsed_json_array = json.loads(json_array.decode())
-        print(f"Detected rack: {parsed_json_array['getRack']}")
+        logger.info(f"Detected rack: {parsed_json_array['getRack']}")
 
 
 fg.on_new_frame(rack_callback)
@@ -92,7 +96,7 @@ GET_RACK_PARAMETERS = {
     "zHint": -0.4,
 }
 
-print("Triggering the getRack command")
+logger.info("Triggering the getRack command")
 o3r.set(
     {
         "applications": {
