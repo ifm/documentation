@@ -131,3 +131,36 @@ This approach is the only one available in cases where the camera is mounted sid
 
 ![sideway](./resources/sideway.svg)
 
+# Appendix - Changing the getPallet parameters:
+
+If the pallet is more than 2 meters away from the camera and is not detected, you may need to reduce the sanity check thresholds, which is the minimum number of pixels required to validate the pallet.
+
+To change the thresholds, the following parameter needs to be added to the configuration (change the `APP_PORT` with your app, for example `app0`):
+
+```json
+{
+    "applications": {
+        "instances": {
+            APP_PORT: {
+                "configuration": {
+                    "parameter": {
+                        "getPallet": {
+                            "0": {
+                                "localizePallets": {
+                                    "RANSAC": {
+                                        "faceMinPts": 200,
+                                        "stringerMinPts": 50
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+```
+
+Note that this parameter can be edited per pallet index (up to ten pallets may be used).
+Be aware, that it is not recommended to modify this setting. We rather advise you to follow the recommended installation guideline, which should result in a relative camera and pallet position that does not require updating the mentioned parameters.
