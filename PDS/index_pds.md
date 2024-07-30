@@ -27,7 +27,7 @@ PDS provides four different commands:
 | ----------- | ------------------------------------------------------------------------------- |
 | `getPallet` | Pose of up to 10 pallets                                                        |
 | `getRack`   | Pose of an industrial rack                                                      |
-| `getItem`   | Pose of up to 10 custom item (experimental feature)                             |
+| `getItem`   | Pose of up to 10 custom items (experimental feature)                             |
 | `volCheck`  | Quantifies the number of valid pixels within a defined volume of interest (VOI) |
 
 
