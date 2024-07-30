@@ -1,17 +1,15 @@
-#!/usr/bin/env python3
 ###########################################
-###2023-present ifm electronic, gmbh
-###SPDX-License-Identifier: Apache-2.0
+# 2024-present ifm electronic, gmbh
+# SPDX-License-Identifier: Apache-2.0
 ###########################################
 """
-Setup:  * Camera: O3R222, 3D on port 2 
-            * orientation: camera horizontally oriented (label up, Fakra cable to the left)
-        * Pallet: pallet in FoV @ 1.5m distance from the camera
+Setup:  * O3R222 with 3D on port2
+            * orientation: camera horizontal (label up, FAKRA cable to the left)
+        * getPallet: Pallet(s) in FoV @ over 2.0 m distance
 """
-# %%
 import json
-import logging
 import time
+import logging
 import numpy as np
 from ifm3dpy.device import O3R, Error
 from ifm3dpy.framegrabber import FrameGrabber, buffer_id
@@ -19,7 +17,7 @@ from ifm3dpy.framegrabber import FrameGrabber, buffer_id
 logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger(__name__)
 
-# Device specific configuration
+# Edit for the IP address of your OVP8xx and the camera port and extrinsic calibration
 IP = "192.168.0.69"
 CAMERA_PORT = "port2"
 APP_PORT = "app0"
@@ -33,29 +31,31 @@ try:
     o3r.reset("/applications/instances")
 except Error as e:
     logger.info(f"Reset failed: {e}")
-
 # Set the extrinsic calibration of the camera
 calibration = {
     "transX": 0.0,
     "transY": 0.0,
-    "transZ": 0.2,
+    "transZ": 0.69,
     "rotX": 0.0,
-    "rotY": 1.57,
-    "rotZ": -1.57,
+    "rotY": 1.8,
+    "rotZ": 1.57,
 }
+
 logger.info(f"Setting extrinsic calibration for {CAMERA_PORT}")
 o3r.set({"ports": {CAMERA_PORT: {"processing": {"extrinsicHeadToUser": calibration}}}})
 
+# Creating a PDS instance and setting state to conf to be able to change protected parameters
 logger.info(f"Creating a PDS instance with camera in {CAMERA_PORT}")
 o3r.set(
     {
         "applications": {
             "instances": {
-                APP_PORT: {"class": "pds", "ports": [CAMERA_PORT], "state": "IDLE"}
+                APP_PORT: {"class": "pds", "ports": [CAMERA_PORT], "state": "CONF"}
             }
         }
     }
 )
+
 
 # %%
 ############################################
@@ -82,17 +82,66 @@ def pallet_callback(frame):
 
 
 fg.on_new_frame(pallet_callback)
+############################################
+# Change the Projection VOI and the minimum
+# pixel to validate the pallet
+############################################
 
-############################################
-# Trigger the getPallet command
-############################################
+# Projection Volume shift
+y_shift = 0.1
+z_shift = 0.1
+
+# Configure the 'getPallet' protected parameters only in CONF state
+GET_PALLET_PROTECTED_PARAMETERS = {
+    "orthoProjection": {
+        "voi": {
+            "yMin": -0.8 + y_shift,
+            "yMax": 0.8 + y_shift,
+            "zMin": -0.4 + z_shift,
+            "zMax": 0.4 + z_shift,
+        }
+    },
+    "localizePallets": {
+        "faceMinPts": 200, #default is 300
+        "stringerMinPts": 50, #default is 70
+    }
+}
+
+
+# Setting the protected parameters
+logger.info(f"Creating a PDS instance with camera in {CAMERA_PORT} and setting the changed protected parameters")
+o3r.set(
+    {
+        "applications": {
+            "instances": {
+                APP_PORT: {
+                    "class": "pds",
+                    "state": "CONF",
+                    "ports": [CAMERA_PORT],
+                    "configuration": {
+                        "parameter": {"getPallet": {"0": GET_PALLET_PROTECTED_PARAMETERS}}
+                    },
+                }
+            }
+        }
+    }
+)
+# setting the PDS back to the IDLE state.
+o3r.set(
+    {
+        "applications": {
+            "instances": {
+                APP_PORT: {"class": "pds", "ports": [CAMERA_PORT], "state": "IDLE"}
+            }
+        }
+    }
+)
 
 # Provide the estimated distance to the pallet and the pallet type.
 GET_PALLET_PARAMETERS = {
-    "depthHint": 1.2,  # We recommend providing a depth hint for faster detections
+    "depthHint": 2,  # We recommend providing a depth hint for faster detections
     "palletIndex": 0,  # Block Pallet/EPAL pallet
 }
-
 # %%
 logger.info("Triggering the getPallet command")
 o3r.set(
@@ -113,5 +162,6 @@ o3r.set(
 )
 # Sleep to ensure we have time to execute the callback before exiting.
 time.sleep(3)
+
 # %%
 fg.stop()

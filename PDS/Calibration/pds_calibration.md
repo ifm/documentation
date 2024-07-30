@@ -19,18 +19,18 @@ To fit the expected coordinate system of PDS, the coordinate system has to be ro
 
 ![Coordinate system calibrated to the center of the base of the forks](resources/forks_base_center_coord_sys.png)
 
-Note that the user can decide where to place the origin of the coordinate system. We show a couple examples [below](#examples).
+Note that the user can decide where to place the origin of the coordinate system. We show a couple of examples [below](#examples).
 
-PDS will look for a pallet within a defined volume of interest. By default, it expects the camera to be placed between 22 and 35 cm above the bottom plane of the pallet. 
+PDS will look for a pallet within a defined volume of interest. By default, it expects the camera to be placed at around the same level as bottom plane of the pallet. 
 For more details about the volume of interest for the different PDS commands, refer to their respective documentation.
 
-Note that errors in the camera calibration will lead to errors in the position of the targeted object. If CAD data is known to be precise enough, it can be used to extract calibration values for the camera. Otherwise, any of [the calibration methods](/SoftwareInterfaces/Toolbox/ExtrinsicCalibration/README.md) provided by ifm can be used.
+Note that errors in the camera calibration will lead to errors in the position of the targeted object. If CAD data is known to be precise enough, it can be used to extract calibration values for the camera. Otherwise, any of [the calibration methods](../../CalibrationRoutines/index_calibrations.md) provided by ifm can be used.
 
 ### Robot's coordinate system
-Typically, PDS' coordinate system will be different from the Robot Coordinate System (RCS):
-- The RCS is usually in a fixed position on the robot's chassis, when PDS's coordinate systems moves with the forks. The transformation between the RCS and the PDS coordinate system will depend on the position of the forks.
-- The RCS is typically in the middle of the steering axis, when PDS's coordinate system is located around the forks base or tip.
-- The axis of the RCS and the PDS coordinate systems will typically be parallel. The X axis of the RCS typically points in the direction of travel, and PDS' coordinate system X axis points in the direction of the forks, which would typically be towards the back of the vehicle. X and Y axis will consequently be pointing in opposite directions in the RCS and the PDS coordinate system. The Z axis will point upwards in both coordinate system.
+PDS' coordinate system will most often be different from the Robot Coordinate System (RCS):
+- The RCS is usually in a fixed position on the robot's chassis, whereas PDS' coordinate systems moves with the forks. The transformation between the RCS and the PDS coordinate system will depend on the position of the forks and has to be implemented by the user.
+- The RCS is typically in the middle of the steering axis, whereas PDS' coordinate system is located around the forks base or tip.
+- In general, the axis of the RCS and the PDS coordinate systems will be parallel. The X axis of the RCS usually points in the direction of travel, and PDS' coordinate system X axis points in the direction of the forks, which would typically be towards the back of the vehicle. The Z axis will point upwards in both coordinate system.
 
 :::{note}
 Note that these comments represent most typical use cases, but your coordinate systems might be different. The coordinate systems can be adjusted to fit your specific setup.
@@ -59,9 +59,9 @@ This is equivalent to setting the following parameters in the relevant port's JS
             "processing":{
                 "extrinsicHeadToUser":{
                     {
-                        "rotX": -1.57,
-                        "rotY": -1.57,
-                        "rotZ": 0,
+                        "rotX": 0.00,
+                        "rotY": 1.57,
+                        "rotZ": -1.57,
                         "transX": 1.00,
                         "transY": 0.25,
                         "transZ": 0.05
@@ -73,9 +73,6 @@ This is equivalent to setting the following parameters in the relevant port's JS
 }
 ```
 
-:::{note}
-Note that the X axis is pointing backwards with respect to the RCS. This explains why we have the 180 yaw angle.
-:::
 ### Base of forks coordinate system
 
 Let's take another example and assume the camera is mounted horizontally pointing forward, directly between the two forks, and the origin of the coordinate system is at the base of forks, right between the two forks, as shown in the image below:
@@ -94,9 +91,9 @@ This is equivalent to setting the following parameters in the relevant port's JS
             "processing":{
                 "extrinsicHeadToUser":{
                     {
-                        "rotX": -1.57,
-                        "rotY": -1.57,
-                        "rotZ": 0,
+                        "rotX": 0.00,
+                        "rotY": 1.57,
+                        "rotZ": -1.57,
                         "transX": 0.00,
                         "transY": 0.00,
                         "transZ": 0.05
@@ -107,7 +104,3 @@ This is equivalent to setting the following parameters in the relevant port's JS
     }
 }
 ```
-
-:::{note}
-Note that the X axis is pointing backwards with respect to the RCS. This explains why we have the 180 yaw angle.
-:::
