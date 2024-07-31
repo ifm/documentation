@@ -4,7 +4,7 @@ The following release note provides an overview of the features of the iVA **2.7
 The Vision Assistant is available for Windows and Linux (Ubuntu 20.04 and Ubuntu 22.04). 
 
 ## Previous Releases
-Previous iVA release is version 2.7.6. This document lists all the updates to the Vision Assistant that occurred between 2.7.6 and 2.7.13.
+Previous iVA release is version 2.7.6. All the updates to the Vision Assistant that occurred between 2.7.6 and 2.7.13 are listed below.
 
 ## Compatible Video Processing Platforms (VPUs)
 This version of the Vision Assistant is intended to be used with PDS devices M04311.

@@ -21,7 +21,7 @@ To fit the expected coordinate system of PDS, the coordinate system has to be ro
 
 Note that the user can decide where to place the origin of the coordinate system. We show a couple of examples [below](#examples).
 
-PDS will look for a pallet within a defined volume of interest. By default, it expects the camera to be placed at around the same level as bottom plane of the pallet. 
+PDS will look for a pallet within a defined volume of interest. By default, it expects the camera to be placed at approximately the same level as the bottom plane of the pallet. 
 For more details about the volume of interest for the different PDS commands, refer to their respective documentation.
 
 Note that errors in the camera calibration will lead to errors in the position of the targeted object. If CAD data is known to be precise enough, it can be used to extract calibration values for the camera. Otherwise, any of [the calibration methods](../../CalibrationRoutines/index_calibrations.md) provided by ifm can be used.

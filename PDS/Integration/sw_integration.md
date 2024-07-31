@@ -10,7 +10,7 @@ A PDS application can be in two states:
 
 ## Commands
 
-When in "IDLE" state, the PDS application can be triggered using either of the four available commands ([`getPallet`](../GetPallet/getPallet.md), [`getRack`](../GetRack/getRack.md), [`getItem`](../GetItem/getItem.md) or [`volCheck`](../VolCheck/volCheck.md)), along with the command-specific parameters. Once data is processed, the result is published in a frame and can be retrieved using the ifm3d `FrameGrabber` (see examples [here](TODO-ADDLINK)). 
+When in "IDLE" state, the PDS application can be triggered using either of the four available commands ([`getPallet`](../GetPallet/getPallet.md), [`getRack`](../GetRack/getRack.md), [`getItem`](../GetItem/getItem.md) or [`volCheck`](../VolCheck/volCheck.md)), along with the command-specific parameters. Once data is processed, the result is published in a frame and can be retrieved using the ifm3d `FrameGrabber` (refer to the Python and C++ examples). 
 
 The `nop` command (no operation) is the default command used when the application is in "IDLE" and no specific command was triggered or the triggered command has already completed.
 
