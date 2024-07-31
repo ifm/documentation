@@ -52,7 +52,7 @@ If they are left blank, the default settings will be used.
 
 | Name        | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
 | ----------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `depthHint` | Approximate distance (in meters along the X axis) between the origin of the calibrated coordinate system and the pallet. Providing an accurate depth hint allows the algorithm to target a specific area of the scene for the pallet detection and speeds up processing times. <br>Zero or a negative value can be passed to use automatic distance detection. Note that automatic detection works best with fully loaded pallets and will most likely fail with empty pallets. |
+| `depthHint` | Approximate distance (in meters along the X axis) between the origin of the calibrated coordinate system and the pallet. Providing an accurate depth hint allows the algorithm to target a specific area of the scene for the pallet detection and speeds up processing times. <br>Zero or a negative value can be passed to use automatic distance detection. **Note that automatic detection works best with fully loaded pallets and will most likely fail with empty pallets.** |
 
 ### `palletIndex`
 
@@ -153,26 +153,26 @@ An example JSON result, where the position of one pallet was identified, is show
 The output has three main components: `depthEstimationVoi`, `pallet` and `projectionVoi`.
 
 ### `pallet`
-This component of the JSON result lists out all the detected pallets (up to 10). 
+This component of the JSON result lists all the detected pallets (up to 10). 
 For each pallet, the following information is provided:
 | Name                         | Description                                                                                                                                                                                                                              |
 | ---------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `angles`                     | Rotations components `rotX`, `rotY` and `rotZ` of the pallet, along the three axis of the calibrated coordinate system, in radians.                                                                                                      |
-| `center`, `left` and `right` | Position and size of the center beam, the left pocket and the right pocket respectively. <br>For each, the width and height is provided, as well as the coordinates of the center of the pocket or beam along the X, Y an Z axis.        |
-| `score`                      | The score of the pallet. The score corresponds to how well the pallet fits the pallet template. <br>Note that the score does *not* correspond to how well a pallet is detected or to whether a pallet is damaged, but rather how close to the model pallet this pallet is. |
+| `center`, `left` and `right` | Position and size of the center beam, the left pocket and the right pocket respectively. <br>For each, the width and height is provided, as well as the coordinates of the center of the pocket or beam along the X, Y and Z axis.        |
+| `score`                      | The score of the pallet. The score corresponds to how well the pallet fits the pallet template. <br>Note that the score does *not* indicate how well a pallet is detected or whether a pallet is damaged; rather, it shows how closely the pallet matches the model pallet. |
 
 ### `depthEstimationVoi` and `projectionVoi`
 
-The `depthEstimationVoi` and `projectionVoi` components provides the volumes that were used internally to detect the pallet:
+The `depthEstimationVoi` and `projectionVoi` components provide the volumes that were used internally to detect the pallet:
 | Name                 | Description                                                                                                                                                |
 | -------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `depthEstimationVoi` | Volume used in the algorithm to approximate the position of the front face of the pallet.                                                                  |
-| `projectionVoi`      | Area where the precise estimation of the position of the two pockets, center beam and rotation angle was done. The pixels outside this area are discarded. |
+| `projectionVoi`      | Area where the precise estimation of the positions of the two pockets, the center beam, and the rotation angle was performed. The pixels outside this area are discarded. |
 
 
 ## Python example
 
-To initialize and configuring the PDS application to execute `getPallet` command, please see the code example below.
+To initialize and configure the PDS application to execute the `getPallet` command, please see the code example below.
 
 :::{literalinclude} ../Python/get_pallet.py
 :caption: getPallet.py

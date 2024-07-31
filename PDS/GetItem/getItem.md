@@ -1,6 +1,6 @@
 
 # `getItem`
-The `getItem` function of PDS is designed to detect the pose of a given item. To do this, PDS needs a template of the item to be detected. A template can be understood as a reference model of the object, consisting of point cloud data from one side of the object, representing the shape of the object as seen from different angles. This template serves as a basis for comparison during the pose detection process.
+The `getItem` function of PDS is designed to detect the pose of a given item. To do this, PDS requires a template of the item to be detected. A template can be understood as a reference model of the object, consisting of point cloud data from one side of the object, representing the shape of the object as seen from different angles. This template serves as a basis for comparison during the pose detection process.
 Please note that these templates typically allow for an angular deviation of up to 10° - 15° from the normal vector.
 
 To detect a custom item, please contact your local ifm support or support.robotics@ifm.com for detailed instructions.
@@ -97,7 +97,7 @@ For each item, the following information is provided:
 
 ### `depthEstimationVoi` and `projectionVoi`
 
-The `depthEstimationVoi` and `projectionVoi` components provides the volumes that were used internally to detect the item:
+The `depthEstimationVoi` and `projectionVoi` components provide the volumes that were used internally to detect the item:
 | Name                 | Description                                                                                                                      |
 | -------------------- | -------------------------------------------------------------------------------------------------------------------------------- |
 | `depthEstimationVoi` | Volume used in the algorithm to approximate the position of the front face of the item.                                          |
