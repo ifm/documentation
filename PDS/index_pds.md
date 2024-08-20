@@ -9,10 +9,10 @@ PDS - `Pose Detection System` - provided by [ifm](https://www.ifm.com), is a sof
 Getting started <GettingStarted/index_getting_started>
 Calibration <Calibration/pds_calibration>
 Configuration <Configuration/configuration>
-Pallet <GetPallet/getPallet>
-Rack <GetRack/getRack>
-Item <GetItem/getItem>
-Volume check <VolCheck/volCheck>
+`getPallet` <GetPallet/getPallet>
+`getRack` <GetRack/getRack>
+`getItem` <GetItem/getItem>
+`volCheck` <VolCheck/volCheck>
 Recording <Recording/recordings_iVA>
 Integration <Integration/index_integration>
 Vision Assistant release notes <VisionAssistant/PDS_iVA_release_notes_2.7.13>
@@ -29,7 +29,7 @@ PDS provides four different commands:
 | ----------- | ------------------------------------------------------------------------------- |
 | `getPallet` | Pose of up to 10 pallets                                                        |
 | `getRack`   | Pose of an industrial rack                                                      |
-| `getItem`   | Pose of up to 10 custom item (experimental feature)                             |
+| `getItem`   | Pose of up to 10 custom items (experimental feature)                             |
 | `volCheck`  | Quantifies the number of valid pixels within a defined volume of interest (VOI) |
 
 

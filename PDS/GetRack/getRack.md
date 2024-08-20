@@ -1,12 +1,12 @@
 # `getRack`
 
-The `getRack` functionality of PDS is designed to help an AGV to safely place a pallet or load into a standard racking system. The `getRack` function has two phases:
+The `getRack` functionality of PDS is designed to help an AGV safely place a pallet or load into a standard racking system. The `getRack` function has two phases:
    1. Detection of the position of the rack, 
    2. Detection of any obstacle present within a specified volume.
 
 ![`getRack`](resources/getRack_result_array.png)
 
-In the above picture, the vertical blue line is the estimated inner edge of the upright structure and the horizontal green line is the estimated upper edge of the horizontal beam, constituting the shelf on which the pallet will be placed.
+In the above picture, the vertical blue line represents the estimated inner edge of the upright structure, and the horizontal green line represents the estimated upper edge of the horizontal beam, constituting the shelf on which the pallet will be placed.
 
 ## Coordinate system
 
@@ -63,7 +63,7 @@ There are three configurations available for this parameter:
 ### `verticalDropPosition`
 
 This parameter informs the PDS about the drop location of the pallet. 
-Depending on the drop vertical drop position, this parameter can be configured as:
+Depending on the vertical drop position, this parameter can be configured as:
 
 | Name                   | Description                                                                                                                                                                |
 | ---------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
