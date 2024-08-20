@@ -2,7 +2,7 @@
 nosearch: true
 ---
 
-# Appendix - Changing the projection volume
+# Appendix - Changing the projection volume parameters for non-standard detection
 
 If the default projection volume doesn't meet your needs, you have two options.
 
@@ -133,6 +133,11 @@ This approach is the only one available in cases where the camera is mounted sid
 
 # Appendix - Changing the getPallet parameters:
 
+::: {warning}
+The following parameter changes shall only be done with care! 
+changing these parameter may have unintended detection robustness and detection range effects if configured incorrectly for the use case and environment.
+:::
+
 If the pallet is more than 2 meters away from the camera and is not detected, you may need to reduce the sanity check thresholds, which is the minimum number of pixels required to validate the pallet.
 
 To change the thresholds, the following parameter needs to be added to the configuration (change the `APP_PORT` with your app, for example `app0`):
@@ -147,10 +152,8 @@ To change the thresholds, the following parameter needs to be added to the confi
                         "getPallet": {
                             "0": {
                                 "localizePallets": {
-                                    "RANSAC": {
-                                        "faceMinPts": 200,
-                                        "stringerMinPts": 50
-                                    }
+                                    "faceMinPts": 300,
+                                    "stringerMinPts": 70
                                 }
                             }
                         }
