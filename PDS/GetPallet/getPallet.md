@@ -79,8 +79,12 @@ The `getPallet` command works as follows:
 1. If the `depthHint` is set to a positive value (this is the recommended option), the user is expected to have a priori knowledge about where the pallet is with respect to the robot coordinate system. In this case, the pallet's pose estimation is performed inside the `projection volume`, which is set at the `depthHint` including +/- 0.2 m.
 2. If the `depthHint` is set to zero or a negative value, then the pallet will be searched for in the `depth estimation volume`. The majority of the pixels inside the depth estimation volume should be on the plane of the front face of the pallet. Once the distance to the pallet is estimated, the `projection volume` is set at this distance including a +/- 0.2 m buffer in X direction on each side. The pixels in the `projection volume` will be used to estimate the position of the pallet. 
 
+For further details of a typical `get_pallet` command trigger sequence see the flowchart below.
+
+![flowchart](./resources/getPallet_flowchart.drawio.svg)
+
 For better understanding please see the figure below where the green box represents the `projection volume` and the blue box represents the `depth estimation volume`.
-![volumes](./resources/pds_volumes.png)
+![volumes](./resources/pds_volumes_of_interest.png)
 
 ### Camera position and projection volume
 
