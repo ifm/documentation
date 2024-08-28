@@ -28,10 +28,10 @@ To change the coordinates of the projection volume, the following parameter need
                             "0": {
                                 "orthoProjection": {
                                     "voi": {
-                                        "yMin": -0.8 + y_shift,
-                                        "yMax": 0.8 + y_shift,
-                                        "zMin": -0.4 + z_shift,
-                                        "zMax": 0.4 + z_shift,
+                                        "yMin": -1 + y_shift,
+                                        "yMax": 1 + y_shift,
+                                        "zMin": -0.6 + z_shift,
+                                        "zMax": 0.6 + z_shift,
                                     }
                                 }
                             }
