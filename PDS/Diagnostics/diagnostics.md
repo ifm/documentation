@@ -1,3 +1,7 @@
+---
+nosearch: true
+---
+
 # Diagnostics
 
 | Error code | Diagnostics                          | Description                                                            |

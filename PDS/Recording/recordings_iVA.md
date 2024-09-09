@@ -1,3 +1,6 @@
+---
+nosearch: true
+---
 
 # Data recording with ifmVisionAssistant
 

@@ -1,3 +1,7 @@
+---
+nosearch: true
+---
+
 # Configuration
 
 The PDS application is instantiated with a set of JSON parameters. 

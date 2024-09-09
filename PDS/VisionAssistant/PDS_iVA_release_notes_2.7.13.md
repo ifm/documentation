@@ -1,3 +1,7 @@
+---
+nosearch: true
+---
+
 # Vision Assistant 2.7.13
 The following release note provides an overview of the features of the iVA **2.7.13** version. This version is available for field testing the Pose Detection Solution (PDS), and is not available as a general release. For release information of publicly release versions, please refer to [the release notes in ifm3d.com](https://ifm3d.com/latest/SoftwareInterfaces/iVA/index_iVA.html). 
 

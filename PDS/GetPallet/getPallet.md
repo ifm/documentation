@@ -1,3 +1,6 @@
+---
+nosearch: true
+---
 
 # `getPallet`
 

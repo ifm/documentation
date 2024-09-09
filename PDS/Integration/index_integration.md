@@ -1,3 +1,7 @@
+---
+nosearch: true
+---
+
 # PDS integration 
 
 :::{toctree}

@@ -1,3 +1,7 @@
+---
+nosearch: true
+---
+
 # `getRack`
 
 The `getRack` functionality of PDS is designed to help an AGV safely place a pallet or load into a standard racking system. The `getRack` function has two phases:

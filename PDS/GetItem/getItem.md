@@ -1,3 +1,6 @@
+---
+nosearch: true
+---
 
 # `getItem`
 The `getItem` function of PDS is designed to detect the pose of a given item. To do this, PDS requires a template of the item to be detected. A template can be understood as a reference model of the object, consisting of point cloud data from one side of the object, representing the shape of the object as seen from different angles. This template serves as a basis for comparison during the pose detection process.

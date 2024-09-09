@@ -1,3 +1,7 @@
+---
+nosearch: true
+---
+
 # Software integration guide
 
 PDS' commands are expected to be triggered from the vehicle's main IPC, through the ifm3d library. This document explains the infrastructure expected to configure and trigger PDS.

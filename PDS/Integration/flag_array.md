@@ -1,3 +1,7 @@
+---
+nosearch: true
+---
+
 # PDS pixel flags
 
 Additionally to the result of a specific PDS command, the user can access the pixel flags. These flags provide additional details as to what each pixel is used for in the PDS algorithm.

@@ -1,3 +1,7 @@
+---
+nosearch: true
+---
+
 # Getting started with PDS
 
 ## Prerequisites
