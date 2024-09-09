@@ -3,7 +3,7 @@
 The PDS application always returns the position of an object with respect to the calibrated coordinate system. Typically, the calibrated coordinate system corresponds to the fork tines, so that the coordinate system will go up and down with the forks and the pallet position will always be provided with reference to the current position of the forks.
 
 ## Concepts
-### PDS' coordinate system
+### PDS coordinate system
 PDS expects the orientation of the coordinate system to be as follows:
 - X is pointing in direction of the forks,
 - Y is pointing to the left of the forks,
@@ -26,14 +26,14 @@ For more details about the volume of interest for the different PDS commands, re
 
 Note that errors in the camera calibration will lead to errors in the position of the targeted object. If CAD data is known to be precise enough, it can be used to extract calibration values for the camera. Otherwise, any of [the calibration methods](../../CalibrationRoutines/index_calibrations.md) provided by ifm can be used.
 
-### Robot's coordinate system
+### Robot Coordinate System
 PDS' coordinate system will most often be different from the Robot Coordinate System (RCS):
 - The RCS is usually in a fixed position on the robot's chassis, whereas PDS' coordinate systems moves with the forks. The transformation between the RCS and the PDS coordinate system will depend on the position of the forks and has to be implemented by the user.
 - The RCS is typically in the middle of the steering axis, whereas PDS' coordinate system is located around the forks base or tip.
 - In general, the axis of the RCS and the PDS coordinate systems will be parallel. The X axis of the RCS usually points in the direction of travel, and PDS' coordinate system X axis points in the direction of the forks, which would typically be towards the back of the vehicle. The Z axis will point upwards in both coordinate system.
 
 :::{note}
-Note that these comments represent most typical use cases, but your coordinate systems might be different. The coordinate systems can be adjusted to fit your specific setup.
+Note that these comments represent most typical use cases, but your coordinate system might be different. The coordinate system can be adjusted to fit your specific setup.
 :::
 
 ## Examples

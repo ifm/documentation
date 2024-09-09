@@ -123,7 +123,7 @@ o3r->Set(getPallet_command);
 
 ## Option 2: Edit the extrinsic calibration.
 
-Adjust the extrinsic calibration of the camera so that the calibrated camera coordinate system has a X axis that is parallel to the Y axis of the RCS.
+Adjust the extrinsic calibration of the camera so that the calibrated coordinate system has an X axis that is parallel to the Y axis of the RCS.
 This ensures that the pallet's front face is perpendicular to the camera's X axis, which is what is required by the PDS algorithm.
 The results provided by PDS then need to be transformed to the RCS.
 
