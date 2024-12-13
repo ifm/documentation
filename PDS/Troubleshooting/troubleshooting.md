@@ -1,7 +1,3 @@
----
-nosearch: true
----
-
 # Troubleshooting
 
 This document outlines some ideas of strategies to apply when encountering issues with PDS.

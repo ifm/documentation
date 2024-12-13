@@ -1,7 +1,3 @@
-
-
-### VPU
-
 | ID | Name | Description |
 |----|------|-------------|
 | 103002 | ERROR_VPU_OVERVOLTAGE_24V | Overvoltage was detected for the 24V line |
@@ -16,10 +12,5 @@
 | 103011 | ERROR_VPU_NO_FREE_IMAGE_BUFFERS | More image buffers are needed than are available |
 | 103012 | ERROR_VPU_WATCHDOG_TIMEOUT | A watchdog timeout occurred; the component was restarted |
 | 103013 | ERROR_VPU_INVALID_CONFIGURATION | Unable to read a configuration path |
-
-### Communication
-
-| ID | Name | Description |
-|----|------|-------------|
 | 103000 | ERROR_VPU_COMM_TCU | Unable to communicate with the TCU |
 | 103001 | ERROR_VPU_COMM_TEMPSENSOR | Unable to communicate with the temperature sensor |

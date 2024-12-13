@@ -1,7 +1,3 @@
----
-nosearch: true
----
-
 # Appendix - Changing the projection volume parameters for non-standard detection
 
 If the default projection volume doesn't meet your needs, you have two options.
@@ -46,7 +42,7 @@ To change the coordinates of the projection volume, the following parameter need
 
 Note that this parameter can be edited for each pallet (up to ten pallets can be detected).
 
-To set this parameter in Python or C++, you can use the respective [get_pallet.py](../Python/get_pallet.py) and [get_pallet.cpp](../Cpp/get_pallet.cpp) examples and edit the parameters of the JSON command. For example, for a shift along the Y axis of 50 cm and along the Z axis of 10 cm, you can do:
+To set this parameter in Python or C++, you can use the respective [get_pallet.py](https://github.com/ifm/ifm3d-examples/tree/main/ovp8xx/python/ovp8xxexamples/pds/get_pallet.py) and [get_pallet.cpp](https://github.com/ifm/ifm3d-examples/tree/main/ovp8xx/cpp/pds/get_pallet.cpp) examples and edit the parameters of the JSON command. For example, for a shift along the Y axis of 50 cm and along the Z axis of 10 cm, you can do:
 :::::{tabs}
 ::::{group-tab} Python
 ```python
@@ -131,7 +127,7 @@ This approach is the only one available in cases where the camera is mounted sid
 
 ![sideway](./resources/sideway.svg)
 
-# Appendix - Changing the getPallet parameters:
+# Appendix - Changing the `getPallet` parameters:
 
 ::: {warning}
 The following parameter changes shall only be done with care! 

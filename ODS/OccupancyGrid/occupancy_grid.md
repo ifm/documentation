@@ -1,5 +1,13 @@
 # Occupancy grid
 
+## Range of Interest
+
+The default occupancy grid size is 10 x 10 m<sup>2</sup> with the calibrated reference coordinate system (RCS) positioned at the center of grid with X-range<=5 meters.
+
+If large vehicles are used for ODS with translation offsets > 1.5 m with respect to the RCS, the occupancy grid size is limiting the detection range of ODS. The detection range on large objects is close to 4 m, which would get clipped by the available 3.5 m range in occupancy grid. 
+
+To address this issue, from firmware versions >= 1.10.13 a new parameter is introduced, `rangeOfInterest`, within the `grid` configuration. This parameter allows users to extend the grid size to accommodate larger translation offsets, ensuring optimal performance of the ODS in such scenarios.
+
 ## Output
 
 | Name                      | Type           | Description                                                                              |

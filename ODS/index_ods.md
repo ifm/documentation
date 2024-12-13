@@ -13,7 +13,9 @@ Getting started <getting_started>
 Mounting <Mounting/mounting>
 Instantiation <Instantiation/instantiation>
 Configuration <Configuration/configuration>
+Presets <Presets/presets>
 Zones <Zones/zones>
+Presets <Presets/presets>
 Occupancy grid <OccupancyGrid/occupancy_grid>
 Recording <Recording/ods_data_recording>
 Changing views <ChangingViews/changing_views>
@@ -30,7 +32,7 @@ C++ <Cpp/index_ifmODS_cpp>
 
 
 <!-- Have to use raw html so the title does not appear twice in the navigation -->
-:::{raw} html
+:::{raw} HTML
 <h2>The ODS journey</h2>
 :::
 
@@ -43,7 +45,7 @@ Each step in the diagram will guide you to the relevant documentation.
 :reverse:
 
 ::::{grid-item}
-:::{raw} html
+:::{raw} HTML
     :file: img/ods_journey.drawio.svg
 :::
 ::::

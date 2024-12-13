@@ -14,5 +14,4 @@ ProcessingParams/index_processing_params
 triggering
 ImagesDescription/index_images_description
 IntrinsicCalib/intrinsic_calib_3d
-<!-- TOFArtifacts/index_artifacts -->
 :::

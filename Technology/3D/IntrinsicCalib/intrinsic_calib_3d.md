@@ -6,7 +6,7 @@ Every camera is individually calibrated in production. We use two different mode
 
 This applies to the wide opening angle (O3R225) cameras. For these cameras, we use the fisheye distortion model as described below.
 
-### For unprojection: intrinisc calibration model
+### For unprojection: intrinsic calibration model
 This model is used for converting pixel positions to 3D vectors. It corresponds to `modelID=2`. The following formulas show how to apply the model:
 
 ![Fish eye model for unprojection](resources/fisheye_unprojection.png)
@@ -28,7 +28,7 @@ Where
 
 ## Bouguet model
 
-### For unprojection: intrinisc calibration model
+### For unprojection: intrinsic calibration model
 This model is used for converting pixel positions to 3D vectors. It corresponds to `modelID=0`. The following formulas show how to apply the model:
 
 ![Bouguet model for unprojection](resources/bouguet_unprojection.png)

@@ -1,7 +1,3 @@
----
-nosearch: true
----
-
 # Camera calibration for PDS
 
 The PDS application always returns the position of an object with respect to the calibrated coordinate system. Typically, the calibrated coordinate system corresponds to the fork tines, so that the coordinate system will go up and down with the forks and the pallet position will always be provided with reference to the current position of the forks.

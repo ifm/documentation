@@ -36,7 +36,7 @@ The reflectivity and type of the floor surface impacts the amount of light refle
 Even though the O3R cameras utilize the infrared spectrum, a good rule of thumb is that floors that appear "reflective" for the human eye will most likely also be reflective in infrared.
 
 Three main things are impacted by the reflectivity and surface type of the floor:
-- Floors that are very smooth without visible marks, like freshly painted floors, can be challenging for the [visual odometry](#visual-odometry) estimation.
+- Floors that are very smooth without visible marks, like freshly painted floors, can be challenging for the visual odometry estimation.
 - Highly reflective floors can create stray light artifacts when the camera is mounted low. In this case, stray light can negatively impact the detection of small or low reflectivity objects.
 - To reliably detect small objects (smaller than 10cm) on the floor, ODS relies partially on detecting the floor in the vicinity of the object. For highly reflective floors, the visible floor range is typically smaller. This means that performance detection for small objects might be degraded on highly reflective floors. For objects larger than 10 cm (vertically), this limitation does not apply.
 

@@ -39,64 +39,14 @@ In the instructions below, we expect that the user extracted the downloaded ZIP 
 - Select the file and the update process will start.
 - Once the update is complete, the device will reboot.
 
-### With the ifm3d API or the web interface
-
-#### Reboot to recovery
-When the starting firmware is version 1.0.0 and above, a reboot to recovery state is necessary to perform an update.
-
-:::::{tabs}
-::::{group-tab} CLI
-```bash
-$ ifm3d reboot --recovery
-```
-::::
-::::{group-tab} c++
-```cpp
-#include <ifm3d/device/o3r.h>
-#include <ifm3d/swupdater/swupdater.h>
-...
-auto o3r = std::make_shared<ifm3d::O3R>();
-auto sw = std::make_shared<ifm3d::SWUpdater>(o3r);
-sw->RebootToRecovery();
-if (sw->WaitForRecovery()) {
-    std::cout << "System in recovery mode" << std::endl;
-}
-...
-```
-::::
-::::{group-tab} Python
-```python
-from ifm3dpy.swupdater import SWUpdater
-from ifm3dpy.device import O3R
-o3r = O3R()
-sw = SWUpdater(o3r)
-sw.reboot_to_recovery()
-if sw.wait_for_recovery():
-    print("System in recovery mode)
-```
-::::
-:::::
 
 :::{note}
-If you happen to be stuck in recovery mode, the device will not be "ping-able." To reboot to productive, you have two options:
-- You can update the system again. If the update is successful, the system will reboot to productive, or,
-- You can use the ifm3d API to reboot to productive without updating. With the command line interface, you can use `ifm3d swupdate -r`. In Python you can use the [`reboot_to_productive` function](https://api.ifm3d.com/stable/_autosummary/ifm3dpy.swupdater.SWUpdater.html#ifm3dpy.swupdater.SWUpdater.reboot_to_productive) and in C++ the [`RebootToProductive` function](https://api.ifm3d.com/stable/cpp_api/classifm3d_1_1SWUpdater.html#a5ed7d927b9ff35a6808394345bdced8e).
+The firmware update using the iVA Linux AppImage may fail on the first attempt, causing the VPU to remain in recovery mode.
+If this happens, refer to [the instructions below](#rebooting-to-productive-mode) to reboot to productive mode, using the ifm3d API.
 :::
+### With the ifm3d API
 
-#### With the web interface
-
-Once the device is in recovery mode (see section above), you can open the web interface:
-
-1. Open [http://192.168.0.69:8080/](http://192.168.0.69:8080/) in web browser. The `SWUpdate` web interface is shown.
-2. Drag and drop the `*.swu` firmware file into the `software update`-window. The upload procedure starts.
-
-The system will automatically reboot in productive mode. The web interface will not be available anymore (it is only available in recovery mode).
-
-#### With ifm3d
-
-Once the device is in recovery mode, you can use ifm3d to update the firmware.
 In the instructions below, replace `<path/to/firmware_image.swu>` with the path to the firmware file you downloaded from [ifm.com](https://www.ifm.com/).
-The code below is continued from the "reboot to recovery" section.
 
 :::::{tabs}
 ::::{group-tab} CLI
@@ -106,6 +56,11 @@ $ ifm3d swupdate --file=<path/to/firmware_image.swu>
 ::::
 ::::{group-tab} c++
 ```cpp
+#include <ifm3d/device/o3r.h>
+#include <ifm3d/swupdater/swupdater.h>
+...
+auto o3r = std::make_shared<ifm3d::O3R>();
+auto sw = std::make_shared<ifm3d::SWUpdater>(o3r);
 if (sw->FlashFirmware("<path/to/firmware_image.swu>")){
     sw->WaitForProductive();
     std::cout << "System ready!" << std::endl;
@@ -114,6 +69,10 @@ if (sw->FlashFirmware("<path/to/firmware_image.swu>")){
 ::::
 ::::{group-tab} Python
 ```python
+from ifm3dpy.swupdater import SWUpdater
+from ifm3dpy.device import O3R
+o3r = O3R()
+sw = SWUpdater(o3r)
 if sw.flash_firmware('<path/to/firmware_image.swu>'):
     sw.wait_for_productive()
     print("System ready!")
@@ -145,6 +104,11 @@ o3r.get(["/device/swVersion/firmware"])
 ```
 ::::
 :::::
+
+#### Rebooting to productive mode
+If you happen to be stuck in recovery mode, the device will not be "ping-able." To reboot to productive, you have two options:
+- You can update the system again. If the update is successful, the system will reboot to productive, or,
+- You can use the ifm3d API to reboot to productive without updating. With the command line interface, you can use `ifm3d swupdate -r`. In Python you can use the [`reboot_to_productive` function](https://api.ifm3d.com/stable/_autosummary/ifm3dpy.swupdater.SWUpdater.html#ifm3dpy.swupdater.SWUpdater.reboot_to_productive) and in C++ the [`RebootToProductive` function](https://api.ifm3d.com/stable/cpp_api/classifm3d_1_1SWUpdater.html#a5ed7d927b9ff35a6808394345bdced8e).
 
 #### The full example script
 

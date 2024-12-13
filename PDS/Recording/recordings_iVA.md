@@ -1,7 +1,3 @@
----
-nosearch: true
----
-
 # Data recording with ifmVisionAssistant
 
 Throughout the stages of integration, development, and testing of the PDS solution, there might be instances where issues arise. In such cases, the first course of action should be to record the relevant data and document the issue for further examination.
