@@ -11,6 +11,7 @@ Technology <Technology/index_technology>
 Software Interfaces <index_software_interfaces>
 Calibration Routines <CalibrationRoutines/index_calibrations>
 ODS <ODS/index_ods>
+PDS <PDS/index_pds>
 FAQ <FAQ/FAQ>
 History <downloadable/index>
 :::
@@ -65,7 +66,7 @@ Learn how to quickly setup the Obstacle Detection Solution
     :class-item: homepage-icons
     :width: 20
     :img-top: ./resources/ifm3d_landing_point-cloud.svg
-    :link: GettingStarted/ifmVisionAssistant/first_steps_ifmVA
+    :link: SoftwareInterfaces/iVA/first_steps_ifmVA
     :link-type: doc
     :link-alt: Link to the first steps with the Vision Assistant
 +++

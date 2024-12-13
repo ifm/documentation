@@ -10,7 +10,7 @@
  | OVP800 <br> M04239             | O3R222 <br> 03R225             | FW 1.0.14  | 1.2.6         | 2.6.14             |
 
 :::{note}
-- Other combinations of versions than the ones listed in the table above could work but are not officially supported by ifm. [See table below](#suggested-hardware)
+- Other combinations of versions than the ones listed in the table above could work but are not officially supported by ifm. [See table below](#recommended-hardware)
 - Newer API versions are aimed to be backward compatible. Please verify via the API release notes and changelog.
 :::
 

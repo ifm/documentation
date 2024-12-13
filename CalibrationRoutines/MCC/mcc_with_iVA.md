@@ -2,7 +2,7 @@
 
 Motion Camera Calibration is a camera calibration software provided by ifm based on an ifm specific checkerboard that estimates the rotational parameters of the camera head with respect to the user coordinate system.
 
-This application is available free of charge and included in the embedded O3R firmware (`version >= 1.1.30`) and the GUI ifm Vision Assistant (`version >= 2.7.6`). To use this application, users must install the ifmVisionAssistant tool, which can be downloaded [here](https://www.ifm.com/us/en/product/OVP800?tab=documents). To get started with the ifmVisionAssistant, please refer to this [documentation](index_iVA.md).
+This application is available free of charge and included in the embedded O3R firmware (`version >= 1.1.30`) and the GUI ifm Vision Assistant (`version >= 2.7.6`). To use this application, users must install the ifmVisionAssistant tool, which can be downloaded [here](https://www.ifm.com/us/en/product/OVP800?tab=documents). To get started with the ifmVisionAssistant, please refer to this [documentation](../../SoftwareInterfaces/iVA/index_iVA.md).
 
 ## Pre-requisites
 

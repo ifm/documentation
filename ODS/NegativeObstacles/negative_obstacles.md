@@ -8,6 +8,12 @@ ODS has the capability to detect negative obstacles, that is obstacles that are 
 
 ## Prerequisites and limitations
 
+The camera used for detecting negative obstacles should mounted in such a way that minimum radial distance from camera to the ground floor must be less than 1 meter. Otherwise, the camera is mounted too high to be able to detect the floor and raises the diagnostic `ERROR_ODSAPP_FOV_INSUFFICIENT_FOR_NEGATIVE_OBSTACLES`.
+
+:::{note}
+ODS application relies on an accurate extrinsic calibration parameters to detect the ground plane.
+:::
+
 To the ODS app, a negative obstacle is defined as:
 - At least 20 centimeter large along the X axis,
 - At least 20 centimeter large along the Y axis,

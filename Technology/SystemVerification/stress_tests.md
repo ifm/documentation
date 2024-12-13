@@ -67,7 +67,7 @@ This may either be done on a recorded dataset in the post or on data retrieved i
 ### 3. Temperature Testing
 
 A first set of temperature tests is typically run during a proof of concept phase on a component level, that is the O3R system and its intended (prototype) mounting setup are tested in a smaller temperature chamber. This is a good indication of whether the passive cooling capabilities of the camera and VPU mounting are sufficient for the full ambient temperature range.
-Please set all 3D camera heads to their maximum allowed framerate: `20 Hz`. Additionally you can change the "exposureShort" from 400 to 1000.
+Please set all 3D camera heads to their maximum allowed framerate: `20 Hz`. Additionally you can change the `exposureShort` from 400 to 1000.
 
 Load on the VPUs CPU and GPU can be introduced by running a functional ODS application instance, or by artificially introducing CPU and GPU load via tools such as [stress](https://packages.ubuntu.com/search?keywords=stress) and [gpu-burn](https://github.com/anseeto/jetson-gpu-burn).
 

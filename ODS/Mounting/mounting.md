@@ -6,7 +6,7 @@ Review the general mounting instructions to comply with [heat dissipation guidel
 
 Generally, we recommend mounting the lowest camera at a height in the range of 250 to 700 mm from the ground.
 
-Additionally, at least one of the active cameras should have the floor in its field of view,  with visible floor up to 1 m, to allow for optimal performance in motion. 
+Additionally, at least one of the active cameras should have the floor in its field of view. For more details review the [visual odometry](#visual-odometry).
 :::
 
 The positioning of the cameras on the AGV has a great impact on the performance of ODS.
@@ -16,9 +16,9 @@ First, review [the general mounting instructions](../../Technology/Hardware/Moun
 
 Then, there are a couple additional things to take into account specifically for ODS cameras.
 
-### Mounting position
+## Mounting position
 
-#### Mounting height recommendations
+### Mounting height recommendations
 
 Mounting height is important for all cameras, but it is especially critical for cameras that will be used to detect small objects on the floor.
 
@@ -34,7 +34,7 @@ With these three considerations in mind, we recommend that the lowest cameras be
 For cameras that are only used to detect cantilevered objects and are not expected to segment small objects from the ground, the mounting requirements are relaxed and the camera can be mounted higher and pointed upward. 
 
 
-#### Examples
+### Examples
 Below are two examples of mounting positions for ODS.
 
 The first example shows a typical AMR platform, with one camera on each side.
@@ -53,30 +53,31 @@ The lower camera is an O3R222, which is the narrow field of view camera. It is t
 The upper camera is an O3R225, which is the wide field of view camera. It is tilted up and is used to detect overhanging obstacles that could damage the top part of the vehicle.
 Both cameras are mounted at around 70 cm height.
 
-|                                                                                     |                                                                                    |
-| ----------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- |
+|                                                                                    |                                                                                     |
+| ---------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- |
 | ![Example of camera mounting on a fork truck, general view](./img/fork-lift-1.png) | ![Example of camera mounting on a fork truck, close up view](./img/fork-lift-2.png) |
 
 :::{note}
 These images are intended as examples only and do not represent an actual at-scale model.
 :::
 
-### Visual odometry
+## Visual odometry
 
-Visual odometry is used in ODS along with IMU data to calculate the ego motion (linear velocity, angular velocity) of the vehicle. 
+Visual odometry is used in ODS along with IMU data to calculate the ego motion (linear velocity, angular velocity) of the vehicle.
 For a fully functional system, the visual odometry information needs to be available for at least one active camera at all times.
-Typically, visual odometry requires that pixels associated with the ground be visible up to about 1 meter under typical driving conditions.
+
+If the camera head which is responsible for visual odometry is not calibrated or doesn't see enough floor pixels then a diagnostic `ERROR_ODSAPP_VO_EXTR_DI_CALIB_IMPLAUSIBLE` will be raised.
 
 This may require angling the camera down to see the ground in front of or to the side of the vehicle.
 
-### Clearance area
+## Clearance area
 
 It is worth repeating that special attention should be paid to the clearance requirements for each camera. 
 Any object obstructing the field of view or the clearance area will have a noticeable negative impact on ODS performance.
 
 Refer to the [clearance area guidelines](../../Technology/Hardware/Mounting/clearance_area.md).
 
-### Dead zones
+## Dead zones
 
 Depending on the mounting position, dead zones may exist. ODS does not retain a memory of objects that have disappeared from the field of view into a dead zone. 
 It is important to take this into account and define a strategy to either cover the dead zones with additional cameras, or to incorporate these dead zones into the effective breaking distance calculation. 

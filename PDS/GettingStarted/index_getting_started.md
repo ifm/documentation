@@ -1,22 +1,18 @@
----
-nosearch: true
----
-
 # Getting started with PDS
 
 ## Prerequisites
 
 It is expected that a running O3R system (VPU and camera heads) is connected. Please refer to the [unboxing section](../../GettingStarted/Unboxing/hw_unboxing.md).
 
-A typical procedure for getting started would be as follows
-- Connect the VPU (M04311) to the O3R222 camera head,
-- Connect the Ethernet cable to the VPU (M04311) and the laptop,
-- Connect the VPU (M04311) to the power supply and power up the system,
-- Start to the GUI - ifmVisionAssistant (iVA),
+A typical procedure for getting started would be as follows:
+- Connect the VPU (OVP812 or OVP813) to the O3R camera head,
+- Connect the Ethernet cable to the VPU and the laptop,
+- Connect the VPU to the power supply and power up the system,
+- Start the ifmVisionAssistant (iVA) GUI,
 - Verify that live images are being received.
 
 
-Before reading this section, make sure you are familiar with [how to get started with the iVA](../../GettingStarted/ifmVisionAssistant/index_iVA.md).
+Before reading this section, make sure you are familiar with [how to get started with the iVA](../../SoftwareInterfaces/iVA/index_iVA.md).
 
 ## Calibrate the camera
 

@@ -15,3 +15,4 @@
 | 105011 | ERROR_ODSAPP_EXTR_DI_CALIB_IMPLAUSIBLE | Implausible extrinsic head calibration |
 | 105012 | ERROR_ODSAPP_TEST_MODE_WARNING | A protected parameter was set to enter a test mode |
 | 105013 | ERROR_ODSAPP_ERROR_ODSAPP_FOV_INSUFFICIENT_FOR_NEGATIVE_OBSTACLES | FOV is insufficient for negative obstacle detection |
+| 105019 | ERROR_ODSAPP_CAMERA_DECALIBRATED | Camera orientation deviates from expected value|

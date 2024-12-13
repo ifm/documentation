@@ -1,28 +1,29 @@
----
-nosearch: true
----
+# PDS (Pick and Drop System)
 
-# PDS (Pose Detection System)
-
-PDS - `Pose Detection System` - provided by [ifm](https://www.ifm.com), is a software solution building on top of the O3R ecosystem to enable AGVs (Automated Guided Vehicles), fork trucks and other robots to detect the pose of objects within a 3D environment.
+PDS - `Pick and Drop System` - provided by [ifm](https://www.ifm.com), is a software solution built on top of the O3R ecosystem to enable AGVs (Automated Guided Vehicles), forklifts, and other robots to detect the pose of objects within a 3D environment for picking them up and detecting racks for dropping them.
 
 :::{toctree}
     :maxdepth: 2
 Getting started <GettingStarted/index_getting_started>
 Calibration <Calibration/pds_calibration>
 Configuration <Configuration/configuration>
-`getPallet` <GetPallet/getPallet>
-`getRack` <GetRack/getRack>
-`getItem` <GetItem/getItem>
-`volCheck` <VolCheck/volCheck>
+Results <Results/results>
+Pallets <GetPallet/getPallet>
+Racks <GetRack/getRack>
+Volume check <VolCheck/volCheck>
+Code examples <Examples/examples>
 Recording <Recording/recordings_iVA>
 Integration <Integration/index_integration>
-Vision Assistant release notes <VisionAssistant/PDS_iVA_release_notes_2.7.13>
 :::
 
-## Features
+<!-- ------------------------------------------------- -->
+<!-- This is a title, but we put it as raw html as
+a hack to avoid having it display in the left bar nav. -->
+:::{raw} HTML
+    <h2> Features </h2>
+:::
 
-PDS uses the O3R platform as its primary data source: one 3D camera stream can be used at one time. The current firmware version for PDS application is tested only with `O3R222` camera head.
+PDS uses the O3R platform as its primary data source: one 3D camera stream can be used at one time. It is recommended to use the `O3R222` camera head.
 The support for O3R225 wide FoV heads is experimental at the moment.
 The support for (H)VGA  camera heads will be added in the future.
 
@@ -33,10 +34,3 @@ PDS provides four different commands:
 | `getRack`   | Pose of an industrial rack                                                      |
 | `getItem`   | Pose of up to 10 custom items (experimental feature)                             |
 | `volCheck`  | Quantifies the number of valid pixels within a defined volume of interest (VOI) |
-
-
-## Compatibility Matrix
-
-| Firmware Version | Supported VPU Hardware | Supported Camera Hardware | ifm3d-library | ifmVisionAssistant | Comments                                            |
-| ---------------- | ---------------------- | ------------------------- | ------------- | ------------------ | --------------------------------------------------- |
-| 1.2.x            | `M04311`               | O3R222                    | >=1.4.3       | >=2.7.2            | Field test only version. Do not use for production. |

@@ -1,14 +1,14 @@
 # SSH usage
 
-To connect to the VPU through SSH or deploy software to the VPU with SCP, it is necessary 1. have an ssh key pair, 2. Have the public key copied to the VPU configuration.
+To connect to the VPU through SSH or deploy software to the VPU with SCP, it is necessary 1. have an SSH key pair, 2. Have the public key copied to the VPU configuration.
 
-Follow instructions below to configure ssh on the VPU via either the CLI or via python3
+Follow instructions below to configure SSH on the VPU via either the CLI or via python3
 
 
 ## Setup via CLI
 
 :::{note}
-The following instructions are tailored towards a bash (Unix shell). When deploying on a Windows based architecture, please modify the instructions sets for your shell accordingly, or try the setup instructions for python instead
+The following instructions are tailored towards a bash (Unix shell). When deploying on a Windows based architecture, please modify the instructions sets for your shell accordingly, or try the setup instructions for Python instead
 :::
 
 ### Generate an SSH key-pair
@@ -89,15 +89,15 @@ $ ifm3d dump | jq .device.network.authorized_keys
 Note that the `authorized_keys` is a persistent parameter: it does not require a call to [`save_init`](../configuration.md#persistent-settings-without-save_init) to be persistent over reboots.
 
 
-## Setup via python script
+## Setup via Python script
 
-This method will require a python 3 environment with ifm3dpy and paramiko installed via pip
+This method will require a Python 3 environment with ifm3dpy and Paramiko installed via pip
 
 ```
 pip install ifm3dpy paramiko
 ```
 
-The python script [ssh_key_gen.py](https://github.com/ifm/ifm3d-examples/blob/main/ovp8xx/python/ovp8xxexamples/core/ssh_key_gen.py) can be used on both windows and linux
+The Python script [ssh_key_gen.py](https://github.com/ifm/ifm3d-examples/blob/main/ovp8xx/python/ovp8xxexamples/core/ssh_key_gen.py) can be used on both Windows and Linux
 
 Run the script with "--help" for optional arguments
 
@@ -118,7 +118,7 @@ options:
   --log-file LOG_FILE   The file to save relevant output
 ```
 
-Running the file will generate the key-pair as specified, if unavailable, copy the public key to the VPU, and run a test command via ssh.
+Running the file will generate the key-pair as specified, if unavailable, copy the public key to the VPU, and run a test command via SSH.
 
 ```bash
 2024-10-30 11:49:25,348 [MainThread  ] [INFO ]  Connecting to 192.168.0.69 to verify the keys are set correctly.
@@ -140,6 +140,6 @@ o3r-vpu-c0:~$
 
 The -i "identity" argument is required on some shells for the private key to be used.
 
-There will be a prompt for the passphrase, if this was configured when running ssh-keygen
+There will be a prompt for the passphrase, if this was configured when running `ssh-keygen`.
 
-If successful with the setup, the user will be logged into a shell on the VPU as the oem user.
+If successful with the setup, the user will be logged into a shell on the VPU as the OEM user.

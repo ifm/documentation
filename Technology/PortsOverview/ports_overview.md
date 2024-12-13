@@ -20,7 +20,8 @@ While it is good practice to check the PCIC port directly for the requested hard
 
 ## IMU port
 
-Besides the hardware ports mentioned above, there is an additional non-configurable hardware port Port 6 which is specific to the IMU on board the VPU. The PCIC port mapped to Port 6 is 50016 (only used when [configuring ODS](../../ODS/Configuration/configuration.md)). 
+Besides the hardware ports mentioned above, there is an additional non-configurable hardware port, Port 6, which is specific to the IMU on board the VPU. 
+The PCIC port mapped to Port 6 is 50016 (only used when [configuring ODS](../../ODS/Configuration/configuration.md)). 
 
 :::{note} 
 It is not possible to receive any data from the IMU at the moment.
