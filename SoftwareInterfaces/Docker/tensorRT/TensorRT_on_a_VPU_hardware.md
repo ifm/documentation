@@ -32,6 +32,21 @@ The recommendations can be found on the [TensorFlow for Jetson website](https://
   <tbody>
     <tr>
       <td>OVP81x</td>
+      <td>1.20.29</td>
+      <td><a href="https://developer.nvidia.com/embedded/linux-tegra-r32.7.6">R32.7.6</a></td>
+      <td>4.6.5</td>
+      <td>
+        <br> nvcr.io/nvidia/l4t-tensorflow:r32.7.1-tf2.7-py3 </br>
+        <br> nvcr.io/nvidia/l4t-tensorflow:r32.7.1-tf1.15-py3 </br>
+      </td>
+      <td>
+        <br> nvcr.io/nvidia/l4t-pytorch:r32.7.1-pth1.10-py3 </br>
+        <br> nvcr.io/nvidia/l4t-pytorch:r32.7.1-pth1.9-py3 </br>
+      </td>
+      <td>nvcr.io/nvidia/l4t-ml:r32.7.1-py3</td>
+    </tr>
+    <tr>
+      <td>OVP81x</td>
       <td>1.10.13</td>
       <td><a href="https://developer.nvidia.com/embedded/linux-tegra-r32.7.5">R32.7.5</a></td>
       <td>4.6.5</td>

@@ -18,6 +18,9 @@ The MCC wizard application is a handy tool to perform the Motion Camera Calibrat
 
 ![step_0](_resources/step_0.png)
 
+```{include} ../../notices/multi-app.md
+```
+
 ## Step 1: Overview
 
 - After the successful creation of the calibration wizard, a new window pops up with an overview of the extrinsic calibration process and the steps involved.

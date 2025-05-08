@@ -1,71 +1,13 @@
-# Boot-up diagnostic
+# Boot-up sequence
 
-## Verify the system operational state after boot-up
-To check if the system is operational after a boot-up sequence one should verify at least two stages (for an ODS application):
+The system can take some time to be fully booted, especially in cases when a new camera is connected and an update needs to be performed.
+To ensure that the system is operational after a boot-up sequence, there are two things to verify:
 
-1. Check that confInitStages:
-    1. For non-ODS application scenarios: `/device/diagnostic/confInitStages: ['device', 'ports']`
-    2. For ODS application scenarios: `/device/diagnostic/confInitStages: ['device', 'ports', 'applications']`
-2. Diagnostic query for active errors
+1. Once the system is responsive to a `Get()` command, check the JSON configuration. In the device configuration, a specific variable tracks the initialization stages: `/device/diagnostic/confInitStages`. 
+   When the device is fully initialized and ready to be used, the variable will contain the list `['device', 'ports', 'applications']`.
+2. Check the diagnostic for active errors. Refer to the diagnostic documentation on [how to check the diagnostic using the ifm3d API or the ifm Vision Assistant](./diagnostic_retrieval.md).
 
-```JSON title="system operational state check: JSON config content"
-    "diagnostic": {
-      "confInitStages": [
-        "device",
-        "ports"
-      ],
-```
-
-Additionally it is advisable to periodically check them systems temperature values via the JSON configuration:
-```JSON title="system temperatures: JSON config content"
-$ ifm3d dump | jq .device.diagnostic.temperatures
-[
-  {
-    "entity": "BCPU-therm",
-    "overtemperature": false,
-    "temperatureLimit": 100.5,
-    "valid": true,
-    "value": 43
-  },
-  {
-    "entity": "GPU-therm",
-    "overtemperature": false,
-    "temperatureLimit": 100.5,
-    "valid": true,
-    "value": 40
-  },
-  {
-    "entity": "MCPU-therm",
-    "overtemperature": false,
-    "temperatureLimit": 100.5,
-    "valid": true,
-    "value": 43
-  },
-  {
-    "entity": "port2",
-    "overtemperature": false,
-    "temperatureLimit": 85,
-    "valid": true,
-    "value": 47
-  },
-  {
-    "entity": "port3",
-    "overtemperature": false,
-    "temperatureLimit": 85,
-    "valid": true,
-    "value": 49
-  },
-  {
-    "entity": "VPU",
-    "overtemperature": false,
-    "temperatureLimit": 100.5,
-    "valid": true,
-    "value": 43
-  }
-]
-```
-
-
+For a complete example on how to monitor the boot-up sequence, refer to the ifm3d examples:
 :::::{tabs}
 ::::{group-tab} Python
 :::{literalinclude} /ifm3d-examples/ovp8xx/python/ovp8xxexamples/core/bootup_monitor.py

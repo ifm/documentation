@@ -10,4 +10,5 @@ NTP <sntp>
 Timestamps <Timestamps/timestamps>
 IMU <IMU/imu>
 SSH <ssh>
+LEDs <leds>
 :::

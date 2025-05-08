@@ -17,21 +17,11 @@ If the left upright is segmented then the Y-axis of the established rack coordin
 ## Configuration
 
 ### Command customization
-The parameters listed below can be adjusted when triggering the `getRack` command, to define for example the distance to the rack (`depthHint`), or the drop position (`horizontalDropPosition`). 
+The parameters listed below can be adjusted at `customization/getRack` when triggering the `getRack` command, to define for example the distance to the rack (`depthHint`), or the drop position (`horizontalDropPosition`). 
 These parameters are described in the list below:
 
-| Property                         | Type   | Description                                                            | Default  | Minimum | Maximum | Enumeration                   |
-| :------------------------------- | :----- | :--------------------------------------------------------------------- | :------- | :------ | :------ | :---------------------------- |
-| `getRack.clearingVolume.xMax`    | number | Bounding box dimension of VOI along X-axis - Maximum                   | 1.2      | N/A     | N/A     | N/A                           |
-| `getRack.clearingVolume.xMin`    | number | Bounding box dimension of VOI along X-axis - Minimum                   | -0.1     | N/A     | N/A     | N/A                           |
-| `getRack.clearingVolume.yMax`    | number | Bounding box dimension of VOI along Y-axis - Maximum                   | 1.3      | N/A     | N/A     | N/A                           |
-| `getRack.clearingVolume.yMin`    | number | Bounding box dimension of VOI along Y-axis - Minimum                   | 0.1      | N/A     | N/A     | N/A                           |
-| `getRack.clearingVolume.zMax`    | number | Bounding box dimension of VOI along Z-axis - Maximum                   | 0.4      | N/A     | N/A     | N/A                           |
-| `getRack.clearingVolume.zMin`    | number | Bounding box dimension of VOI along Z-axis - Minimum                   | 0.1      | N/A     | N/A     | N/A                           |
-| `getRack.depthHint`              | number | Estimated distance between rack and coordinate system center in meters | 1.8      | 0       | N/A     | N/A                           |
-| `getRack.horizontalDropPosition` | string | Selection of the horizontal drop setting                               | left     | N/A     | N/A     | `['left', 'center', 'right']` |
-| `getRack.verticalDropPosition`   | string | Selection of the vertical drop setting                                 | interior | N/A     | N/A     | `['interior', 'floor']`       |
-| `getRack.zHint`                  | number | Estimated z-coordinate of the rack shelf in meters                     | -0.4     | N/A     | N/A     | N/A                           |
+```{include} ../../generated_docs/pds_properties_customization_properties_getRack.md
+```
 
 ### Custom rack parameters
 
@@ -39,42 +29,8 @@ In typical scenarios, using the default parameters at `configuration/parameters/
 However, in some cases they need to be adjusted, for example to handle a custom type of rack. In this case, specific dimensions can be provided for the beam height, the upright width, etc. 
 See the list below for the details of the available parameters.
 
-| Property                                    | Type    | Description                                                                                 | Default | Minimum | Maximum | Enumeration |
-| :------------------------------------------ | :------ | :------------------------------------------------------------------------------------------ | :------ | :------ | :------ | :---------- |
-| `getRack.beam.freeSpaceBelow`               | number  | Minimum free space required for a valid beam below the bottom edge in meters                | 0.05    | 0       | N/A     | N/A         |
-| `getRack.beam.histWidthThresh`              | number  | Width threshold in meters along y-axis for histogram to be considered as beam candidates    | 1       | N/A     | N/A     | N/A         |
-| `getRack.beam.maxHeight`                    | number  | Maximum height for beam validation in meters                                                | 0.15    | N/A     | N/A     | N/A         |
-| `getRack.beam.minHeight`                    | number  | Minimum height for beam validation in meters                                                | 0.06    | N/A     | N/A     | N/A         |
-| `getRack.beam.voi.xMax`                     | number  | Bounding box dimension of VOI along X-axis - Maximum                                        | 0.23    | N/A     | N/A     | N/A         |
-| `getRack.beam.voi.xMin`                     | number  | Bounding box dimension of VOI along X-axis - Minimum                                        | -0.23   | N/A     | N/A     | N/A         |
-| `getRack.beam.voi.yMax`                     | number  | Bounding box dimension of VOI along Y-axis - Maximum                                        | 1.2     | N/A     | N/A     | N/A         |
-| `getRack.beam.voi.yMin`                     | number  | Bounding box dimension of VOI along Y-axis - Minimum                                        | -1.2    | N/A     | N/A     | N/A         |
-| `getRack.beam.voi.zMax`                     | number  | Bounding box dimension of VOI along Z-axis - Maximum                                        | 0.4     | N/A     | N/A     | N/A         |
-| `getRack.beam.voi.zMin`                     | number  | Bounding box dimension of VOI along Z-axis - Minimum                                        | -0.4    | N/A     | N/A     | N/A         |
-| `getRack.floorDrop.yRackOriginLeft`         | number  | Expected `y_val` of the rack origin for the HPOS = left drop                                  | 0.61    | N/A     | N/A     | N/A         |
-| `getRack.floorDrop.yRackOriginRight`        | number  | Expected `y_val` of the rack origin for the HPOS = right drop                                 | -0.61   | N/A     | N/A     | N/A         |
-| `getRack.floorDrop.yRackOriginTol`          | number  | Tolerance for difference in expected and computed rack origin                               | 0.3     | N/A     | N/A     | N/A         |
-| `getRack.rackVolCheck.obstThresh`           | integer | Threshold for number of pixels in the rack shelf to be considered for obstacle flag         | 10      | N/A     | N/A     | N/A         |
-| `getRack.transform.beamOnlyObstThresh`      | integer | Number of obstacle pixels threshold during beam-only localization sweep                     | 5       | 1       | N/A     | N/A         |
-| `getRack.transform.voi.xMax`                | number  | Bounding box dimension of VOI along X-axis - Maximum                                        | 1.2     | N/A     | N/A     | N/A         |
-| `getRack.transform.voi.xMin`                | number  | Bounding box dimension of VOI along X-axis - Minimum                                        | -0.3    | N/A     | N/A     | N/A         |
-| `getRack.transform.voi.yMax`                | number  | Bounding box dimension of VOI along Y-axis - Maximum                                        | 1.2     | N/A     | N/A     | N/A         |
-| `getRack.transform.voi.yMin`                | number  | Bounding box dimension of VOI along Y-axis - Minimum                                        | -1.2    | N/A     | N/A     | N/A         |
-| `getRack.transform.voi.zMax`                | number  | Bounding box dimension of VOI along Z-axis - Maximum                                        | 0.6     | N/A     | N/A     | N/A         |
-| `getRack.transform.voi.zMin`                | number  | Bounding box dimension of VOI along Z-axis - Minimum                                        | -0.3    | N/A     | N/A     | N/A         |
-| `getRack.transform.yRackOriginLeft`         | number  | Expected `y_val` of the rack origin for the HPOS = left drop                                  | 0.61    | N/A     | N/A     | N/A         |
-| `getRack.transform.yRackOriginRight`        | number  | Expected `y_val` of the rack origin for the HPOS = right drop                                 | -0.61   | N/A     | N/A     | N/A         |
-| `getRack.transform.yRackOriginTol`          | number  | Tolerance for difference in expected and computed rack origin                               | 0.3     | N/A     | N/A     | N/A         |
-| `getRack.upright.histHeightThresh`          | number  | Height threshold in meters along z-axis for histogram to be considered as upright candidates | 0.7     | N/A     | N/A     | N/A         |
-| `getRack.upright.maxWidth`                  | number  | Maximum width for upright validation in meters                                              | 0.12    | N/A     | N/A     | N/A         |
-| `getRack.upright.minWidth`                  | number  | Minimum width for upright validation in meters                                              | 0.03    | N/A     | N/A     | N/A         |
-| `getRack.upright.protrusionAboveBeamThresh` | number  | Threshold for Protrusion above beam edge in meters to be considered for upright candidates  | 0.05    | N/A     | N/A     | N/A         |
-| `getRack.upright.voi.xMax`                  | number  | Bounding box dimension of VOI along X-axis - Maximum                                        | 0.23    | N/A     | N/A     | N/A         |
-| `getRack.upright.voi.xMin`                  | number  | Bounding box dimension of VOI along X-axis - Minimum                                        | -0.23   | N/A     | N/A     | N/A         |
-| `getRack.upright.voi.yMax`                  | number  | Bounding box dimension of VOI along Y-axis - Maximum                                        | 1.2     | N/A     | N/A     | N/A         |
-| `getRack.upright.voi.yMin`                  | number  | Bounding box dimension of VOI along Y-axis - Minimum                                        | -1.2    | N/A     | N/A     | N/A         |
-| `getRack.upright.voi.zMax`                  | number  | Bounding box dimension of VOI along Z-axis - Maximum                                        | 0.6     | N/A     | N/A     | N/A         |
-| `getRack.upright.voi.zMin`                  | number  | Bounding box dimension of VOI along Z-axis - Minimum                                        | -0.6    | N/A     | N/A     | N/A         |
+```{include} ../../generated_docs/pds_properties_parameter_properties_getRack.md
+```
 
 For a visual representation of the available parameters, refer to the images below:
 

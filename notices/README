@@ -1,0 +1,10 @@
+This folder contains snippets of documentation that can be included in multiple places in the documentation. 
+This is done to avoid duplicating information and to keep a single source of truth.
+
+To include a notice in another document, use:
+````
+```{include} /path/to/document.md
+```
+````
+
+Note that to include a document located in a parent directory, you have to include the path from root. In our case, root is /documentation. So the full path would be /documentation/notices/notice.md.

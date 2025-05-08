@@ -1,10 +1,10 @@
 # 3D Camera Configuration
 
-
-| Article | Image resolution 2D [pix] | Angle of aperture [°] | Framerate [Hz] |
-| --------| ------------------------- | --------------------- | -------------- |
-| O3R222 | 224x127 | 60x45 | 20 |
-| O3R225 | 224x127 | 105x78 | 20 |
+| Article | Image resolution 3D [px] | Angle of aperture [°] | Framerate [Hz] |
+| ------- | ------------------------ | --------------------- | -------------- |
+| O3R222  | 224x127                  | 60°x45°               | 20             |
+| O3R225  | 224x127                  | 105°x78°              | 20             |
+| O3R252  | 640x480                  | 64°x50°               | 20             |
 
 :::{toctree}
     :maxdepth: 2

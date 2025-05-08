@@ -26,7 +26,9 @@ When running an ODS application, the available resources for users to run their 
 
 - `maxNumSimultaneousCameras=3`: 1 ARM A57 core is available. External streaming of 3D data via PCIC ports may suffer from frame drops with more than 3 3D cameras in operation (3 dedicated to ODS streaming).
 
-For further information on resource availability on the OVP8xx, please refer to the [resource management documentation](../../../SoftwareInterfaces/Docker/resource_management).
+- `maxNumSimultaneousCameras=4`: no cores are available. External streaming of 3D data via PCIC ports may encounter frame drops with more than 4 3D cameras in operation (4 dedicated to ODS streaming).
+
+For further information on resource availability on the OVP8xx, please refer to the [resource management documentation](../../../Technology/VPU/ResourceManagement/index_resource_management.md#ods-application).
 
 :::{note}
 ifm embedded applications (ODS, PDS, etc.) only support the use of O3R225 and O3R222 heads.

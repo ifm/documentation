@@ -5,7 +5,7 @@
 
 The `O3R2xx` camera heads are `IP54` rated, which means that with regular maintenance and cleaning, they can be used in some harsher environments, such as dusty conditions and mixed indoor/outdoor conditions. In all operating conditions, the cameras must be cleaned regularly to prevent dust or particles from building up on the surface of the camera head, which will gradually degrade the camera's measurement performance (review the [cleaning instructions below](#cleaning-camera-heads)).
 
-Please note that all O3R camera heads (O3R222 and O3R225) are designed for indoor use. Outdoor conditions may work depending on the application requirements but must be benchmarked by the customer.
+Please note that all O3R camera heads are designed for indoor use only. Outdoor conditions may work depending on the application requirements but must be benchmarked by the customer.
 
 Mixed indoor - outdoor conditions are understood by ifm to be conditions that are mainly indoors but may include bright illumination patterns of overhead skylights and windows on the floor and objects.
 
@@ -23,3 +23,4 @@ Regular cleaning can help to ensure that they are operating at their best perfor
 Different camera heads are available for the O3R platform and they are best suited for different use cases:
 - The O3R222 has a narrow field of view which is ideal for applications focussing on detecting smaller objects, edges and objects at longer ranges.
 - The O3R225 camera head has a wider field of view which is ideal for the applications focussing on perceiving the larger areas and minimizing dead zones.
+- The O3R252 camera head has more resolution compared to other camera heads and this is ideal for applications focusing on objects dimensioning.

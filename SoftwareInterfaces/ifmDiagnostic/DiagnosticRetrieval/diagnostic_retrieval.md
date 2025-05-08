@@ -1,7 +1,8 @@
 
-# Diagnostic retrieval
+# How to get the diagnostic
 
 The diagnostic information can be simultaneously retrieved using different tools: iVA, ifm3d API, etc.
+It is also useful to monitor [the state of the LEDs](../../../Technology/VPU/leds.md), as they indicate the potential presence of errors.
 
 ## With the ifm Vision Assistant
 Diagnosis information can be monitored via the ifm Vision Assistant (iVA) since version 2.6.
@@ -35,7 +36,7 @@ auto diag = o3r->GetDiagnosticFiltered(ifm3d::JSON::parse("{\"state\":\"active\"
 ::::
 ::::{group-tab} CLI
 ```bash
-ifm3d diagnostic
+ifm3d ovp8xx diagnostic get
 ```
 ::::
 :::::
@@ -93,31 +94,4 @@ main()
 See the `framegrabber` related methods: [`on_aync_error`](https://api.ifm3d.com/stable/_autosummary/ifm3dpy.framegrabber.FrameGrabber.html#ifm3dpy.framegrabber.FrameGrabber.on_async_error) and [`on_async_notification`](https://api.ifm3d.com/stable/_autosummary/ifm3dpy.framegrabber.FrameGrabber.html#ifm3dpy.framegrabber.FrameGrabber.on_async_notification).
 :::
 
-## Additional debugging information
-
-When experiencing software bugs or crashes, providing the output of the systemD `journalctl` command is useful for debugging. Save it with the following commands:
-```bash
-$ ssh oem@192.168.0.69
-o3r-vpu-c0:~$ journalctl > log.txt
-```
-
-Alternatively one can retrieve this information via the API's CLI:
-```sh
-$ ifm3d trace
-
-Usage:
-  ifm3d [<global options>] trace [<trace options>]
-
- global options:
-  -h, --help             Produce this help message and exit
-      --ip arg           IP address of the sensor (default: 192.168.0.69)
-      --xmlrpc-port arg  XMLRPC port of the sensor (default: 80)
-      --password arg     Password for establishing an edit-session with the
-                         sensor (default: )
-
- trace options:
-  -l, --limit arg  Limit the amount of trace log messages printed. (default:
-                   100)
-```
-
-Attach these logs to the issue created on GitLab for the specific issue.
+For a complete example on how to use the diagnostic data, refer to [the Python](https://github.com/ifm/ifm3d-examples/blob/main/ovp8xx/python/ovp8xxexamples/core/diagnostic.py) and [C++ examples](https://github.com/ifm/ifm3d-examples/tree/main/ovp8xx/cpp/core/diagnostic) using the ifm3d API.

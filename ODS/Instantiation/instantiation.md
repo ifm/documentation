@@ -65,7 +65,7 @@ Using the viewer of your choice, for example the ifmVisionAssistant, you can see
 A VPU (OVP8XX) can connect up to 6 3D imager, ranging from `port0` to `port5`. The `ports` attribute  in the ODS configuration defines which of these ports are available for the ODS application. These ports cannot be changed dynamically and require a transition to the configuration `CONF` state for modifications.
 
 :::{warning}
-    The current ODS version do not support more than 3 used heads within an ODS application.
+    The current ODS version do not support more than 4 used heads within an ODS application.
 :::
 
 ```json
@@ -91,7 +91,11 @@ The `activePorts` list defines which of the pre-configured `ports` will be used 
 
 Each port in the `activePorts` list must also be included in the `ports` list to ensure it is recognized by the ODS application.
 
-For ODS operation, at least one active port (excluding the IMU port, `port6`) must be present in the `activePorts` list. The maximum number of active ports allowed is determined by the `maxNumSimultaneousCameras` attribute.
+The ODS application processes the data specified in the `activePorts` list. The maximum number of active ports allowed is determined by the `maxNumSimultaneousCameras` attribute.
+
+:::{note}
+    From the firmware version 1.20.29 and above, if the `activePorts` is set to empty list that is (`activePorts`=[]) then the 3D ports defined in `ports` will be set to `IDLE` mode and a diagnostic message `ODS_IDLE_MODE` with group severity `critical` is flagged because no objects will be detected during this phase.
+:::
 
 ## Visual odometry
 

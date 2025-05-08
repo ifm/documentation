@@ -45,11 +45,13 @@ o3r_schema = dev->GetSchema()["properties"]["ports"]["properties"]["port0"]["pro
 :::
 ::::
 
+:::{include} ../../../generated_docs/camera_3d_di.md
+:::
+
+```{include} ../../../notices/conf_attribute_note.md
+```
 
 ## Maximum Distance Noise
-|Variable name|Short description|
-|--|--|
-|`maxDistNoise`|Defines the maximum allowable distance noise. Its value represents the standard deviation of the distance value, in meters.|
 
 Typical filters tend to utilize “broad strokes” when making decisions on which pixel to keep and which to filter. These “broad strokes” may eliminate pixels that are critical to the use case. By utilizing the noise value, we only eliminate pixels with the highest noise value (e.g, ambient light) while preserving the maximum amount of usable data. Applying filters in conjunction with the maximum distance noise filter increases the potential for usable pixels in the scene.
 
@@ -60,10 +62,7 @@ When to change default:
 Learn more [here](./maxDistNoise.md).
 
 ## Minimum Amplitude and minimum reflectivity
-|Variable name|Short description|
-|--|--|
-|`minAmplitude`|Defines the minimum amplitude value required for a pixel to be valid|
-|`minReflectivity`|Defines the minimum reflectivity percentage required of the measured object for a pixel to be valid|
+
 A pixel is valid if the energy (amplitude) received is above the defined threshold. The measured amplitude is primarily affected by both the reflectivity of the object and its distance to the camera.
 
 When to change the default:
@@ -76,10 +75,6 @@ Learn more about the minimum amplitude [here](./minAmplitude.md).
 Learn more about the minimum reflectivity [here](./minReflectivity.md).
 
 ## Adaptive Noise Bilateral Filter and Median Filter
-|Variable name|Short description|Min/max values|
-|--|--|--|
-|`anfFilterSizeDiv2`|Adaptive Noise Bilateral Filter. mask size is *(2\*anfFilterSizeDiv2+1)^2*.| 0: disable the filter <br />1: 3x3 <br />2: 5x5 <br />3: 7x7|
-|`medianSizeDiv2`|Size of the mask for spatial median filtering (the size is *(2\*medianSizeDiv2+1)^2)*|0: disable the filter <br />1: 3x3 <br />2: 5x5|
 
 The adaptive bilateral noise filter reduces distance noise while also preserving object edges. Utilizing a larger number of pixels (for example 7x7) in the mask will, in most cases, result in better image quality.
 
@@ -90,9 +85,6 @@ The median filter does not preserve edges as well as the bilateral filter and te
 Learn more [here](./bilateralFilter.md).
 
 ## Temporal Filter
-|Variable name|Short description|
-|--|--|
-|`enableTemporalFilter`|Enables the filter|
 
 The temporal filter mitigates distance noise by integrating pixel information over multiple frames. There is no strict limit for the number of frames. Instead, an automatic resetting approach is applied to the pixels.
 
@@ -101,10 +93,6 @@ Although the O3R temporal filter can be used for “in-motion” use cases, it i
 Learn more [here](./temporalFilter.md).
 
 ## Mixed Pixel Filtering
-|Variable name|Short description|Min/max values|
-|--|--|--|
-|`mixedPixelFilterMode`| Filtering mode (angle or distance)|0: disable the filter, 1: mixed pixel filter is on and uses an angle threshold, 2: mixed pixel filter is on and uses an adaptive delta distance threshold|
-|`mixedPixelThresholdRad`| Threshold given in [rad] for the minimum angle between the surface tangent and the view vector (used if `mixedPixelFilterMode`=1).| |
 
 Mixed pixels (or “flying pixels”) are pixels that fall partially on a foreground object and partially on an object in the background. Because the physics of indirect ToF do not allow the imager to distinguish partial pixel measurements, the full pixel result is a weighted average distance measurement between the two targets. When viewing the point cloud, these pixels appear “floating”, or not corresponding to any object.
 The mixed pixel filter removes the mixed pixels from the image.
@@ -115,10 +103,6 @@ Mixed pixels fall on the edges of targets. Use cases, such as negative obstacle 
 Learn more [here](./mixedPixelFilter.md).
 
 ## Symmetry Threshold
-|Variable name|Short description|
-|--|--|
-|`dynamicSymmetryThreshold`| The threshold given as a factor of the symmetry's standard deviation. If set to 0, the filter is disabled.|
-
 
 The raw modulated signal used to perform the distance measurement is designed to be perfectly symmetrical (sent and received). This is true for static applications. If the object is in motion, however, the symmetry of the reflected signal may be altered, leading to “motion blur”. This artifact can be mitigated by allowing "less" symmetry in the measurements.
 
@@ -128,10 +112,19 @@ Learn more [here](./symmetryThreshold.md).
 
 ## CUDA processing
 
-|Variable name|Short description|
-|--|--|
-|`useCuda`| Defines whether to process the data on the GPU (`useCuda = true`) or CPU (`useCuda = false`). |
-
 Starting with firmware version 1.4.30, all 3D data is processed by default on the GPU using a CUDA-based implementation. The `useCuda` parameter determines where the distance data is computed: set it to true for GPU processing and false for CPU processing. We generally recommend keeping CUDA processing enabled.
 
 Learn more [here](./use_cuda.md).
+
+## Bin Mode
+
+As of firmware version 1.20.29 and above, VGA camera heads (O3R252) are supported with the VPU articles mentioned in [compatibility matrix documentation](../../../CompatibilityMatrix/compatibility_matrix.md).
+
+The `binMode` parameter is only available for VGA camera heads and it allows the user to choose the resolution of the 3D imager.
+
+| Property  | Type    | Description                                        | Default | Minimum | Maximum | Enum  | Attributes |
+| :-------- | :------ | :------------------------------------------------- | ------: | ------: | ------: | :---- | :--------- |
+| `binMode` | integer | 0: resolution 640 x 480 <br> 1: resolution 320 x 240 |       0 |       0 |       1 | `N/A` | ['conf']   |
+
+```{include} ../../../notices/conf_attribute_note.md
+```

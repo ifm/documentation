@@ -1,7 +1,7 @@
 # Negative obstacles
 
 :::{note}
-This feature was added in firmware version 1.1.30.
+This feature is included in firmware version 1.1.30 and above.
 :::
 
 ODS has the capability to detect negative obstacles, that is obstacles that are below the floor plane (holes, stairs, downward ramps, etc).

@@ -1,5 +1,6 @@
 ### Data / BLOBs
 *.tar
+*.bak
 *.zip
 *.npy
 *.h5
@@ -7,10 +8,16 @@
 *.ply
 data/
 
+### Scripts
+scripts/*.json
+scripts/*.md
 
 ### Project
 journalctl*
 evaluation
+
+### Automation Scripts
+scripts
 
 ### Python ###
 # Byte-compiled / optimized / DLL files

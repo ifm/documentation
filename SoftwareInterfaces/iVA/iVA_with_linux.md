@@ -7,9 +7,9 @@ To run the Vision Assistant on Linux, you can use the provided AppImage.
 2. Unzip the downloaded archive.    
 3. You might need to change the permissions to be able to execute the file:
     ```bash
-    chmod +x ifmVisionAssistant-REL_2.8.7-x86_64.AppImage
+    chmod +x ifmVisionAssistant-REL_xxxxx-x86_64.AppImage
     ```
 4. Launch the program:
     ```bash
-    ./ifmVisionAssistant-REL_2.8.7-x86_64.AppImage
+    ./ifmVisionAssistant-REL_xxxxx-x86_64.AppImage
     ```

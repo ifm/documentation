@@ -10,7 +10,8 @@ The ifmVisionAssistant does not need a local installation. It is provided with a
 
 ## Downloading and unpacking the software
 
-The ifmVisionAssistant is available at www.ifm.com - Article OVP800.
-For example, download from the german OVP800 landing page: [download](https://www.ifm.com/de/de/search?query=OVP800&searchSessionId=1670312923447.vfssfvf#!/downloadpackage?_type=**downloadpackage**).
+The ifmVisionAssistant is available at www.ifm.com under VPU articles mentioned in [available hardware](../../Technology/Hardware/hardware_specifications.md#available-hardware).
+
+For example, download latest ifmVisionAssistant from the german OVP810 landing page: [download](https://www.ifm.com/de/de/product/OVP810#documents).
 
 The ifmVisionAssistant needs to be unpacked/unzipped. Within this unzipped package there is the executable `ifmVisionAssistant.exe`, which starts the ifmVisionAssistant.

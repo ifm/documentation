@@ -48,7 +48,7 @@ For a production setup and for testing the performance algorithm, we recommend t
 1. Extrinsic calibration is a necessary step before creating a PDS application. Follow the instructions above to calibrate the cameras manually.
 2. To create a PDS application instance, click on the `Application' window and click on **+** to create a new application.
 3. Select the port in the `Ports` section which shall be used by PDS application. Only one port can be selected.
-4. Change the state of the application from `CONF` to `IDLE`. In `IDLE` mode, the camera can be triggered upon request (software trigger) to collect a frame at a specific time, unlike in `RUN` mode where the camera is continuously streaming data and PDS cannot be triggered.
+4. Change the state of the application from `CONF` to `IDLE` or `RUN`. In `IDLE` mode, the camera can be triggered upon request to collect a frame at a specific time. In `RUN` mode, the camera is continuously streaming PDS data.
 
    ![iVA_state](resources/iVA_state.png)
 
@@ -56,7 +56,9 @@ For a production setup and for testing the performance algorithm, we recommend t
    1. In PDS, only one command can be executed at a time. The command will be blocking the operation until it is fully performed and the result information stream is triggered.
    2. The default command (parameter) is `nop` ("no operation").
    3. The user has to customize the desired PDS command parameters before the next command execution. For more details see the specific commands documentation.
-   4. Trigger the command under the `/configuration/customization/command` section. After processing a command, the system returns to its default command value - `nop` and is ready for the next command.
+   4. Trigger the command under the `/configuration/customization/command` section. 
+   5. After processing a command, the system returns to its default command value - `nop` and is ready for the next command.
+   6. In `RUN` mode, data corresponding to the command configured in `/configuration/customization/command` will be streamed, until a change in the configuration is set.
 6. View results in the display.
 
 ![`getPallet` Result](resources/getPallet_result.png)
@@ -70,7 +72,7 @@ Complete examples are available in the ifm3d-examples repository, but the main s
 1. Extrinsically calibrate the cameras, by directly providing the calibration values in JSON format and setting the configuration with the `set` function.
 2. Create a PDS application using the `set` function. Providing the `"class": "pds"` JSON key will create an application where all parameters have their default values.
 3. Verify that the port used by the application is correct. If not, change it in `"ports": [CAMERA_PORT]`.
-4. Change the state of the application from `CONF` to `IDLE`. In `IDLE` mode, the camera can be triggered upon request to collect a frame at a specific time, unlike in `RUN` mode where the camera is continuously streaming data.
+4. Change the state of the application from `CONF` to `IDLE` or `RUN`. In `IDLE` mode, the camera can be triggered upon request to collect a frame at a specific time. In `RUN` mode, the camera is continuously streaming data.
 5. Commands:
    1. In PDS, only one command can be executed at a time. The command will be blocking the operation until it is fully performed and the result information stream is triggered.
    2. The default command (parameter) is `nop` ("no operation").
@@ -78,6 +80,7 @@ Complete examples are available in the ifm3d-examples repository, but the main s
    4. Trigger the command under the `/configuration/customization/command` section.
       Each command corresponds to its own respective JSON parameter in the application's JSON. To trigger it, the parameter needs to be changed to a command value via the `set` command.
    5. After processing a command, the system returns to its default command value - `nop` and is ready for the next command.
+   6. In `RUN` mode, data corresponding to the command configured in `/configuration/customization/command` will be streamed, until a change in the configuration is set.
 6. View results via the respective `buffer_id`. See the Python and C++ programming examples for more details.
 
 :::{note}
