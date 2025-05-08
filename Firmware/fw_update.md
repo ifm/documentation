@@ -21,7 +21,7 @@ Depending on the starting and target firmware versions, the configuration might 
 
 You can for example do so using the command line interface:
 ```bash
-ifm3d dump > config_save.json
+ifm3d ovp8xx config get > config_save.json
 ```
 
 ### With the ifmVisionAssistant
@@ -51,7 +51,9 @@ In the instructions below, replace `<path/to/firmware_image.swu>` with the path 
 :::::{tabs}
 ::::{group-tab} CLI
 ```bash
-$ ifm3d swupdate --file=<path/to/firmware_image.swu>
+# Warning, the CLI syntax was updated with ifm3d v1.6.xx.
+# Make sure you are using the right API version.
+$ ifm3d ovp8xx swupdate flash <path/to/firmware_image.swu>
 ```
 ::::
 ::::{group-tab} c++
@@ -90,7 +92,7 @@ Double check the firmware version after the update:
 :::::{tabs}
 ::::{group-tab} CLI
 ```bash
-$ ifm3d dump | jq .device.swVersion.firmware
+$ ifm3d ovp8xx config get --path /device/swVersion/firmware
 ```
 ::::
 ::::{group-tab} C++

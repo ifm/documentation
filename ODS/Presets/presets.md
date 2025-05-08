@@ -36,11 +36,11 @@ All presets are contained under the `presets/definitions` parameter.
             "0": {
               "description": "description of the preset",
               "preset": {
-                "activePorts": [/* List of active camera ports */],
+                "activePorts": ["port2","port3"], /* List of active camera ports */
                 "zones": {
-                  "zoneConfigID":/* Unique identifier for zone configuration */,
-                  "zoneType":/* Type of zone (e.g., convexHull, Polygon) */,
-                  "zoneCoordinates": [/* Coordinates defining the zone */]
+                  "zoneConfigID":1, /* Unique identifier for zone configuration */
+                  "zoneType":"convexHull", /* Type of zone (e.g., convexHull, Polygon) */
+                  "zoneCoordinates": [[0, -0.3], [2.5, -0.3], [2.5, 0.3], [0, 0.3]] /* Coordinates defining the zone */
                 }
               }
             }
@@ -59,13 +59,13 @@ All the parameters can be found in the `applications/instances/appX/presets` sec
 
 | Parameter                                  | Description                                                                                                                                                             |
 | ------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `/presets/definition/X`                    | The identifier of the first preset, the first identifier must start with value `"0"` (string). A maximum of 128 presets can be configured.                                        |
+| `/presets/definition/X`                    | The identifier of the first preset, the first identifier must start with value `"0"` (string). A maximum of 128 presets can be configured.                              |
 | `/presets/definition/X/preset/activePorts` | The ports that are used by this preset                                                                                                                                  |
 | `/presets/definition/X/preset/zones`       | Define the used protection zones - [See `ods zone definition` for a complete description](../Zones/zones.md). A maximum of three zones can be configured in one preset. |
-| `/presets/load/identifier`                      | Value of the identifier of the preset that will be loaded when a `load` command is triggered                                                                                 |
+| `/presets/load/identifier`                 | Value of the identifier of the preset that will be loaded when a `load` command is triggered                                                                            |
 | `/presets/location`                        | A read-only parameter specifying the JSON path to the ODS configuration, where the preset will be loaded when the `load` command is triggered.                          |
 | `/presets/command`                         | Specifies the command to be executed. It can have the value `nop` (do nothing) or `load` (trigger loading preset).                                                      |
-| `/presets/definitions/X/description`     | String specifying a description for the preset   |
+| `/presets/definitions/X/description`       | String specifying a description for the preset                                                                                                                          |
 
 :::{note}
 - The preset identifier is a string parameter. 
@@ -84,9 +84,9 @@ The following table documents the approximate load runtime:
 
 | Change                                                                                                     | Time to update result |
 | ---------------------------------------------------------------------------------------------------------- | --------------------- |
-| Changing only the zone: `activePorts`: `["port2"]` → `["port2"]`, `zones`: `[zones_i]` → `[zones_j]`       | 50 to 100 ms          |
-| Adding another port: `activePorts`: `["port2"]` → `["port2", "port3"]`, `zones`: `[zones_i]` → `[zones_j]` | ~600 ms               |
-| Mutually exclusive ports: `activePorts`: `["port2"]` → `["port3"]`, `zones`: `[zones_i]` → `[zones_j]`     | ~600 ms               |
+| Changing only the zone: `activePorts`: `["port2"]` → `["port2"]`, `zones`: `[zones_i]` → `[zones_j]`       | ~200 ms               |
+| Adding another port: `activePorts`: `["port2"]` → `["port2", "port3"]`, `zones`: `[zones_i]` → `[zones_j]` | ~650 ms               |
+| Mutually exclusive ports: `activePorts`: `["port2"]` → `["port3"]`, `zones`: `[zones_i]` → `[zones_j]`     | ~650 ms               |
 
 ## Configuration procedure
 
@@ -202,10 +202,10 @@ These presets are provided as examples and can be customized or extended based o
 ## Known issues:
 - The `zoneConfigID` is not enforced to be identical with the presets identifier.
 - If no preset is set, the `zoneConfigID` will be displayed as the default value 0, but this doesn't mean that preset 0 is active.
-- `IDLE` state will be set for the application if a preset containing an empty `activePorts` is loaded. The ODS will not update the data and the output returned will be empty.
+- `IDLE` state will be set for the application if a preset containing an empty `activePorts` is loaded. The ODS will not update the data and the output returned will be empty and a diagnostic will be raised.
 - The default value of the output if no zones or presets are set is  `[0,0,0]`. So please ensure that a preset is loaded before operation.
-
+- Changing the ports used by an application under the parameter path `/applications/instances/appX/ports` will reset the presets located at `/applications/instances/appX/presets`.
 
 ## Code examples
 
-Code examples are available in the [ifm3d-examples](https://github.com/ifm/ifm3d-examples) repository: see [the Python ODS preset example](https://github.com/ifm/ifm3d-examples/ovp8xx/python/ovp8xxexamples/ods/ods_presets.py).
+Code examples are available in the [ifm3d-examples](https://github.com/ifm/ifm3d-examples) repository: see [the Python ODS preset example](https://github.com/ifm/ifm3d-examples/ovp8xx/python/ovp8xxexamples/ods/ods_config_presets.py).

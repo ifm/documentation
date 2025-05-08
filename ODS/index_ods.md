@@ -22,7 +22,9 @@ Changing views <ChangingViews/changing_views>
 Overhanging loads <OverhangingLoads/overhanging_loads>
 Negative obstacles <NegativeObstacles/negative_obstacles>
 Dust artifact mitigation <DustMitigation/dust_mitigation>
+Interference mitigation <Interference/cross-talk>
 Extrinsic calibration <ExtrinsicCalibration/index_extrinsic_calibration>
+Decalibration detection <Decalibration/decalibration_feature>
 Performance <Performance/index_performance>
 Device verification <DeviceVerification/index_device_verification>
 ifmVisionAssistant <iVA/index_ifmODS_iVA>
@@ -70,12 +72,16 @@ During this phase, no software integration is required. The user can record data
 
 The focus is on designing real operation test cases in order to evaluate the performance of the ODS solution with respect to the vehicle's requirements.
 
+:::{important}
+It is recommended to define vehicle behavior based on the diagnostics raised by the system. From the firmware versions 1.20.29 and above, the ODS application health status is determined by the group severity. If the ODS application group status is set to `critical`, `major` or `not available` then the vehicle must be stopped. For more information on diagnostics please refer to this [page](../SoftwareInterfaces/ifmDiagnostic/diagnostic.md).
+:::
+
 **The integration phase:**
 
 In the previous phase, we have established that ODS works for the expected use case.
 The focus of the integration phase is in fully integrating ODS into the vehicle's drive and control loop. This involves:
 
-- Integrating ODS with the vehicle software, either using the [ifm3d API](https://api.ifm3d.com/stable/) or the PLC interface.
+- Integrating ODS with the vehicle software, either using the [ifm3d API](https://api.ifm3d.com/stable/) or the PLC interface. Implement the diagnostics handling and logging for the debugging purposes.
 - Finalizing the position of the camera and VPU into the mechanical design of the vehicle, including wiring, etc. Special attention should be paid to [the camera heads clearance areas](../Technology/Hardware/Mounting/clearance_area.md).
 - Once the vehicle integration is complete, it is important to test the ODS solution in the expected environment to ensure that all environmental variables are accounted for. This is also an opportunity to test things like latency and other aspects of the integration.
 - Setting up the production of the vehicle is part of this phase, and for ODS this means having a way to calibrate the cameras in production. We recommend using the [Static Camera Calibration](../CalibrationRoutines/SCC/README.md) for this purpose.

@@ -39,12 +39,13 @@ Please be aware that the system also uses these ports. This means that they cann
 
 **Q: I connected Port0 to receive RGB Data and Port1 to receive 3D Data, but I am not receiving data.**
 
-A: The ports **must** be connected pairwise. If Port0 is used to received 2D/3D Data then Port1 can only receive the same data respectively. Pairs --> |Port0, Port1| Port2, Port3| Port4, Port5|
+A: The ports **must** be connected pairwise. If Port0 is is connected to 2D/3D/VGA-3D imager then Port1 can only be connected to the same type of imager respectively.
 
+Pairs --> [Port0, Port1], [Port2, Port3], [Port4, Port5]
 
-**Q: What kind of hardware certificates does the O3R fulfill?**
+**Q: What kind of hardware certificates does the OVP8xx platform fulfill?**
 
-**A:** Generally we try to fulfill all standard certificates: see product description on [ifm.com](https://www.ifm.com/us/en/product/OVP800?tab=documents) for further details.
+**A:** Generally we try to fulfill all standard certificates: see product description on [ifm.com](https://www.ifm.com/us/en/product/OVP810?tab=documents) for further details.
 
 **Q: Does the O3R hardware system fulfill any additional robot specific norms, for example ESD / EMV?**
 

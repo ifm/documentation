@@ -1,3 +1,6 @@
+---
+nosearch: true
+---
 
 # Calibration values cheat sheet
 Below are provided the rotation values for cameras mounted vertically and horizontally, to be used as reference when calibrating the camera for testing.

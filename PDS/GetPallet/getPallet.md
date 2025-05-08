@@ -6,30 +6,28 @@ Typically, such a system has a priori knowledge from warehouse management, such 
 `getPallet` supports the picking operation by determining the exact location and orientation of the pallet.
 
 ## Usage guidelines
-The typical use cases for `getPallet` are pallets with two pockets, either with broad blocks or thin stringers as vertical support structures.
+The `getPallet` command supports pallets with two pockets, either with broad blocks or thin stringers as vertical support structures, as well as pallets with a single pocket.
 
 By default, PDS is able to detect pallets with the following characteristics:
 
-| Pallet name                                     | Dimensions                                             | Image                                                 |
-| ----------------------------------------------- | ------------------------------------------------------ | ----------------------------------------------------- |
-| Block pallet (`palletIndex=0`)                  | The pockets width should be between 0.24 and 0.44 m,   | ![Block pallet](./resources/block_pallet.png)         |
-|                                                 | The pockets height should be between 0.05 and 0.15 m,  |                                                       |
-|                                                 | The blocks should be between 0.05 and 0.40 m.          |                                                       |
-| EPAL side pallet (`palletIndex = 2`)            | The pockets width should be between 0.23 and 0.44 m,   | ![EPAL side pallet](./resources/EPAL_side_pallet.png) |
-|                                                 | The pockets height should be between 0.10 and 0.15 m,  |                                                       |
-|                                                 | The blocks should be between 0.10 and 0.16 m.          |                                                       |
-| Stringer pallet<sup>*</sup> (`palletIndex = 1`) | The pockets width should be between 0.40 and 0.55 m,   | ![Stringer pallet](./resources/stringer_pallet.png)   |
-|                                                 | The pockets height should be between 0.0.5 and 0.15 m, |                                                       |
-|                                                 | The stringers should be between 0.02 and 0.08 m.       |                                                       |
+| Pallet name                                     | Dimensions                                                                                                                                                           | Image                                                 |
+| ----------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------- |
+| Block pallet (`palletIndex=0`)                  | The pockets width should be between 0.24 and 0.44 m <br> The pockets height should be between 0.05 and 0.15 m <br> The blocks should be between 0.05 and 0.40 m.     | ![Block pallet](./resources/block_pallet.png)         |
+| EPAL side pallet (`palletIndex = 2`)            | A fixed pocket width of 0.23 m and height 0.1 m <br> The left/right blocks should be between 0.10 and 0.16 m.                                                        | ![EPAL side pallet](./resources/EPAL_side_pallet.png) |
+| Stringer pallet<sup>*</sup> (`palletIndex = 1`) | The pockets width should be between 0.40 and 0.55 m <br> The pockets height should be between 0.0.5 and 0.15 m <br> The stringers should be between 0.02 and 0.08 m. | ![Stringer pallet](./resources/stringer_pallet.png)   |
+| Wire cage pallet, front (`palletIndex = 3`)     | A fixed pocket width of 0.76 m and height 0.09 m. <br> The left/right blocks should be at least 0.15 m                                                               | ![Wire cage front](./resources/wire_cage_front.png)   |
+| Wire cage pallet, side (`palletIndex = 4`)      | A fixed pocket width of 0.59 m and height 0.09 m. <br> The left/right blocks should be at least 0.1 m                                                                | ![Wire cage side](./resources/wire_cage_side.png)     |
 
 <sup>*</sup> Stringer pallets generally have thin vertical structures and wider pockets.
+
+To detect pallets that do not fit the default sizes listed above, a custom template can be configured. Refer to [the custom template documentation](#custom-pallet-templates).
 
 ### Best Practices
 
 - The range for the pocket dimensions are designed to detect large range of pallets. It is always recommended to lower the interval of to your specific pallets for more robust detections and lower the risk of false-positive detections.
 - Even the `palletIndex == 2` is standardized for `EPAL_SIDE`, it can also be used for the other pallets without a bottom board if the dimensions are matching to `EPAL_SIDE`.
 - Note that only the dimensions of the center block are important. The size of the side blocks can be different from the one specified above and can be parametrized under `configuration/parameter/getPallet/<palletIndex>/stringer`.
-- Two pocket pallets with different dimensions than the ones stated above will require specific configuration of the algorithm. To adjust the dimensions of the pockets or the stringers, edit the predefined templates from [3 .... 10] as [0,1,2] are reserved for standard pallets and set the pocket and stringer sizes. See more details at [Custom pallet templates](#custom-pallet-templates).
+- Two pocket pallets with different dimensions than the ones stated above will require specific configuration of the algorithm. To adjust the dimensions of the pockets or the stringers, edit the predefined templates from [5...9] as [0...4] are reserved for standard pallets and set the pocket and stringer sizes. See more details at [Custom pallet templates](#custom-pallet-templates).
 
 ## Configuration
 
@@ -64,12 +62,8 @@ If they are left blank, the algorithm will use the parameters from most recent e
 
 ### Customization parameters at `configuration/customization`
 
-| Property                | Type    | Description                                                                                                             | Default         | Minimum | Maximum | Enumeration                                        |
-| :---------------------- | :------ | :---------------------------------------------------------------------------------------------------------------------- | :-------------- | :------ | :------ | :------------------------------------------------- |
-| `getPallet.depthHint`   | number  | Estimated distance between pallet and calibrated coordinate system center in meters. Set to <=0 for automatic detection | 1.5             | N/A     | N/A     | N/A                                                |
-| `getPallet.palletIndex` | integer | Index of the parameter set between 0 and 9. Currently configured IDs:                                                   | 0               | 0       | 9       | N/A                                                |
-| `getPallet.palletOrder` | string  | Set the order in the list of detected pallets                                                                           | scoreDescending | N/A     | N/A     | `['scoreDescending', 'zDescending', 'zAscending']` |
-
+```{include} ../../generated_docs/pds_properties_customization_properties_getPallet.md
+```
 
 :::{note}
 When detecting multiple pallets simultaneously, the system allows only one `palletIndex` value to be specified, meaning that all pallets must be of the same type.
@@ -85,38 +79,13 @@ Other variants of pallets, having three or more pockets for example, require adj
 
 ### Custom pallet templates
 
-By default, PDS provides three pallet templates: block (`palletIndex = 0`), stringer (`palletIndex = 1`), and EPAL side (`palletIndex = 2`).
-It is possible for the user to define custom pallet templates for any two pocket pallet by modifying the parameters at `configuration/parameter/X`, where `X` is the index chosen for the template number (up to 9).
+By default, PDS provides five pallet templates: block (`palletIndex = 0`), stringer (`palletIndex = 1`), EPAL side (`palletIndex = 2`), wire cage pallet front (`palletIndex=3`) and wire cage pallet side (`palletIndex=4`).
+It is possible for the user to define custom pallet templates for any pallet by modifying the parameters at `configuration/parameter/X`, where `X` is the index chosen for the template number (up to 9).
 
 Once the template is defined, the corresponding `palletIndex` can be chosen when triggering the `getPallet` command.
 
-
-| Property                                           | Type    | Description                                                                                                       | Default     | Minimum | Maximum | Enumeration                      |
-| :------------------------------------------------- | :------ | :---------------------------------------------------------------------------------------------------------------- | :---------- | :------ | :------ | :------------------------------- |
-| `getPallet.X.depthEstimation.fallbackDepthHint`    | number  | default value for Depth Hint, if auto-discovery fails                                                             | 1.5         | 0.1     | N/A     | N/A                              |
-| `getPallet.X.depthEstimation.minNumPixels`         | integer | minimum number of valid pixels in the VOI                                                                         | 10          | 1       | N/A     | N/A                              |
-| `getPallet.X.depthEstimation.voi.xMax`             | number  | Maximum x-coordinate to estimate depth hint (meters)                                                              | 5           | N/A     | N/A     | N/A                              |
-| `getPallet.X.depthEstimation.voi.xMin`             | number  | Minmum x-coordinate to estimate depth hint (meters)                                                               | 0.5         | N/A     | N/A     | N/A                              |
-| `getPallet.X.depthEstimation.voi.yMax`             | number  | Maximum y-coordinate to estimate depth hint (meters)                                                              | 0.4         | N/A     | N/A     | N/A                              |
-| `getPallet.X.depthEstimation.voi.yMin`             | number  | Minmum y-coordinate to estimate depth hint (meters)                                                               | -0.4        | N/A     | N/A     | N/A                              |
-| `getPallet.X.depthEstimation.voi.zMax`             | number  | Maximum y-coordinate to estimate depth hint (meters)                                                              | 0.4         | N/A     | N/A     | N/A                              |
-| `getPallet.X.depthEstimation.voi.zMin`             | number  | Minmum z-coordinate to estimate depth hint (meters)                                                               | -0.1        | N/A     | N/A     | N/A                              |
-| `getPallet.X.detectionPipeline`                    | string  | Pipeline type for detecting pallet features                                                                       | findCorners | N/A     | N/A     | `['findCorners', 'findPockets']` |
-| `getPallet.X.localizePallets.allowPitchEstimation` | boolean | Whether this pallet template can reliably estimate pitch. Intended for machined, high-quality calibration targets | False       | N/A     | N/A     | N/A                              |
-| `getPallet.X.localizePallets.yawTol`               | number  | Maximum absolute yaw angle in radians                                                                             | 0.4         | 0       | N/A     | N/A                              |
-| `getPallet.X.name`                                 | string  | Descriptive name of the recipe. Note that the name will be truncated to PDS_MAX_PALLET_NAME_STRLEN.               | Block       | N/A     | N/A     | N/A                              |
-| `getPallet.X.orthoProjection.voi.xMax`             | number  | Maximum x-coordinate for projection, relative to the depth hint (meters)                                          | 0.3         | -0.5    | 0.5     | N/A                              |
-| `getPallet.X.orthoProjection.voi.xMin`             | number  | Minmum x-coordinate for projection, relative to the depth hint (meters)                                           | -0.3        | -0.5    | 0.5     | N/A                              |
-| `getPallet.X.orthoProjection.voi.yMax`             | number  | Maximum y-coordinate for projection in calibrated coordinate system (meters)                                      | 1           | -2      | 2       | N/A                              |
-| `getPallet.X.orthoProjection.voi.yMin`             | number  | Minmum y-coordinate for projection in calibrated coordinate system (meters)                                       | -1          | -2      | 2       | N/A                              |
-| `getPallet.X.orthoProjection.voi.zMax`             | number  | Maximum y-coordinate for projection in calibrated coordinate system (meters)                                      | 0.6         | -2      | 2       | N/A                              |
-| `getPallet.X.orthoProjection.voi.zMin`             | number  | Minmum z-coordinate for projection in calibrated coordinate system (meters)                                       | -0.6        | -2      | 2       | N/A                              |
-| `getPallet.X.pocket.maxHeight`                     | number  | Maximum pocket height in meters (ignored when finding whole pockets)                                              | 0.15        | N/A     | N/A     | N/A                              |
-| `getPallet.X.pocket.maxWidth`                      | number  | Maximum pocket width in meters (ignored when finding whole pockets)                                               | 0.44        | N/A     | N/A     | N/A                              |
-| `getPallet.X.pocket.minHeight`                     | number  | Minimum pocket height in meters                                                                                   | 0.05        | N/A     | N/A     | N/A                              |
-| `getPallet.X.pocket.minWidth`                      | number  | Minimum pocket width in meters                                                                                    | 0.24        | N/A     | N/A     | N/A                              |
-| `getPallet.X.stringer.maxWidthCenter`              | number  | Maximum width of the center stringer in meters                                                                    | 0.4         | N/A     | N/A     | N/A                              |
-| `getPallet.X.stringer.minWidthCenter`              | number  | Minimum width of the center stringer in meters                                                                    | 0.05        | N/A     | N/A     | N/A                              |
+```{include} ../../generated_docs/pds_properties_parameter_properties_getPallet.md
+```
 
 #### Detection pipeline
 When defining a custom pallet template, the user has to chose the proper detection pipeline. 
@@ -241,10 +210,10 @@ The output has three main components: `pallet`, `depthEstimationVoi` and `projec
 ### `pallet`
 This component of the JSON result lists all the detected pallets (up to 10). 
 For each pallet, the following information is provided:
-| Name                         | Description                                                                                                                                                                                                                        |
-| ---------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `angles`                     | Rotations components `rotX`, `rotY` and `rotZ` of the pallet, along the three axis of the calibrated coordinate system, in radians.                                                                                                |
-| `center`, `left` and `right` | Position and size of the center beam, the left pocket and the right pocket respectively. <br>For each, the width and height is provided, as well as the coordinates of the center of the pocket or beam along the X, Y and Z axis. |
+| Name                         | Description                                                                                                                                                                                                                                                                                                                  |
+| ---------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `angles`                     | Rotations components `rotX`, `rotY` and `rotZ` of the pallet, along the three axis of the calibrated coordinate system, in radians.                                                                                                                                                                                          |
+| `center`, `left` and `right` | Position and size of the center beam, the left pocket and the right pocket respectively. <br>For each, the width and height is provided, as well as the coordinates of the center of the pocket or beam along the X, Y and Z axis. <br>For single pocket pallets, the `center`, `left` and `right` results are all the same. |
 
 :::{note}
 Per default the pitch estimation `rotY` is disabled and will always display `0`.

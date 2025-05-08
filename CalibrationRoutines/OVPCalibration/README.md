@@ -1,10 +1,20 @@
 # VPU extrinsic calibration
-## General information
+
+## General Information
+
 ### Orientation
 
-ODS uses the IMU to compute the motion of the vehicle. To do this, the VPU needs to be calibrated, using the same reference frame as used for the head calibration.
+The ODS application uses the IMU inside the VPU to compute vehicle motion. To enable this, the VPU must be extrinsically calibrated using the same reference frame as used for the camera head calibration.
 
-In the table below, we assume that the VPU is positioned parallel to the coordinate system. We provide the angle correspondence between the VPU position and the `rotX`, `rotY` and `rotZ` values. The translations can be measured directly from CAD drawings or on the vehicle itself.
+:::{note}
+    The extrinsic calibration of the VPU is **only relevant for the ODS application**. This calibration does **not** affect the raw IMU output provided on Port 6. Therefore, if you are using the IMU data independently (e.g., for custom applications), the VPU calibration will have no impact.
+:::
+
+In the table below, we assume the VPU is aligned with the coordinate system. The table provides the angle correspondence between the VPU’s orientation and the `rotX`, `rotY`, and `rotZ` values. Translations should be measured directly from CAD drawings or the physical installation on the vehicle.
+
+### VPU coordinate system
+
+![VPU Reference](../../Technology/Hardware/Mounting/img/VPU_coordinate_system.png)
 
 User coordinate system: X (forward), Y (to the left), Z (up).
 

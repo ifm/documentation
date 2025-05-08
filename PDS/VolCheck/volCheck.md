@@ -1,7 +1,17 @@
 # `volCheck`
 
-The `volCheck` (short for volume check) functionality of PDS offers an easy-to-use possibility to test whether a 3D volume (Volume Of Interest - VOI) is free of obstacles. The number of pixels present in the defined VOI is provided, and the user can decide how many pixels are considered an obstacle.
-This command is useful to check whether the location is occupied or not before placing the load, or make sanity check for example to verify that the forks are visible where expected.
+The `volCheck` (Volume Check) feature in PDS provides a straightforward way to verify if a defined 3D volume of interest (VOI) is free from obstacles. It provides the number of valid pixels within a defined VOI and gives the distance to the nearest pixel within that VOI, allowing the user to specify a threshold for considering an area as occupied.  
+
+This functionality is particularly useful for ensuring a location is clear before placing a load or performing sanity checks, such as confirming the visibility of fork tines in their expected position.  
+
+## Use cases  
+
+The `volCheck` command can be applied in various scenarios to enhance operational safety and decision-making:  
+
+- Forkload detection: By comparing the expected pixel count of unloaded forklift tines with the actual count, the system can determine whether the forks are carrying a load.  
+- Height validation: Ensure that the ground is at the expected height. If deviations are detected, it may indicate an issue requiring the forklift to stop.  
+- Obstacle detection: Checks whether the area in front of the sensor is clear before executing further commands. If an obstacle is present, the forklift can be halted to prevent collisions.  
+
 
 ## Configuration
 
@@ -32,22 +42,13 @@ Below is an example, assuming an instantiated PDS app `app0`:
 }
 ```
 
-
-| Property        | Type   | Description                                          | Default | Minimum | Maximum | Enumeration |
-| :-------------- | :----- | :--------------------------------------------------- | :------ | :------ | :------ | :---------- |
-| `volCheck.xMax` | number | Bounding box dimension of VOI along X-axis - Maximum | 2.5     | N/A     | N/A     | N/A         |
-| `volCheck.xMin` | number | Bounding box dimension of VOI along X-axis - Minimum | 1       | N/A     | N/A     | N/A         |
-| `volCheck.yMax` | number | Bounding box dimension of VOI along Y-axis - Maximum | 0.4     | N/A     | N/A     | N/A         |
-| `volCheck.yMin` | number | Bounding box dimension of VOI along Y-axis - Minimum | -0.4    | N/A     | N/A     | N/A         |
-| `volCheck.zMax` | number | Bounding box dimension of VOI along Z-axis - Maximum | 0.5     | N/A     | N/A     | N/A         |
-| `volCheck.zMin` | number | Bounding box dimension of VOI along Z-axis - Minimum | 0.1     | N/A     | N/A     | N/A         |
+```{include} ../../generated_docs/pds_properties_customization_properties_volCheck.md
+```
 
 ### Fine-tuning parameters
 
-| Property                  | Type   | Description                  | Default | Max. | Min. |
-| :------------------------ | :----- | :--------------------------- | :------ | :--- | :--- |
-| volCheck/nearestXQuantile | number | Quantile [0..1] for nearestX | 0.05    | 0    | 1    |
-
+```{include} ../../generated_docs/pds_properties_parameter_properties_volCheck.md
+```
 
 ## Results
 The output of a `volCheck` command is formatted in JSON.

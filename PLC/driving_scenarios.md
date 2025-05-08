@@ -1,25 +1,22 @@
----
-nosearch: true
----
+# Configuration of presets for an example AGV
 
+AGVs require different zone configurations to operate safely in the various environments. These zone configurations depend on factors like minimum and maximum speed, load and driving scenarios. The following presets configuration serves as an example for a AGV using two camera facing in the main driving direction connected to [`port0`, `port1`] and another camera connected to [`port2`] mounted to the rear end of vehicle.
 
-# Presets configuration based on driving scenarios
+- Preset 0, when the AGV is driving at high speeds:
 
-## Forktrucks
+![high_speed_AGV](plc_resources/high_speed.png)
 
-Automated forktrucks/forklifts require different zone configurations to operate safely in the various environments. These zone configurations depend on factors like min/max speed, load and driving scenarios. The following presets configuration serves as an example for a forktruck using two camera facing forward/main driving direcion [`PORT0`, `PORT1`] and another camera[`PORT2`] mounted rear end of vehicle.
+- Preset 1, when the AGV is driving at low speeds:
 
-Assuming the length of forktruck as 1.2m and 1m width.
+![slow_speed_AGV](plc_resources/slow_speeds.png)
 
-- Preset 0: When the forktruck is driving at highspeeds
-![high_speed_forktruck](plc_resources/high_speed.png)
+- Preset 2, when the AGV is driving in reverse:
 
-- Preset 1: When the forktruck is driving at low speeds
-![slow_speed_forktruck](plc_resources/slow_speeds.png)
-
-- Preset 2: When forktruck is driving in reverse direction
 ![drive_reverse](plc_resources/drive_reverse.png)
 
+- Preset 3, when the AGV is idle, save power by stopping all active cameras.
+
+These example presets correspond to the following JSON configuration of the `app0` ODS application:
 ```json
 {
     "applications": {
@@ -28,57 +25,57 @@ Assuming the length of forktruck as 1.2m and 1m width.
                 "class": "ods",
                 "presets": {
                     "definitions":{
-                    "0": {
-                        "description": "Driving Forward - High speeds",
-                        "preset": {
-                        "activePorts": ["port0", "port1"],
-                        "zones": {
-                            "zoneConfigID": 0,
-                            "zoneCoordinates": [
-                            [[0.6, 0.5], [0.6, -0.5], [2.6, -0.5], [2.6, 0.5]],
-                            [[2.6, 0.5], [2.6, -0.5], [3.6, -0.5], [3.6, 0.5]],
-                            [[3.6, 0.5], [3.6, -0.5], [4, -0.5], [4, 0.5]]
-                            ]
-                        }
-                        }
-                    },
-                    "1": {
-                        "description": "Driving Forward - Slow speeds",
-                        "preset": {
-                        "activePorts": ["port0","port1"],
-                        "zones": {
-                            "zoneConfigID": 1,
-                            "zoneCoordinates": [
-                            [[0.6, 0.5], [0.6, -0.5], [1.6, 0.5], [1.6, -0.5]],  // Danger/Emergency Stop Zone
-                            [[1.6, 0.5], [1.6, -0.5], [2.6, 0.5], [2.6, -0.5]],  // Warning Zone
-                            [[2.6, 0.5], [2.6, -0.5], [4, 0.5], [4, -0.5]]       // Notify Zone (Slow Down)
-                            ]
-                        }
-                        }
-                    },
-                    "2": {
-                        "description": "Driving Backward",
-                        "preset": {
-                        "activePorts": [
-                            "port2"
-                        ],
-                        "zones": {
-                            "zoneConfigID": 2,
-                            "zoneCoordinates": [
-                            [[-0.6, 0.5], [-0.6, -0.5], [-1.6, 0.5], [-1.6, -0.5]],  // Danger/Emergency Stop Zone
-                            [[-1.6, 0.5], [-1.6, -0.5], [-2.6, 0.5], [-2.6, -0.5]],  // Warning Zone
-                            [[-2.6, 0.5], [-2.6, -0.5], [-4, 0.5], [-4, -0.5]]       // Notify Zone (Slow Down)
-                            ]
-                        }
-                        }
-                    },
-                    "3": {
-                        "description": "Power saving / charging mode",
-                        "preset": {
-                        "activePorts": [],
-                        "zones": {
-                            "zoneConfigID": 3
-                        }
-                        }
-                    }}}}}}}
+                        "0": {
+                            "description": "Driving Forward - High speeds",
+                            "preset": {
+                                "activePorts": ["port0", "port1"],
+                                "zones": {
+                                    "zoneConfigID": 0,
+                                    "zoneCoordinates": [
+                                    [[0.6, 0.5], [0.6, -0.5], [2.6, -0.5], [2.6, 0.5]], // Danger/Emergency Stop Zone
+                                    [[2.6, 0.5], [2.6, -0.5], [3.6, -0.5], [3.6, 0.5]], // Warning Zone
+                                    [[3.6, 0.5], [3.6, -0.5], [4, -0.5], [4, 0.5]]      // Notify Zone (Slow Down)
+                                    ]
+                                }
+                            }
+                        },
+                        "1": {
+                            "description": "Driving Forward - Slow speeds",
+                            "preset": {
+                                "activePorts": ["port0","port1"],
+                                "zones": {
+                                    "zoneConfigID": 1,
+                                    "zoneCoordinates": [
+                                    [[0.6, 0.5], [0.6, -0.5], [1.6, 0.5], [1.6, -0.5]],  // Danger/Emergency Stop Zone
+                                    [[1.6, 0.5], [1.6, -0.5], [2.6, 0.5], [2.6, -0.5]],  // Warning Zone
+                                    [[2.6, 0.5], [2.6, -0.5], [4, 0.5], [4, -0.5]]       // Notify Zone (Slow Down)
+                                    ]
+                                }
+                            }
+                        },
+                        "2": {
+                            "description": "Driving Backward",
+                            "preset": {
+                                "activePorts": [
+                                    "port2"
+                                ],
+                                "zones": {
+                                    "zoneConfigID": 2,
+                                    "zoneCoordinates": [
+                                    [[-0.6, 0.5], [-0.6, -0.5], [-1.6, 0.5], [-1.6, -0.5]],  // Danger/Emergency Stop Zone
+                                    [[-1.6, 0.5], [-1.6, -0.5], [-2.6, 0.5], [-2.6, -0.5]],  // Warning Zone
+                                    [[-2.6, 0.5], [-2.6, -0.5], [-4, 0.5], [-4, -0.5]]       // Notify Zone (Slow Down)
+                                    ]
+                                }
+                            }
+                        },
+                        "3": {
+                            "description": "Power saving / charging mode",
+                            "preset": {
+                                "activePorts": [],
+                                "zones": {
+                                    "zoneConfigID": 3
+                                }
+                            }
+                        }}}}}}}
 ```

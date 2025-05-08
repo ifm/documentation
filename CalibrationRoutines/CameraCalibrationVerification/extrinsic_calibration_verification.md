@@ -1,3 +1,7 @@
+---
+nosearch: true
+---
+
 # How to verify the extrinsic calibration
 
 A verification of the extrinsic calibration is a necessary step to ensure the best functionality and data quality of any distance based measurement sensor technology.

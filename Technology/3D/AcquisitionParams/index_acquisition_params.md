@@ -6,17 +6,29 @@ To print out the schema, you can use the [ifm3d CLI](https://api.ifm3d.com/stabl
 Check out the [Python](https://github.com/ifm/ifm3d-examples/blob/main/ovp8xx/python/ovp8xxexamples/core/get_schema.py) and [C++](https://github.com/ifm/ifm3d-examples/tree/main/ovp8xx/cpp/core/get_schema) examples on how to retrieve the JSON schema.
 :::
 
-## Framerate
-| Variable name | Short description                                 |
-| ------------- | ------------------------------------------------- |
-| `framerate`   | Defines the number of frames captured each second |
+:::::{tabs}
+::::{group-tab} 4 meter mode
+:::{include} ../../../generated_docs/camera_3d_4m.md
+:::
+::::
+::::{group-tab} 2 meter mode
+:::{include} ../../../generated_docs/camera_3d_2m.md
+:::
+::::
+::::{group-tab} Cyclic mode
+:::{include} ../../../generated_docs/camera_3d_cyclic.md
+:::
+::::
+:::::
 
-For the O3R system the FPS is independent from the applied imager settings (exposure mode and times, filters, etc.). Higher exposure times, for example, will **not** negatively impact the system's FPS. The O3R is designed to achieve 20 FPS in the 2 m and 4 m modes, *regardless* of applied settings.
+```{include} ../../../notices/conf_attribute_note.md
+```
+
+## Framerate
+
+The framerate of `O3R2xx` camera head is independent from the applied settings (exposure mode and times, filters, etc.). Higher exposure times, for example, will **not** negatively impact the FPS. The image processing is designed to achieve 20 FPS in the 2 m, 4 m and cyclic modes *regardless* of applied settings.
 
 ## Exposure Times
-| Variable name                   | Short description                                    |
-| ------------------------------- | ---------------------------------------------------- |
-| `exposureLong`, `exposureShort` | These parameters are used to set the exposure times. |
 
 Exposure times are utilized to maximize the number of valid pixels in a scene. The use of multiple exposures (HDR) permits the camera to operate in “dynamic” environments that require the detection of dark and light objects at both the minimum and maximum ranges.
 
@@ -29,17 +41,11 @@ You can find which exposure time is used for each pixel by analyzing the confide
 :::
 
 ## Delay
-| Variable name | Short description                                                                                        |
-| ------------- | -------------------------------------------------------------------------------------------------------- |
-| `Delay`       | The delay defines the minimum time delay between the framerate loop start and the actual imager trigger. |
 
 The `Delay` parameter is not valid in `IDLE` state of the port and when `Delay` parameter is configured in `IDLE` state then the value is set back to its default(0). Please refer to [this](../triggering.md) section for more details.
 
 ## Software Trigger Group
 ### Overview
-| Variable name    | Short description                                                                                     |
-| ---------------- | ----------------------------------------------------------------------------------------------------- |
-| `swTriggerGroup` | This parameter is used in IDLE state only and ports having same `swTriggerGroup` value define a group |
 
 The `swTriggerGroup` parameter allows you to assign a port to a commmon trigger group. All ports with the same `swTriggerGroup` value are considered to be part of this group. When any port within this group is software triggered, all other ports in the same group will also be triggered simultaneously.
 
@@ -65,9 +71,6 @@ In this scenario, PORT1 and PORT3 are part of the same synchronization group (gr
 
 ## Offset
 ### Overview
-| Variable name | Short description                                                      |
-| ------------- | ---------------------------------------------------------------------- |
-| `offset`      | Shifts the start and end point of the measurement range (see [mode](../modes.md)) |
 
 Coded modulation dictates the measurement range of the camera (for example 0 to 2 m). Coded modulation also allows this measurement range to be offset or shifted from its start point. In the example of 0 to 2 m measurement range, an `offset` of 0.5 m would lead to around 0.5 to 2.5 m of range. Continuing this example, an `offset` of 1 leads to around 1 to 3 m of range. The `offset` can be changed frame by frame.
 
@@ -117,13 +120,8 @@ Additionally one should know that the most robust measurement is in the middle o
 
 ## Channel selection and channel value
 
-| Variable name      | Short description                                                           |
-| ------------------ | --------------------------------------------------------------------------- |
-| `channelSelection` | Defines the user mode for handling channel selection: currently only manual |
-| `channelValue`     | Defines the channel value                                                   |
-
 This concept for cross talk mitigation is based on channels, each channel corresponding to a different modulation frequency. Use a channel combination of mutually exclusive channels to *almost* completely reduce the possibility and effect of cross talk between O3R camera heads.
-The channel value has to be set per 3D TOF imager / O3R camera head. By default it is to value 0.
+The channel value has to be set per 3D TOF imager / O3R camera head. From the firmware versions 1.10.13 and above, the default channel value of a port is `2 * portNumber`. In the older firmwares, the default value is set to zero.
 
 A channel value difference of 2 has been shown to be adequate. Any additional channel value offset (> 2) will not improve crosstalk mitigation between O3R camera heads.
 Use intermediate, that is odd channel numbers if larger numbers of channels are required: We suggest to geometrically separate cameras with channel differences 1 - for example forward and backward facing cameras on an AGV / AMR.
