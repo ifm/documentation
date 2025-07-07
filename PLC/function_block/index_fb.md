@@ -12,8 +12,5 @@ The SIEMENS function block provided by ifm is intended to provide a interface be
 - Receiving the ODS and PDS result data and displaying the outputs,
 - Sending commands to configure ODS or to trigger PDS.
 
-:::{important}
-  This is a beta release and will be followed by an official release soon. In case of any issues, please contact ifm support team at support.efector.object-ident@ifm.com
-:::
 
 For more details of function block implementation and configuration see the {download}`function block PDF  <ifm-OVP81x-ProtV2_S7-1500_TCP EN.pdf>`.

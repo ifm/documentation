@@ -4,6 +4,7 @@
 
  | Supported VPU Hardware                     | Supported Camera Head Hardware | FW version             | ifm3d-library | ifmVisionAssistant |
  | ------------------------------------------ | ------------------------------ | ---------------------- | ------------- | ------------------ |
+ | OVP810 <br> OVP811 <br> OVP812 <br> OVP813 | O3R222 <br> O3R225 <br> O3R252 | FW 1.21.6              | 1.6.12        | 2.10.12            |
  | OVP810 <br> OVP811 <br> OVP812 <br> OVP813 | O3R222 <br> O3R225 <br> O3R252 | FW 1.20.29             | 1.6.8         | 2.10.9             |
  | OVP810 <br> OVP811 <br> OVP812 <br> OVP813 | O3R222 <br> O3R225             | FW 1.10.13             | 1.5.3         | 2.9.9              |
  | OVP810 <br> OVP811                         | O3R222 <br> O3R225             | FW 1.4.30 or FW 1.1.41 | 1.4.3, 1.5.3  | 2.8.7              |
@@ -26,6 +27,7 @@ Typically the respective changes regarding ifm internal productions state, e.g. 
 
 | VPU Hardware                               | Recommended Camera Head Hardware                                   | Recommended Firmware Version                                                                                                                     |
 | ------------------------------------------ | ------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------ |
+| OVP810 <br> OVP811 <br> OVP812 <br> OVP813 | O3R222AD and later <br> O3R225AE and later <br> O3R252AB and later | [1.21.6](../Firmware/ReleaseNotes/FW_1.21.x/FW_1.21.x_release_notes.md)                                                                          |
 | OVP810 <br> OVP811 <br> OVP812 <br> OVP813 | O3R222AD and later <br> O3R225AE and later <br> O3R252AB and later | [1.20.29](../Firmware/ReleaseNotes/FW_1.20.x/FW_1.20.x_release_notes.md)                                                                          |
 | OVP810 <br> OVP811 <br> OVP812 <br> OVP813 | O3R222AD and later <br> O3R225AE and later                         | [1.10.13](../Firmware/ReleaseNotes/FW_1.4.x/FW_1.10.x_release_notes.md)                                                                          |
 | OVP810 <br> OVP811                         | O3R222AC and later <br> O3R225AC, O3R225AD and later               | [1.4.30](../Firmware/ReleaseNotes/FW_1.4.x/FW_1.4.x_release_notes.md) or [1.1.41](../Firmware/ReleaseNotes/FW_1.1.41/FW_1.1.41_Release_Notes.md) |

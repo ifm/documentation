@@ -36,36 +36,62 @@ Uploading the public (`.pub`) SSH key to the VPU is achieved via the ifm3d libra
 The device configuration includes a parameter for authorized keys: `authorized_keys`. It is empty by default.
 
 ```bash
-$ ifm3d dump | jq .device.network
+$ ifm3d ovp8xx config get --path "/device/network"
 {
-  "authorized_keys": "",
-  "interfaces": {
-    "eth0": {
-      "ipv4": {
-        "address": "192.168.0.69",
-        "dns": "0.0.0.0",
-        "gateway": "192.168.0.201",
-        "mask": 24
+  "device": {
+    "network": {
+      "authorized_keys": "",
+      "firewall": {
+        "active": false
       },
-      "mac": "48:B0:2D:54:F9:46",
-      "networkSpeed": 1000,
-      "useDHCP": false
-    },
-    "eth1": {
-      "mac": "00:02:01:42:DE:94",
-      "networkSpeed": 10,
-      "useDHCP": true
+      "interfaces": {
+        "can0": {
+          "active": false,
+          "bitrate": "125K",
+          "restart-ms": 10000
+        },
+        "eth0": {
+          "firewall": {
+            "userPorts": []
+          },
+          "ipv4": {
+            "address": "192.168.0.69",
+            "dns": "0.0.0.0",
+            "gateway": "192.168.0.201",
+            "mask": 24
+          },
+          "mac": "48:B0:2D:87:1B:C9",
+          "networkSpeed": 1000,
+          "useDHCP": false
+        },
+        "eth1": {
+          "firewall": {
+            "userPorts": []
+          },
+          "ipv4": {
+            "address": "192.168.42.69",
+            "dns": "0.0.0.0",
+            "gateway": "0.0.0.0",
+            "mask": 24
+          },
+          "mac": "00:02:01:44:EB:07",
+          "networkSpeed": 10,
+          "useDHCP": false
+        }
+      }
     }
   }
 }
 ```
 
-To add a new key, the VPU configuration needs to be changed. This can be done with several ways (see [configuring the camera](https://api.ifm3d.com/stable/examples/o3r/configuration/configuration.html)). The easiest way in this case is to use the `jq` command along with the ifm3d API CLI:
+To add a new key, the VPU configuration needs to be changed. The easiest way in this case is to use the `jq` command along with the ifm3d API CLI:
+
+To install `jq` library, follow the instructions mentioned in [./jq website](https://jqlang.org/download/)
 
 :::::{tabs}
 ::::{group-tab} Linux
 ```bash
-$ echo {} | jq --arg id "$(< ~/.ssh/id_o3r.pub)" '.device.network.authorized_keys=$id' | ifm3d config
+$ echo {} | jq --arg id "$(< ~/.ssh/id_o3r.pub)" '.device.network.authorized_keys=$id' | ifm3d ovp8xx config set
 ```
 ::::
 ::::{group-tab} Windows
@@ -82,7 +108,7 @@ $ echo {} | jq --arg id "$(< ~/.ssh/id_o3r.pub)" '.device.network.authorized_key
 
 Now, the content of the `authorized_keys` should look something like:
 ```bash
-$ ifm3d dump | jq .device.network.authorized_keys
+$ ifm3d ovp8xx config get --path "/device/network/authorized_keys"
 "ssh-rsa AAAAB3NzaC.....wZ9l3iSUaPPWOeFVz+xwlw== Some comment"
 ```
 

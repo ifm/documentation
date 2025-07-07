@@ -1,6 +1,6 @@
 # Communication interface
 
-This document describes the data structure sent from the PLC application to the PLC, as well as the structure of the commands that can be sent from the PLC to the PLC application. 
+This document describes the TCP/IP data structure sent from the PLC application to the PLC, as well as the structure of the commands that can be sent from the PLC to the PLC application. 
 
 ## Data structure
 The data stream between the PLC application and the PLC is formatted at follows `<ticket><Length>CR+LF<ticket><CONTENT>CR LF`, where `CR` is the carriage return (`\r`) and `LF` is the line feed (`\n`).
@@ -45,7 +45,7 @@ The PLC application is mapped to a TCP/IP communication port (referred also as P
 | 0x0030 | `PLC_RESULT_FRAME` | See [PLC result frame](#plc-result-frame-description)                                    |             |
 
 #### PLC Result frame description
-As of firmware version 1.20.29, the protocol version used for the result frame is v2.1.
+From firmware version 1.21.6, the protocol version used for the result frame is v3.1.
 
 <table border="1" cellspacing="0" cellpadding="5">
   <thead>
@@ -61,37 +61,37 @@ As of firmware version 1.20.29, the protocol version used for the result frame i
       <td>Protocol Version</td>
       <td>2</td>
       <td>uint16</td>
-      <td>High byte: major version (not compatible across versions) <br> Low byte: minor version(compatible within one major version)</td>
+      <td>High byte: major version (incompatible across versions)  <br> Low byte: minor version (compatible within same major) <br> Actual version is 3.1</td>
     </tr>
     <tr>
       <td>Size</td>
       <td>2</td>
       <td>uint16</td>
-      <td>The size of this frame in bytes (fixed value of 1000 for version 2.1)</td>
+      <td> Total size of this frame in bytes <br> Actual size 288 bytes</td>
     </tr>
     <tr>
       <td>ODS result data</td>
-      <td>1372 for TCP/IP <br> 22 for EIP</td>
+      <td>22 </td>
       <td>see <a href="#ods-result-data">the ODS result data description</a> </td>
-      <td>Size and types depend on the encapsulation used (TCP/IP vs. EIP).</td>
+      <td>For EIP, this data packet is misaligned (MessageCounter) and its internal ordering fixes the alignment.</td>
     </tr>
     <tr>
       <td>PDS result data for first PDS app</td>
       <td>48</td>
       <td>see <a href="#pds-result-data">the PDS result data description</a> </td>
-      <td>Size and types depend on the encapsulation used (TCP/IP vs. EIP).</td>
+      <td></td>
     </tr>
     <tr>
       <td>PDS result data for second PDS app</td>
       <td>48</td>
       <td>see <a href="#pds-result-data">the PDS result data description</a> </td>
-      <td>Size and types depend on the encapsulation used (TCP/IP vs. EIP).</td>
+      <td></td>
     </tr>
     <tr>
       <td>Diagnostic Counter</td>
       <td> 4 </td>
       <td> uint16[2] </td>
-      <td> 2 bytes: the current diagnostic slice counting from zero (max. 0 for v2.1). <br> 2 bytes: the total amount of diagnostic slices (max. 1 for v2.1).</td>
+      <td> 2 bytes: the current diagnostic slice counting from zero. <br> 2 bytes: the total amount of diagnostic slices.</td>
     </tr>
     <tr>
       <td>Diagnostic Data</td>
@@ -144,6 +144,22 @@ As of firmware version 1.20.29, the protocol version used for the result frame i
         </table>
       </td>
     </tr>
+    <tr>
+      <td>Severity</td>
+      <td>2</td>
+      <td>uint16</td>
+      <td>
+        Application diagnostic severity state of PLC app, with these possible values:<br><br>
+        <ul style="margin: 0; padding-left: 20px;">
+          <li>1: <code>no_incident</code></li>
+          <li>2: <code>info</code></li>
+          <li>3: <code>minor</code></li>
+          <li>4: <code>major</code></li>
+          <li>5: <code>critical</code></li>
+          <li>6: <code>not available</code> (application instance not existing)</li>
+        </ul>
+      </td>
+    </tr>
   </tbody>
 </table>
 
@@ -152,18 +168,18 @@ As of firmware version 1.20.29, the protocol version used for the result frame i
 | Field                | Size (Bytes)             | Type                                              | Description                                                                                                                                                                                                                                                                                                                                                                                                                              |
 | -------------------- | ------------------------ | ------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Result age indicator | 2                        | uint16                                            | Indicates whether the ODS data was received from the ODS application (0 if received, otherwise incremented). <br> 0 if ODS data was received from the ODS applications, If no new data is present for the next PLC app frame, the value is increased, If the value reaches 255, it will not reset. It will stay at 255 until new data is received, If no previous ODS data is available, it will indicate 255.                           |
-| Severity             | 2                        | uint16                                            | Application diagnotic severity state, with these possible values: <br><br> <li>1: `no_incident`</li> <li>2: `info`</li><li>3: `minor`</li> <li>4: `major`</li> <li>5: `critical`</li><li>6: `not available` (application instance not existing)</li>                                                                                                                                                                                     |
+| Severity             | 2                        | uint16                                            | Application diagnotic severity state of corresponding ODS app, with these possible values: <br><br> <li>1: `no_incident`</li> <li>2: `info`</li><li>3: `minor`</li> <li>4: `major`</li> <li>5: `critical`</li><li>6: `not available` (application instance not existing)</li>                                                                                                                                                                                     |
 | Zone status flags    | 6                        | uint16 status[3]                                  | Zone status flags (3 bytes, 0: zone free, 1: zone occupied)                                                                                                                                                                                                                                                                                                                                                                              |
 | Zone config ID       | 4                        | uint32                                            | 32-bit integer representing the zone configuration ID.                                                                                                                                                                                                                                                                                                                                                                                   |
 | Time Stamp           | 8                        | uint64 for TCP/IP <br>uint32[2] for EIP           | Time stamp of the ODS algorithm result. VPU time (including NTP if configured).                                                                                                                                                                                                                                                                                                                                                          |
-| Polar occupancy grid | 1350 (TCP/IP) or 0 (EIP) | uint16[675] for PLC, skipped for EIP assembly 110 | A compressed version of the grid using polar coordinates. The index corresponds to the angle (index i corresponds to the angle slice i*360/675 degree to (i+1)*360/675 degree), which is defined by atan2(ry, rx). The ray direction is given by (rx, ry). The value is the distance to nearest occupied cell on the ray from the vehicle origin, given in [mm]. In case there are no occupied cells on the ray, the value 65535 is set. |
+| Polar occupancy grid | 1350 (TCP/IP) or 0 (EIP) | uint16[675] for PLC, skipped for EIP assembly 110 | Distance to nearest object in mm  Angle resolution ≈ 0.53° (360°/675). For more informations [see this documentation](../ODS/OccupancyGrid/occupancy_grid.md#polar-occupancy-grid) |
 
 ##### PDS result data
 
 | Field                | Size (Bytes) | Type                                  | Description                                                                                                                                                                                                                                                                                                                                                                                                   |
 | -------------------- | ------------ | ------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Result age indicator | 2            | uint16                                | Indicates whether PDS data was received from the PDS application (0 if received, otherwise incremented). <br>0 if PDS data was received from the PDS application, If no new data is present for the next PLC app frame, the value is increased, If the value reaches 255, it will not reset. It will stay at 255 until new data is received, If no previous output of PDS is available, it will indicate 255. |
-| Severity             | 2            | uint16                                | Application diagnotic severity state, with these possible values: <br><br> <li>1: `no_incident`</li> <li>2: `info`</li><li>3: `minor`</li> <li>4: `major`</li> <li>5: `critical`</li><li>6: `not available` (application instance not existing)</li>                                                                                                                                                          |
+| Severity             | 2            | uint16                                | Application diagnotic severity state of corresponding PDS app, with these possible values: <br><br> <li>1: `no_incident`</li> <li>2: `info`</li><li>3: `minor`</li> <li>4: `major`</li> <li>5: `critical`</li><li>6: `not available` (application instance not existing)</li>                                                                                                                                                          |
 | PDS command ID       | 2            | uint16                                | The ID of the PDS command of this response data: <br>02200: get pallet, <br> 02201: get item, <br> 02202: get rack, <br> 02203: volume check.                                                                                                                                                                                                                                                                 |
 | Ticket               | 2            | uint16                                | The unique ID of the command, sent back to the PLC for book keeping: <br>0: default value, the command was not issued py the PLC, <br>nonzero: PCIC ticket id for commands coming via PCIC, or of command data.                                                                                                                                                                                               |
 | Timestamp            | 8            | uint64 for TCP/IP, uint32[2] for EIP  | Time stamp of the PDS algorithm result. VPU time (including NTP if configured).                                                                                                                                                                                                                                                                                                                               |
@@ -253,38 +269,38 @@ The command content section, `<ticket><CONTENT>CR LF`, consists of the following
 
 #### Parameter ID and corresponding command `VALUE`
 
-Here is a list of available parameter ID for setting or reading values via the `f` command. The value of the command itself depends on the parameter ID. The description for the command corresponding to a specific parameter ID is also in the table below.
+Here is a list of available parameter IDs for setting or reading values via the `f` command. The value of the command itself depends on the parameter ID. The description for the command corresponding to a specific parameter ID is also in the table below.
 
-| Parameter ID | Name                           | Command description                                                                                                                          | Command size | Command type |
-| ------------ | ------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------- | ------------ | ------------ |
-| 02100        | ODS overhanging load           | Bitmask for the overhanging load selection                                                                                                   | 2            | uint16       |
-| 02101        | ODS Selection of the Zone      | The index of the preset to select                                                                                                            | 2            | uint16       |
-| 02102        | ODS Setting the maximum height | The height in mm                                                                                                                             | 2            | uint16       |
-| 02200        | PDS `getPallet`                | `ApplicationId`: Position in the PDS application list of the application selected for configuration [0..1]                                   | 2            | uint16       |
-|              |                                | `DepthHint`: 	Estimated distance between pallet and calibrated coordinate system center in [millimeters]. Set to <=0 for automatic detection | 2            | int16        |
-|              |                                | `PalletIndex`: Index of the pallet parameter set [0..9]                                                                                      | 2            | int16        |
-|              |                                | `PalletOrder`:	0->scoreDescending, 1->zDescending, 2->zAscending, 3 ->yDescending, 4 -> yAscending                                           | 2            | int16        |
-| 02201        | PDS `getItem`                  | Available upon request                                                                                                                       |              |              |
-| 02202        | PDS `getRack`                  | `ApplicationId`: 	Position in the PDS application list of the application selected for configuration [0..1]                                  | 2            | uint16       |
-|              |                                | `HorizontalDropPosition`: 	Selection of the horizontal drop setting: 0->left, 1->center, 2->right                                            | 2            | uint16       |
-|              |                                | `VerticalDropPosition`: 	Selection of the vertical drop setting: 0->interior, 1->floor                                                       | 2            | uint16       |
-|              |                                | `DepthHint`: 	Estimated distance between rack and coordinate system center in [millimeters]                                                  | 2            | uint16       |
-|              |                                | `ZHint`: 	Estimated z-coordinate of the rack shelf in [millimeters]                                                                          | 2            | uint16       |
-|              |                                | `ClearingVolumeXMin`: 	Minimum x-coordinate in [millimeters] of the volume which will be checked for obstacles                               | 2            | uint16       |
-|              |                                | `ClearingVolumeXMax`:  	Maximum x-coordinate in [millimeters] of the volume which will be checked for obstacles                              | 2            | uint16       |
-|              |                                | `ClearingVolumeYMin`:  	Minimum y-coordinate in [millimeters] of the volume which will be checked for obstacles                              | 2            | uint16       |
-|              |                                | `ClearingVolumeYMax`:  	Maximum y-coordinate in [millimeters] of the volume which will be checked for obstacles                              | 2            | uint16       |
-|              |                                | `ClearingVolumeZMin`:  	Minimum z-coordinate in [millimeters] of the volume which will be checked for obstacles                              | 2            | uint16       |
-|              |                                | `ClearingVolumeZMax`:  	Maximum z-coordinate in [millimeters] of the volume which will be checked for obstacles                              | 2            | uint16       |
-| 02203        | PDS `volCheck`                 | `ApplicationId`: Position in the PDS application list of the application selected for configuration [0..1]                                   | 2            | uint16       |
-|              |                                | `VolumeXMin`: 	Minimum x-coordinate in [millimeters] of the volume which will be checked for pixels                                          | 2            | uint16       |
-|              |                                | `VolumeXMax`: 	Maximum x-coordinate in [millimeters] of the volume which will be checked for pixels                                          | 2            | uint16       |
+| Name                           | Command description                                                                                                                          | Command size | Command type |
+| ------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------- | ------------ | ------------ |
+| ODS overhanging load           | Bitmask for the overhanging load selection                                                                                                   | 2            | uint16       |
+| ODS Selection of the Zone      | The index of the preset to select                                                                                                            | 2            | uint16       |
+| ODS Setting the maximum height | The height in mm                                                                                                                             | 2            | uint16       |
+| PDS `getPallet`                | `ApplicationId`: Position in the PDS application list of the application selected for configuration [0..1]                                   | 2            | uint16       |
+|                                | `DepthHint`: 	Estimated distance between pallet and calibrated coordinate system center in [millimeters]. Set to <=0 for automatic detection | 2            | int16        |
+|                                | `PalletIndex`: Index of the pallet parameter set [0..9]                                                                                      | 2            | int16        |
+|                                | `PalletOrder`:	0->scoreDescending, 1->zDescending, 2->zAscending, 3 ->yDescending, 4 -> yAscending                                           | 2            | int16        |
+| PDS `getItem`                  | Available upon request                                                                                                                       |              |              |
+| PDS `getRack`                  | `ApplicationId`: 	Position in the PDS application list of the application selected for configuration [0..1]                                  | 2            | uint16       |
+|                                | `HorizontalDropPosition`: 	Selection of the horizontal drop setting: 0->left, 1->center, 2->right                                            | 2            | uint16       |
+|                                | `VerticalDropPosition`: 	Selection of the vertical drop setting: 0->interior, 1->floor                                                       | 2            | uint16       |
+|                                | `DepthHint`: 	Estimated distance between rack and coordinate system center in [millimeters]                                                  | 2            | uint16       |
+|                                | `ZHint`: 	Estimated z-coordinate of the rack shelf in [millimeters]                                                                          | 2            | uint16       |
+|                                | `ClearingVolumeXMin`: 	Minimum x-coordinate in [millimeters] of the volume which will be checked for obstacles                               | 2            | uint16       |
+|                                | `ClearingVolumeXMax`:  	Maximum x-coordinate in [millimeters] of the volume which will be checked for obstacles                              | 2            | uint16       |
+|                                | `ClearingVolumeYMin`:  	Minimum y-coordinate in [millimeters] of the volume which will be checked for obstacles                              | 2            | uint16       |
+|                                | `ClearingVolumeYMax`:  	Maximum y-coordinate in [millimeters] of the volume which will be checked for obstacles                              | 2            | uint16       |
+|                                | `ClearingVolumeZMin`:  	Minimum z-coordinate in [millimeters] of the volume which will be checked for obstacles                              | 2            | uint16       |
+|                                | `ClearingVolumeZMax`:  	Maximum z-coordinate in [millimeters] of the volume which will be checked for obstacles                              | 2            | uint16       |
+| PDS `volCheck`                 | `ApplicationId`: Position in the PDS application list of the application selected for configuration [0..1]                                   | 2            | uint16       |
+|                                | `VolumeXMin`: 	Minimum x-coordinate in [millimeters] of the volume which will be checked for pixels                                          | 2            | uint16       |
+|                                | `VolumeXMax`: 	Maximum x-coordinate in [millimeters] of the volume which will be checked for pixels                                          | 2            | uint16       |
 |              |                                | `VolumeYMin`: 	Minimum y-coordinate in [millimeters] of the volume which will be checked for pixels                                          | 2            | uint16       |
 |              |                                | `VolumeYMax`: 	Maximum y-coordinate in [millimeters] of the volume which will be checked for pixels                                          | 2            | uint16       |
 |              |                                | `VolumeZMin`: 	Minimum z-coordinate in [millimeters] of the volume which will be checked for pixels                                          | 2            | uint16       |
 |              |                                | `VolumeZMax`: 	Maximum z-coordinate in [millimeters] of the volume which will be checked for pixels                                          | 2            | uint16       |
 
-#### Example 1: setting the maximum height
+#### Example 1: Setting the maximum height (ODS)
 
 To set the maximum height to `400 mm`, the `f` command would be formatted as:
 ```
@@ -296,7 +312,7 @@ With:
 - `\x01\x01`: the version number (1.1)
 - `\x90\x01`: Value to set for the maximum height: `400 mm` (little endian format).
 
-#### Example 2: Select Zone Set 
+#### Example 2: Select Zone Set (ODS)
 
 To select a zone set, the `f` command could look like:
 ```
@@ -329,3 +345,31 @@ In this case, the message length would be:
 - Data: 4 (ticket) + 1 (f) + 5 (parameter ID) + 6 (reserved) + 2 (version) + 2 (index) + 2  (CR and LF) characters
 - Total Length: 22 characters
 
+#### Example 3: Get Pallet (PDS)
+
+To retrieve pallet-related information from the PDS system, the `f` command includes multiple values:
+
+```
+1234L000000026\r\n1234f02200#00000\x01\x01\x00\x00\xff\xff\x00\x00\x00\x00\r\n
+```
+with 
+
+- `1234`: ticket.  
+- `L000000026`: message length (26 characters total).  
+- `\r\n`: carriage return and line feed.  
+- `1234`: ticket.
+- `f`: command identifier.  
+- `02200`: parameter ID for the PDS `getPallet` function.  
+- `#00000`: reserved field.  
+- `\x01\x01`: version 1.1.  
+- `\x00\x00`: `app_id = 0` (uint16).  
+- `\xff\xff`: `depth_hint = -1` (int16, little endian).  
+- `\x00\x00`: `pallet_index = 0` (int16).  
+- `\x00\x00`: `pallet_order = 0` (int16).  
+- `\r\n`: carriage return and line feed.  
+
+**Message length calculation:**
+
+- Header: 16 characters  
+- Data: 4 (ticket) + 1 (f) + 5 (parameter ID) + 6 (reserved) + 2 (version) + 8 (values) + 2 (CRLF)  
+- **Total: 26 characters**
