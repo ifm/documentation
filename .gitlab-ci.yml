@@ -75,3 +75,17 @@ auto-docs-generation:
     - changes: 
       - .config
     - when: manual    
+
+trigger_developer-portal:
+  stage: deploy
+  rules:
+    - when: always
+  before_script:
+    - apt update && apt install -y curl
+  script:
+    - >
+      curl --request POST \
+        --form token=$DEVELOPER_PORTAL_TRIGGER_TOKEN \
+        --form ref=test/lola \
+        --form "variables[O3R_DOC_BRANCH]=$CI_COMMIT_REF_NAME" \
+        https://gitlab-ee.dev.ifm/api/v4/projects/2070/trigger/pipeline

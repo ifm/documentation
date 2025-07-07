@@ -5,6 +5,7 @@
 Resources management <ResourceManagement/index_resource_management>
 CAN <can>
 Ethernet <ethernet>
+Security <security>
 USB <usb>
 NTP <sntp>
 Timestamps <Timestamps/timestamps>

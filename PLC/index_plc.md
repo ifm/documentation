@@ -15,7 +15,8 @@ The image below illustrates the communication between the ODS application, PLC a
 :::{toctree}
     :maxdepth: 2
 Setup guide <setup_guide>
-Example driving scenarios <driving_scenarios>
 TCP/IP communication interface <tcp_ip_interface>
+Ethernet/IP <ethernet-ip>
 Function block <function_block/index_fb>
+Example driving scenarios <driving_scenarios>
 :::

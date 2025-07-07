@@ -6,6 +6,7 @@ Multiple software stacks are available: pick your favorite one below and follow 
 :::{toctree}
 :maxdepth: 1
 ifmVisionAssistant <../SoftwareInterfaces/iVA/index_iVA>
-Python <https://api.ifm3d.com/html/content/examples_list.html>
-C++ <https://api.ifm3d.com/html/content/examples_list.html>
+Python API <https://api.ifm3d.com/html/content/installation_instructions/install_py.html>
+C++ API <https://api.ifm3d.com/html/content/installation_instructions/index.html>
+Python and C++ example codes <https://api.ifm3d.com/html/content/examples_list.html>
 :::

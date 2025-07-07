@@ -108,9 +108,89 @@ o3r.get(["/device/swVersion/firmware"])
 :::::
 
 #### Rebooting to productive mode
-If you happen to be stuck in recovery mode, the device will not be "ping-able." To reboot to productive, you have two options:
-- You can update the system again. If the update is successful, the system will reboot to productive, or,
-- You can use the ifm3d API to reboot to productive without updating. With the command line interface, you can use `ifm3d swupdate -r`. In Python you can use the [`reboot_to_productive` function](https://api.ifm3d.com/stable/_autosummary/ifm3dpy.swupdater.SWUpdater.html#ifm3dpy.swupdater.SWUpdater.reboot_to_productive) and in C++ the [`RebootToProductive` function](https://api.ifm3d.com/stable/cpp_api/classifm3d_1_1SWUpdater.html#a5ed7d927b9ff35a6808394345bdced8e).
+
+If you happen to be stuck in recovery mode, the device will not be "ping-able." The LED behavior will look like below.
+
+![recovery_mode](resources/recovery_mode.gif)
+
+To reboot to productive, you have two options:
+
+##### Option 1: Using ifm3d API
+
+:::::{tabs}
+::::{group-tab} CLI
+```bash
+ifm3d ovp8xx reboot # Reboots the device to productive mode
+```
+::::
+::::{group-tab} C++
+```c++
+/*
+ * Copyright 2024-present ifm electronic, gmbh
+ * SPDX-License-Identifier: Apache-2.0
+ */
+// This example shows the usage of SWUpdate Module
+// https://api.ifm3d.com/stable/cpp_api/classifm3d_1_1SWUpdater.html
+
+#include <ifm3d/device/o3r.h>
+#include <ifm3d/swupdater/swupdater.h>
+#include <iostream>
+
+using namespace ifm3d::literals;
+
+int main() {
+
+    std::string IP = "192.168.0.69";
+    
+    auto o3r = std::make_shared<ifm3d::O3R>(IP);
+    auto swu = std::make_shared<ifm3d::SWUpdater>(o3r);
+
+    // swu->RebootToRecovery(); 
+    // swu->WaitForRecovery();
+    swu->RebootToProductive (); 
+
+}
+```
+::::
+::::{group-tab} Python
+```python
+################################################
+# Copyright 2025-present ifm electronic, gmbh
+# SPDX-License-Identifier: Apache-2.0
+################################################
+# This examples shows how to use SW Update Module
+# https://api.ifm3d.com/stable/_autosummary/ifm3dpy.swupdater.SWUpdater.html#ifm3dpy.swupdater.SWUpdater
+################################################
+from ifm3dpy.device import O3R
+from ifm3dpy.swupdater import SWUpdater
+
+###################################
+# Configure the IP and the path to
+# the firmware file on your system
+###################################
+IP = "192.168.0.69"
+TIMEOUT = 120000 # milliseconds
+o3r = O3R(IP)
+swu = SWUpdater(o3r)
+
+# swu.reboot_to_recovery()
+# swu.wait_for_recovery()
+swu.reboot_to_productive()
+
+if swu.wait_for_productive(TIMEOUT):
+    print("System is booted to productive state")
+else:
+    print(f"System failed to boot to productive state in {TIMEOUT} milliseconds")
+```
+::::
+:::::
+
+##### Option 2: Using Web Interface
+
+When the device is in recovery mode, it opens the Software update webinterface at port `8080`.
+
+- Open the webpage at http://<IP_ADDRESS_OF_VPU>:8080
+- Drop the **.swu** file. The firmware update begins and the system will boot into productive mode.
 
 #### The full example script
 

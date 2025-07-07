@@ -16,10 +16,10 @@ Use 1 Gigabit/s rated hardware for all cables and Ethernet switches.
 
 ### O3R Software requirements
 
-| Software           | Version                                                                                                     |
-| ------------------ | ----------------------------------------------------------------------------------------------------------- |
-| Firmware           | 1.20.29                                                                                                     |
-| ifmVisionAssistant | 2.10.9  |
+| Software           | Version |
+| ------------------ | ------- |
+| Firmware           | >=1.20.29 |
+| ifmVisionAssistant | >=2.10.9  |
 
 ### PLC hardware and software requirements
 
@@ -64,12 +64,13 @@ In the ifmVisionAssistant, create the PLC application in the **Application** tab
 
 #### Configuration parameters
 
-| **Parameter**          | **Description**                                                        |
-| ---------------------- | ---------------------------------------------------------------------- |
-| `name`                 | Custom name for the application.                                       |
-| `state`                | The current application state. Per default, the state is set to `RUN`. |
-| `configuration/odsApp` | Identifier of the ODS app instance, for example `app0`.                |
-| `configuration/pdsApp` | Identifier of the PDS app instance, for example `app0`.                |
+| **Parameter**               | **Description**                                                              |
+| --------------------------- | ---------------------------------------------------------------------------- |
+| `name`                      | Custom name for the application.                                             |
+| `state`                     | The current application state. Per default, the state is set to `RUN`.       |
+| `configuration/odsApp`      | Identifier of the ODS app instance, for example `app0`.                      |
+| `configuration/pdsApp`      | Identifier of the PDS app instance, for example `app2`.                      |
+| `configuration/eip/enabled` | Enables or disables Ethernet/IP input and output. Set to `true` to activate. |
 
 The PLC application is per default in `RUN` state. Therefore the ODS application shall be saved to be in `RUN` state at every bootup session.
 
