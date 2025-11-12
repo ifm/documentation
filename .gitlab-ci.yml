@@ -79,7 +79,7 @@ auto-docs-generation:
 trigger_developer-portal:
   stage: deploy
   rules:
-    - if: '$CI_COMMIT_BRANCH =~ /^release\/fw-.*/'
+    - if: '$CI_COMMIT_BRANCH =~ /^release\/fw-.*/ || $CI_COMMIT_BRANCH == "main"'
       when: always
     - when: manual
   before_script:
