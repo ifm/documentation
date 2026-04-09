@@ -81,12 +81,14 @@ trigger_developer-portal:
   rules:
     - if: '$CI_COMMIT_BRANCH =~ /^release\/fw-.*/ || $CI_COMMIT_BRANCH == "main"'
       when: always
+    - if: '$CI_COMMIT_TAG'
+      when: always
     - when: manual
   before_script:
     - apt update && apt install -y curl
   script:
     - >
-      if [ "$CI_COMMIT_BRANCH" = "main" ]; then
+      if [ "$CI_COMMIT_BRANCH" = "main" ] || [ -n "$CI_COMMIT_TAG" ]; then
         TARGET_BRANCH="main";
       else
         TARGET_BRANCH="test/lola";
